@@ -57,6 +57,93 @@
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<!-- Other domain beans come here -->
+	
+	<!-- Administrator -->
+	<bean id="admin" class="domain.Administrator">
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<!-- Customer -->
+	<bean id="customer" class="domain.Customer">
+		<property name="userAccount" ref="userAccount2" />
+		<property name="shouts">
+			<list>
+				<ref bean="shout1" />
+				<ref bean="shout2" />
+				<ref bean="shout3" />
+				<ref bean="shout4" />
+				<ref bean="shout5" />
+				<ref bean="shout6" />
+				<ref bean="shout7" />
+				<ref bean="shout8" />
+				<ref bean="shout9" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Shout -->
+	<bean id="shout1" class="domain.Shout">
+		<property name="username" value="Juan Sanchez" />
+		<property name="link" value="http://www.us.es" />
+		<property name="text" value="Texto corto 1" />
+		<property name="customer" ref="customer" />
+	</bean>	
+	
+	<bean id="shout2" class="domain.Shout">
+		<property name="username" value="Matilde Perez" />
+		<property name="link" value="http://www.dte.us.es" />
+		<property name="text" value="Texto corto 2" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout3" class="domain.Shout">
+		<property name="username" value="Jose Martinez" />
+		<property name="link" value="http://www.lsi.us.es" />
+		<property name="text" value="Texto corto 3" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout4" class="domain.Shout">
+		<property name="username" value="Josefina Sevilla" />
+		<property name="link" value="http://www.mat.us.es" />
+		<property name="text" value="Texto corto 4" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout5" class="domain.Shout">
+		<property name="username" value="Josito Fernandez" />
+		<property name="link" value="http://www.fis.us.es" />
+		<property name="text" value="Texto corto 5" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout6" class="domain.Shout">
+		<property name="username" value="Juana Arcos" />
+		<property name="link" value="http://www.marca.com" />
+		<property name="text" value="Texto largo 00000000000001" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout7" class="domain.Shout">
+		<property name="username" value="Maria Hernandez" />
+		<property name="link" value="http://www.as.com" />
+		<property name="text" value="Texto largo 00000000000002" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout8" class="domain.Shout">
+		<property name="username" value="Sofia Cruz" />
+		<property name="link" value="http://www.boe.es" />
+		<property name="text" value="Texto largo 00000000000003" />
+		<property name="customer" ref="customer" />
+	</bean>
+	
+	<bean id="shout9" class="domain.Shout">
+		<property name="username" value="Jon Nieve" />
+		<property name="link" value="http://www.hola.es" />
+		<property name="text" value="Texto largo 00000000000004" />
+		<property name="customer" ref="customer" />
+	</bean>
 	
 </beans>
