@@ -1,12 +1,13 @@
 
 package domain;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+import java.util.Collection;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Access(AccessType.PROPERTY)
 public class Customer extends Actor {
 
 	// Constructors
@@ -14,4 +15,21 @@ public class Customer extends Actor {
 	public Customer() {
 		super();
 	}
+
+
+	// Relationships
+
+	private Collection<Shout>	shouts;
+
+
+	@NotNull
+	@OneToMany(mappedBy = "customer")
+	public Collection<Shout> getShouts() {
+		return this.shouts;
+	}
+
+	public void setShouts(final Collection<Shout> shouts) {
+		this.shouts = shouts;
+	}
+
 }
