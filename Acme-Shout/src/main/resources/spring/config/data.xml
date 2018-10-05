@@ -24,6 +24,7 @@
 
 	<jpa:repositories base-package="repositories" />
 	<jpa:repositories base-package="security" />
+	
 
 	<!-- Data source -->
 
