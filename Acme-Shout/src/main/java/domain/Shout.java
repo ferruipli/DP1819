@@ -54,18 +54,18 @@ public class Shout extends DomainEntity {
 
 
 	// Relationships
-	private Customer	customer;
+	private Actor	creator;
 
 
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	public Customer getCustomer() {
-		return this.customer;
+	public Actor getCreator() {
+		return this.creator;
 	}
 
-	public void setCustomer(final Customer customer) {
-		this.customer = customer;
+	public void setCreator(final Actor creator) {
+		this.creator = creator;
 	}
 
 }
