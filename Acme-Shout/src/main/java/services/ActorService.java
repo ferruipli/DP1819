@@ -15,26 +15,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.CustomerRepository;
+import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Customer;
+import domain.Actor;
 
 @Service
 @Transactional
-public class CustomerService {
+public class ActorService {
 
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private CustomerRepository	customerRepository;
+	private ActorRepository	actorRepository;
 
 
 	// Supporting services ----------------------------------------------------
 
 	// Constructors -----------------------------------------------------------
 
-	public CustomerService() {
+	public ActorService() {
 		super();
 	}
 
@@ -42,25 +42,25 @@ public class CustomerService {
 
 	// Other business methods -------------------------------------------------
 
-	public Customer findByPrincipal() {
-		Customer result;
+	public Actor findByPrincipal() {
+		Actor result;
 		UserAccount userAccount;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 
-		result = this.findCustomerByUserAccount(userAccount);
+		result = this.findActorByUserAccount(userAccount);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Customer findCustomerByUserAccount(final UserAccount userAccount) {
+	public Actor findActorByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
-		Customer result;
+		Actor result;
 
-		result = this.customerRepository.findCustomerByUserAccountId(userAccount.getId());
+		result = this.actorRepository.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(result);
 
 		return result;

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ShoutRepository;
-import domain.Customer;
+import domain.Actor;
 import domain.Shout;
 
 @Service
@@ -33,7 +33,7 @@ public class ShoutService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private CustomerService	customerService;
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -46,12 +46,12 @@ public class ShoutService {
 
 	public Shout create() {
 		Shout result;
-		Customer principal;
+		Actor principal;
 
-		principal = this.customerService.findByPrincipal();
+		principal = this.actorService.findByPrincipal();
 
 		result = new Shout();
-		result.setCustomer(principal);
+		result.setCreator(principal);
 		result.setUsername(principal.getUserAccount().getUsername());
 
 		return result;

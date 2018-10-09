@@ -19,7 +19,7 @@
 <form:form action="customer/action-2.do" modelAttribute="shout" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="customer"/>
+	<form:hidden path="creator"/>
 	
 	<form:label path="username">
 		<spring:message code="shout.edit.username"/>:
