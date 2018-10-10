@@ -29,6 +29,10 @@
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
+<script type="text/javascript" src="scripts/Chart.bundle.js"></script>
+<script type="text/javascript" src="scripts/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="scripts/Chart.js"></script>
+<script type="text/javascript" src="scripts/Chart.min.js"></script>
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
