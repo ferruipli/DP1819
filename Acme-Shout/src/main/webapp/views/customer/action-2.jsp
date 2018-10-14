@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="customer/shout.do" modelAttribute="shout" >
+<form:form action="customer/action-2.do" modelAttribute="shout" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="creator"/>
@@ -46,6 +46,6 @@
 	
 	<input type="submit" name="save" value="<spring:message code="shout.button.save"/>" />
 	<input type="button" name="cancel" value="<spring:message code="shout.button.cancel" />" 
-			onclick="javascript: relativeRedir('customer/shouts.do');" />
+			onclick="javascript: relativeRedir('customer/action-1.do');" />
 
 </form:form>
