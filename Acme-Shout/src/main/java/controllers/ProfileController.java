@@ -30,7 +30,7 @@ public class ProfileController extends AbstractController {
 
 	// Action-1 ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/quotes", method = RequestMethod.GET)
+	@RequestMapping(value = "/action-1", method = RequestMethod.GET)
 	public ModelAndView action1() {
 		ModelAndView result;
 		List<String> quotes;
@@ -51,7 +51,7 @@ public class ProfileController extends AbstractController {
 		Collections.shuffle(quotes);
 		quotes = quotes.subList(0, 3);
 
-		result = new ModelAndView("profile/quotes");
+		result = new ModelAndView("profile/action-1");
 		result.addObject("quotes", quotes);
 
 		return result;
@@ -59,28 +59,28 @@ public class ProfileController extends AbstractController {
 
 	// Action-2 GET---------------------------------------------------------------		
 
-	@RequestMapping(value = "/calculator", method = RequestMethod.GET)
+	@RequestMapping(value = "/action-2", method = RequestMethod.GET)
 	public ModelAndView action2Get() {
 		ModelAndView result;
 		Calculator calculator;
 
 		calculator = new Calculator();
 
-		result = new ModelAndView("profile/calculator");
+		result = new ModelAndView("profile/action-2");
 		result.addObject("calculator", calculator);
 
 		return result;
 	}
 	// Action-2 POST ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/calculator", method = RequestMethod.POST)
+	@RequestMapping(value = "/action-2", method = RequestMethod.POST)
 	public ModelAndView action2Post(@Valid final Calculator calculator, final BindingResult binding) {
 
 		ModelAndView result;
 
 		calculator.compute();
 
-		result = new ModelAndView("profile/calculator");
+		result = new ModelAndView("profile/action-2");
 		result.addObject("calculator", calculator);
 
 		return result;
@@ -88,7 +88,7 @@ public class ProfileController extends AbstractController {
 	}
 	// Action-3 ---------------------------------------------------------------		
 
-	@RequestMapping("/oops")
+	@RequestMapping("/action-3")
 	public ModelAndView action3() {
 		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
 	}

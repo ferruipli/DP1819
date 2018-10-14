@@ -16,6 +16,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p><spring:message code="customer.action.1" /></p>
+
 <display:table pagesize="5" class="displaytag"
 	name="shouts" requestURI="${requestURI}" id="row">
 	
