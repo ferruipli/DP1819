@@ -22,6 +22,10 @@
 <jstl:set var="ss" value="${statistics.get('count.short.shouts')}" />
 <jstl:set var="ls" value="${statistics.get('count.long.shouts')}" />
 
+<spring:message code="administrator.count.all.shouts" var="msg_all" />
+<spring:message code="administrator.count.short.shouts" var="msg_short" />
+<spring:message code="administrator.count.long.shouts" var="msg_long" />
+
 <div class="container">
 	<canvas id="myChart" style="width:75%; height:50%;"></canvas>
 </div>
@@ -30,13 +34,13 @@
 	let myChart = document.getElementById("myChart").getContext("2d");
 	
 	let allS = <jstl:out value="${as}" />;
-	let shortS = <jstl:out value="${ss}" />;;
-	let longS = <jstl:out value="${ls}" />;;
+	let shortS = <jstl:out value="${ss}" />;
+	let longS = <jstl:out value="${ls}" />;
 	
 	let massPopChart = new Chart(myChart, {
 		type: 'bar',
 		data: {
-			labels: ["All shouts", "Short shouts", "Long shouts"],
+			labels: ['${msg_all}', '${msg_short}', '${msg_long}'],
 			datasets:[{
 				label: 'Total Shouts',
 				data: [allS, shortS, longS],
