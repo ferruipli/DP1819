@@ -1,0 +1,51 @@
+
+package domain;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
+
+public class SocialProfile extends DomainEntity {
+
+	// Constructor
+
+	public SocialProfile() {
+		super();
+	}
+
+
+	// Attributes
+
+	private String	nick;
+	private String	socialNetworkName;
+	private String	profileLink;
+
+
+	@NotBlank
+	public String getNick() {
+		return this.nick;
+	}
+
+	public void setNick(final String nick) {
+		this.nick = nick;
+	}
+
+	@NotBlank
+	public String getSocialNetworkName() {
+		return this.socialNetworkName;
+	}
+
+	public void setSocialNetworkName(final String socialNetworkName) {
+		this.socialNetworkName = socialNetworkName;
+	}
+
+	@URL
+	@NotBlank
+	public String getProfileLink() {
+		return this.profileLink;
+	}
+
+	public void setProfileLink(final String profileLink) {
+		this.profileLink = profileLink;
+	}
+
+}
