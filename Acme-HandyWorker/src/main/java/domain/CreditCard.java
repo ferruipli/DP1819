@@ -1,14 +1,12 @@
 
 package domain;
 
-import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-@Entity
 public class CreditCard extends DomainEntity {
 
 	// Constructors

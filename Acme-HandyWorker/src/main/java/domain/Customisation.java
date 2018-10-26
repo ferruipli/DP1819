@@ -3,8 +3,6 @@ package domain;
 
 import java.util.Collection;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 
@@ -12,7 +10,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-@Entity
 public class Customisation extends DomainEntity {
 
 	// Constructors
@@ -94,7 +91,6 @@ public class Customisation extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@ElementCollection
 	public Collection<String> getCreditCardMakes() {
 		return this.creditCardMakes;
 	}
@@ -121,7 +117,6 @@ public class Customisation extends DomainEntity {
 		this.maxFinderResults = maxFinderResults;
 	}
 
-	@ElementCollection
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
@@ -130,7 +125,6 @@ public class Customisation extends DomainEntity {
 		this.spamWords = spamWords;
 	}
 
-	@ElementCollection
 	public Collection<String> getPositiveWords() {
 		return this.positiveWords;
 	}
@@ -139,7 +133,6 @@ public class Customisation extends DomainEntity {
 		this.positiveWords = positiveWords;
 	}
 
-	@ElementCollection
 	public Collection<String> getNegativeWords() {
 		return this.negativeWords;
 	}

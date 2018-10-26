@@ -1,11 +1,8 @@
 
 package domain;
 
-import javax.persistence.Entity;
-
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
 public class Category extends DomainEntity {
 
 	// Constructors

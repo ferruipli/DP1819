@@ -2,10 +2,8 @@
 package domain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.validation.constraints.Pattern;
 
-@Entity
 public class Curriculum extends DomainEntity {
 
 	// Constructors

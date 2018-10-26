@@ -4,15 +4,12 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-@Entity
 public class Application extends DomainEntity {
 
 	// Constructors
@@ -59,7 +56,6 @@ public class Application extends DomainEntity {
 		this.offeredPrice = offeredPrice;
 	}
 
-	@ElementCollection
 	public Collection<String> getComments() {
 		return this.comments;
 	}
