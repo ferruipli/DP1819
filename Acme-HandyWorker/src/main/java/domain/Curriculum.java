@@ -19,7 +19,7 @@ public class Curriculum extends DomainEntity {
 
 
 	@Column(unique = true)
-	@Pattern(regexp = "\\d{6}-[A-Z]{6}")
+	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	public String getTicker() {
 		return this.ticker;
 	}

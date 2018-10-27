@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,13 +21,13 @@ public class Complaint extends DomainEntity {
 
 	// Attributes ----------------------------------------------------------------------
 
-	private String				ticker;
-	private Date				moment;
-	private String				description;
-	private Collection<String>	attachments;
+	private String	ticker;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
 
 
-	@Pattern(regexp = "\\d{6}-[A-Z]{6}")
+	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
@@ -57,11 +56,11 @@ public class Complaint extends DomainEntity {
 		this.description = description;
 	}
 
-	public Collection<String> getAttachments() {
+	public String getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final String attachments) {
 		this.attachments = attachments;
 	}
 

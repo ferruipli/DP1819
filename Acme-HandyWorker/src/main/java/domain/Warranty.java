@@ -17,6 +17,7 @@ public class Warranty extends DomainEntity {
 	private String	title;
 	private String	terms;
 	private Boolean	finalMode;
+	private String	laws;
 
 
 	@NotBlank
@@ -43,6 +44,15 @@ public class Warranty extends DomainEntity {
 
 	public void setFinalMode(final Boolean finalMode) {
 		this.finalMode = finalMode;
+	}
+
+	@NotBlank
+	public String getLaws() {
+		return this.laws;
+	}
+
+	public void setLaws(final String laws) {
+		this.laws = laws;
 	}
 
 }
