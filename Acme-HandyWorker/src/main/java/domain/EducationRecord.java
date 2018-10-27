@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
@@ -20,12 +19,12 @@ public class EducationRecord extends DomainEntity {
 
 	// Atributes
 
-	private String				titleDiploma;
-	private Date				startDate;
-	private Date				endDate;
-	private String				institution;
-	private String				attachment;
-	private Collection<String>	comments;
+	private String	titleDiploma;
+	private Date	startDate;
+	private Date	endDate;
+	private String	institution;
+	private String	attachment;
+	private String	comments;
 
 
 	@NotBlank
@@ -72,11 +71,12 @@ public class EducationRecord extends DomainEntity {
 		this.attachment = attachment;
 	}
 
-	public Collection<String> getComments() {
+	@NotBlank
+	public String getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

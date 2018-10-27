@@ -1,10 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Endorsement extends DomainEntity {
 
@@ -17,8 +18,8 @@ public class Endorsement extends DomainEntity {
 
 	// Atributes
 
-	private Date				moment;
-	private Collection<String>	endorsement;
+	private Date	moment;
+	private String	endorsement;
 
 
 	@Past
@@ -30,11 +31,12 @@ public class Endorsement extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public Collection<String> getEndorsement() {
+	@NotBlank
+	public String getEndorsement() {
 		return this.endorsement;
 	}
 
-	public void setEndorsement(final Collection<String> endorsement) {
+	public void setEndorsement(final String endorsement) {
 		this.endorsement = endorsement;
 	}
 

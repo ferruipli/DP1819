@@ -1,8 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -18,11 +16,11 @@ public class EndorserRecord extends DomainEntity {
 
 	// Atributes
 
-	private String				fullName;
-	private String				email;
-	private String				phoneNumber;
-	private String				linkedInProfile;
-	private Collection<String>	comments;
+	private String	fullName;
+	private String	email;
+	private String	phoneNumber;
+	private String	linkedInProfile;
+	private String	comments;
 
 
 	@NotBlank
@@ -63,11 +61,12 @@ public class EndorserRecord extends DomainEntity {
 		this.linkedInProfile = linkedInProfile;
 	}
 
-	public Collection<String> getComments() {
+	@NotBlank
+	public String getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

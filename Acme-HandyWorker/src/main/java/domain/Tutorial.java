@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
@@ -20,10 +19,10 @@ public class Tutorial extends DomainEntity {
 
 	// Attributes
 
-	private String				title;
-	private Date				moment;
-	private String				summary;
-	private Collection<String>	pictures;
+	private String	title;
+	private Date	moment;
+	private String	summary;
+	private String	pictures;
 
 
 	@NotBlank
@@ -54,11 +53,11 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@URL
-	public Collection<String> getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 

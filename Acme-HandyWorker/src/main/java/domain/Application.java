@@ -1,14 +1,16 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Application extends DomainEntity {
 
@@ -21,10 +23,12 @@ public class Application extends DomainEntity {
 
 	// Attributes ----------------------------------------------------------------------
 
-	private Date				registerMoment;
-	private String				status;
-	private Double				offeredPrice;
-	private Collection<String>	comments;
+	private Date		registerMoment;
+	private String		status;
+	private Money		offeredPrice;
+	private String		comments;
+	private String		rejectedReason;
+	private CreditCard	creditCard;
 
 
 	@Past
@@ -48,20 +52,40 @@ public class Application extends DomainEntity {
 
 	@Min(0)
 	@Digits(integer = 6, fraction = 2)
-	public Double getOfferedPrice() {
+	@Valid
+	public Money getOfferedPrice() {
 		return this.offeredPrice;
 	}
 
-	public void setOfferedPrice(final Double offeredPrice) {
+	public void setOfferedPrice(final Money offeredPrice) {
 		this.offeredPrice = offeredPrice;
 	}
 
-	public Collection<String> getComments() {
+	@NotBlank
+	public String getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
+	}
+
+	@NotBlank
+	public String getRejectedReason() {
+		return this.rejectedReason;
+	}
+
+	public void setRejectedReason(final String rejectedReason) {
+		this.rejectedReason = rejectedReason;
+	}
+
+	@Valid
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
 	}
 
 }

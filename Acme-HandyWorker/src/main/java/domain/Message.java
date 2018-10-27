@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
@@ -20,11 +19,11 @@ public class Message extends DomainEntity {
 
 	// Atributes
 
-	private Date				sendMoment;
-	private String				subject;
-	private String				body;
-	private String				priority;
-	private Collection<String>	tags;
+	private Date	sendMoment;
+	private String	subject;
+	private String	body;
+	private String	priority;
+	private String	tags;
 
 
 	@Past
@@ -63,11 +62,11 @@ public class Message extends DomainEntity {
 		this.priority = priority;
 	}
 
-	public Collection<String> getTags() {
+	public String getTags() {
 		return this.tags;
 	}
 
-	public void setTags(final Collection<String> tags) {
+	public void setTags(final String tags) {
 		this.tags = tags;
 	}
 

@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
@@ -19,10 +18,10 @@ public class Report extends DomainEntity {
 
 	// Attributes
 
-	private Date				moment;
-	private String				description;
-	private Collection<String>	attachments;
-	private Boolean				finalMode;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
+	private Boolean	finalMode;
 
 
 	@Past
@@ -43,11 +42,11 @@ public class Report extends DomainEntity {
 		this.description = description;
 	}
 
-	public Collection<String> getAttachments() {
+	public String getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final String attachments) {
 		this.attachments = attachments;
 	}
 

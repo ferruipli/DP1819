@@ -4,6 +4,7 @@ package domain;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
@@ -26,12 +27,12 @@ public class FixUpTask extends DomainEntity {
 	private Date	publicationMoment;
 	private String	description;
 	private String	address;
-	private Double	maxPrice;
+	private Money	maxPrice;
 	private Date	startDate;
 	private Date	endDate;
 
 
-	@Pattern(regexp = "\\d{6}-[A-Z]{6}")
+	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
@@ -70,11 +71,12 @@ public class FixUpTask extends DomainEntity {
 
 	@Min(0)
 	@Digits(integer = 9, fraction = 2)
-	public Double getMaxPrice() {
+	@Valid
+	public Money getMaxPrice() {
 		return this.maxPrice;
 	}
 
-	public void setMaxPrice(final Double maxPrice) {
+	public void setMaxPrice(final Money maxPrice) {
 		this.maxPrice = maxPrice;
 	}
 

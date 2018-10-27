@@ -7,14 +7,7 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-public class CreditCard extends DomainEntity {
-
-	// Constructors
-
-	public CreditCard() {
-		super();
-	}
-
+public class CreditCard {
 
 	// Attributes ----------------------------------------------------------------------
 
