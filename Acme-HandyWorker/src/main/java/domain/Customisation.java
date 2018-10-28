@@ -25,11 +25,11 @@ public class Customisation extends DomainEntity {
 	private String				banner;
 	private String				welcomeMessageEn;
 	private String				welcomeMessageSp;
-	private Double				VAT;
+	private double				VAT;
 	private String				countryCode;
 	private Collection<String>	creditCardMakes;
-	private Integer				timeCachedFinderResults;
-	private String				maxFinderResults;
+	private int					timeCachedFinderResults;
+	private int					maxFinderResults;
 	private Collection<String>	spamWords;
 	private Collection<String>	positiveWords;
 	private Collection<String>	negativeWords;
@@ -74,11 +74,11 @@ public class Customisation extends DomainEntity {
 
 	@Digits(integer = 3, fraction = 2)
 	@Range(min = 0, max = 1)
-	public Double getVAT() {
+	public double getVAT() {
 		return this.VAT;
 	}
 
-	public void setVAT(final Double vAT) {
+	public void setVAT(final double vAT) {
 		this.VAT = vAT;
 	}
 
@@ -100,20 +100,20 @@ public class Customisation extends DomainEntity {
 	}
 
 	@Range(min = 1, max = 24)
-	public Integer getTimeCachedFinderResults() {
+	public int getTimeCachedFinderResults() {
 		return this.timeCachedFinderResults;
 	}
 
-	public void setTimeCachedFinderResults(final Integer timeCachedFinderResults) {
+	public void setTimeCachedFinderResults(final int timeCachedFinderResults) {
 		this.timeCachedFinderResults = timeCachedFinderResults;
 	}
 
 	@Range(min = 0, max = 100)
-	public String getMaxFinderResults() {
+	public int getMaxFinderResults() {
 		return this.maxFinderResults;
 	}
 
-	public void setMaxFinderResults(final String maxFinderResults) {
+	public void setMaxFinderResults(final int maxFinderResults) {
 		this.maxFinderResults = maxFinderResults;
 	}
 

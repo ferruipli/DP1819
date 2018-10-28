@@ -10,17 +10,17 @@ public class Money {
 
 	// Attributes
 
-	private Double	amount;
+	private double	amount;
 	private String	currency;
 
 
 	@Min(0)
 	@Digits(integer = 9, fraction = 2)
-	public Double getAmount() {
+	public double getAmount() {
 		return this.amount;
 	}
 
-	public void setAmount(final Double amount) {
+	public void setAmount(final double amount) {
 		this.amount = amount;
 	}
 

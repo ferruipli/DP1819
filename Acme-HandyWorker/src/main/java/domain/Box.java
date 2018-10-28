@@ -15,7 +15,7 @@ public class Box extends DomainEntity {
 	// Attributes ----------------------------------------------------------------------
 
 	private String	name;
-	private Boolean	isSystemBox;
+	private boolean	isSystemBox;
 
 
 	@NotBlank
@@ -27,11 +27,11 @@ public class Box extends DomainEntity {
 		this.name = name;
 	}
 
-	public Boolean getIsSystemBox() {
+	public boolean getIsSystemBox() {
 		return this.isSystemBox;
 	}
 
-	public void setIsSystemBox(final Boolean isSystemBox) {
+	public void setIsSystemBox(final boolean isSystemBox) {
 		this.isSystemBox = isSystemBox;
 	}
 
