@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -24,10 +25,11 @@ public class Message extends DomainEntity {
 	private String	body;
 	private String	priority;
 	private String	tags;
-	private Boolean	isSpam;
+	private boolean	isSpam;
 
 
 	@Past
+	@NotNull
 	public Date getSendMoment() {
 		return this.sendMoment;
 	}
@@ -71,11 +73,11 @@ public class Message extends DomainEntity {
 		this.tags = tags;
 	}
 
-	public Boolean getIsSpam() {
+	public boolean getIsSpam() {
 		return this.isSpam;
 	}
 
-	public void setIsSpam(final Boolean isSpam) {
+	public void setIsSpam(final boolean isSpam) {
 		this.isSpam = isSpam;
 	}
 

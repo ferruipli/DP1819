@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,10 +22,11 @@ public class Report extends DomainEntity {
 	private Date	moment;
 	private String	description;
 	private String	attachments;
-	private Boolean	finalMode;
+	private boolean	finalMode;
 
 
 	@Past
+	@NotNull
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -50,11 +52,11 @@ public class Report extends DomainEntity {
 		this.attachments = attachments;
 	}
 
-	public Boolean getFinalMode() {
+	public boolean getFinalMode() {
 		return this.finalMode;
 	}
 
-	public void setFinalMode(final Boolean finalMode) {
+	public void setFinalMode(final boolean finalMode) {
 		this.finalMode = finalMode;
 	}
 

@@ -15,17 +15,17 @@ public class Section extends DomainEntity {
 
 	// Attributes
 
-	private Integer	number;
+	private int		number;
 	private String	title;
 	private String	text;
 	private String	pictures;
 
 
-	public Integer getNumber() {
+	public int getNumber() {
 		return this.number;
 	}
 
-	public void setNumber(final Integer number) {
+	public void setNumber(final int number) {
 		this.number = number;
 	}
 

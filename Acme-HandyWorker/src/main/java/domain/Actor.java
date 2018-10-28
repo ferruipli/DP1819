@@ -23,7 +23,7 @@ public class Actor extends DomainEntity {
 	private String	email;
 	private String	phoneNumber;
 	private String	address;
-	private Boolean	isSuspicious;
+	private boolean	isSuspicious;
 
 
 	@NotBlank
@@ -87,11 +87,11 @@ public class Actor extends DomainEntity {
 		this.address = address;
 	}
 
-	public Boolean getIsSuspicious() {
+	public boolean getIsSuspicious() {
 		return this.isSuspicious;
 	}
 
-	public void setIsSuspicious(final Boolean isSuspicious) {
+	public void setIsSuspicious(final boolean isSuspicious) {
 		this.isSuspicious = isSuspicious;
 	}
 

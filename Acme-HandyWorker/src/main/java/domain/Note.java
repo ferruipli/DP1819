@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -27,6 +28,7 @@ public class Note extends DomainEntity {
 
 
 	@Past
+	@NotNull
 	public Date getMoment() {
 		return this.moment;
 	}

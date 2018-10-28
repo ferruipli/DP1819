@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,6 +38,7 @@ public class EducationRecord extends DomainEntity {
 	}
 
 	@Past
+	@NotNull
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -45,6 +47,7 @@ public class EducationRecord extends DomainEntity {
 		this.startDate = startDate;
 	}
 
+	@NotNull
 	public Date getEndDate() {
 		return this.endDate;
 	}
