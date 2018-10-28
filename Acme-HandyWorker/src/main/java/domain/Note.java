@@ -1,10 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -19,9 +19,11 @@ public class Note extends DomainEntity {
 
 	// Attributes
 
-	private Date				moment;
-	private String				commentCreator;
-	private Collection<String>	commentsActors;
+	private Date	moment;
+	private String	role;
+	private String	commentCustomer;
+	private String	commentHandyWorker;
+	private String	commentReferee;
 
 
 	@Past
@@ -33,21 +35,40 @@ public class Note extends DomainEntity {
 		this.moment = moment;
 	}
 
+	@Pattern(regexp = "^CUSTOMER|HANDYWORKER|REFEREE$")
+	public String getRole() {
+		return this.role;
+	}
+
+	public void setRole(final String role) {
+		this.role = role;
+	}
+
 	@NotBlank
-	public String getCommentCreator() {
-		return this.commentCreator;
+	public String getCommentCustomer() {
+		return this.commentCustomer;
 	}
 
-	public void setCommentCreator(final String commentCreator) {
-		this.commentCreator = commentCreator;
+	public void setCommentCustomer(final String commentCustomer) {
+		this.commentCustomer = commentCustomer;
 	}
 
-	public Collection<String> getCommentsActors() {
-		return this.commentsActors;
+	@NotBlank
+	public String getCommentHandyWorker() {
+		return this.commentHandyWorker;
 	}
 
-	public void setCommentsActors(final Collection<String> commentsActors) {
-		this.commentsActors = commentsActors;
+	public void setCommentHandyWorker(final String commentHandyWorker) {
+		this.commentHandyWorker = commentHandyWorker;
+	}
+
+	@NotBlank
+	public String getCommentReferee() {
+		return this.commentReferee;
+	}
+
+	public void setCommentReferee(final String commentReferee) {
+		this.commentReferee = commentReferee;
 	}
 
 }

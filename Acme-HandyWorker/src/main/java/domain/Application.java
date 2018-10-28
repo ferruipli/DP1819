@@ -23,12 +23,11 @@ public class Application extends DomainEntity {
 
 	// Attributes ----------------------------------------------------------------------
 
-	private Date		registerMoment;
-	private String		status;
-	private Money		offeredPrice;
-	private String		comments;
-	private String		rejectedReason;
-	private CreditCard	creditCard;
+	private Date	registerMoment;
+	private String	status;
+	private Money	offeredPrice;
+	private String	comments;
+	private String	rejectedReason;
 
 
 	@Past
@@ -77,15 +76,6 @@ public class Application extends DomainEntity {
 
 	public void setRejectedReason(final String rejectedReason) {
 		this.rejectedReason = rejectedReason;
-	}
-
-	@Valid
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
 	}
 
 }

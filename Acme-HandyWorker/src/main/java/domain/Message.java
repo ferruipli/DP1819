@@ -24,6 +24,7 @@ public class Message extends DomainEntity {
 	private String	body;
 	private String	priority;
 	private String	tags;
+	private Boolean	isSpam;
 
 
 	@Past
@@ -68,6 +69,14 @@ public class Message extends DomainEntity {
 
 	public void setTags(final String tags) {
 		this.tags = tags;
+	}
+
+	public Boolean getIsSpam() {
+		return this.isSpam;
+	}
+
+	public void setIsSpam(final Boolean isSpam) {
+		this.isSpam = isSpam;
 	}
 
 }
