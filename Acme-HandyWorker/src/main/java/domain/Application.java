@@ -11,6 +11,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Application extends DomainEntity {
 
@@ -32,6 +33,7 @@ public class Application extends DomainEntity {
 
 	@Past
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getRegisterMoment() {
 		return this.registerMoment;
 	}
@@ -41,6 +43,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^PENDING|ACCEPTED|REJECTED$")
+	@NotBlank
 	public String getStatus() {
 		return this.status;
 	}

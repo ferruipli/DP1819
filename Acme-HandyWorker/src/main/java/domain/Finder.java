@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Finder extends DomainEntity {
 
 	// Constructor
@@ -49,6 +51,7 @@ public class Finder extends DomainEntity {
 		this.endPrice = endPrice;
 	}
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -57,6 +60,7 @@ public class Finder extends DomainEntity {
 		this.startDate = startDate;
 	}
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndDate() {
 		return this.endDate;
 	}

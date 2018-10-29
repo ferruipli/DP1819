@@ -1,6 +1,8 @@
 
 package domain;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -21,6 +23,7 @@ public class Section extends DomainEntity {
 	private String	pictures;
 
 
+	@NotNull
 	public int getNumber() {
 		return this.number;
 	}

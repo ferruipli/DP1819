@@ -20,7 +20,7 @@ public class PersonalRecord extends DomainEntity {
 	private String	photoLink;
 	private String	email;
 	private String	phoneNumber;
-	private String	linkedProfile;
+	private String	linkedInProfile;
 
 
 	@NotBlank
@@ -63,12 +63,12 @@ public class PersonalRecord extends DomainEntity {
 
 	@URL
 	@NotBlank
-	public String getLinkedProfile() {
-		return this.linkedProfile;
+	public String getLinkedInProfile() {
+		return this.linkedInProfile;
 	}
 
-	public void setLinkedProfile(final String linkedProfile) {
-		this.linkedProfile = linkedProfile;
+	public void setLinkedInProfile(final String linkedInProfile) {
+		this.linkedInProfile = linkedInProfile;
 	}
 
 }
