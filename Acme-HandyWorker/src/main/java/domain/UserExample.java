@@ -1,7 +1,7 @@
 
 package domain;
 
-public class UserExample {
+public class UserExample extends DomainEntity {
 
 	private String	name;
 
