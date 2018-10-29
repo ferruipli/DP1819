@@ -1,3 +1,8 @@
 Acme-HandyWorker/target/
 Acme-HandyWorker/src/main/resources/Entities.map
 Acme-HandyWorker/.classpath
+
+Acme-Shout/target/
+Acme-Shout/src/main/resources/Entities.map
+Acme-Shout/.classpath
+Acme-Shout/target/m2e-wtp/web-resources/META-INF/maven/Acme.com/Acme-Shout/pom.properties
