@@ -1,8 +1,11 @@
 
 package utilities;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import utilities.internal.SchemaPrinter;
 
@@ -17,37 +20,45 @@ import domain.DomainEntity;
 
 public class JsonJava {
 
+	public static int				i			= 0;
+	static final List<DomainEntity>	objectList	= new ArrayList<DomainEntity>();
+
+
 	/**
 	 * @param args
 	 */
 	public static void main(final String[] args) {
-		final BufferedReader bReader;
+		final String file = "./src/main/java/utilities/json.txt";
 		final JsonParser jsonparser;
 		final FileReader fileReader;
 		final JsonElement jsonElement;
+		final JsonObject jsonObject;
 		final DomainEntity object;
+		final Gson gson;
+		final Set<Map.Entry<String, JsonElement>> datas;
 
 		try {
-			final String file = "./src/main/java/utilities/json.txt";
+
 			fileReader = new FileReader(file);
-			bReader = new BufferedReader(fileReader);
 			jsonparser = new JsonParser();
 			jsonElement = jsonparser.parse(fileReader);
-			final JsonObject jsonObject = jsonElement.getAsJsonObject();
-			final Gson gson = new GsonBuilder().create();
+			jsonObject = jsonElement.getAsJsonObject();
+			gson = new GsonBuilder().create();
+			datas = jsonObject.entrySet();
 
-			final java.util.Set<java.util.Map.Entry<String, JsonElement>> inputs = jsonObject.entrySet();
-			for (final java.util.Map.Entry<String, JsonElement> map : inputs)
+			for (final Map.Entry<String, JsonElement> map : datas) {
+				final JsonArray jsonArray = map.getValue().getAsJsonArray();
+				final java.util.Iterator<JsonElement> iterator;
 				if (map.getValue().isJsonArray()) {
-					final JsonArray array = map.getValue().getAsJsonArray();
-					final java.util.Iterator<JsonElement> iter = array.iterator();
-					while (iter.hasNext()) {
-						final JsonElement input = iter.next();
-						final domain.UserExample userExample = gson.fromJson(input, domain.UserExample.class);
-						System.out.println(userExample);
-						SchemaPrinter.print(userExample);
+					iterator = jsonArray.iterator();
+					while (iterator.hasNext()) {
+						final JsonElement inputJsonElement = iterator.next();
+						final domain.Box box = gson.fromJson(inputJsonElement, domain.Box.class);
+						SchemaPrinter.print(box);
+
 					}
 				}
+			}
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

@@ -1,8 +1,22 @@
 {
-"UserExample":
+"Box":
 	[{
-	"name": "maria"
-    }]
-
+	"name": "favBox",
+	"isSystemBox": "true"
+    },
+{
+	"name": "favBox",
+	"isSystemBox": "true"
+    }],
+    
+  "Warranty":
+  [{
+  "title":"title",
+  "terms":"terms",
+  "finalModer":"true";
+  "laws":"laws"
+  }]
+  
+    
     
 }
