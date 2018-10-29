@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Phase extends DomainEntity {
 
@@ -25,6 +26,7 @@ public class Phase extends DomainEntity {
 	private Date	endMoment;
 
 
+	@NotNull
 	public int getNumber() {
 		return this.number;
 	}
@@ -52,6 +54,7 @@ public class Phase extends DomainEntity {
 	}
 
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartMoment() {
 		return this.startMoment;
 	}
@@ -61,6 +64,7 @@ public class Phase extends DomainEntity {
 	}
 
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndMoment() {
 		return this.endMoment;
 	}

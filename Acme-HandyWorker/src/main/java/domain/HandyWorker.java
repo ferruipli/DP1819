@@ -6,7 +6,7 @@ import javax.validation.constraints.Digits;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-public class HandyWorker extends DomainEntity {
+public class HandyWorker extends Actor {
 
 	// Constructor
 

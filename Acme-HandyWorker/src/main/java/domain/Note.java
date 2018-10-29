@@ -8,6 +8,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Note extends DomainEntity {
 
@@ -29,6 +30,7 @@ public class Note extends DomainEntity {
 
 	@Past
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -38,6 +40,7 @@ public class Note extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^CUSTOMER|HANDYWORKER|REFEREE$")
+	@NotBlank
 	public String getRole() {
 		return this.role;
 	}

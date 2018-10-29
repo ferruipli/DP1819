@@ -8,6 +8,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Message extends DomainEntity {
 
@@ -30,6 +31,7 @@ public class Message extends DomainEntity {
 
 	@Past
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getSendMoment() {
 		return this.sendMoment;
 	}
@@ -57,6 +59,7 @@ public class Message extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^HIGH|NEUTRAL|LOW$")
+	@NotBlank
 	public String getPriority() {
 		return this.priority;
 	}

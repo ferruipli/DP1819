@@ -46,7 +46,6 @@ public class Warranty extends DomainEntity {
 		this.finalMode = finalMode;
 	}
 
-	@NotBlank
 	public String getLaws() {
 		return this.laws;
 	}
