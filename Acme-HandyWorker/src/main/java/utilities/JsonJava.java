@@ -92,7 +92,7 @@ public class JsonJava {
 	}
 	private static DomainEntity returnObject(final JsonElement jsonElement, final String nameJava) {
 		final Gson gson;
-		gson = new GsonBuilder().create();
+		gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create(); //para formatear las fechas, ya que si no se pone da problemas
 		DomainEntity res = null;
 		switch (nameJava) {
 		case "Actor":

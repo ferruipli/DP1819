@@ -11,11 +11,26 @@
     
   "Warranty":
   [{
-  "title":"title",
-  "terms":"terms",
+  "title":"Garantía 2 años",
+  "terms":"terms2",
   "finalModer":"true";
-  "laws":"laws"
-  }]
+  "laws":"laws2"
+  },
+  
+ { "title":"Garantía 1 año",
+  "terms":"terms1",
+  "finalModer":"true";
+  "laws":"laws1"
+  }  ],
+  
+  "Report":
+  [{
+  "moment":"02/02/2002",
+  "description":"description",
+  "attachments":"attachments";
+  "finalMode":"true"
+  }
+  ]
   
     
     
