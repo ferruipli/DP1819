@@ -17,7 +17,7 @@ public abstract class Actor extends DomainEntity {
 	// Attributes ----------------------------------------------------------------------
 
 	private String	name;
-	private String	middelName;
+	private String	middleName;
 	private String	surname;
 	private String	photoLink;
 	private String	email;
@@ -35,12 +35,12 @@ public abstract class Actor extends DomainEntity {
 		this.name = name;
 	}
 
-	public String getMiddelName() {
-		return this.middelName;
+	public String getMiddlelName() {
+		return this.middleName;
 	}
 
-	public void setMiddelName(final String middelName) {
-		this.middelName = middelName;
+	public void setMiddelName(final String middleName) {
+		this.middleName = middleName;
 	}
 
 	@NotBlank

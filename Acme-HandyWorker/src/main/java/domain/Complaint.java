@@ -3,13 +3,11 @@ package domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class Complaint extends DomainEntity {
 
@@ -29,7 +27,6 @@ public class Complaint extends DomainEntity {
 
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
-	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -40,7 +37,6 @@ public class Complaint extends DomainEntity {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
