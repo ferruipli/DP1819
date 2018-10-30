@@ -8,7 +8,6 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class EducationRecord extends DomainEntity {
 
@@ -40,7 +39,6 @@ public class EducationRecord extends DomainEntity {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -50,7 +48,6 @@ public class EducationRecord extends DomainEntity {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndDate() {
 		return this.endDate;
 	}

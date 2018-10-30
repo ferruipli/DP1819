@@ -3,7 +3,6 @@ package domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -12,7 +11,6 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class FixUpTask extends DomainEntity {
 
@@ -35,7 +33,6 @@ public class FixUpTask extends DomainEntity {
 
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
-	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -46,7 +43,6 @@ public class FixUpTask extends DomainEntity {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getPublicationMoment() {
 		return this.publicationMoment;
 	}
@@ -85,7 +81,6 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -95,7 +90,6 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndDate() {
 		return this.endDate;
 	}

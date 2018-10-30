@@ -11,7 +11,6 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class Application extends DomainEntity {
 
@@ -27,13 +26,12 @@ public class Application extends DomainEntity {
 	private Date	registerMoment;
 	private String	status;
 	private Money	offeredPrice;
-	private String	comments;
-	private String	rejectedReason;
+	private String	handyWorkerComments;
+	private String	customerComments;
 
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getRegisterMoment() {
 		return this.registerMoment;
 	}
@@ -43,7 +41,6 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^PENDING|ACCEPTED|REJECTED$")
-	@NotBlank
 	public String getStatus() {
 		return this.status;
 	}
@@ -64,21 +61,21 @@ public class Application extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getComments() {
-		return this.comments;
+	public String getHandyWorkerComments() {
+		return this.handyWorkerComments;
 	}
 
-	public void setComments(final String comments) {
-		this.comments = comments;
+	public void setHandyWorkerComments(final String handyWorkerComments) {
+		this.handyWorkerComments = handyWorkerComments;
 	}
 
 	@NotBlank
-	public String getRejectedReason() {
-		return this.rejectedReason;
+	public String getCustomerComments() {
+		return this.customerComments;
 	}
 
-	public void setRejectedReason(final String rejectedReason) {
-		this.rejectedReason = rejectedReason;
+	public void setCustomerComments(final String customerComments) {
+		this.customerComments = customerComments;
 	}
 
 }
