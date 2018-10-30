@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Note extends DomainEntity {
 
 	// Constructor
@@ -46,7 +44,6 @@ public class Note extends DomainEntity {
 		this.role = role;
 	}
 
-	@NotBlank
 	public String getCommentCustomer() {
 		return this.commentCustomer;
 	}
@@ -55,7 +52,6 @@ public class Note extends DomainEntity {
 		this.commentCustomer = commentCustomer;
 	}
 
-	@NotBlank
 	public String getCommentHandyWorker() {
 		return this.commentHandyWorker;
 	}
@@ -64,7 +60,6 @@ public class Note extends DomainEntity {
 		this.commentHandyWorker = commentHandyWorker;
 	}
 
-	@NotBlank
 	public String getCommentReferee() {
 		return this.commentReferee;
 	}

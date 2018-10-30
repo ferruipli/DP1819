@@ -1,8 +1,6 @@
 
 package domain;
 
-import javax.persistence.Column;
-
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Category extends DomainEntity {
@@ -20,7 +18,6 @@ public class Category extends DomainEntity {
 
 
 	@NotBlank
-	@Column(unique = true)
 	public String getName() {
 		return this.name;
 	}

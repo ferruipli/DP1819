@@ -61,7 +61,6 @@ public class EndorserRecord extends DomainEntity {
 		this.linkedInProfile = linkedInProfile;
 	}
 
-	@NotBlank
 	public String getComments() {
 		return this.comments;
 	}

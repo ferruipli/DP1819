@@ -74,7 +74,6 @@ public class EducationRecord extends DomainEntity {
 		this.attachment = attachment;
 	}
 
-	@NotBlank
 	public String getComments() {
 		return this.comments;
 	}
