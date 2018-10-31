@@ -5,7 +5,7 @@ import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.Range;
 
-public class Customer extends Actor {
+public class Customer extends Endorsable {
 
 	// Constructors
 

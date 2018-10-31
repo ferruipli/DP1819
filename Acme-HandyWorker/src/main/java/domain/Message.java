@@ -57,6 +57,7 @@ public class Message extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^HIGH|NEUTRAL|LOW$")
+	@NotBlank
 	public String getPriority() {
 		return this.priority;
 	}

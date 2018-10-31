@@ -1,8 +1,9 @@
 
 package domain;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Curriculum extends DomainEntity {
 
@@ -18,8 +19,8 @@ public class Curriculum extends DomainEntity {
 	private String	ticker;
 
 
-	@Column(unique = true)
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
+	@NotBlank
 	public String getTicker() {
 		return this.ticker;
 	}

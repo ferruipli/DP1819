@@ -4,8 +4,6 @@ package domain;
 import java.util.Date;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -26,8 +24,8 @@ public class Application extends DomainEntity {
 	private Date	registerMoment;
 	private String	status;
 	private Money	offeredPrice;
-	private String	comments;
-	private String	rejectedReason;
+	private String	handyWorkerComments;
+	private String	customerComments;
 
 
 	@Past
@@ -41,6 +39,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^PENDING|ACCEPTED|REJECTED$")
+	@NotBlank
 	public String getStatus() {
 		return this.status;
 	}
@@ -49,8 +48,6 @@ public class Application extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
-	@Digits(integer = 6, fraction = 2)
 	@Valid
 	public Money getOfferedPrice() {
 		return this.offeredPrice;
@@ -60,22 +57,24 @@ public class Application extends DomainEntity {
 		this.offeredPrice = offeredPrice;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
-	public String getComments() {
-		return this.comments;
+	public String getHandyWorkerComments() {
+		return this.handyWorkerComments;
 	}
 
-	public void setComments(final String comments) {
-		this.comments = comments;
+	public void setHandyWorkerComments(final String handyWorkerComments) {
+		this.handyWorkerComments = handyWorkerComments;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
-	public String getRejectedReason() {
-		return this.rejectedReason;
+	public String getCustomerComments() {
+		return this.customerComments;
 	}
 
-	public void setRejectedReason(final String rejectedReason) {
-		this.rejectedReason = rejectedReason;
+	public void setCustomerComments(final String customerComments) {
+		this.customerComments = customerComments;
 	}
 
 }

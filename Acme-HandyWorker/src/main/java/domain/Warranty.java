@@ -1,6 +1,8 @@
 
 package domain;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Warranty extends DomainEntity {
@@ -46,6 +48,7 @@ public class Warranty extends DomainEntity {
 		this.finalMode = finalMode;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getLaws() {
 		return this.laws;

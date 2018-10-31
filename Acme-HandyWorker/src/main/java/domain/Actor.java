@@ -1,11 +1,12 @@
 
 package domain;
 
-import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-public class Actor extends DomainEntity {
+public abstract class Actor extends DomainEntity {
 
 	// Constructors
 
@@ -17,7 +18,7 @@ public class Actor extends DomainEntity {
 	// Attributes ----------------------------------------------------------------------
 
 	private String	name;
-	private String	middelName;
+	private String	middleName;
 	private String	surname;
 	private String	photoLink;
 	private String	email;
@@ -35,12 +36,14 @@ public class Actor extends DomainEntity {
 		this.name = name;
 	}
 
-	public String getMiddelName() {
-		return this.middelName;
+	@Pattern(regexp = "[a-zA-Z]+")
+	@NotBlank
+	public String getMiddlelName() {
+		return this.middleName;
 	}
 
-	public void setMiddelName(final String middelName) {
-		this.middelName = middelName;
+	public void setMiddelName(final String middleName) {
+		this.middleName = middleName;
 	}
 
 	@NotBlank
@@ -61,7 +64,7 @@ public class Actor extends DomainEntity {
 		this.photoLink = photoLink;
 	}
 
-	@Email
+	@Pattern(regexp = "[A-Za-z]+[\\w]+@[a-z]+\\.[a-z]+")
 	@NotBlank
 	public String getEmail() {
 		return this.email;
@@ -79,6 +82,8 @@ public class Actor extends DomainEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
+	@NotBlank
 	public String getAddress() {
 		return this.address;
 	}

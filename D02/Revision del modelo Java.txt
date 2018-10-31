@@ -1,0 +1,139 @@
+Actor
+	falta @Entity y @Access(AccessType.PROPERTY) 
+	public class Actor extends DomainEntity {
+		le falta "abstract" entre 'public y 'class'
+	-getMiddelName: Le falta @NotBlank
+	-getAddress: Le falta @NotBlank
+	-getSuspicius: Deberíamos añadir en el UML @NotNull y añadirlo también en el modelo java?
+
+Administratos:
+	falta @Entity y @Access(AccessType.PROPERTY) 
+
+Application:
+	falta @Entity y @Access(AccessType.PROPERTY) 
+	-getRegisterMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getStatus: falta @NotBlank
+
+Box: 
+	falta @Entity y @Access(AccessType.PROPERTY) 
+	-getIsSystemBox: Deberíamos añadir en el UML @NotNull y añadirlo también en el modelo java?
+	
+
+Category:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	
+Complaint:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getTicket: Tendriamos que ponerle @NotBlank, no?
+	-getMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+
+CreditCard:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getCvvCode: Deberíamos ponerle que fuese NotBlank, no?
+
+Curriculum
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getTicket: Deberiamos ponerle que fuese NotBlank, no?
+
+Customer:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	
+Customisation:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getCountryCode: Deberiamos ponerle que fuese NotBlank, no?
+
+EducationRecord:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getStartDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getEndDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+Endorsement:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	El atributo comments está llamado endorsement, hay que cambiarlo
+	-getDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+EndorserRecord:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	
+Finder 
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getStartDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getEndDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+FixUpTask:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getTicker: falta NotBlank, no?
+	-getPublicationMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getStartDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getEndDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+HandyWorker:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	public class HandyWorker extends ACTOR, no de domainentity
+		
+Message:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getSendMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getPriority:  falta NotBlank, no?
+	-getIsSpam: falta NotNull, no?
+	
+MiscellaneousRecord:
+	falta @Entity y @Access(AccessType.PROPERTY)
+
+Money:
+	falta @Embeddable y @Access(AccessType.PROPERTY)
+	
+Note:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getmoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getRole: falta NotBlank, no?
+	
+PersonalRecord 
+	falta @Entity y @Access(AccessType.PROPERTY)
+	Al atributo linkedProfile le falta el 'In', es decir debería llamarse linkedInProfile como en el UML
+	
+Phase:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getNumber: debería ser NotNull, no?
+	-getStartMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getEndMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+ProfessionalRecord:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getStartDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getEndDate: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+Referee:
+	falta @Entity y @Access(AccessType.PROPERTY)
+
+Report 
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	-getFinalMode: Debería ser NotNull, no?
+
+Section 
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getNumber: Deberñia ser NotNull, no?
+	
+SocialProfile 
+	falta @Entity y @Access(AccessType.PROPERTY)
+	
+Sponsor:
+	falta @Entity y @Access(AccessType.PROPERTY)
+
+Sponsorship:
+	falta @Entity y @Access(AccessType.PROPERTY)
+
+Tutorial:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getMoment: falta @Temporal(TemporalType.TIMESTAMP) y @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	
+Warranty:
+	falta @Entity y @Access(AccessType.PROPERTY)
+	-getFinalMode: Debería ser NotNull, no?
+
+-----------------------------------------------------------------------------
+Además en el UML:
+	En customisation, está mal escrito SystemName
+	En Warranty, en el UML no tiene sentido que laws, pueda ser 0..1 y que sea @NotBlank, no?
+

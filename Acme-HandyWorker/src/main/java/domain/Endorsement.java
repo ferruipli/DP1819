@@ -20,7 +20,7 @@ public class Endorsement extends DomainEntity {
 	// Atributes
 
 	private Date	moment;
-	private String	endorsement;
+	private String	comments;
 
 
 	@Past
@@ -34,12 +34,12 @@ public class Endorsement extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getEndorsement() {
-		return this.endorsement;
+	public String getComments() {
+		return this.comments;
 	}
 
-	public void setEndorsement(final String endorsement) {
-		this.endorsement = endorsement;
+	public void setComments(final String comments) {
+		this.comments = comments;
 	}
 
 }

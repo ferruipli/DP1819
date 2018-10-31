@@ -38,6 +38,7 @@ public class Note extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^CUSTOMER|HANDYWORKER|REFEREE$")
+	@NotBlank
 	public String getRole() {
 		return this.role;
 	}
@@ -46,6 +47,7 @@ public class Note extends DomainEntity {
 		this.role = role;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getCommentCustomer() {
 		return this.commentCustomer;
@@ -55,6 +57,7 @@ public class Note extends DomainEntity {
 		this.commentCustomer = commentCustomer;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getCommentHandyWorker() {
 		return this.commentHandyWorker;
@@ -64,6 +67,7 @@ public class Note extends DomainEntity {
 		this.commentHandyWorker = commentHandyWorker;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getCommentReferee() {
 		return this.commentReferee;

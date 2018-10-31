@@ -3,7 +3,6 @@ package domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -28,7 +27,7 @@ public class Complaint extends DomainEntity {
 
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
-	@Column(unique = true)
+	@NotBlank
 	public String getTicker() {
 		return this.ticker;
 	}

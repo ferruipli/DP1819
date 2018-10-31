@@ -3,7 +3,6 @@ package domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -34,7 +33,7 @@ public class FixUpTask extends DomainEntity {
 
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
-	@Column(unique = true)
+	@NotBlank
 	public String getTicker() {
 		return this.ticker;
 	}
