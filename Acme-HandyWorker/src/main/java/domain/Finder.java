@@ -4,6 +4,9 @@ package domain;
 import java.util.Date;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Finder extends DomainEntity {
 
@@ -21,6 +24,8 @@ public class Finder extends DomainEntity {
 	private Money	endPrice;
 	private Date	startDate;
 	private Date	endDate;
+	private String	category;
+	private String	warranty;
 
 
 	public String getKeyword() {
@@ -63,5 +68,25 @@ public class Finder extends DomainEntity {
 
 	public void setEndDate(final Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "[a-zA-Z]+")
+	public String getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(final String category) {
+		this.category = category;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "[a-zA-Z]+")
+	public String getWarranty() {
+		return this.warranty;
+	}
+
+	public void setWarranty(final String warranty) {
+		this.warranty = warranty;
 	}
 }

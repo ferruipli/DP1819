@@ -49,6 +49,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Valid
+	@NotNull
 	public Money getOfferedPrice() {
 		return this.offeredPrice;
 	}
