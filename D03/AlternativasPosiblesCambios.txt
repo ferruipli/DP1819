@@ -1,0 +1,22 @@
+---------------------------------
+Alternativas de posibles cambios
+---------------------------------
+
+
+MONEY
+	- Dejarlo como está
+	- Eliminar Datatype Money y cambiar los atributos de precio a Double
+
+NOTE
+	- Dejarlo como está (suponemos que sí es necesario conocer quién crea la nota)
+	- Eliminar el atributo role (suponemos que no es necesario conocer quién crea la nota)
+	- Crear una clase abstracta Writer que herede de Actor cuya subclases fuesen HandyWorker, Customer y Referee. Writer asociado con Note (suponemos que sí es necesario conocer quién crea la nota)
+
+CATEGORY
+	- Dejarlo como está
+	- Sacar una clase aparte para la internacionalización, con los atributos language y name.
+
+CUSTOMISATION
+	- Dejarlo como está
+	- Añadir el atributo language y dejar solo un atributo de welcomeMessage
+	- Sacar welcomeMessage y language a una entidad a parte y relacionarla con Customisation.
