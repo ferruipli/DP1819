@@ -82,7 +82,8 @@ public class Customisation extends DomainEntity {
 		this.VAT = vAT;
 	}
 
-	@Pattern(regexp = "\\+\\d{2}+")
+	@Pattern(regexp = "\\+\\d+")
+	@NotBlank
 	public String getCountryCode() {
 		return this.countryCode;
 	}

@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Application extends DomainEntity {
 
 	// Constructors
@@ -37,6 +39,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^PENDING|ACCEPTED|REJECTED$")
+	@NotBlank
 	public String getStatus() {
 		return this.status;
 	}
@@ -54,6 +57,8 @@ public class Application extends DomainEntity {
 		this.offeredPrice = offeredPrice;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
+	@NotBlank
 	public String getHandyWorkerComments() {
 		return this.handyWorkerComments;
 	}
@@ -62,6 +67,8 @@ public class Application extends DomainEntity {
 		this.handyWorkerComments = handyWorkerComments;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
+	@NotBlank
 	public String getCustomerComments() {
 		return this.customerComments;
 	}

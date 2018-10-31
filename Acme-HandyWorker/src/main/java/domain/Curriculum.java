@@ -3,6 +3,8 @@ package domain;
 
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Curriculum extends DomainEntity {
 
 	// Constructors
@@ -18,6 +20,7 @@ public class Curriculum extends DomainEntity {
 
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
+	@NotBlank
 	public String getTicker() {
 		return this.ticker;
 	}
