@@ -15,6 +15,7 @@ public class Category extends DomainEntity {
 	// Attributes ----------------------------------------------------------------------
 
 	private String	name;
+	private String	language;
 
 
 	@NotBlank
@@ -24,6 +25,15 @@ public class Category extends DomainEntity {
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	@NotBlank
+	public String getLanguage() {
+		return this.language;
+	}
+
+	public void setLanguage(final String language) {
+		this.language = language;
 	}
 
 }

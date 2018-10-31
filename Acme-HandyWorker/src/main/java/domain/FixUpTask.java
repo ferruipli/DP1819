@@ -73,6 +73,7 @@ public class FixUpTask extends DomainEntity {
 	@Min(0)
 	@Digits(integer = 9, fraction = 2)
 	@Valid
+	@NotNull
 	public Money getMaxPrice() {
 		return this.maxPrice;
 	}
