@@ -4,8 +4,6 @@ package domain;
 import java.util.Date;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -41,6 +39,7 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^PENDING|ACCEPTED|REJECTED$")
+	@NotBlank
 	public String getStatus() {
 		return this.status;
 	}
@@ -49,8 +48,6 @@ public class Application extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
-	@Digits(integer = 6, fraction = 2)
 	@Valid
 	public Money getOfferedPrice() {
 		return this.offeredPrice;
@@ -60,6 +57,7 @@ public class Application extends DomainEntity {
 		this.offeredPrice = offeredPrice;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getHandyWorkerComments() {
 		return this.handyWorkerComments;
@@ -69,6 +67,7 @@ public class Application extends DomainEntity {
 		this.handyWorkerComments = handyWorkerComments;
 	}
 
+	@Pattern(regexp = "^(?!\\s*$).+")
 	@NotBlank
 	public String getCustomerComments() {
 		return this.customerComments;
