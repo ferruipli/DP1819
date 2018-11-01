@@ -3,7 +3,6 @@ package domain;
 
 import java.util.Date;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,7 +26,7 @@ public class FixUpTask extends DomainEntity {
 	private Date	publicationMoment;
 	private String	description;
 	private String	address;
-	private Money	maxPrice;
+	private double	maxPrice;
 	private Date	startDate;
 	private Date	endDate;
 
@@ -72,13 +71,11 @@ public class FixUpTask extends DomainEntity {
 
 	@Min(0)
 	@Digits(integer = 9, fraction = 2)
-	@Valid
-	@NotNull
-	public Money getMaxPrice() {
+	public double getMaxPrice() {
 		return this.maxPrice;
 	}
 
-	public void setMaxPrice(final Money maxPrice) {
+	public void setMaxPrice(final double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
 
