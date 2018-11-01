@@ -3,7 +3,8 @@ package domain;
 
 import java.util.Date;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -20,8 +21,8 @@ public class Finder extends DomainEntity {
 	// Attributes
 
 	private String	keyword;
-	private Money	startPrice;
-	private Money	endPrice;
+	private Double	startPrice;
+	private Double	endPrice;
 	private Date	startDate;
 	private Date	endDate;
 	private String	category;
@@ -36,21 +37,23 @@ public class Finder extends DomainEntity {
 		this.keyword = keyword;
 	}
 
-	@Valid
-	public Money getStartPrice() {
+	@Min(0)
+	@Digits(integer = 9, fraction = 2)
+	public Double getStartPrice() {
 		return this.startPrice;
 	}
 
-	public void setStartPrice(final Money startPrice) {
+	public void setStartPrice(final Double startPrice) {
 		this.startPrice = startPrice;
 	}
 
-	@Valid
-	public Money getEndPrice() {
+	@Min(0)
+	@Digits(integer = 9, fraction = 2)
+	public Double getEndPrice() {
 		return this.endPrice;
 	}
 
-	public void setEndPrice(final Money endPrice) {
+	public void setEndPrice(final Double endPrice) {
 		this.endPrice = endPrice;
 	}
 

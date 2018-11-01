@@ -3,7 +3,8 @@ package domain;
 
 import java.util.Date;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -23,7 +24,7 @@ public class Application extends DomainEntity {
 
 	private Date	registerMoment;
 	private String	status;
-	private Money	offeredPrice;
+	private double	offeredPrice;
 	private String	handyWorkerComments;
 	private String	customerComments;
 
@@ -48,13 +49,13 @@ public class Application extends DomainEntity {
 		this.status = status;
 	}
 
-	@Valid
-	@NotNull
-	public Money getOfferedPrice() {
+	@Min(0)
+	@Digits(integer = 9, fraction = 2)
+	public double getOfferedPrice() {
 		return this.offeredPrice;
 	}
 
-	public void setOfferedPrice(final Money offeredPrice) {
+	public void setOfferedPrice(final double offeredPrice) {
 		this.offeredPrice = offeredPrice;
 	}
 
