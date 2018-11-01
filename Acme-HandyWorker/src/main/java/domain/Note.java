@@ -37,8 +37,6 @@ public class Note extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Pattern(regexp = "^CUSTOMER|HANDYWORKER|REFEREE$")
-	@NotBlank
 	public String getRole() {
 		return this.role;
 	}
