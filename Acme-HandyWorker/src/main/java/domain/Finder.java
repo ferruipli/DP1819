@@ -1,13 +1,17 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -96,5 +100,21 @@ public class Finder extends DomainEntity {
 
 	public void setWarranty(final String warranty) {
 		this.warranty = warranty;
+	}
+
+
+	// Relationships ----------------------------------------------------------
+	private Collection<FixUpTask>	fixUpTasks;
+
+
+	@NotNull
+	@Valid
+	@ManyToMany
+	public Collection<FixUpTask> getFixUpTasks() {
+		return this.fixUpTasks;
+	}
+
+	public void setFixUpTasks(final Collection<FixUpTask> fixUpTasks) {
+		this.fixUpTasks = fixUpTasks;
 	}
 }
