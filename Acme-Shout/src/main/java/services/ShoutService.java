@@ -53,7 +53,6 @@ public class ShoutService {
 		principal = this.actorService.findByPrincipal();
 
 		result = new Shout();
-		result.setCreator(principal);
 		result.setUsername(principal.getUserAccount().getUsername());
 
 		return result;
@@ -80,7 +79,7 @@ public class ShoutService {
 	}
 
 	// Other business methods -------------------------------------------------
-	
+
 	public Map<String, Double> computeStatistics() {
 		Map<String, Double> result;
 		double countAll, countShort, countLong;

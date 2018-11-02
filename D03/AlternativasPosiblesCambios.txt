@@ -1,0 +1,7 @@
+---------------------------------
+Alternativas de posibles cambios
+---------------------------------
+
+CATEGORY
+	- Dejarlo como está
+	- Sacar una clase aparte para la internacionalización, con los atributos language y name.
