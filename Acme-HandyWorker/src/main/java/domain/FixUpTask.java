@@ -1,8 +1,17 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -12,6 +21,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class FixUpTask extends DomainEntity {
 
 	// Constructors
@@ -27,7 +38,7 @@ public class FixUpTask extends DomainEntity {
 	private Date	publicationMoment;
 	private String	description;
 	private String	address;
-	private Money	maxPrice;
+	private double	maxPrice;
 	private Date	startDate;
 	private Date	endDate;
 
@@ -44,6 +55,7 @@ public class FixUpTask extends DomainEntity {
 
 	@Past
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublicationMoment() {
 		return this.publicationMoment;
 	}
@@ -72,16 +84,16 @@ public class FixUpTask extends DomainEntity {
 
 	@Min(0)
 	@Digits(integer = 9, fraction = 2)
-	@Valid
-	public Money getMaxPrice() {
+	public double getMaxPrice() {
 		return this.maxPrice;
 	}
 
-	public void setMaxPrice(final Money maxPrice) {
+	public void setMaxPrice(final double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -91,6 +103,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;
 	}
@@ -99,4 +112,78 @@ public class FixUpTask extends DomainEntity {
 		this.endDate = endDate;
 	}
 
+
+	// Relationships ----------------------------------------------------------
+
+	private Category				category;
+	private Warranty				warranty;
+	private Collection<Phase>		phases;
+	private Customer				customer;
+	private Collection<Complaint>	complaints;
+	private Collection<Application>	applications;
+
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Category getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(final Category category) {
+		this.category = category;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Warranty getWarranty() {
+		return this.warranty;
+	}
+
+	public void setWarranty(final Warranty warranty) {
+		this.warranty = warranty;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Phase> getPhases() {
+		return this.phases;
+	}
+
+	public void setPhases(final Collection<Phase> phases) {
+		this.phases = phases;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(final Customer customer) {
+		this.customer = customer;
+	}
+
+	@NotNull
+	@OneToMany(mappedBy = "FixUpTask")
+	public Collection<Complaint> getComplaints() {
+		return this.complaints;
+	}
+
+	public void setComplaints(final Collection<Complaint> complaints) {
+		this.complaints = complaints;
+	}
+
+	@NotNull
+	@OneToMany(mappedBy = "FixUpTask")
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
+	}
 }

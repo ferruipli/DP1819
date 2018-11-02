@@ -52,11 +52,11 @@ public abstract class Actor extends DomainEntity {
 
 	@Pattern(regexp = "[a-zA-Z]+")
 	@NotBlank
-	public String getMiddlelName() {
+	public String getMiddleName() {
 		return this.middleName;
 	}
 
-	public void setMiddelName(final String middleName) {
+	public void setMiddleName(final String middleName) {
 		this.middleName = middleName;
 	}
 
@@ -78,7 +78,7 @@ public abstract class Actor extends DomainEntity {
 		this.photoLink = photoLink;
 	}
 
-	@Pattern(regexp = "[A-Za-z]+[\\w]+@[a-z]+\\.[a-z]+")
+	@Pattern(regexp = "[A-Za-z_.]+[\\w]+@[a-z-]+\\.[a-z]+")
 	@NotBlank
 	public String getEmail() {
 		return this.email;

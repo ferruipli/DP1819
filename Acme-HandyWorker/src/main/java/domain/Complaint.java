@@ -3,12 +3,23 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Complaint extends DomainEntity {
 
 	// Constructors
@@ -38,6 +49,7 @@ public class Complaint extends DomainEntity {
 
 	@Past
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -55,6 +67,7 @@ public class Complaint extends DomainEntity {
 		this.description = description;
 	}
 
+	@URL
 	public String getAttachments() {
 		return this.attachments;
 	}
@@ -63,4 +76,32 @@ public class Complaint extends DomainEntity {
 		this.attachments = attachments;
 	}
 
+
+	// Relationships ----------------------------------------------------------
+
+	private Report		report;
+	private FixUpTask	fisxUpTask;
+
+
+	@NotNull
+	@Valid
+	@OneToOne(optional = true)
+	public Report getReport() {
+		return this.report;
+	}
+
+	public void setReport(final Report report) {
+		this.report = report;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public FixUpTask getFisxUpTask() {
+		return this.fisxUpTask;
+	}
+
+	public void setFisxUpTask(final FixUpTask fisxUpTask) {
+		this.fisxUpTask = fisxUpTask;
+	}
 }
