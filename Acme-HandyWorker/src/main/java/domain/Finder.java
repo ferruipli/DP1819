@@ -8,6 +8,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -66,6 +68,7 @@ public class Finder extends DomainEntity {
 		this.endPrice = endPrice;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -74,6 +77,7 @@ public class Finder extends DomainEntity {
 		this.startDate = startDate;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;
 	}

@@ -7,6 +7,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -38,6 +40,7 @@ public class Application extends DomainEntity {
 
 	@Past
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getRegisterMoment() {
 		return this.registerMoment;
 	}

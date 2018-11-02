@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -53,6 +55,7 @@ public class FixUpTask extends DomainEntity {
 
 	@Past
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublicationMoment() {
 		return this.publicationMoment;
 	}
@@ -90,6 +93,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -99,6 +103,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getEndDate() {
 		return this.endDate;
 	}
