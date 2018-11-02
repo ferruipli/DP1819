@@ -1,11 +1,25 @@
 
 package domain;
 
+import java.util.Collection;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import security.UserAccount;
+
+@Entity
+@Access(AccessType.PROPERTY)
 public abstract class Actor extends DomainEntity {
 
 	// Constructors
@@ -100,4 +114,42 @@ public abstract class Actor extends DomainEntity {
 		this.isSuspicious = isSuspicious;
 	}
 
+
+	//Relationships ----------------------------------------------------
+	private Collection<SocialProfile>	socialProfiles;
+	private Collection<Box>				boxes;
+	private UserAccount					userAccount;
+
+
+	@Valid
+	@NotNull
+	@OneToMany
+	public Collection<SocialProfile> getSocialProfiles() {
+		return this.socialProfiles;
+	}
+
+	public void setSocialProfiles(final Collection<SocialProfile> socialProfiles) {
+		this.socialProfiles = socialProfiles;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany
+	public Collection<Box> getBoxes() {
+		return this.boxes;
+	}
+
+	public void setBoxes(final Collection<Box> boxes) {
+		this.boxes = boxes;
+	}
+	@Valid
+	@NotNull
+	@OneToOne(cascade = CascadeType.ALL)
+	public UserAccount getUserAccount() {
+		return this.userAccount;
+	}
+
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
 }

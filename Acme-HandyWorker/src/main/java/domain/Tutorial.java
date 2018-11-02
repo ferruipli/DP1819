@@ -1,8 +1,11 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -61,6 +64,22 @@ public class Tutorial extends DomainEntity {
 
 	public void setPictures(final String pictures) {
 		this.pictures = pictures;
+	}
+
+
+	//Relationship--------------------------------------------
+	private Collection<Sponsorship>	sponsorShips;
+
+
+	@Valid
+	@NotNull
+	@OneToMany
+	public Collection<Sponsorship> getSponsorShips() {
+		return this.sponsorShips;
+	}
+
+	public void setSponsorShips(final Collection<Sponsorship> sponsorShips) {
+		this.sponsorShips = sponsorShips;
 	}
 
 }

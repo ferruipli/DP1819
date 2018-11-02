@@ -1,14 +1,23 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
 	// Constructors
@@ -82,4 +91,31 @@ public class Message extends DomainEntity {
 		this.isSpam = isSpam;
 	}
 
+
+	// Relationship----------------------------------------------------
+	private Actor				sender;
+	private Collection<Actor>	receives;
+
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Actor getSender() {
+		return this.sender;
+	}
+
+	public void setSender(final Actor sender) {
+		this.sender = sender;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToMany
+	public Collection<Actor> getReceives() {
+		return this.receives;
+	}
+
+	public void setReceives(final Collection<Actor> receives) {
+		this.receives = receives;
+	}
 }

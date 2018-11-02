@@ -3,6 +3,9 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 
@@ -10,6 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Customisation extends DomainEntity {
 
 	// Constructors
