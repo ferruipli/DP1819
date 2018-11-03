@@ -68,7 +68,7 @@ public class Finder extends DomainEntity {
 		this.endPrice = endPrice;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -77,7 +77,7 @@ public class Finder extends DomainEntity {
 		this.startDate = startDate;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	public Date getEndDate() {
 		return this.endDate;
 	}
