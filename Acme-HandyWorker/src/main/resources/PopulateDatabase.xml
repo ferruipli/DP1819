@@ -19,7 +19,7 @@
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
+		<property name="username" value="admin1" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
 			<list>
@@ -28,10 +28,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false"/>
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
+		<property name="username" value="customer1" />
 		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
 		<property name="authorities">
 			<list>
@@ -40,23 +41,507 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false"/>
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
+		<property name="username" value="referee1" />
 		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="REFEREE" />
 				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false"/>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="handyworker1" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="HANDYWORKER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false"/>
+	</bean>
+	
+	<!-- Boxes -->	
+	
+	<bean id="box1" class="domain.Box">
+		<property name="name" value="inBox1"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message5"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box2" class="domain.Box">
+		<property name="name" value="outBox1"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box3" class="domain.Box">
+		<property name="name" value="trashBox1"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box4" class="domain.Box">
+		<property name="name" value="spamBox1"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message3"/>
+				<ref bean="message5"/>
+				<ref bean="message2"/>
+			</list>
+		</property>
+	</bean>
+	
+<!-- <bean id="box1" class="domain.Box">
+		<property name="name" value="inBox1"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message5"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box2" class="domain.Box">
+		<property name="name" value="inBox2"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box3" class="domain.Box">
+		<property name="name" value="inBox3"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box4" class="domain.Box">
+		<property name="name" value="inBox4"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="box5" class="domain.Box">
+		<property name="name" value="inBox5"/>
+		<property name="isSystemBox" value="true"/>
+		<property name="messages">
+			<list>
+				<ref bean="message3"/>
+			</list>
+		</property>
+	</bean>
+ -->
+ 
+ 	<!-- CreditCards -->
+ 	
+ 	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="holder1"/>
+		<property name="brandName" value="brand1"/>
+		<property name="number" value="6231388319535297" />
+		<property name="expirationMonth" value="08"/>
+		<property name="expirationYear" value="21"/>
+		<property name="cvvCode" value="724" />
+	</bean>
+	
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="holder2"/>
+		<property name="brandName" value="brand2"/>
+		<property name="number" value="6212345319535297" />
+		<property name="expirationMonth" value="09"/>
+		<property name="expirationYear" value="22"/>
+		<property name="cvvCode" value="728" />
+	</bean>
+	
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holderName" value="holder3"/>
+		<property name="brandName" value="brand3"/>
+		<property name="number" value="6231381234565297" />
+		<property name="expirationMonth" value="11"/>
+		<property name="expirationYear" value="25"/>
+		<property name="cvvCode" value="123" />
+	</bean>
+ 
+ 	<!-- Curriculums -->
+ 	
+ 	<bean id="curriculum1" class="domain.Curriculum">
+		<property name="ticker" value="170212-asdfgh"/>
+		<property name="educationRecords">
+			<list>
+				<ref bean="educationRecord1"/>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list>
+				<ref bean="professionalRecord1"/>
+			</list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+				<ref bean="endorserRecord1"/>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+				<ref bean="miscellaneousRecord1"/>
+			</list>
+		</property>
+		<property name="personalRecord" ref="personalRecord1" />
+	</bean>
+	
+	<bean id="curriculum2" class="domain.Curriculum">
+		<property name="ticker" value="161118-qwerty"/>
+		<property name="educationRecords">
+			<list>
+				<ref bean="educationRecord2"/>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list>
+				<ref bean="professionalRecord2"/>
+			</list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+				<ref bean="endorserRecord2"/>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+				<ref bean="miscellaneousRecord2"/>
+			</list>
+		</property>
+		<property name="personalRecord" ref="personalRecord2" />
+	</bean>
+	
+	<bean id="curriculum3" class="domain.Curriculum">
+		<property name="ticker" value="150514-zxcvbn"/>
+		<property name="educationRecords">
+			<list>
+				<ref bean="educationRecord3"/>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list>
+				<ref bean="professionalRecord3"/>
+			</list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+				<ref bean="endorserRecord3"/>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+				<ref bean="miscellaneousRecord3"/>
+			</list>
+		</property>
+		<property name="personalRecord" ref="personalRecord3" />
+	</bean>
+
+	<!-- Education Records -->	
+	
+	<bean id="educationRecord1" class="domain.EducationRecord">
+		<property name="titleDiploma" value="EducationRecord1"/>
+		<property name="startDate" value="20/09/2017"/>
+		<property name="endDate" value="04/10/2020" />
+		<property name="institution" value="institution1" />
+		<property name="attachment" value="http://www.google.com" />
+		<property name="comments" value="comment1" />
+	</bean>
+	
+	<bean id="educationRecord2" class="domain.EducationRecord">
+		<property name="titleDiploma" value="EducationRecord2"/>
+		<property name="startDate" value="14/02/2016"/>
+		<property name="endDate" value="24/10/2022" />
+		<property name="institution" value="institution2" />
+		<property name="attachment" value="http://www.google.com" />
+		<property name="comments" value="comment2" />
+	</bean>
+	
+	<bean id="educationRecord3" class="domain.EducationRecord">
+		<property name="titleDiploma" value="EducationRecord3"/>
+		<property name="startDate" value="17/08/2017"/>
+		<property name="endDate" value="22/06/2023" />
+		<property name="institution" value="institution3" />
+		<property name="attachment" value="http://www.google.com" />
+		<property name="comments" value="comment3" />
+	</bean>
+	
+	<!-- Endorser Records -->
+	
+	<bean id="endorserRecord1" class="domain.EndorserRecord">
+		<property name="fullName" value="endorserRecord1"/>
+		<property name="email" value="endorserrecord1@gmail.com"/>
+		<property name="phoneNumber" value="632014758" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+		<property name="comments" value="comment1" />
+	</bean>
+	
+	<bean id="endorserRecord2" class="domain.EndorserRecord">
+		<property name="fullName" value="endorserRecord2"/>
+		<property name="email" value="endorserrecord2@gmail.com"/>
+		<property name="phoneNumber" value="695410328" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+		<property name="comments" value="comment2" />
+	</bean>
+	
+	<bean id="endorserRecord3" class="domain.EndorserRecord">
+		<property name="fullName" value="endorserRecord3"/>
+		<property name="email" value="endorserrecord3@gmail.com"/>
+		<property name="phoneNumber" value="625401897" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+		<property name="comments" value="comment3" />
+	</bean>
+	
+	<!-- Messages -->	
+	
+	<bean id="message1" class="domain.Message">
+		<property name="sendMoment" value="12/01/2018 14:30"/>
+		<property name="subject" value="Aviso1"/>
+		<property name="body" value="Prueba de mensaje1" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tag1" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="actor1" />
+		<property name="receives">
+			<list>
+				<null></null> <!-- TODO -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message2" class="domain.Message">
+		<property name="sendMoment" value="17/03/2018 12:50"/>
+		<property name="subject" value="Aviso2"/>
+		<property name="body" value="Prueba de mensaje2" />
+		<property name="priority" value="NEUTRAL" />
+		<property name="tags" value="tag2" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="actor2" />
+		<property name="receives">
+			<list>
+				<null></null> <!-- TODO -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message3" class="domain.Message">
+		<property name="sendMoment" value="08/02/2018 21:56"/>
+		<property name="subject" value="Aviso3"/>
+		<property name="body" value="Prueba de mensaje3" />
+		<property name="priority" value="LOW" />
+		<property name="tags" value="tag3" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="actor3" />
+		<property name="receives">
+			<list>
+				<null></null> <!-- TODO -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message4" class="domain.Message">
+		<property name="sendMoment" value="04/05/2018 18:17"/>
+		<property name="subject" value="Aviso4"/>
+		<property name="body" value="Prueba de mensaje4" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tag4" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="actor4" />
+		<property name="receives">
+			<list>
+				<null></null> <!-- TODO -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message5" class="domain.Message">
+		<property name="sendMoment" value="01/01/2018 16:15"/>
+		<property name="subject" value="Aviso5"/>
+		<property name="body" value="Prueba de mensaje5" />
+		<property name="priority" value="NEUTRAL" />
+		<property name="tags" value="tag5" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="actor5" />
+		<property name="receives">
+			<list>
+				<null></null> <!-- TODO -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Miscellaneous Records -->
+	
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="title" value="title1"/>
+		<property name="attachment" value="attachment1"/>
+		<property name="comments" value="comment1" />
+	</bean>
+	
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+		<property name="title" value="title2"/>
+		<property name="attachment" value="attachment2"/>
+		<property name="comments" value="comment2" />
+	</bean>
+	
+	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
+		<property name="title" value="title3"/>
+		<property name="attachment" value="attachment3"/>
+		<property name="comments" value="comment3" />
+	</bean>
+	
+	<!-- PersonalRecords -->
+	
+	<bean id="personalRecord1" class="domain.PersonalRecord">
+		<property name="fullName" value="personalRecord1"/>
+		<property name="photoLink" value="http://www.google.es"/>
+		<property name="email" value="personalRecord1@gmail.com" />
+		<property name="phoneNumber" value="631047853" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+	</bean>
+	
+	<bean id="personalRecord2" class="domain.PersonalRecord">
+		<property name="fullName" value="personalRecord2"/>
+		<property name="photoLink" value="http://www.google.es"/>
+		<property name="email" value="personalRecord2@gmail.com" />
+		<property name="phoneNumber" value="601895472" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+	</bean>
+	
+	<bean id="personalRecord3" class="domain.PersonalRecord">
+		<property name="fullName" value="personalRecord3"/>
+		<property name="photoLink" value="http://www.google.es"/>
+		<property name="email" value="personalRecord3@gmail.com" />
+		<property name="phoneNumber" value="652013984" />
+		<property name="linkedInProfile" value="http://www.linkedin.com" />
+	</bean>
+	
+	<!-- Professsional Record -->
+	
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+		<property name="nameCompany" value="professionalRecord1"/>
+		<property name="startDate" value="25/04/2016"/>
+		<property name="endDate" value="25/04/2025" />
+		<property name="role" value="role1" />
+		<property name="attachment" value="attachment1" />
+		<property name="comments" value="comment1" />
+	</bean>
+	
+	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
+		<property name="nameCompany" value="professionalRecord2"/>
+		<property name="startDate" value="30/12/2016"/>
+		<property name="endDate" value="30/12/2025" />
+		<property name="role" value="role2" />
+		<property name="attachment" value="attachment2" />
+		<property name="comments" value="comment2" />
+	</bean>
+	
+	<bean id="professionalRecord3" class="domain.ProfessionalRecord">
+		<property name="nameCompany" value="professionalRecord3"/>
+		<property name="startDate" value="31/05/2016"/>
+		<property name="endDate" value="31/05/2025" />
+		<property name="role" value="role3" />
+		<property name="attachment" value="attachment3" />
+		<property name="comments" value="comment3" />
+	</bean>
+	
+	
+	
+	<!-- SocialProfiles -->	
+	
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="nick1"/>
+		<property name="socialNetworkName" value="Twitter"/>
+		<property name="profileLink" value="http://www.twitter.com" />
+	</bean>
+	
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="nick2"/>
+		<property name="socialNetworkName" value="Instagram"/>
+		<property name="profileLink" value="http://www.instagram.com" />
+	</bean>
+	
+	<bean id="socialProfile3" class="domain.SocialProfile">
+		<property name="nick" value="nick3"/>
+		<property name="socialNetworkName" value="Facebook"/>
+		<property name="profileLink" value="http://www.facebook.com" />
+	</bean>
+	
+	<bean id="socialProfile4" class="domain.SocialProfile">
+		<property name="nick" value="nick4"/>
+		<property name="socialNetworkName" value="Facebook"/>
+		<property name="profileLink" value="http://www.facebook.com" />
+	</bean>
+	
+	<bean id="socialProfile5" class="domain.SocialProfile">
+		<property name="nick" value="nick5"/>
+		<property name="socialNetworkName" value="Facebook"/>
+		<property name="profileLink" value="http://www.facebook.com" />
+	</bean>
+	
+	<!-- Sponsorship -->
+	
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner" value="http://www.google.com"/>
+		<property name="targetPage" value="http://www.targetpage.com"/>
+		<property name="creditCard" ref="creditCard1" />
+	</bean>
+	
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner" value="http://www.google.com"/>
+		<property name="targetPage" value="http://www.targetpage.com"/>
+		<property name="creditCard" ref="creditCard2" />
+	</bean>
+	
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="banner" value="http://www.google.com"/>
+		<property name="targetPage" value="http://www.targetpage.com"/>
+		<property name="creditCard" ref="creditCard3" />
+	</bean>
 	
 </beans>
