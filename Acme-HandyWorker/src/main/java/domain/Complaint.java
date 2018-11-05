@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -39,6 +40,7 @@ public class Complaint extends DomainEntity {
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@NotBlank
+	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -83,7 +85,6 @@ public class Complaint extends DomainEntity {
 	private FixUpTask	fisxUpTask;
 
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = true)
 	public Report getReport() {

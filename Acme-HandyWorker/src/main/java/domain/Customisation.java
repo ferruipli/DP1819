@@ -7,9 +7,11 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
@@ -97,6 +99,8 @@ public class Customisation extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
+	@NotEmpty
+	@NotNull
 	public Collection<String> getCreditCardMakes() {
 		return this.creditCardMakes;
 	}
@@ -123,6 +127,7 @@ public class Customisation extends DomainEntity {
 		this.maxFinderResults = maxFinderResults;
 	}
 
+	@NotNull
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
@@ -131,6 +136,7 @@ public class Customisation extends DomainEntity {
 		this.spamWords = spamWords;
 	}
 
+	@NotNull
 	public Collection<String> getPositiveWords() {
 		return this.positiveWords;
 	}
@@ -139,6 +145,7 @@ public class Customisation extends DomainEntity {
 		this.positiveWords = positiveWords;
 	}
 
+	@NotNull
 	public Collection<String> getNegativeWords() {
 		return this.negativeWords;
 	}

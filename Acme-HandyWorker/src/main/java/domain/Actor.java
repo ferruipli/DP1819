@@ -51,7 +51,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Pattern(regexp = "[a-zA-Z]+")
-	@NotBlank
 	public String getMiddleName() {
 		return this.middleName;
 	}
@@ -97,7 +96,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getAddress() {
 		return this.address;
 	}

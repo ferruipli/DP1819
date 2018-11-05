@@ -54,7 +54,6 @@ public class Warranty extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getLaws() {
 		return this.laws;
 	}
