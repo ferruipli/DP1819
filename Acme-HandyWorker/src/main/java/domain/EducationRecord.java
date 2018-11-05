@@ -85,7 +85,6 @@ public class EducationRecord extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getComments() {
 		return this.comments;
 	}

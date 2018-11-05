@@ -57,18 +57,17 @@ public class EndorserRecord extends DomainEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@URL
+	@NotBlank
 	public String getLinkedInProfile() {
 		return this.linkedInProfile;
 	}
 
-	@URL
-	@NotBlank
 	public void setLinkedInProfile(final String linkedInProfile) {
 		this.linkedInProfile = linkedInProfile;
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getComments() {
 		return this.comments;
 	}

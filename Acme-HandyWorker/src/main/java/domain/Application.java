@@ -70,7 +70,6 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getHandyWorkerComments() {
 		return this.handyWorkerComments;
 	}
@@ -80,7 +79,6 @@ public class Application extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getCustomerComments() {
 		return this.customerComments;
 	}
@@ -97,7 +95,6 @@ public class Application extends DomainEntity {
 	private FixUpTask	fixUpTask;
 
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = true)
 	public CreditCard getCreditCard() {

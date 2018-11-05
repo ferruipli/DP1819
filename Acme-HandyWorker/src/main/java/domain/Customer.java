@@ -45,7 +45,7 @@ public class Customer extends Endorsable {
 
 
 	@NotNull
-	@OneToMany(mappedBy = "Customer")
+	@OneToMany(mappedBy = "customer")
 	public Collection<FixUpTask> getFixUpTask() {
 		return this.fixUpTask;
 	}
