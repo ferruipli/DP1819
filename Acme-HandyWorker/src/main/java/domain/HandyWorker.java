@@ -82,7 +82,6 @@ public class HandyWorker extends Endorsable {
 		this.tutorials = tutorial;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = true)
 	public Curriculum getCurriculum() {
@@ -94,7 +93,7 @@ public class HandyWorker extends Endorsable {
 	}
 
 	@NotNull
-	@OneToMany(mappedBy = "HandyWorker")
+	@OneToMany(mappedBy = "handyWorker")
 	public Collection<Application> getApplications() {
 		return this.applications;
 	}

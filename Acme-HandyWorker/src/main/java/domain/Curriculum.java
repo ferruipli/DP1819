@@ -6,9 +6,11 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,6 +33,7 @@ public class Curriculum extends DomainEntity {
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@NotBlank
+	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -83,7 +86,8 @@ public class Curriculum extends DomainEntity {
 	public void setMiscellaneousRecords(final Collection<MiscellaneousRecord> miscellaneousRecords) {
 		this.miscellaneousRecords = miscellaneousRecords;
 	}
-	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
 	}

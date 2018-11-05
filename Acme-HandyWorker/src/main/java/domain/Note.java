@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Note extends DomainEntity {
@@ -28,7 +26,6 @@ public class Note extends DomainEntity {
 	// Attributes
 
 	private Date	moment;
-	private String	role;
 	private String	commentCustomer;
 	private String	commentHandyWorker;
 	private String	commentReferee;
@@ -45,16 +42,7 @@ public class Note extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(final String role) {
-		this.role = role;
-	}
-
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getCommentCustomer() {
 		return this.commentCustomer;
 	}
@@ -64,7 +52,6 @@ public class Note extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getCommentHandyWorker() {
 		return this.commentHandyWorker;
 	}
@@ -74,7 +61,6 @@ public class Note extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getCommentReferee() {
 		return this.commentReferee;
 	}

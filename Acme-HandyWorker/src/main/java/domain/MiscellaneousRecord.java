@@ -46,7 +46,6 @@ public class MiscellaneousRecord extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^(?!\\s*$).+")
-	@NotBlank
 	public String getComments() {
 		return this.comments;
 	}

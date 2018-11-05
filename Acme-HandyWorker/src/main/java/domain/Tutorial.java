@@ -4,6 +4,7 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -72,7 +73,17 @@ public class Tutorial extends DomainEntity {
 
 	//Relationship--------------------------------------------
 	private Collection<Sponsorship>	sponsorShips;
+	private Collection<Section>		sections;
 
+
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Section> getSections() {
+		return this.sections;
+	}
+
+	public void setSections(final Collection<Section> sections) {
+		this.sections = sections;
+	}
 
 	@Valid
 	@NotNull

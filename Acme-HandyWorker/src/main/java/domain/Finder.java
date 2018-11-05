@@ -16,8 +16,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
@@ -40,6 +38,7 @@ public class Finder extends DomainEntity {
 	private String	warranty;
 
 
+	@Pattern(regexp = "\\S")
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -86,7 +85,6 @@ public class Finder extends DomainEntity {
 		this.endDate = endDate;
 	}
 
-	@NotBlank
 	@Pattern(regexp = "[a-zA-Z]+")
 	public String getCategory() {
 		return this.category;
@@ -96,7 +94,6 @@ public class Finder extends DomainEntity {
 		this.category = category;
 	}
 
-	@NotBlank
 	@Pattern(regexp = "[a-zA-Z]+")
 	public String getWarranty() {
 		return this.warranty;

@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,6 +46,7 @@ public class FixUpTask extends DomainEntity {
 
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@NotBlank
+	@Column(unique = true)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -145,7 +147,6 @@ public class FixUpTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
-	@NotNull
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Phase> getPhases() {
@@ -168,7 +169,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
-	@OneToMany(mappedBy = "FixUpTask")
+	@OneToMany(mappedBy = "fixUpTask")
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;
 	}
@@ -178,7 +179,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
-	@OneToMany(mappedBy = "FixUpTask")
+	@OneToMany(mappedBy = "fixUpTask")
 	public Collection<Application> getApplications() {
 		return this.applications;
 	}

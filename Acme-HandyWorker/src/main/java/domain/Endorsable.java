@@ -21,18 +21,30 @@ public abstract class Endorsable extends Actor {
 
 	// Relationships ----------------------------------------------------------
 
-	private Endorsement	endorsement;
+	private Endorsement	endorsementsSent;
+	private Endorsement	endorsementsReceived;
 
 
 	@NotNull
 	@Valid
 	@OneToMany
-	public Endorsement getEndorsement() {
-		return this.endorsement;
+	public Endorsement getEndorsementsReceived() {
+		return this.endorsementsReceived;
 	}
 
-	public void setEndorsement(final Endorsement endorsement) {
-		this.endorsement = endorsement;
+	public void setEndorsementsReceived(final Endorsement endorsementsReceived) {
+		this.endorsementsReceived = endorsementsReceived;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany
+	public Endorsement getEndorsementsSent() {
+		return this.endorsementsSent;
+	}
+
+	public void setEndorsementsSent(final Endorsement endorsementsSent) {
+		this.endorsementsSent = endorsementsSent;
 	}
 
 }
