@@ -38,7 +38,7 @@ public class Finder extends DomainEntity {
 	private String	warranty;
 
 
-	@Pattern(regexp = "\\S")
+	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getKeyword() {
 		return this.keyword;
 	}

@@ -81,15 +81,43 @@
 		</property>
 		<property name="isBanned" value="false"/>
 	</bean>
+	
+	<!-- Administrator -->
+	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Fernando"/>
+		<property name="middleName" value=""/>
+		<property name="surname" value="Ruiz" />
+		<property name="photoLink" value="http://www.instagram.es"/>
+		<property name="email" value="fruiz@gmail.com"/>
+		<property name="phoneNumber" value="63018754" />
+		<property name="address" value="Calle Palmera 4"/>
+		<property name="isSuspicious" value="false"/>
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile1"/>
+			</list>
+		</property>
+		<property name="boxes">
+			<list>
+				<ref bean="box1"/>
+				<ref bean="box2"/>
+				<ref bean="box3"/>
+				<ref bean="box4"/>
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount1"/>
+	</bean>
+	
 	 
 	<!-- Boxes -->	
-	
+ 	
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="inBox1"/>
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -99,7 +127,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -109,7 +137,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -119,7 +147,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -129,7 +157,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -139,7 +167,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -149,7 +177,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -159,17 +187,17 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
-	
+	 
 	<bean id="box9" class="domain.Box">
 		<property name="name" value="inBox3"/>
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -179,7 +207,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>  
 			</list>
 		</property>
 	</bean>
@@ -189,7 +217,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -199,7 +227,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -209,7 +237,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -219,7 +247,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -229,7 +257,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -239,7 +267,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -249,7 +277,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>  
 			</list>
 		</property>
 	</bean>
@@ -259,7 +287,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -269,7 +297,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
 			</list>
 		</property>
 	</bean>
@@ -279,12 +307,55 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null> 
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Customer -->
+ 	
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="Antonio"/>
+		<property name="middleName" value=""/>
+		<property name="surname" value="Ferreras" />
+		<property name="photoLink" value="http://www.instagram.es"/>
+		<property name="email" value="alrojovivo@gmail.com"/>
+		<property name="phoneNumber" value="632014785" />
+		<property name="address" value="Calle Sexta 6"/>
+		<property name="isSuspicious" value="false"/>
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile2"/>
+			</list>
+		</property>
+		<property name="boxes">
+			<list>
+				<ref bean="box5"/>
+				<ref bean="box6"/>
+				<ref bean="box7"/>
+				<ref bean="box8"/>
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount2"/>
+		<property name="score" value="0.25"/>
+		<property name="fixUpTask">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="endorsementsSents">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="endorsementsReceiveds">
+			<list>
+				<null></null>
 			</list>
 		</property>
 	</bean>
  
- 
+   
  	<!-- Customisations -->
  	
  	<bean id="customisation1" class="domain.Customisation">
@@ -577,25 +648,76 @@
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
 		<property name="comments" value="comment3" />
 	</bean>
- 	
-  
-	<!-- Messages -->
 	
-	<bean id="message1" class="domain.Message">
-		<property name="sendMoment" value="2018/01/12 14:30"/>
-		<property name="subject" value="Aviso 1"/>
-		<property name="body" value="Prueba de mensaje 1" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="tag1" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
+	<!-- Finder -->
+	
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="keyword 1"/>
+		<property name="startPrice" value="45.50"/>
+		<property name="endPrice" value="220.12" />
+		<property name="startDate" value="2018/10/05" />
+		<property name="endDate" value="2012/10/05" />
+		<property name="category" value="category" />
+		<property name="warranty" value="warranty" />
+		<property name="fixUpTasks">
 			<list>
-				<null></null> <!-- TODO -->
+				<null></null>
 			</list>
 		</property>
-	</bean> 
+	</bean>
 	
+  	<!-- Handy Worker -->
+	
+	<bean id="handyworker1" class="domain.HandyWorker">
+		<property name="name" value="Sara"/>
+		<property name="middleName" value=""/>
+		<property name="surname" value="Picasso" />
+		<property name="photoLink" value="http://www.instagram.es"/>
+		<property name="email" value="sarapicasso@gmail.com"/>
+		<property name="phoneNumber" value="654123078" />
+		<property name="address" value="Calle Diagonal 2"/>
+		<property name="isSuspicious" value="false"/>
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile3"/>
+			</list>
+		</property>
+		<property name="boxes">
+			<list>
+				<ref bean="box9"/>
+				<ref bean="box10"/>
+				<ref bean="box11"/>
+				<ref bean="box12"/>
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount4"/>
+		<property name="make" value="Make 1"/>
+		<property name="score" value="0.5"/>
+		<property name="finder" ref="finder1"/>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1"/>
+			</list>
+		</property>
+		<property name="curriculum" ref="curriculum1"/>
+		<property name="applications">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="endorsementsSents">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="endorsementsReceiveds">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+  
+ 	
  	
 	<!-- Miscellaneous Records -->
  	
@@ -672,7 +794,38 @@
 		<property name="comments" value="comment3" />
 	</bean>
 	
-	 
+	<!-- Referee -->
+ 	
+	<bean id="referee1" class="domain.Referee">
+		<property name="name" value="Ignacio"/>
+		<property name="middleName" value="Nacho"/>
+		<property name="surname" value="Zuluaga" />
+		<property name="photoLink" value="http://www.instagram.es"/>
+		<property name="email" value="nachofdez@gmail.com"/>
+		<property name="phoneNumber" value="632014785" />
+		<property name="address" value="Calle Capital 2"/>
+		<property name="isSuspicious" value="false"/>
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile4"/>
+			</list>
+		</property>
+		<property name="boxes">
+			<list>
+				<ref bean="box13"/>
+				<ref bean="box14"/>
+				<ref bean="box15"/>
+				<ref bean="box16"/>
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount3"/>
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+ 	 
 	<!-- Sections -->
 	
 	<bean id="section1" class="domain.Section">
@@ -744,15 +897,15 @@
 		<property name="isSuspicious" value="false"/>
 		<property name="socialProfiles">
 			<list>
-				<ref bean="socialProfile1"/>
+				<ref bean="socialProfile5"/>
 			</list>
 		</property>
 		<property name="boxes">
 			<list>
-				<ref bean="box13"/>
-				<ref bean="box14"/>
-				<ref bean="box15"/>
-				<ref bean="box16"/>
+				<ref bean="box17"/>
+				<ref bean="box18"/>
+				<ref bean="box19"/>
+				<ref bean="box20"/>
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount5"/>
