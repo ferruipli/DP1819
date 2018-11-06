@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -101,6 +102,7 @@ public class Customisation extends DomainEntity {
 
 	@NotEmpty
 	@NotNull
+	@ElementCollection
 	public Collection<String> getCreditCardMakes() {
 		return this.creditCardMakes;
 	}
@@ -128,6 +130,7 @@ public class Customisation extends DomainEntity {
 	}
 
 	@NotNull
+	@ElementCollection
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
@@ -137,6 +140,7 @@ public class Customisation extends DomainEntity {
 	}
 
 	@NotNull
+	@ElementCollection
 	public Collection<String> getPositiveWords() {
 		return this.positiveWords;
 	}
@@ -146,6 +150,7 @@ public class Customisation extends DomainEntity {
 	}
 
 	@NotNull
+	@ElementCollection
 	public Collection<String> getNegativeWords() {
 		return this.negativeWords;
 	}
