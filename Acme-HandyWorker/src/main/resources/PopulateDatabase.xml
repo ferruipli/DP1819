@@ -125,7 +125,7 @@
 			</list>
 		</property>
 	</bean>
-	
+-->	
 <!-- <bean id="box1" class="domain.Box">
 		<property name="name" value="inBox1"/>
 		<property name="isSystemBox" value="true"/>
@@ -338,83 +338,10 @@
 		<property name="comments" value="comment3" />
 	</bean>
  -->	
+  
 	<!-- Messages -->	
 	
-<!-- <bean id="message1" class="domain.Message">
-		<property name="sendMoment" value="12/01/2018 14:30"/>
-		<property name="subject" value="Aviso1"/>
-		<property name="body" value="Prueba de mensaje1" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="tag1" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
-			<list>
-				<null></null> <!-- TODO -->
-<!--		</list>
-		</property>
-	</bean> -->
-<!-- 	
-	<bean id="message2" class="domain.Message">
-		<property name="sendMoment" value="17/03/2018 12:50"/>
-		<property name="subject" value="Aviso2"/>
-		<property name="body" value="Prueba de mensaje2" />
-		<property name="priority" value="NEUTRAL" />
-		<property name="tags" value="tag2" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
-			<list>
-				<null></null> <!-- TODO -->
-<!-- 		</list>
-		</property>
-	</bean> -->
-<!-- 	
-	<bean id="message3" class="domain.Message">
-		<property name="sendMoment" value="08/02/2018 21:56"/>
-		<property name="subject" value="Aviso3"/>
-		<property name="body" value="Prueba de mensaje3" />
-		<property name="priority" value="LOW" />
-		<property name="tags" value="tag3" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
-			<list>
-				<null></null> 
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="message4" class="domain.Message">
-		<property name="sendMoment" value="04/05/2018 18:17"/>
-		<property name="subject" value="Aviso4"/>
-		<property name="body" value="Prueba de mensaje4" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="tag4" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
-			<list>
-				<null></null> 
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="message5" class="domain.Message">
-		<property name="sendMoment" value="01/01/2018 16:15"/>
-		<property name="subject" value="Aviso5"/>
-		<property name="body" value="Prueba de mensaje5" />
-		<property name="priority" value="NEUTRAL" />
-		<property name="tags" value="tag5" />
-		<property name="isSpam" value="false" />
-		<property name="sender" ref="" />
-		<property name="receives">
-			<list>
-				<null></null> 
-			</list>
-		</property>
-	</bean>
- -->	
+ 
 	<!-- Miscellaneous Records -->
 <!-- 	
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
