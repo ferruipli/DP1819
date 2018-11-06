@@ -207,9 +207,9 @@
 	</bean>
   -->
  	<!-- Curriculums -->
- <!-- 	
+  	
  	<bean id="curriculum1" class="domain.Curriculum">
-		<property name="ticker" value="170212-asdfgh"/>
+		<property name="ticker" value="170212-ASDFGH"/>
 		<property name="educationRecords">
 			<list>
 				<ref bean="educationRecord1"/>
@@ -234,7 +234,7 @@
 	</bean>
 	
 	<bean id="curriculum2" class="domain.Curriculum">
-		<property name="ticker" value="161118-qwerty"/>
+		<property name="ticker" value="161118-QWERTY"/>
 		<property name="educationRecords">
 			<list>
 				<ref bean="educationRecord2"/>
@@ -259,7 +259,7 @@
 	</bean>
 	
 	<bean id="curriculum3" class="domain.Curriculum">
-		<property name="ticker" value="150514-zxcvbn"/>
+		<property name="ticker" value="150514-ZXCVBN"/>
 		<property name="educationRecords">
 			<list>
 				<ref bean="educationRecord3"/>
@@ -282,9 +282,9 @@
 		</property>
 		<property name="personalRecord" ref="personalRecord3" />
 	</bean>
- -->
+ 
 	<!-- Education Records -->	
-<!-- 
+
 	<bean id="educationRecord1" class="domain.EducationRecord">
 		<property name="titleDiploma" value="EducationRecord1"/>
 		<property name="startDate" value="20/09/2017"/>
@@ -311,9 +311,9 @@
 		<property name="attachment" value="http://www.google.com" />
 		<property name="comments" value="comment3" />
 	</bean>
- -->	
+ 	
 	<!-- Endorser Records -->
-<!-- 	
+ 	
 	<bean id="endorserRecord1" class="domain.EndorserRecord">
 		<property name="fullName" value="endorserRecord1"/>
 		<property name="email" value="endorserrecord1@gmail.com"/>
@@ -337,33 +337,33 @@
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
 		<property name="comments" value="comment3" />
 	</bean>
- -->	
+ 	
   
 	<!-- Messages -->	
 	
  
 	<!-- Miscellaneous Records -->
-<!-- 	
+ 	
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
 		<property name="title" value="title1"/>
-		<property name="attachment" value="attachment1"/>
+		<property name="attachment" value="http://www.attachment.com"/>
 		<property name="comments" value="comment1" />
 	</bean>
 	
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="title" value="title2"/>
-		<property name="attachment" value="attachment2"/>
+		<property name="attachment" value="http://www.attachment.com"/>
 		<property name="comments" value="comment2" />
 	</bean>
 	
 	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
 		<property name="title" value="title3"/>
-		<property name="attachment" value="attachment3"/>
+		<property name="attachment" value="http://www.attachment.com"/>
 		<property name="comments" value="comment3" />
 	</bean>
- -->	
+ 	
 	<!-- PersonalRecords -->
-<!-- 	
+ 	
 	<bean id="personalRecord1" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord1"/>
 		<property name="photoLink" value="http://www.google.es"/>
@@ -387,15 +387,15 @@
 		<property name="phoneNumber" value="652013984" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
 	</bean>
-	 -->
+	 
 	<!-- Professsional Record -->
-<!-- 	
+ 	
 	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
 		<property name="nameCompany" value="professionalRecord1"/>
 		<property name="startDate" value="25/04/2016"/>
 		<property name="endDate" value="25/04/2025" />
 		<property name="role" value="role1" />
-		<property name="attachment" value="attachment1" />
+		<property name="attachment" value="http://www.attachment.com" />
 		<property name="comments" value="comment1" />
 	</bean>
 	
@@ -404,7 +404,7 @@
 		<property name="startDate" value="30/12/2016"/>
 		<property name="endDate" value="30/12/2025" />
 		<property name="role" value="role2" />
-		<property name="attachment" value="attachment2" />
+		<property name="attachment" value="http://www.attachment.com" />
 		<property name="comments" value="comment2" />
 	</bean>
 	
@@ -413,11 +413,11 @@
 		<property name="startDate" value="31/05/2016"/>
 		<property name="endDate" value="31/05/2025" />
 		<property name="role" value="role3" />
-		<property name="attachment" value="attachment3" />
+		<property name="attachment" value="http://www.attachment.com" />
 		<property name="comments" value="comment3" />
 	</bean>
 	
-	 -->
+	 
 	
 	<!-- SocialProfiles -->	
 <!-- 	
