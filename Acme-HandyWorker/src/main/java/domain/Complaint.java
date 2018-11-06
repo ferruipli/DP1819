@@ -82,7 +82,7 @@ public class Complaint extends DomainEntity {
 	// Relationships ----------------------------------------------------------
 
 	private Report		report;
-	private FixUpTask	fisxUpTask;
+	private FixUpTask	fixUpTask;
 
 
 	@Valid
@@ -98,11 +98,11 @@ public class Complaint extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	public FixUpTask getFisxUpTask() {
-		return this.fisxUpTask;
+	public FixUpTask getFixUpTask() {
+		return this.fixUpTask;
 	}
 
-	public void setFisxUpTask(final FixUpTask fisxUpTask) {
-		this.fisxUpTask = fisxUpTask;
+	public void setFixUpTask(final FixUpTask fixUpTask) {
+		this.fixUpTask = fixUpTask;
 	}
 }

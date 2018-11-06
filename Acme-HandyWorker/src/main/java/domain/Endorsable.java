@@ -1,6 +1,8 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -21,30 +23,30 @@ public abstract class Endorsable extends Actor {
 
 	// Relationships ----------------------------------------------------------
 
-	private Endorsement	endorsementsSent;
-	private Endorsement	endorsementsReceived;
+	private Collection<Endorsement>	endorsementsSents;
+	private Collection<Endorsement>	endorsementsReceiveds;
 
 
 	@NotNull
 	@Valid
 	@OneToMany
-	public Endorsement getEndorsementsReceived() {
-		return this.endorsementsReceived;
+	public Collection<Endorsement> getEndorsementsSents() {
+		return this.endorsementsSents;
 	}
 
-	public void setEndorsementsReceived(final Endorsement endorsementsReceived) {
-		this.endorsementsReceived = endorsementsReceived;
+	public void setEndorsementsSents(final Collection<Endorsement> endorsementsSents) {
+		this.endorsementsSents = endorsementsSents;
 	}
 
 	@NotNull
 	@Valid
 	@OneToMany
-	public Endorsement getEndorsementsSent() {
-		return this.endorsementsSent;
+	public Collection<Endorsement> getEndorsementsReceiveds() {
+		return this.endorsementsReceiveds;
 	}
 
-	public void setEndorsementsSent(final Endorsement endorsementsSent) {
-		this.endorsementsSent = endorsementsSent;
+	public void setEndorsementsReceiveds(final Collection<Endorsement> endorsementsReceiveds) {
+		this.endorsementsReceiveds = endorsementsReceiveds;
 	}
 
 }
