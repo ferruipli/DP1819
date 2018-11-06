@@ -717,6 +717,82 @@
 		</property>
 	</bean>
   
+ 	<!-- Messages -->
+ 	
+	<bean id="message1" class="domain.Message">
+		<property name="sendMoment" value="2018/01/12 14:30"/>
+		<property name="subject" value="Aviso 1"/>
+		<property name="body" value="Prueba de mensaje 1" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="1" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipients">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean> 
+ 	
+	<bean id="message2" class="domain.Message">
+		<property name="sendMoment" value="2018/04/15 14:35"/>
+		<property name="subject" value="Aviso 2"/>
+		<property name="body" value="Prueba de mensaje 2" />
+		<property name="priority" value="NEUTRAL" />
+		<property name="tags" value="2" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="customer1" />
+		<property name="recipients">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="message3" class="domain.Message">
+		<property name="sendMoment" value="2018/02/25 16:15"/>
+		<property name="subject" value="Aviso 3"/>
+		<property name="body" value="Prueba de mensaje 3" />
+		<property name="priority" value="LOW" />
+		<property name="tags" value="3" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="handyworker1" />
+		<property name="recipients">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean> 
+ 	
+	<bean id="message4" class="domain.Message">
+		<property name="sendMoment" value="2018/10/06 21:00"/>
+		<property name="subject" value="Aviso 4"/>
+		<property name="body" value="Prueba de mensaje 4" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="4" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="referee1" />
+		<property name="recipients">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean> 
+ 	
+	<bean id="message5" class="domain.Message">
+		<property name="sendMoment" value="2018/10/06 21:00"/>
+		<property name="subject" value="Aviso 4"/>
+		<property name="body" value="Prueba de mensaje 4" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="5" />
+		<property name="isSpam" value="false" />
+		<property name="sender" ref="sponsor1" />
+		<property name="recipients">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean> 
  	
  	
 	<!-- Miscellaneous Records -->
