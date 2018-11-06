@@ -74,12 +74,12 @@ public class HandyWorker extends Endorsable {
 	@NotNull
 	@Valid
 	@OneToMany
-	public Collection<Tutorial> getTutorial() {
+	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
 	}
 
-	public void setTutorial(final Collection<Tutorial> tutorial) {
-		this.tutorials = tutorial;
+	public void setTutorials(final Collection<Tutorial> tutorials) {
+		this.tutorials = tutorials;
 	}
 
 	@Valid
