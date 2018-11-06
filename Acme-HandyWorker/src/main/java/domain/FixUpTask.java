@@ -20,9 +20,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Indexed
 @Access(AccessType.PROPERTY)
 public class FixUpTask extends DomainEntity {
 
@@ -47,6 +50,7 @@ public class FixUpTask extends DomainEntity {
 	@Pattern(regexp = "\\d{6}-[A-Z0-9]{6}")
 	@NotBlank
 	@Column(unique = true)
+	@Field
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -67,6 +71,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotBlank
+	@Field
 	public String getDescription() {
 		return this.description;
 	}
@@ -76,6 +81,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotBlank
+	@Field
 	public String getAddress() {
 		return this.address;
 	}
