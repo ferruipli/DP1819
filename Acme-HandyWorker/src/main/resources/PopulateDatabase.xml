@@ -347,7 +347,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tag1" />
 		<property name="isSpam" value="false" />
-		<property name="sender" ref="actor1" />
+		<property name="sender" ref="" />
 		<property name="receives">
 			<list>
 				<null></null> <!-- TODO -->
@@ -362,7 +362,7 @@
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="tag2" />
 		<property name="isSpam" value="false" />
-		<property name="sender" ref="actor2" />
+		<property name="sender" ref="" />
 		<property name="receives">
 			<list>
 				<null></null> <!-- TODO -->
@@ -377,7 +377,7 @@
 		<property name="priority" value="LOW" />
 		<property name="tags" value="tag3" />
 		<property name="isSpam" value="false" />
-		<property name="sender" ref="actor3" />
+		<property name="sender" ref="" />
 		<property name="receives">
 			<list>
 				<null></null> 
@@ -392,7 +392,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="tag4" />
 		<property name="isSpam" value="false" />
-		<property name="sender" ref="actor4" />
+		<property name="sender" ref="" />
 		<property name="receives">
 			<list>
 				<null></null> 
@@ -407,7 +407,7 @@
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="tag5" />
 		<property name="isSpam" value="false" />
-		<property name="sender" ref="actor5" />
+		<property name="sender" ref="" />
 		<property name="receives">
 			<list>
 				<null></null> 
