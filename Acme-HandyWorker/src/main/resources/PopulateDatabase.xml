@@ -234,9 +234,133 @@
 		<property name="userAccount" ref="userAccount1"/>
 	</bean>
 	
+	
+	<!-- Application -->
+	<bean id="application1" class="domain.Application">
+		<property name="registerMoment" value="2018/07/23 11:43" />
+		<property name="status" value="PENDING" />
+		<property name="offeredPrice" value="200.00" />
+		<property name="handyWorkerComments" value="Comment 1" />
+		<property name="handyWorker" ref="handyworker1" />
+		<property name="fixUpTask" ref="fixUpTask1" />
+	</bean>
+	
+	<bean id="application2" class="domain.Application">
+		<property name="registerMoment" value="2018/10/21 11:00" />
+		<property name="status" value="REJECTED" />
+		<property name="offeredPrice" value="140.00" />
+		<property name="handyWorkerComments" value="Comment 2 - x" />
+		<property name="customerComments" value="Comment 2 - y" />
+		<property name="handyWorker" ref="handyworker1" />
+		<property name="fixUpTask" ref="fixUpTask2" />
+	</bean>
+	
+	<bean id="application3" class="domain.Application">
+		<property name="registerMoment" value="2018/10/21 11:15" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="135.00" />
+		<property name="handyWorkerComments" value="Comment 3 - x" />
+		<property name="customerComments" value="Comment 3 - y" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="handyWorker" ref="handyworker2" />
+		<property name="fixUpTask" ref="fixUpTask2" />
+	</bean>
+	
+	<bean id="application4" class="domain.Application">
+		<property name="registerMoment" value="2018/11/06 11:15" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="600.00" />
+		<property name="handyWorkerComments" value="Comment 4 - x" />
+		<property name="customerComments" value="Comment 4 - y" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="handyWorker" ref="handyworker2" />
+		<property name="fixUpTask" ref="fixUpTask3" />
+	</bean>
+	
+	<bean id="application5" class="domain.Application">
+		<property name="registerMoment" value="2018/11/07 21:32" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="299.99" />
+		<property name="handyWorkerComments" value="Comment 5 - x" />
+		<property name="customerComments" value="Comment 5 - y" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="handyWorker" ref="handyworker2" />
+		<property name="fixUpTask" ref="fixUpTask4" />
+	</bean>
+	
+	<bean id="application6" class="domain.Application">
+		<property name="registerMoment" value="2018/09/24 22:05" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="50.00" />
+		<property name="handyWorkerComments" value="Comment 6 - x" />
+		<property name="customerComments" value="Comment 6 - y" />
+		<property name="creditCard" ref="creditCard5" />
+		<property name="handyWorker" ref="handyworker3" />
+		<property name="fixUpTask" ref="fixUpTask5" />
+	</bean>
+	
+	<bean id="application7" class="domain.Application">
+		<property name="registerMoment" value="2017/07/08 19:15" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="1100.00" />
+		<property name="handyWorkerComments" value="Comment 7 - x" />
+		<property name="customerComments" value="Comment 7 - y" />
+		<property name="creditCard" ref="creditCard5" />
+		<property name="handyWorker" ref="handyworker3" />
+		<property name="fixUpTask" ref="fixUpTask6" />
+	</bean>
+	
+	<bean id="application8" class="domain.Application">
+		<property name="registerMoment" value="2018/07/08 11:01" />
+		<property name="status" value="PENDING" />
+		<property name="offeredPrice" value="975.99" />
+		<property name="handyWorkerComments" value="Comment 8" />
+		<property name="handyWorker" ref="handyworker4" />
+		<property name="fixUpTask" ref="fixUpTask6" />
+	</bean>
+	
+	<bean id="application9" class="domain.Application">
+		<property name="registerMoment" value="2018/06/19 14:06" />
+		<property name="status" value="REJECTED" />
+		<property name="offeredPrice" value="79.80" />
+		<property name="handyWorkerComments" value="Comment 9 - x" />
+		<property name="customerComments" value="Comment 9 - y" />
+		<property name="handyWorker" ref="handyworker4" />
+		<property name="fixUpTask" ref="fixUpTask8" />
+	</bean>
+	
+	<bean id="application10" class="domain.Application">
+		<property name="registerMoment" value="2018/06/19 16:55" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="79.80" />
+		<property name="handyWorkerComments" value="Comment 10 - x" />
+		<property name="customerComments" value="Comment 10 - y" />
+		<property name="creditCard" ref="creditCard6" />
+		<property name="handyWorker" ref="handyworker5" />
+		<property name="fixUpTask" ref="fixUpTask8" />
+	</bean>
+	
+	<bean id="application11" class="domain.Application">
+		<property name="registerMoment" value="2018/02/21 13:34" />
+		<property name="status" value="PENDING" />
+		<property name="offeredPrice" value="200.00" />
+		<property name="handyWorkerComments" value="Comment 11" />
+		<property name="handyWorker" ref="handyworker5" />
+		<property name="fixUpTask" ref="fixUpTask7" />
+	</bean>
+	
+	<bean id="application12" class="domain.Application">
+		<property name="registerMoment" value="2018/02/21 14:06" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="205.00" />
+		<property name="handyWorkerComments" value="Comment 12 - x" />
+		<property name="customerComments" value="Comment 12 - y" />
+		<property name="creditCard" ref="creditCard7" />
+		<property name="handyWorker" ref="handyworker6" />
+		<property name="fixUpTask" ref="fixUpTask7" />
+	</bean>
 	 
 	<!-- Boxes -->	
- 	
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="inBox1"/>
 		<property name="isSystemBox" value="true"/>
@@ -1533,7 +1657,9 @@
 		<property name="score" value="0.25"/>
 		<property name="fixUpTask">
 			<list>
-				<null></null>
+				<ref bean="fixUpTask1" />
+				<ref bean="fixUpTask2" />
+				<ref bean="fixUpTask3" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -1574,7 +1700,8 @@
 		<!-- <property name="score" value="" /> -->
 		<property name="fixUpTask">
 			<list>
-				<null></null>
+				<ref bean="fixUpTask4" />
+				<ref bean="fixUpTask5" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -1657,7 +1784,7 @@
 		<!-- <property name="score" value="" /> -->
 		<property name="fixUpTask">
 			<list>
-				<null></null>
+				<ref bean="fixUpTask6" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -1698,7 +1825,7 @@
 		<!-- <property name="score" value="" /> -->
 		<property name="fixUpTask">
 			<list>
-				<null></null>
+				<ref bean="fixUpTask8" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -1739,7 +1866,7 @@
 		<!-- <property name="score" value="" /> -->
 		<property name="fixUpTask">
 			<list>
-				<null></null>
+				<ref bean="fixUpTask7" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -1889,31 +2016,68 @@
  	<!-- CreditCards -->
   	
  	<bean id="creditCard1" class="domain.CreditCard">
-		<property name="holderName" value="holder1"/>
-		<property name="brandName" value="brand1"/>
+		<property name="holderName" value="holder1" />
+		<property name="brandName" value="brand1" />
 		<property name="number" value="38353348140483" />
-		<property name="expirationMonth" value="08"/>
-		<property name="expirationYear" value="21"/>
+		<property name="expirationMonth" value="08" />
+		<property name="expirationYear" value="21" />
 		<property name="cvvCode" value="724" />
 	</bean>
 	
 	<bean id="creditCard2" class="domain.CreditCard">
-		<property name="holderName" value="holder2"/>
-		<property name="brandName" value="brand2"/>
+		<property name="holderName" value="holder2" />
+		<property name="brandName" value="brand2" />
 		<property name="number" value="6702386065238009" />
-		<property name="expirationMonth" value="09"/>
-		<property name="expirationYear" value="22"/>
+		<property name="expirationMonth" value="09" />
+		<property name="expirationYear" value="22" />
 		<property name="cvvCode" value="728" />
 	</bean>
 	
 	<bean id="creditCard3" class="domain.CreditCard">
-		<property name="holderName" value="holder3"/>
-		<property name="brandName" value="brand3"/>
+		<property name="holderName" value="holder3" />
+		<property name="brandName" value="brand3" />
 		<property name="number" value="3073930266269350" />
-		<property name="expirationMonth" value="11"/>
-		<property name="expirationYear" value="25"/>
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="25" />
 		<property name="cvvCode" value="123" />
 	</bean>
+  
+  	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holderName" value="holder4" />
+		<property name="brandName" value="brand4" />
+		<property name="number" value="4850876586447233" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="16" />
+		<property name="cvvCode" value="487" />
+	</bean>
+	
+	<bean id="creditCard5" class="domain.CreditCard">
+		<property name="holderName" value="holder5" />
+		<property name="brandName" value="brand5" />
+		<property name="number" value="5019525199595640" />
+		<property name="expirationMonth" value="02" />
+		<property name="expirationYear" value="25" />
+		<property name="cvvCode" value="485" />
+	</bean>
+	
+	<bean id="creditCard6" class="domain.CreditCard">
+		<property name="holderName" value="holder6" />
+		<property name="brandName" value="brand6" />
+		<property name="number" value="4874714546972242" />
+		<property name="expirationMonth" value="03" />
+		<property name="expirationYear" value="16" />
+		<property name="cvvCode" value="691" />
+	</bean>
+	
+	<bean id="creditCard7" class="domain.CreditCard">
+		<property name="holderName" value="holder7" />
+		<property name="brandName" value="brand7" />
+		<property name="number" value="4161900841987694" />
+		<property name="expirationMonth" value="05" />
+		<property name="expirationYear" value="18" />
+		<property name="cvvCode" value="868" />
+	</bean>
+	
   
  	<!-- Curriculums -->
   	
@@ -2065,7 +2229,7 @@
 	</bean>
 	
 	<bean id="finder2" class="domain.Finder">
-		<property name="category" value="Paneles solares" />
+		<property name="category" value="Limpieza" />
 		<property name="fixUpTasks">
 			<list>
 				<null></null>
@@ -2074,7 +2238,7 @@
 	</bean>
 	
 	<bean id="finder3" class="domain.Finder">
-		<property name="warranty" value="warranty y" />
+		<property name="warranty" value="title y" />
 		<property name="fixUpTasks">
 			<list>
 				<null></null>
@@ -2114,6 +2278,240 @@
 		</property>
 	</bean>
 	
+	
+	<!-- FixUpTask -->
+	<bean id="fixUpTask1" class="domain.FixUpTask">
+		<property name="ticker" value="180721-TEX123" />
+		<property name="publicationMoment" value="2018/07/21 16:31" />
+		<property name="description" value="Description 1" />
+		<property name="address" value="Address 1" />
+		<property name="maxPrice" value="200.00" />
+		<property name="startDate" value="2019/01/14 08:00" />
+		<property name="endDate" value="2019/01/14 15:30" />
+		<property name="category" ref="category20" />
+		<property name="warranty" ref="warranty1" />
+		<property name="phases">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask2" class="domain.FixUpTask">
+		<property name="ticker" value="181022-ABC001" />
+		<property name="publicationMoment" value="2018/10/20 13:30" />
+		<property name="description" value="Description 2" />
+		<property name="address" value="Address 2" />
+		<property name="maxPrice" value="149.00" />
+		<property name="startDate" value="2018/10/22 09:00" />
+		<property name="endDate" value="2018/10/22 14:00" />
+		<property name="category" ref="category16" />
+		<property name="warranty" ref="warranty2" />
+		<property name="phases">
+			<list>
+				<ref bean="phase3" />
+			</list>
+		</property>
+		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application2" />
+				<ref bean="application3" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask3" class="domain.FixUpTask">
+		<property name="ticker" value="181022-D3F5H7" />
+		<property name="publicationMoment" value="2018/11/01 14:14" />
+		<property name="description" value="Description 3" />
+		<property name="address" value="Address 3" />
+		<property name="maxPrice" value="600.00" />
+		<property name="startDate" value="2018/12/15 10:00" />
+		<property name="endDate" value="2018/12/18 18:30" />
+		<property name="category" ref="category23" />
+		<property name="warranty" ref="warranty3" />
+		<property name="phases">
+			<list>
+				<ref bean="phase4" />
+				<ref bean="phase5" />
+			</list>
+		</property>
+		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application4" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask4" class="domain.FixUpTask">
+		<property name="ticker" value="181105-F9F9F7" />
+		<property name="publicationMoment" value="2018/11/05 15:15" />
+		<property name="description" value="Description 4" />
+		<property name="address" value="Address 4" />
+		<property name="maxPrice" value="299.99" />
+		<property name="startDate" value="2018/11/07 10:00" />
+		<property name="endDate" value="2018/11/10 18:30" />
+		<property name="category" ref="category24" />
+		<property name="warranty" ref="warranty4" />
+		<property name="phases">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="customer" ref="customer2" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application5" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask5" class="domain.FixUpTask">
+		<property name="ticker" value="180923-454GTG" />
+		<property name="publicationMoment" value="2018/09/23 15:15" />
+		<property name="description" value="Description 5" />
+		<property name="address" value="Address 5" />
+		<property name="maxPrice" value="50.00" />
+		<property name="startDate" value="2018/09/25 16:00" />
+		<property name="endDate" value="2018/09/25 17:00" />
+		<property name="category" ref="category9" />
+		<property name="warranty" ref="warranty5" />
+		<property name="phases">
+			<list>
+				<ref bean="phase6" />
+			</list>
+		</property>
+		<property name="customer" ref="customer2" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application6" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask6" class="domain.FixUpTask">
+		<property name="ticker" value="170707-091FF5" />
+		<property name="publicationMoment" value="2017/07/07 17:07" />
+		<property name="description" value="Description 6" />
+		<property name="address" value="Address 6" />
+		<property name="maxPrice" value="1000.00" />
+		<property name="startDate" value="2017/07/28 10:00" />
+		<property name="endDate" value="2017/08/21 13:00" />
+		<property name="category" ref="category9" />
+		<property name="warranty" ref="warranty6" />
+		<property name="phases">
+			<list>
+				<ref bean="phase7" />
+				<ref bean="phase8" />
+				<ref bean="phase9" />
+			</list>
+		</property>
+		<property name="customer" ref="customer4" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application7" />
+				<ref bean="application8" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask7" class="domain.FixUpTask">
+		<property name="ticker" value="170227-ABCDHH" />
+		<property name="publicationMoment" value="2018/02/20 16:06" />
+		<property name="description" value="Description 7" />
+		<property name="address" value="Address 7" />
+		<property name="maxPrice" value="211.00" />
+		<property name="startDate" value="2017/02/27 09:00" />
+		<property name="endDate" value="2017/02/27 14:30" />
+		<property name="category" ref="category16" />
+		<property name="warranty" ref="warranty7" />
+		<property name="phases">
+			<list>
+				<ref bean="phase10" />
+			</list>
+		</property>
+		<property name="customer" ref="customer6" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application11" />
+				<ref bean="application12" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTask8" class="domain.FixUpTask">
+		<property name="ticker" value="180618-YHGJ55" />
+		<property name="publicationMoment" value="2018/06/18 17:17" />
+		<property name="description" value="Description 8" />
+		<property name="address" value="Address 8" />
+		<property name="maxPrice" value="79.80" />
+		<property name="startDate" value="2018/06/20 09:00" />
+		<property name="endDate" value="2018/06/20 14:30" />
+		<property name="category" ref="category16" />
+		<property name="warranty" ref="warranty8" />
+		<property name="phases">
+			<list>
+				<ref bean="phase11" />
+			</list>
+		</property>
+		<property name="customer" ref="customer5" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+			<ref bean="application9" />
+			<ref bean="application10" />
+			</list>
+		</property>
+	</bean>
+	
+	
   	<!-- Handy Worker -->
 	
 	<bean id="handyworker1" class="domain.HandyWorker">
@@ -2150,7 +2548,8 @@
 		<property name="curriculum" ref="curriculum1"/>
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application1" />
+				<ref bean="application2" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2199,7 +2598,9 @@
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application3" />
+				<ref bean="application4" />
+				<ref bean="application5" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2248,7 +2649,8 @@
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application6" />
+				<ref bean="application7" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2297,7 +2699,8 @@
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application8" />
+				<ref bean="application9" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2343,10 +2746,10 @@
 				<null> </null>
 			</list>
 		</property>
-		<!--  <property name="curriculum" ref="curriculum1"/> -->
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application10" />
+				<ref bean="application11" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2395,7 +2798,7 @@
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
 		<property name="applications">
 			<list>
-				<null></null>
+				<ref bean="application12" />
 			</list>
 		</property>
 		<property name="endorsementsSents">
@@ -2608,7 +3011,98 @@
 		<property name="phoneNumber" value="652013984" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
 	</bean>
-	 
+	
+	
+	<!-- Phase -->
+	<bean id="phase1" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="Sacar muebles y cosas" />
+		<property name="description" value="Sacar muebles y cosas y meterlas en el camion" />
+		<property name="startMoment" value="2019/01/14 08:01" />
+		<property name="endMoment" value="2019/01/14 10:00" />
+	</bean>
+	
+	<bean id="phase2" class="domain.Phase">
+		<property name="number" value="2" />
+		<property name="title" value="Llevar las cosas hacia el lugar de destino" />
+		<property name="description" value="Comprobar que no haya habido ningun desperfectos" />
+		<property name="startMoment" value="2019/01/14 10:01" />
+		<property name="endMoment" value="2019/01/14 15:29" />
+	</bean>
+	
+	<bean id="phase3" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="title 3" />
+		<property name="description" value="Descripcion 3" />
+		<property name="startMoment" value="2018/10/22 09:01" />
+		<property name="endMoment" value="2018/10/22 13:59" />
+	</bean>
+	
+	<bean id="phase4" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="Comprar la pintura del color solicitado por el cliente" />
+		<property name="description" value="Ir a una tienda especializada de pintura y comprar la pintura en el menor tiempo posible" />
+		<property name="startMoment" value="2018/12/15 10:00" />
+		<property name="endMoment" value="2018/12/15 11:00" />
+	</bean>
+	
+	<bean id="phase5" class="domain.Phase">
+		<property name="number" value="2" />
+		<property name="title" value="Pintar" />
+		<property name="description" value="Aplicar varias capas de pintura." />
+		<property name="startMoment" value="2018/12/15 11:30" />
+		<property name="endMoment" value="2018/12/18 18:00" />
+	</bean>
+	
+	<bean id="phase6" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="Reparar ventana" />
+		<property name="description" value="Sustituir ventana y cambiarla por otra" />
+		<property name="startMoment" value="2018/09/25 16:01" />
+		<property name="endMoment" value="2018/09/25 17:00" />
+	</bean>
+	
+	<bean id="phase7" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="Planificar trabajo para la cocina" />
+		<property name="description" value="Planificar tiempo y recursos necesarios para realizar el trabajo" />
+		<property name="startMoment" value="2017/07/30 10:00" />
+		<property name="endMoment" value="2017/07/30 18:00" />
+	</bean>
+	
+	<bean id="phase8" class="domain.Phase">
+		<property name="number" value="2" />
+		<property name="title" value="Diseñar cocina" />
+		<property name="description" value="Diseñar cocina teniendo en cuenta las indicaciones de los clientes" />
+		<property name="startMoment" value="2017/07/31 10:00" />
+		<property name="endMoment" value="2017/08/02 20:00" />
+	</bean>
+	
+	<bean id="phase9" class="domain.Phase">
+		<property name="number" value="3" />
+		<property name="title" value="Construir cocina" />
+		<property name="description" value="Construir cocina y mantener informado a los clientes de los avances" />
+		<property name="startMoment" value="2017/08/04 10:00" />
+		<property name="endMoment" value="2017/08/21 12:30" />
+	</bean>
+	
+	<bean id="phase10" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="title 10" />
+		<property name="description" value="descripcion 10" />
+		<property name="startMoment" value="2017/02/27 09:01" />
+		<property name="endMoment" value="2017/02/27 14:00" />
+	</bean>
+	
+	<bean id="phase11" class="domain.Phase">
+		<property name="number" value="1" />
+		<property name="title" value="title 11" />
+		<property name="description" value="descripcion 11" />
+		<property name="startMoment" value="2018/06/20 09:00" />
+		<property name="endMoment" value="2018/06/20 14:15" />
+	</bean>
+	
+		 
 	<!-- Professsional Record -->
  	
 	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
@@ -2879,6 +3373,77 @@
 				<ref bean="section3"/>
 			</list>
 		</property>
+	</bean>
+	
+	<!-- Warranty -->
+	<bean id="warranty1" class="domain.Warranty">
+		<property name="title" value="Title y" />
+		<property name="terms" value="Terms 1" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 01, Law 001" />
+	</bean>
+	
+	<bean id="warranty2" class="domain.Warranty">
+		<property name="title" value="Title 2" />
+		<property name="terms" value="Terms 2" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 02" />
+	</bean>
+	
+	<bean id="warranty3" class="domain.Warranty">
+		<property name="title" value="Title 3" />
+		<property name="terms" value="Terms 3" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 03, Law 003, Law 0003" />
+	</bean>
+	
+	<bean id="warranty4" class="domain.Warranty">
+		<property name="title" value="Title 4" />
+		<property name="terms" value="Terms 4" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 04, Law 004" />
+	</bean>
+	
+	<bean id="warranty5" class="domain.Warranty">
+		<property name="title" value="Title y" />
+		<property name="terms" value="Terms 5" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 05, Law 055, Law 555" />
+	</bean>
+	
+	<bean id="warranty6" class="domain.Warranty">
+		<property name="title" value="Title 6" />
+		<property name="terms" value="Terms 6" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 06" />
+	</bean>
+	
+	<bean id="warranty7" class="domain.Warranty">
+		<property name="title" value="Title 7" />
+		<property name="terms" value="Terms 7" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 07" />
+	</bean>
+	
+	<bean id="warranty8" class="domain.Warranty">
+		<property name="title" value="Title 8" />
+		<property name="terms" value="Terms 8" />
+		<property name="finalMode" value="true" />
+		<property name="laws" value="Law 08, Law 008, Law 0008" />
+	</bean>
+	
+	<bean id="warranty9" class="domain.Warranty">
+		<property name="title" value="Title 9" />
+		<property name="terms" value="Terms 9" />
+		<property name="finalMode" value="false" />
+		<property name="laws" value="Law 09" />
+	</bean>
+	
+	<bean id="warranty10" class="domain.Warranty">
+		<property name="title" value="Title 10" />
+		<property name="terms" value="Terms 10" />
+		<property name="finalMode" value="false" />
+		<property name="laws" value="Law 010, Law 0010" />
 	</bean>
 	 
 </beans>
