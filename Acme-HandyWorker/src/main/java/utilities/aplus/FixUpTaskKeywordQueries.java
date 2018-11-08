@@ -1,5 +1,5 @@
 
-package utilities;
+package utilities.aplus;
 
 import utilities.internal.ConsoleReader;
 import utilities.internal.ThrowablePrinter;
@@ -11,6 +11,8 @@ public class FixUpTaskKeywordQueries {
 		String text;
 
 		try {
+			// Creating an initial Lucene index
+
 			//			System.out.println("Enter the keyword:");
 			//			reader = new ConsoleReader();
 			//			text = reader.readLine();
