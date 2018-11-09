@@ -38,7 +38,7 @@ public class Finder extends DomainEntity {
 	private String	warranty;
 
 
-	@Pattern(regexp = "\\S")
+	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -85,7 +85,7 @@ public class Finder extends DomainEntity {
 		this.endDate = endDate;
 	}
 
-	@Pattern(regexp = "[a-zA-Z]+")
+	@Pattern(regexp = "[a-zA-Z\\s]+")
 	public String getCategory() {
 		return this.category;
 	}
@@ -94,7 +94,7 @@ public class Finder extends DomainEntity {
 		this.category = category;
 	}
 
-	@Pattern(regexp = "[a-zA-Z]+")
+	@Pattern(regexp = "[a-zA-Z\\s]+")
 	public String getWarranty() {
 		return this.warranty;
 	}

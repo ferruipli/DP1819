@@ -84,7 +84,7 @@ public class ProfessionalRecord extends DomainEntity {
 		this.attachment = attachment;
 	}
 
-	@Pattern(regexp = "\\S")
+	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getComments() {
 		return this.comments;
 	}

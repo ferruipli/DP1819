@@ -50,7 +50,7 @@ public abstract class Actor extends DomainEntity {
 		this.name = name;
 	}
 
-	@Pattern(regexp = "[a-zA-Z]+")
+	@Pattern(regexp = "[a-zA-Z]*")
 	public String getMiddleName() {
 		return this.middleName;
 	}

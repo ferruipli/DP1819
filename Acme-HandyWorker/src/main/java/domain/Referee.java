@@ -28,11 +28,11 @@ public class Referee extends Actor {
 	@NotNull
 	@Valid
 	@OneToMany
-	public Collection<Complaint> getComplaint() {
+	public Collection<Complaint> getComplaints() {
 		return this.complaints;
 	}
 
-	public void setComplaint(final Collection<Complaint> complaint) {
-		this.complaints = complaint;
+	public void setComplaints(final Collection<Complaint> complaints) {
+		this.complaints = complaints;
 	}
 }
