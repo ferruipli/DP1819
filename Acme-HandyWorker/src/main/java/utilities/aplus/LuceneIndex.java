@@ -10,14 +10,24 @@ import org.hibernate.search.jpa.Search;
 
 public class LuceneIndex {
 
-	public static void initializeIndex() throws Throwable {
-		EntityManager entityManager;
-		EntityManagerFactory entityManagerFactory;
+	// Constructor ------------------------------------------------------------
 
-		entityManagerFactory = Persistence.createEntityManagerFactory("Acme-HandyWorker");
-		entityManager = entityManagerFactory.createEntityManager();
+	public LuceneIndex() {
+		this.entityManagerFactory = Persistence.createEntityManagerFactory("Acme-HandyWorker");
+		this.entityManager = this.entityManagerFactory.createEntityManager();
+	}
 
-		final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+	// Attributes -------------------------------------------------------------
+
+	private final EntityManager			entityManager;
+	private final EntityManagerFactory	entityManagerFactory;
+
+
+	// Utility methods --------------------------------------------------------
+
+	public void initializeIndex() throws Throwable {
+		final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(this.entityManager);
 		fullTextEntityManager.createIndexer().startAndWait();
 	}
 
