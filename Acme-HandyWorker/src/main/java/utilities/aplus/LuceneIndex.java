@@ -2,27 +2,22 @@
 package utilities.aplus;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 
 public class LuceneIndex {
 
-	@PersistenceContext
-	private EntityManager	entityManager;
+	public static void initializeIndex() throws Throwable {
+		EntityManager entityManager;
+		EntityManagerFactory entityManagerFactory;
 
+		entityManagerFactory = Persistence.createEntityManagerFactory("Acme-HandyWorker");
+		entityManager = entityManagerFactory.createEntityManager();
 
-	// Constructor ------------------------------------------------------------
-
-	public LuceneIndex() {
-		super();
-	}
-
-	// Utility methods --------------------------------------------------------
-
-	public void initializeIndex() throws Throwable {
-		final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(this.entityManager);
+		final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		fullTextEntityManager.createIndexer().startAndWait();
 	}
 
