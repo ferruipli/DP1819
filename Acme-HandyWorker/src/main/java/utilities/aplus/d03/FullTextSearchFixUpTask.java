@@ -38,8 +38,8 @@ public class FullTextSearchFixUpTask {
 
 			/*
 			 * If you have already executed this application before and you have
-			 * the Lucene indexes created in /var/lucene/indexes, you can comment
-			 * this line.
+			 * the Lucene indexes created in Acme-HandyWorker/var/lucene/indexes,
+			 * you can comment this line.
 			 */
 			LuceneUtil.initialiseIndex(databaseUtil);
 
