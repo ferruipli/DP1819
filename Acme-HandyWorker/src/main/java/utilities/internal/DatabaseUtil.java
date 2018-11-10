@@ -277,7 +277,7 @@ public class DatabaseUtil {
 			System.out.println(String.format("%s=`%s'", entry.getKey(), entry.getValue()));
 	}
 
-	// Added methods ----------------------------------------------------------
+	// Full-text search Hibernate method --------------------------------------
 
 	public FullTextEntityManager getFullTextEntityManager() {
 		return org.hibernate.search.jpa.Search.getFullTextEntityManager(this.entityManager);
