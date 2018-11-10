@@ -3,6 +3,8 @@ package utilities.aplus.d03;
 
 import java.util.List;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.hibernate.search.jpa.FullTextEntityManager;
 
 import utilities.internal.ConsoleReader;
@@ -22,7 +24,7 @@ public class FullTextSearchFixUpTask {
 		FullTextEntityManager fullTextEntityManager;
 
 		EclipseConsole.fix();
-		//LogManager.getLogger("org.hibernate").setLevel(Level.OFF);
+		LogManager.getLogger("org.hibernate").setLevel(Level.OFF);
 		title = "FullTextSearchFixUpTask 1.0";
 		databaseUtil = null;
 		quit = false;
