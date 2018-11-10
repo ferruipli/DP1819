@@ -38,6 +38,7 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.jdbc.Work;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -274,6 +275,12 @@ public class DatabaseUtil {
 	protected void printProperties(final Map<String, Object> properties) {
 		for (final Entry<String, Object> entry : properties.entrySet())
 			System.out.println(String.format("%s=`%s'", entry.getKey(), entry.getValue()));
+	}
+
+	// Added methods ----------------------------------------------------------
+
+	public FullTextEntityManager getFullTextEntityManager() {
+		return org.hibernate.search.jpa.Search.getFullTextEntityManager(this.entityManager);
 	}
 
 }
