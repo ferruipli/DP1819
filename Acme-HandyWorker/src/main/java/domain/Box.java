@@ -53,7 +53,6 @@ public class Box extends DomainEntity {
 	private Actor				actor;
 
 
-	@Valid
 	@NotNull
 	@ManyToMany
 	public Collection<Message> getMessages() {

@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -87,6 +88,7 @@ public class Curriculum extends DomainEntity {
 		this.miscellaneousRecords = miscellaneousRecords;
 	}
 	@NotNull
+	@Valid
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;

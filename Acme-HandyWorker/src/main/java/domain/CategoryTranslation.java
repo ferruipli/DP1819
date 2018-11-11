@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class CategoryTranslation extends DomainEntity {
 
 
 	@NotBlank
+	@Column(unique = true)
 	public String getName() {
 		return this.name;
 	}
@@ -31,6 +33,7 @@ public class CategoryTranslation extends DomainEntity {
 		this.name = name;
 	}
 	@NotBlank
+	@Column(unique = true)
 	public String getLanguage() {
 		return this.language;
 	}
