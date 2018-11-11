@@ -14,5 +14,8 @@ public abstract class Endorsable extends Actor {
 	public Endorsable() {
 		super();
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> Julia-Branch
 }

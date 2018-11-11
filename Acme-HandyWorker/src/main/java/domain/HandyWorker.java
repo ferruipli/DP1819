@@ -1,12 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
@@ -54,10 +51,8 @@ public class HandyWorker extends Endorsable {
 
 	// Relationships ----------------------------------------------------------
 
-	private Finder					finder;
-	private Collection<Tutorial>	tutorials;
-	private Curriculum				curriculum;
-	private Collection<Application>	applications;
+	private Finder		finder;
+	private Curriculum	curriculum;
 
 
 	@NotNull
@@ -71,6 +66,7 @@ public class HandyWorker extends Endorsable {
 		this.finder = finder;
 	}
 
+<<<<<<< HEAD
 	@NotNull
 	@OneToMany
 	public Collection<Tutorial> getTutorials() {
@@ -81,6 +77,8 @@ public class HandyWorker extends Endorsable {
 		this.tutorials = tutorials;
 	}
 
+=======
+>>>>>>> Julia-Branch
 	@Valid
 	@OneToOne(optional = true)
 	public Curriculum getCurriculum() {
@@ -89,16 +87,6 @@ public class HandyWorker extends Endorsable {
 
 	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
 	}
 
 }

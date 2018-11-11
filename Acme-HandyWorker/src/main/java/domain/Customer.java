@@ -1,14 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -36,21 +32,5 @@ public class Customer extends Endorsable {
 
 	public void setScore(final Double score) {
 		this.score = score;
-	}
-
-
-	// Relationships ----------------------------------------------------------
-
-	private Collection<FixUpTask>	fixUpTask;
-
-
-	@NotNull
-	@OneToMany(mappedBy = "customer")
-	public Collection<FixUpTask> getFixUpTask() {
-		return this.fixUpTask;
-	}
-
-	public void setFixUpTask(final Collection<FixUpTask> fixUpTask) {
-		this.fixUpTask = fixUpTask;
 	}
 }

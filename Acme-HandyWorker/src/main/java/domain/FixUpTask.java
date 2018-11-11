@@ -128,7 +128,6 @@ public class FixUpTask extends DomainEntity {
 	private Collection<Phase>		phases;
 	private Customer				customer;
 	private Collection<Complaint>	complaints;
-	private Collection<Application>	applications;
 
 
 	@NotNull
@@ -181,15 +180,5 @@ public class FixUpTask extends DomainEntity {
 
 	public void setComplaints(final Collection<Complaint> complaints) {
 		this.complaints = complaints;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "fixUpTask")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
 	}
 }
