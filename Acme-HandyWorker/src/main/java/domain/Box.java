@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -49,6 +50,7 @@ public class Box extends DomainEntity {
 
 	// Relationship----------------------------------------------------------------
 	private Collection<Message>	messages;
+	private Actor				actor;
 
 
 	@Valid
@@ -60,6 +62,17 @@ public class Box extends DomainEntity {
 
 	public void setMessages(final Collection<Message> messages) {
 		this.messages = messages;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Actor getActor() {
+		return this.actor;
+	}
+
+	public void setActor(final Actor actor) {
+		this.actor = actor;
 	}
 
 }

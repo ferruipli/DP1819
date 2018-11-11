@@ -6,8 +6,10 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -48,6 +50,35 @@ public class Endorsement extends DomainEntity {
 
 	public void setComments(final String comments) {
 		this.comments = comments;
+	}
+
+
+	// Relationships ----------------------------------------------------------
+
+	private Endorsable	endorsableSents;
+	private Endorsable	endorsableReceiveds;
+
+
+	@Valid
+	@NotNull
+	@ManyToMany
+	public Endorsable getEndorsableSents() {
+		return this.endorsableSents;
+	}
+
+	public void setEndorsableSents(final Endorsable endorsableSents) {
+		this.endorsableSents = endorsableSents;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToMany
+	public Endorsable getEndorsableReceiveds() {
+		return this.endorsableReceiveds;
+	}
+
+	public void setEndorsableReceiveds(final Endorsable endorsableReceiveds) {
+		this.endorsableReceiveds = endorsableReceiveds;
 	}
 
 }
