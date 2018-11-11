@@ -6,10 +6,9 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -55,30 +54,28 @@ public class Endorsement extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Endorsable	endorsableSents;
-	private Endorsable	endorsableReceiveds;
+	private Endorsable	endorsableSent;
+	private Endorsable	endorsableReceived;
 
 
-	@Valid
 	@NotNull
-	@ManyToMany
-	public Endorsable getEndorsableSents() {
-		return this.endorsableSents;
+	@ManyToOne(optional = false)
+	public Endorsable getEndorsableSent() {
+		return this.endorsableSent;
 	}
 
-	public void setEndorsableSents(final Endorsable endorsableSents) {
-		this.endorsableSents = endorsableSents;
+	public void setEndorsableSent(final Endorsable endorsableSent) {
+		this.endorsableSent = endorsableSent;
 	}
 
-	@Valid
 	@NotNull
-	@ManyToMany
-	public Endorsable getEndorsableReceiveds() {
-		return this.endorsableReceiveds;
+	@ManyToOne(optional = false)
+	public Endorsable getEndorsableReceived() {
+		return this.endorsableReceived;
 	}
 
-	public void setEndorsableReceiveds(final Endorsable endorsableReceiveds) {
-		this.endorsableReceiveds = endorsableReceiveds;
+	public void setEndorsableReceived(final Endorsable endorsableReceived) {
+		this.endorsableReceived = endorsableReceived;
 	}
 
 }
