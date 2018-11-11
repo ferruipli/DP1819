@@ -54,28 +54,28 @@ public class Endorsement extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Endorsable	endorsableSent;
-	private Endorsable	endorsableReceived;
+	private Endorsable	sender;
+	private Endorsable	recipient;
 
 
 	@NotNull
 	@ManyToOne(optional = false)
-	public Endorsable getEndorsableSent() {
-		return this.endorsableSent;
+	public Endorsable getSender() {
+		return this.sender;
 	}
 
-	public void setEndorsableSent(final Endorsable endorsableSent) {
-		this.endorsableSent = endorsableSent;
+	public void setSender(final Endorsable sender) {
+		this.sender = sender;
 	}
 
 	@NotNull
 	@ManyToOne(optional = false)
-	public Endorsable getEndorsableReceived() {
-		return this.endorsableReceived;
+	public Endorsable getRecipient() {
+		return this.recipient;
 	}
 
-	public void setEndorsableReceived(final Endorsable endorsableReceived) {
-		this.endorsableReceived = endorsableReceived;
+	public void setRecipient(final Endorsable recipient) {
+		this.recipient = recipient;
 	}
 
 }
