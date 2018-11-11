@@ -92,6 +92,7 @@ public class Application extends DomainEntity {
 
 	private CreditCard	creditCard;
 	private HandyWorker	handyWorker;
+
 	private FixUpTask	fixUpTask;
 
 
