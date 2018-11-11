@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -111,7 +114,6 @@ public abstract class Actor extends DomainEntity {
 
 
 	//Relationships ----------------------------------------------------
-<<<<<<< HEAD
 	private Collection<SocialProfile>	socialProfiles;
 	private Collection<Box>				boxes;
 	private UserAccount					userAccount;
@@ -132,11 +134,10 @@ public abstract class Actor extends DomainEntity {
 	public Collection<Box> getBoxes() {
 		return this.boxes;
 	}
-=======
-	private UserAccount	userAccount;
 
->>>>>>> Julia-Branch
-
+	public void setBoxes(final Collection<Box> boxes) {
+		this.boxes = boxes;
+	}
 	@Valid
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
