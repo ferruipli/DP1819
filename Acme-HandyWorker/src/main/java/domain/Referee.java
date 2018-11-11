@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -25,6 +26,7 @@ public class Referee extends Actor {
 
 
 	@NotNull
+	@Valid
 	@OneToMany
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -78,6 +79,7 @@ public class Report extends DomainEntity {
 
 
 	@NotNull
+	@Valid
 	@OneToMany
 	public Collection<Note> getNotes() {
 		return this.notes;

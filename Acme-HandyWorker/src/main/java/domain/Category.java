@@ -32,6 +32,7 @@ public class Category extends DomainEntity {
 
 
 	@NotNull
+	@Valid
 	@OneToMany
 	public Collection<CategoryTranslation> getCategoriesTranslations() {
 		return this.categoriesTranslations;

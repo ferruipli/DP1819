@@ -112,6 +112,7 @@ public class Message extends DomainEntity {
 		this.sender = sender;
 	}
 
+	@Valid
 	@NotEmpty
 	@NotNull
 	@ManyToMany
