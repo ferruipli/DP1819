@@ -1,13 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -114,30 +111,9 @@ public abstract class Actor extends DomainEntity {
 
 
 	//Relationships ----------------------------------------------------
-	private Collection<SocialProfile>	socialProfiles;
-	private Collection<Box>				boxes;
-	private UserAccount					userAccount;
+	private UserAccount	userAccount;
 
 
-	@NotNull
-	@OneToMany
-	public Collection<SocialProfile> getSocialProfiles() {
-		return this.socialProfiles;
-	}
-
-	public void setSocialProfiles(final Collection<SocialProfile> socialProfiles) {
-		this.socialProfiles = socialProfiles;
-	}
-
-	@NotNull
-	@OneToMany
-	public Collection<Box> getBoxes() {
-		return this.boxes;
-	}
-
-	public void setBoxes(final Collection<Box> boxes) {
-		this.boxes = boxes;
-	}
 	@Valid
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
