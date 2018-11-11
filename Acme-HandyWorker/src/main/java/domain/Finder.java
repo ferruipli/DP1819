@@ -10,10 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -36,6 +36,7 @@ public class Finder extends DomainEntity {
 	private Date	endDate;
 	private String	category;
 	private String	warranty;
+	private Date	lastUpdate;
 
 
 	@Pattern(regexp = "^(?!\\s*$).+")
@@ -85,7 +86,7 @@ public class Finder extends DomainEntity {
 		this.endDate = endDate;
 	}
 
-	@Pattern(regexp = "[a-zA-Z\\s]+")
+	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getCategory() {
 		return this.category;
 	}
@@ -94,13 +95,21 @@ public class Finder extends DomainEntity {
 		this.category = category;
 	}
 
-	@Pattern(regexp = "[a-zA-Z\\s]+")
+	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getWarranty() {
 		return this.warranty;
 	}
 
 	public void setWarranty(final String warranty) {
 		this.warranty = warranty;
+	}
+	@Past
+	public Date getLastUpdate() {
+		return this.lastUpdate;
+	}
+
+	public void setLastUpdate(final Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 
@@ -109,7 +118,6 @@ public class Finder extends DomainEntity {
 
 
 	@NotNull
-	@Valid
 	@ManyToMany
 	public Collection<FixUpTask> getFixUpTasks() {
 		return this.fixUpTasks;

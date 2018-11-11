@@ -119,7 +119,6 @@ public abstract class Actor extends DomainEntity {
 	private UserAccount					userAccount;
 
 
-	@Valid
 	@NotNull
 	@OneToMany
 	public Collection<SocialProfile> getSocialProfiles() {
@@ -130,7 +129,6 @@ public abstract class Actor extends DomainEntity {
 		this.socialProfiles = socialProfiles;
 	}
 
-	@Valid
 	@NotNull
 	@OneToMany
 	public Collection<Box> getBoxes() {

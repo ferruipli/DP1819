@@ -72,7 +72,6 @@ public class HandyWorker extends Endorsable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
