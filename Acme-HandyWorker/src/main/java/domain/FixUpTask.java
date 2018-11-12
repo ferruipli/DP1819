@@ -123,11 +123,10 @@ public class FixUpTask extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Category				category;
-	private Warranty				warranty;
-	private Collection<Phase>		phases;
-	private Customer				customer;
-	private Collection<Complaint>	complaints;
+	private Category			category;
+	private Warranty			warranty;
+	private Collection<Phase>	phases;
+	private Customer			customer;
 
 
 	@NotNull
@@ -152,7 +151,6 @@ public class FixUpTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Phase> getPhases() {
 		return this.phases;
@@ -173,13 +171,4 @@ public class FixUpTask extends DomainEntity {
 		this.customer = customer;
 	}
 
-	@NotNull
-	@OneToMany(mappedBy = "fixUpTask")
-	public Collection<Complaint> getComplaints() {
-		return this.complaints;
-	}
-
-	public void setComplaints(final Collection<Complaint> complaints) {
-		this.complaints = complaints;
-	}
 }

@@ -231,24 +231,12 @@
 		<property name="phoneNumber" value="63018754" />
 		<property name="address" value="Calle Palmera 4"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile1"/>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box1"/>
-				<ref bean="box2"/>
-				<ref bean="box3"/>
-				<ref bean="box4"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount1"/>
 	</bean>
 	
 	
 	<!-- Application -->
+	
 	<bean id="application1" class="domain.Application">
 		<property name="registerMoment" value="2018/07/23 11:43" />
 		<property name="status" value="PENDING" />
@@ -374,6 +362,7 @@
 	</bean>
 	 
 	<!-- Boxes -->	
+	
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="inBox1"/>
 		<property name="isSystemBox" value="true"/>
@@ -383,6 +372,7 @@
 				<ref bean="message9"/>
 			</list>
 		</property>
+		<property name="actor" ref="administrator1"/>
 	</bean>
 	
 	<bean id="box2" class="domain.Box">
@@ -394,6 +384,7 @@
 				<ref bean="message8"/>
 			</list>
 		</property>
+		<property name="actor" ref="administrator1"/>
 	</bean>
 	
 	<bean id="box3" class="domain.Box">
@@ -404,6 +395,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="administrator1"/>
 	</bean>
 	
 	<bean id="box4" class="domain.Box">
@@ -414,6 +406,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="administrator1"/>
 	</bean>
 
  	<bean id="box5" class="domain.Box">
@@ -425,6 +418,7 @@
 				<ref bean="message10"/>
 			</list>
 		</property>
+		<property name="actor" ref="customer1"/>
 	</bean>
 	
 	<bean id="box6" class="domain.Box">
@@ -436,6 +430,7 @@
 				<ref bean="message6"/>
 			</list>
 		</property>
+		<property name="actor" ref="customer1"/>
 	</bean>
 	
 	<bean id="box7" class="domain.Box">
@@ -446,6 +441,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer1"/>
 	</bean>
 	
 	<bean id="box8" class="domain.Box">
@@ -456,6 +452,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer1"/>
 	</bean>
 	 
 	<bean id="box9" class="domain.Box">
@@ -467,6 +464,7 @@
 				<ref bean="message7"/>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="box10" class="domain.Box">
@@ -478,6 +476,7 @@
 				<ref bean="message9"/>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="box11" class="domain.Box">
@@ -488,6 +487,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="box12" class="domain.Box">
@@ -498,6 +498,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="box13" class="domain.Box">
@@ -509,6 +510,7 @@
 				<ref bean="message8"/>
 			</list>
 		</property>
+		<property name="actor" ref="referee1"/>
 	</bean>
 	
 	<bean id="box14" class="domain.Box">
@@ -520,6 +522,7 @@
 				<ref bean="message7"/>
 			</list>
 		</property>
+		<property name="actor" ref="referee1"/>
 	</bean>
 	
 	<bean id="box15" class="domain.Box">
@@ -530,6 +533,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="referee1"/>
 	</bean>
 	
 	<bean id="box16" class="domain.Box">
@@ -540,6 +544,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="referee1"/>
 	</bean>
 	
 	<bean id="box17" class="domain.Box">
@@ -551,6 +556,7 @@
 				<ref bean="message6"/>
 			</list>
 		</property>
+		<property name="actor" ref="sponsor1"/>
 	</bean>
 	
 	<bean id="box18" class="domain.Box">
@@ -562,6 +568,7 @@
 				<ref bean="message10"/>
 			</list>
 		</property>
+		<property name="actor" ref="sponsor1"/>
 	</bean>
 	
 	<bean id="box19" class="domain.Box">
@@ -572,6 +579,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="sponsor1"/>
 	</bean>
 	
 	<bean id="box20" class="domain.Box">
@@ -582,6 +590,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="sponsor1"/>
 	</bean>
 	
 	<bean id="box21" class="domain.Box">
@@ -592,6 +601,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer2"/>
 	</bean>
 	
 	<bean id="box22" class="domain.Box">
@@ -602,6 +612,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer2"/>
 	</bean>
 	
 	<bean id="box23" class="domain.Box">
@@ -612,6 +623,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer2"/>
 	</bean>
 	
 	<bean id="box24" class="domain.Box">
@@ -622,6 +634,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer2"/>
 	</bean>
 	
 	<bean id="box25" class="domain.Box">
@@ -632,6 +645,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer3"/>
 	</bean>
 	
 	<bean id="box26" class="domain.Box">
@@ -642,6 +656,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer3"/>
 	</bean>
 	
 	<bean id="box27" class="domain.Box">
@@ -652,6 +667,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer3"/>
 	</bean>
 	
 	<bean id="box28" class="domain.Box">
@@ -662,6 +678,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer3"/>
 	</bean>
 	
 	<bean id="box29" class="domain.Box">
@@ -672,6 +689,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="box30" class="domain.Box">
@@ -682,6 +700,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="box31" class="domain.Box">
@@ -692,6 +711,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="box32" class="domain.Box">
@@ -702,6 +722,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="box33" class="domain.Box">
@@ -712,6 +733,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer5"/>
 	</bean>
 	
 	<bean id="box34" class="domain.Box">
@@ -722,6 +744,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer5"/>
 	</bean>
 	
 	<bean id="box35" class="domain.Box">
@@ -732,6 +755,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer5"/>
 	</bean>
 	
 	<bean id="box36" class="domain.Box">
@@ -742,6 +766,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer5"/>
 	</bean>
 	
 	<bean id="box37" class="domain.Box">
@@ -752,6 +777,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer6"/>
 	</bean>
 	
 	<bean id="box38" class="domain.Box">
@@ -762,6 +788,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="customer6"/>
 	</bean>
 	
 	<bean id="box39" class="domain.Box">
@@ -772,6 +799,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer6"/>
 	</bean>
 	
 	<bean id="box40" class="domain.Box">
@@ -782,6 +810,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="customer6"/>
 	</bean>
 	
 	<bean id="box41" class="domain.Box">
@@ -792,6 +821,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="box42" class="domain.Box">
@@ -802,6 +832,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="box43" class="domain.Box">
@@ -812,6 +843,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="box44" class="domain.Box">
@@ -822,6 +854,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="box45" class="domain.Box">
@@ -832,6 +865,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker3"/>
 	</bean>
 	
 	<bean id="box46" class="domain.Box">
@@ -842,6 +876,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker3"/>
 	</bean>
 	
 	<bean id="box47" class="domain.Box">
@@ -852,6 +887,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker3"/>
 	</bean>
 	
 	<bean id="box48" class="domain.Box">
@@ -862,6 +898,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker3"/>
 	</bean>
 	
 	<bean id="box49" class="domain.Box">
@@ -872,6 +909,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker4"/>
 	</bean>
 	
 	<bean id="box50" class="domain.Box">
@@ -882,6 +920,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker4"/>
 	</bean>
 	
 	<bean id="box51" class="domain.Box">
@@ -892,6 +931,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker4"/>
 	</bean>
 	
 	<bean id="box52" class="domain.Box">
@@ -902,6 +942,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker4"/>
 	</bean>
 	
 	<bean id="box53" class="domain.Box">
@@ -912,6 +953,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker5"/>
 	</bean>
 	
 	<bean id="box54" class="domain.Box">
@@ -922,6 +964,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker5"/>
 	</bean>
 	
 	<bean id="box55" class="domain.Box">
@@ -932,6 +975,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker5"/>
 	</bean>
 	
 	<bean id="box56" class="domain.Box">
@@ -942,6 +986,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker5"/>
 	</bean>
 	
 	<bean id="box57" class="domain.Box">
@@ -952,6 +997,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker6"/>
 	</bean>
 	
 	<bean id="box58" class="domain.Box">
@@ -962,6 +1008,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="handyworker6"/>
 	</bean>
 	
 	<bean id="box59" class="domain.Box">
@@ -972,6 +1019,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker6"/>
 	</bean>
 	
 	<bean id="box60" class="domain.Box">
@@ -982,6 +1030,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="handyworker6"/>
 	</bean>
 	
 	<bean id="box61" class="domain.Box">
@@ -992,6 +1041,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="referee2"/>
 	</bean>
 	
 	<bean id="box62" class="domain.Box">
@@ -1002,6 +1052,7 @@
 				<null></null>
 			</list>
 		</property>
+		<property name="actor" ref="referee2"/>
 	</bean>
 	
 	<bean id="box63" class="domain.Box">
@@ -1012,6 +1063,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="referee2"/>
 	</bean>
 	
 	<bean id="box64" class="domain.Box">
@@ -1022,6 +1074,7 @@
 				<null></null> 
 			</list>
 		</property>
+		<property name="actor" ref="referee2"/>
 	</bean>
 	
 	<!-- Category -->
@@ -1745,38 +1798,8 @@
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile2"/>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box5"/>
-				<ref bean="box6"/>
-				<ref bean="box7"/>
-				<ref bean="box8"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount2"/>
 		<!--  <property name="score" value="0.25"/> -->
-		<property name="fixUpTask">
-			<list>
-				<ref bean="fixUpTask1" />
-				<ref bean="fixUpTask2" />
-				<ref bean="fixUpTask3" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<ref bean="endorsement1" />
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<ref bean="endorsement3" />
-			</list>
-		</property>
 	</bean>
  
  	<bean id="customer2" class="domain.Customer">
@@ -1788,37 +1811,7 @@
 		<property name="phoneNumber" value="632014700" />
 		<property name="address" value="Address 2" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile6" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box21" />
-				<ref bean="box22" />
-				<ref bean="box23" />
-				<ref bean="box24" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount6" />
-		<property name="fixUpTask">
-			<list>
-				<ref bean="fixUpTask4" />
-				<ref bean="fixUpTask5" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-				<list>
-					<ref bean="endorsement2" />
-					<ref bean="endorsement5" />
-				</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<ref bean="endorsement4" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="customer3" class="domain.Customer">
@@ -1830,35 +1823,7 @@
 		<property name="phoneNumber" value="632014701" />
 		<property name="address" value="Address 3" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<null> </null>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box25" />
-				<ref bean="box26" />
-				<ref bean="box27" />
-				<ref bean="box28" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount7" />
-		<property name="fixUpTask">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="endorsementsSents">
-				<list>
-					<null></null>
-				</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
    
    <bean id="customer4" class="domain.Customer">
@@ -1870,37 +1835,8 @@
 		<property name="phoneNumber" value="634014701" />
 		<property name="address" value="Address 4" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile7" />
-				<ref bean="socialProfile8" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box29" />
-				<ref bean="box30" />
-				<ref bean="box31" />
-				<ref bean="box32" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount8" />
 		<!-- <property name="score" value="" /> -->
-		<property name="fixUpTask">
-			<list>
-				<ref bean="fixUpTask6" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-				<list>
-					<null></null>
-				</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
    
    <bean id="customer5" class="domain.Customer">
@@ -1912,36 +1848,8 @@
 		<property name="phoneNumber" value="635014701" />
 		<property name="address" value="Address 5" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<null> </null>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box33" />
-				<ref bean="box34" />
-				<ref bean="box35" />
-				<ref bean="box36" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount9" />
 		<!-- <property name="score" value="" /> -->
-		<property name="fixUpTask">
-			<list>
-				<ref bean="fixUpTask8" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-				<list>
-					<null></null>
-				</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
    
    <bean id="customer6" class="domain.Customer">
@@ -1953,40 +1861,11 @@
 		<property name="phoneNumber" value="636014701" />
 		<property name="address" value="Address 6" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile9" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box37" />
-				<ref bean="box38" />
-				<ref bean="box39" />
-				<ref bean="box40" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount10" />
 		<!-- <property name="score" value="" /> -->
-		<property name="fixUpTask">
-			<list>
-				<ref bean="fixUpTask7" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-				<list>
-					<null></null>
-				</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
    
  	<!-- Customisations -->
- 	
  	<bean id="customisation1" class="domain.Customisation">
 		<property name="systemName" value="system name 1"/>
 		<property name="banner" value="http://www.google.es"/>
@@ -2292,28 +2171,38 @@
  	
  	<!-- Endorsement -->
  	<bean id="endorsement1" class="domain.Endorsement">
-		<property name="moment" value="2018/11/01 14:00"/>
-		<property name="comments" value="all good fantastic"/>
+		<property name="moment" value="2018/11/01 14:00" />
+		<property name="comments" value="all good fantastic" />
+		<property name="sender" ref="customer1" />
+		<property name="recipient" ref="handyworker2" />
 	</bean>
 	
 	<bean id="endorsement2" class="domain.Endorsement">
-		<property name="moment" value="2018/11/08 14:10"/>
-		<property name="comments" value="very bad horrible"/>
+		<property name="moment" value="2018/11/08 14:10" />
+		<property name="comments" value="very bad horrible" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="handyworker2" />
 	</bean>
 	
 	<bean id="endorsement3" class="domain.Endorsement">
-		<property name="moment" value="2018/05/16 14:20"/>
-		<property name="comments" value="fantastic not bad"/>
+		<property name="moment" value="2018/05/16 14:20" />
+		<property name="comments" value="fantastic not bad" />
+		<property name="sender" ref="handyworker2" />
+		<property name="recipient" ref="customer1" />
 	</bean>
 	
 	<bean id="endorsement4" class="domain.Endorsement">
-		<property name="moment" value="2018/10/02 14:30"/>
-		<property name="comments" value="excellet and great disaster"/>
+		<property name="moment" value="2018/10/02 14:30" />
+		<property name="comments" value="excellet and great disaster" />
+		<property name="sender" ref="handyworker3" />
+		<property name="recipient" ref="customer2" />
 	</bean>
 	
 	<bean id="endorsement5" class="domain.Endorsement">
-		<property name="moment" value="2018/10/03 14:40"/>
-		<property name="comments" value="amazing but excellent"/>
+		<property name="moment" value="2018/10/03 14:40" />
+		<property name="comments" value="amazing but excellent" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="handyworker3" />
 	</bean>
 	
  	
@@ -2430,16 +2319,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
-		<property name="complaints">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application1" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask2" class="domain.FixUpTask">
@@ -2458,17 +2337,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
-		<property name="complaints">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application2" />
-				<ref bean="application3" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask3" class="domain.FixUpTask">
@@ -2488,16 +2356,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
-		<property name="complaints">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application4" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask4" class="domain.FixUpTask">
@@ -2516,16 +2374,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer2" />
-		<property name="complaints">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application5" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask5" class="domain.FixUpTask">
@@ -2544,16 +2392,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer2" />
-		<property name="complaints">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application6" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask6" class="domain.FixUpTask">
@@ -2574,17 +2412,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer4" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint6" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application7" />
-				<ref bean="application8" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask7" class="domain.FixUpTask">
@@ -2603,19 +2430,6 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer6" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint1" />
-				<ref bean="complaint2" />
-				<ref bean="complaint3" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application11" />
-				<ref bean="application12" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="fixUpTask8" class="domain.FixUpTask">
@@ -2634,23 +2448,10 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer5" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint4" />
-				<ref bean="complaint5" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-			<ref bean="application9" />
-			<ref bean="application10" />
-			</list>
-		</property>
 	</bean>
 	
 	
   	<!-- Handy Worker -->
-	
 	<bean id="handyworker1" class="domain.HandyWorker">
 		<property name="name" value="Sara" />
 		<property name="middleName" value="" />
@@ -2660,45 +2461,11 @@
 		<property name="phoneNumber" value="654123078" />
 		<property name="address" value="Calle Diagonal 2" />
 		<property name="isSuspicious" value="false" />
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile3" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box9" />
-				<ref bean="box10" />
-				<ref bean="box11" />
-				<ref bean="box12" />
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount4" />
 		<property name="make" value="Make 1" />
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder1"/>
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1"/>
-			</list>
-		</property>
 		<property name="curriculum" ref="curriculum1"/>
-		<property name="applications">
-			<list>
-				<ref bean="application1" />
-				<ref bean="application2" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
   	
   	<bean id="handyworker2" class="domain.HandyWorker">
@@ -2710,47 +2477,11 @@
 		<property name="phoneNumber" value="654122078" />
 		<property name="address" value="Address 2"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile10"/>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box41"/>
-				<ref bean="box42"/>
-				<ref bean="box43"/>
-				<ref bean="box44"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount11"/>
 		<property name="make" value="Make 2"/>
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder2"/>
-		<property name="tutorials">
-			<list>
-				<null> </null>
-			</list>
-		</property>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
-		<property name="applications">
-			<list>
-				<ref bean="application3" />
-				<ref bean="application4" />
-				<ref bean="application5" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<ref bean="endorsement3" />
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<ref bean="endorsement1" />
-				<ref bean="endorsement2" />
-			</list>
-		</property>
 	</bean>
   	
   	<bean id="handyworker3" class="domain.HandyWorker">
@@ -2762,45 +2493,11 @@
 		<property name="phoneNumber" value="654123078" />
 		<property name="address" value="Address 3"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile11" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box45"/>
-				<ref bean="box46"/>
-				<ref bean="box47"/>
-				<ref bean="box48"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount12"/>
 		<property name="make" value="Make 3"/>
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder3"/>
-		<property name="tutorials">
-			<list>
-				<null> </null>
-			</list>
-		</property>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
-		<property name="applications">
-			<list>
-				<ref bean="application6" />
-				<ref bean="application7" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<ref bean="endorsement4" />
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<ref bean="endorsement5" />
-			</list>
-		</property>
 	</bean>
   
   	<bean id="handyworker4" class="domain.HandyWorker">
@@ -2812,45 +2509,11 @@
 		<property name="phoneNumber" value="654124078" />
 		<property name="address" value="Address 4"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile12" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box49"/>
-				<ref bean="box50"/>
-				<ref bean="box51"/>
-				<ref bean="box52"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount13"/>
 		<property name="make" value="Make 4"/>
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder4"/>
-		<property name="tutorials">
-			<list>
-				<null> </null>
-			</list>
-		</property>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
-		<property name="applications">
-			<list>
-				<ref bean="application8" />
-				<ref bean="application9" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
   
   	<bean id="handyworker5" class="domain.HandyWorker">
@@ -2862,44 +2525,11 @@
 		<property name="phoneNumber" value="654125078" />
 		<property name="address" value="Address 5"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box53"/>
-				<ref bean="box54"/>
-				<ref bean="box55"/>
-				<ref bean="box56"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount14"/>
 		<property name="make" value="Make 5"/>
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder5"/>
-		<property name="tutorials">
-			<list>
-				<null> </null>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application10" />
-				<ref bean="application11" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
+		<!--  <property name="curriculum" ref="curriculum1"/> -->
 	</bean>
   	
   	<bean id="handyworker6" class="domain.HandyWorker">
@@ -2911,44 +2541,11 @@
 		<property name="phoneNumber" value="654126078" />
 		<property name="address" value="Address 6"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile13" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box57"/>
-				<ref bean="box58"/>
-				<ref bean="box59"/>
-				<ref bean="box60"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount15"/>
 		<property name="make" value="Make 6"/>
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder6"/>
-		<property name="tutorials">
-			<list>
-				<null> </null>
-			</list>
-		</property>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
-		<property name="applications">
-			<list>
-				<ref bean="application12" />
-			</list>
-		</property>
-		<property name="endorsementsSents">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="endorsementsReceiveds">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
   	
  	<!-- Messages -->
@@ -3303,19 +2900,6 @@
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Capital 2"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile4"/>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box13"/>
-				<ref bean="box14"/>
-				<ref bean="box15"/>
-				<ref bean="box16"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount3"/>
 		<property name="complaints">
 			<list>
@@ -3335,19 +2919,6 @@
 		<property name="phoneNumber" value="633554212" />
 		<property name="address" value="Calle Palmera"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box61"/>
-				<ref bean="box62"/>
-				<ref bean="box63"/>
-				<ref bean="box64"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount16"/>
 		<property name="complaints">
 			<list>
@@ -3438,78 +3009,91 @@
 		<property name="nick" value="nick1"/>
 		<property name="socialNetworkName" value="Twitter"/>
 		<property name="profileLink" value="http://www.twitter.com" />
+		<property name="actor" ref="administrator1"/>
 	</bean>
 	
 	<bean id="socialProfile2" class="domain.SocialProfile">
 		<property name="nick" value="nick2"/>
 		<property name="socialNetworkName" value="Instagram"/>
 		<property name="profileLink" value="http://www.instagram.com" />
+		<property name="actor" ref="customer1"/>
 	</bean>
 	
 	<bean id="socialProfile3" class="domain.SocialProfile">
 		<property name="nick" value="nick3"/>
 		<property name="socialNetworkName" value="Facebook"/>
 		<property name="profileLink" value="http://www.facebook.com" />
+		<property name="actor" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="socialProfile4" class="domain.SocialProfile">
 		<property name="nick" value="nick4"/>
 		<property name="socialNetworkName" value="Facebook"/>
 		<property name="profileLink" value="http://www.facebook.com" />
+		<property name="actor" ref="referee1"/>
 	</bean>
 	
 	<bean id="socialProfile5" class="domain.SocialProfile">
 		<property name="nick" value="nick5"/>
 		<property name="socialNetworkName" value="Facebook"/>
 		<property name="profileLink" value="http://www.facebook.com" />
+		<property name="actor" ref="sponsor1"/>
 	</bean>
 	
 	<bean id="socialProfile6" class="domain.SocialProfile">
 		<property name="nick" value="nick6"/>
 		<property name="socialNetworkName" value="Flickr"/>
 		<property name="profileLink" value="https://www.flickr.com" />
+		<property name="actor" ref="customer2"/>
 	</bean>
 	
 	<bean id="socialProfile7" class="domain.SocialProfile">
 		<property name="nick" value="nick7"/>
 		<property name="socialNetworkName" value="Tinder"/>
 		<property name="profileLink" value="http://www.tinder.com" />
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="socialProfile8" class="domain.SocialProfile">
 		<property name="nick" value="nick8"/>
 		<property name="socialNetworkName" value="Tuenti"/>
 		<property name="profileLink" value="https://www.tuenti.es" />
+		<property name="actor" ref="customer4"/>
 	</bean>
 	
 	<bean id="socialProfile9" class="domain.SocialProfile">
 		<property name="nick" value="nick9"/>
 		<property name="socialNetworkName" value="Messenger"/>
 		<property name="profileLink" value="https://www.messenger.es" />
+		<property name="actor" ref="customer6"/>
 	</bean>
 	
 	<bean id="socialProfile10" class="domain.SocialProfile">
 		<property name="nick" value="nick10"/>
 		<property name="socialNetworkName" value="Twitter"/>
 		<property name="profileLink" value="https://www.twitter.com" />
+		<property name="actor" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="socialProfile11" class="domain.SocialProfile">
 		<property name="nick" value="nick11"/>
 		<property name="socialNetworkName" value="Tinder"/>
 		<property name="profileLink" value="http://www.tinder.com" />
+		<property name="actor" ref="customer3"/>
 	</bean>
 	
 	<bean id="socialProfile12" class="domain.SocialProfile">
 		<property name="nick" value="nick12"/>
 		<property name="socialNetworkName" value="Tuenti"/>
 		<property name="profileLink" value="https://www.tuenti.es" />
+		<property name="actor" ref="handyworker4"/>
 	</bean>
 	
 	<bean id="socialProfile13" class="domain.SocialProfile">
 		<property name="nick" value="nick13"/>
 		<property name="socialNetworkName" value="Messenger"/>
 		<property name="profileLink" value="https://www.messenger.es" />
+		<property name="actor" ref="handyworker6"/>
 	</bean>
 	
 	<!-- Sponsor -->
@@ -3523,19 +3107,6 @@
 		<property name="phoneNumber" value="653201487" />
 		<property name="address" value="Calle Venta 2"/>
 		<property name="isSuspicious" value="false"/>
-		<property name="socialProfiles">
-			<list>
-				<ref bean="socialProfile5"/>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-				<ref bean="box17"/>
-				<ref bean="box18"/>
-				<ref bean="box19"/>
-				<ref bean="box20"/>
-			</list>
-		</property>
 		<property name="userAccount" ref="userAccount5"/>
 		<property name="sponsorships">
 			<list>
@@ -3581,6 +3152,7 @@
 				<ref bean="section1"/>
 			</list>
 		</property>
+		<property name="handyWorker" ref="handyworker1"/>
 	</bean>
 	
 	<bean id="tutorial2" class="domain.Tutorial">
@@ -3598,6 +3170,7 @@
 				<ref bean="section2"/>
 			</list>
 		</property>
+		<property name="handyWorker" ref="handyworker2"/>
 	</bean>
 	
 	<bean id="tutorial3" class="domain.Tutorial">
@@ -3615,6 +3188,7 @@
 				<ref bean="section3"/>
 			</list>
 		</property>
+		<property name="handyWorker" ref="handyworker3"/>
 	</bean>
 	
 	<!-- Warranty -->
