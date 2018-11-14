@@ -123,11 +123,33 @@ public class FixUpTask extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Category			category;
-	private Warranty			warranty;
-	private Collection<Phase>	phases;
-	private Customer			customer;
+	private Category				category;
+	private Warranty				warranty;
+	private Collection<Phase>		phases;
+	private Customer				customer;
+	private Collection<Complaint>	complaints;
+	private Collection<Application>	applications;
 
+
+	@NotNull
+	@OneToMany(mappedBy = "fixUpTask")
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
+	}
+
+	@NotNull
+	@OneToMany(mappedBy = "fixUpTask")
+	public Collection<Complaint> getComplaints() {
+		return this.complaints;
+	}
+
+	public void setComplaints(final Collection<Complaint> complaints) {
+		this.complaints = complaints;
+	}
 
 	@NotNull
 	@Valid
@@ -170,5 +192,4 @@ public class FixUpTask extends DomainEntity {
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
 	}
-
 }
