@@ -1736,6 +1736,7 @@
 	</bean>
 	
 	<!-- Complaint -->
+	
 	<bean id="complaint1" class="domain.Complaint">
 		<property name="ticker" value="170305-21GB4S" />
 		<property name="moment" value="2017/03/05 09:28" />
@@ -1789,6 +1790,7 @@
 	
 	
 	<!-- Customer -->
+	
 	<bean id="customer1" class="domain.Customer">
 		<property name="name" value="Antonio"/>
 		<property name="middleName" value=""/>
@@ -1800,6 +1802,13 @@
 		<property name="isSuspicious" value="false"/>
 		<property name="userAccount" ref="userAccount2"/>
 		<!--  <property name="score" value="0.25"/> -->
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixUpTask1"/>
+				<ref bean="fixUpTask2"/>
+				<ref bean="fixUpTask3"/>
+			</list>
+		</property>
 	</bean>
  
  	<bean id="customer2" class="domain.Customer">
@@ -1812,6 +1821,12 @@
 		<property name="address" value="Address 2" />
 		<property name="isSuspicious" value="false" />
 		<property name="userAccount" ref="userAccount6" />
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixUpTask4"/>
+				<ref bean="fixUpTask5"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="customer3" class="domain.Customer">
@@ -1824,6 +1839,11 @@
 		<property name="address" value="Address 3" />
 		<property name="isSuspicious" value="false" />
 		<property name="userAccount" ref="userAccount7" />
+		<property name="fixUpTasks">
+			<list>
+				<null></null>
+			</list>
+		</property>
 	</bean>
    
    <bean id="customer4" class="domain.Customer">
@@ -1837,6 +1857,11 @@
 		<property name="isSuspicious" value="false" />
 		<property name="userAccount" ref="userAccount8" />
 		<!-- <property name="score" value="" /> -->
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixUpTask6"/>
+			</list>
+		</property>
 	</bean>
    
    <bean id="customer5" class="domain.Customer">
@@ -1850,6 +1875,11 @@
 		<property name="isSuspicious" value="false" />
 		<property name="userAccount" ref="userAccount9" />
 		<!-- <property name="score" value="" /> -->
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixUpTask8"/>
+			</list>
+		</property>
 	</bean>
    
    <bean id="customer6" class="domain.Customer">
@@ -1863,6 +1893,11 @@
 		<property name="isSuspicious" value="false" />
 		<property name="userAccount" ref="userAccount10" />
 		<!-- <property name="score" value="" /> -->
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixUpTask7"/>
+			</list>
+		</property>
 	</bean>
    
  	<!-- Customisations -->
@@ -2303,6 +2338,7 @@
 	
 	
 	<!-- FixUpTask -->
+	
 	<bean id="fixUpTask1" class="domain.FixUpTask">
 		<property name="ticker" value="180721-TEX123" />
 		<property name="publicationMoment" value="2018/07/21 16:31" />
@@ -2319,6 +2355,16 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application1"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask2" class="domain.FixUpTask">
@@ -2337,6 +2383,17 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application2"/>
+				<ref bean="application3"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask3" class="domain.FixUpTask">
@@ -2356,6 +2413,16 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application4"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask4" class="domain.FixUpTask">
@@ -2374,6 +2441,16 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer2" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application5"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask5" class="domain.FixUpTask">
@@ -2392,6 +2469,16 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer2" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application6"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask6" class="domain.FixUpTask">
@@ -2412,6 +2499,17 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer4" />
+		<property name="complaints">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application7"/>
+				<ref bean="application8"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask7" class="domain.FixUpTask">
@@ -2430,6 +2528,19 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer6" />
+		<property name="complaints">
+			<list>
+				<ref bean="complaint1"/>
+				<ref bean="complaint2"/>
+				<ref bean="complaint3"/>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application11"/>
+				<ref bean="application12"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="fixUpTask8" class="domain.FixUpTask">
@@ -2448,6 +2559,19 @@
 			</list>
 		</property>
 		<property name="customer" ref="customer5" />
+		<property name="complaints">
+			<list>
+				<ref bean="complaint4"/>
+				<ref bean="complaint5"/>
+				<ref bean="complaint6"/>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application9"/>
+				<ref bean="application10"/>
+			</list>
+		</property>
 	</bean>
 	
 	
@@ -2466,6 +2590,12 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder1"/>
 		<property name="curriculum" ref="curriculum1"/>
+		<property name="applications">
+			<list>
+				<ref bean="application1"/>
+				<ref bean="application2"/>
+			</list>
+		</property>
 	</bean>
   	
   	<bean id="handyworker2" class="domain.HandyWorker">
@@ -2482,6 +2612,13 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder2"/>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
+		<property name="applications">
+			<list>
+				<ref bean="application3"/>
+				<ref bean="application4"/>
+				<ref bean="application5"/>
+			</list>
+		</property>
 	</bean>
   	
   	<bean id="handyworker3" class="domain.HandyWorker">
@@ -2498,6 +2635,12 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder3"/>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
+		<property name="applications">
+			<list>
+				<ref bean="application6"/>
+				<ref bean="application7"/>
+			</list>
+		</property>
 	</bean>
   
   	<bean id="handyworker4" class="domain.HandyWorker">
@@ -2514,6 +2657,12 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder4"/>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
+		<property name="applications">
+			<list>
+				<ref bean="application8"/>
+				<ref bean="application9"/>
+			</list>
+		</property>
 	</bean>
   
   	<bean id="handyworker5" class="domain.HandyWorker">
@@ -2530,6 +2679,12 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder5"/>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
+		<property name="applications">
+			<list>
+				<ref bean="application10"/>
+				<ref bean="application11"/>
+			</list>
+		</property>
 	</bean>
   	
   	<bean id="handyworker6" class="domain.HandyWorker">
@@ -2546,6 +2701,11 @@
 		<!--  <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder6"/>
 		<!--  <property name="curriculum" ref="curriculum1"/> -->
+		<property name="applications">
+			<list>
+				<ref bean="application12"/>
+			</list>
+		</property>
 	</bean>
   	
  	<!-- Messages -->
