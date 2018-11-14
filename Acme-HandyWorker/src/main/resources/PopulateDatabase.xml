@@ -2501,7 +2501,7 @@
 		<property name="customer" ref="customer4" />
 		<property name="complaints">
 			<list>
-				<null></null>
+				<ref bean="complaint6"/>
 			</list>
 		</property>
 		<property name="applications">
@@ -2563,7 +2563,6 @@
 			<list>
 				<ref bean="complaint4"/>
 				<ref bean="complaint5"/>
-				<ref bean="complaint6"/>
 			</list>
 		</property>
 		<property name="applications">
