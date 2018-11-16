@@ -20,4 +20,7 @@ public class MessageServiceTest extends AbstractTest {
 	// Service under test ---------------------------------
 	@Autowired
 	private MessageService	menssageService;
+
+	// Tests ----------------------------------------------
+
 }

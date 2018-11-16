@@ -18,7 +18,10 @@ import utilities.AbstractTest;
 public class SocialProfileServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
+
 	@Autowired
 	private SocialProfileService	socialProfileService;
+
+	// Tests ----------------------------------------------
 
 }

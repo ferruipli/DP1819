@@ -20,4 +20,7 @@ public class ActorServiceTest extends AbstractTest {
 	// Service under test ---------------------------------
 	@Autowired
 	private ActorService	actorService;
+
+	// Tests ----------------------------------------------
+
 }

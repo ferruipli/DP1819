@@ -21,4 +21,6 @@ public class BoxServiceTest extends AbstractTest {
 	@Autowired
 	private BoxService	boxService;
 
+	// Tests ----------------------------------------------
+
 }
