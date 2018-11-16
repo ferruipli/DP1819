@@ -15,9 +15,9 @@ import utilities.AbstractTest;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class ActorServiceTest extends AbstractTest {
+public class MessageServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private MessageService	menssageService;
 }
