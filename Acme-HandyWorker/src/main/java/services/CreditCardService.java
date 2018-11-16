@@ -7,20 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.ApplicationRepository;
+import repositories.CreditCardRepository;
 
 @Service
 @Transactional
-public class ApplicationService {
+public class CreditCardService {
 
 	// Managed repository ---------------------------------------------
 	@Autowired
-	private ApplicationRepository	applicationRepository;
+	private CreditCardRepository	creditCardRepository;
 
 
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private ApplicationService() {
+	private CreditCardService() {
 		super();
 	}
 

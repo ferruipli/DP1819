@@ -6,26 +6,24 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repositories.ApplicationRepository;
+import repositories.SectionRepository;
 
 @Service
 @Transactional
-public class ApplicationService {
+public class SectionService {
 
 	// Managed repository ---------------------------------------------
 	@Autowired
-	private ApplicationRepository	applicationRepository;
+	private SectionRepository	sectionRepository;
 
 
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private ApplicationService() {
+	private SectionService() {
 		super();
 	}
-
 	//Simple CRUD methods -------------------------------------------
 
 	//Other business methods-------------------------------------------
-
 }

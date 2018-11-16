@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class ApplicationServiceTest {
+public class CreditCardServiceTest {
 
 	//Service under test ----------------------------------
 	@Autowired
-	private ApplicationService	applicationService;
+	private CreditCardService	creditCardService;
 
 	// Test ------------------------------------------------
-
 }

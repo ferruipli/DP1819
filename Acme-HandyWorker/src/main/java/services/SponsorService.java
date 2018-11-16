@@ -6,24 +6,23 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repositories.ApplicationRepository;
+import repositories.SponsorRepository;
 
 @Service
 @Transactional
-public class ApplicationService {
+public class SponsorService {
 
 	// Managed repository ---------------------------------------------
 	@Autowired
-	private ApplicationRepository	applicationRepository;
+	private SponsorRepository	sponsorRepository;
 
 
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private ApplicationService() {
+	private SponsorService() {
 		super();
 	}
-
 	//Simple CRUD methods -------------------------------------------
 
 	//Other business methods-------------------------------------------
