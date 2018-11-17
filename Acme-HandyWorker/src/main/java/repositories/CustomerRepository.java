@@ -14,9 +14,10 @@ import domain.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-	@Query("select c from Customer c Join c.fixUpTasks f group by f.customer order by f.complaints.size DESC;")
+	@Query("select c from Customer c Join c.fixUpTasks f group by f.customer order by f.complaints.size DESC")
 	Page<Customer> topThreeCustomer(Pageable page);
 
-	@Query("select f.customer from FixUpTask f group by f.customer having count(f) >= 1.1*((select count(t) from FixUpTask t)/(select count(c) from Customer c)) order by f.applications.size;")
+	@Query("select f.customer from FixUpTask f group by f.customer having count(f) >= 1.1*((select count(t) from FixUpTask t)/(select count(c) from Customer c)) order by f.applications.size")
 	Collection<Customer> customerMoreThanAverage();
+
 }
