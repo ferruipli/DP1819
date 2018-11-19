@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -34,6 +35,22 @@ public class CategoryTranslationService {
 	}
 
 	// Simple CRUD methods -----------------------------
+	public CategoryTranslation findOne(final int categoryTranslationId) {
+		CategoryTranslation result;
+
+		result = this.categoryTranslationRepository.findOne(categoryTranslationId);
+
+		return result;
+	}
+
+	public Collection<CategoryTranslation> findAll() {
+		Collection<CategoryTranslation> results;
+
+		results = this.categoryTranslationRepository.findAll();
+
+		return results;
+	}
+
 	public CategoryTranslation create() {
 		CategoryTranslation result;
 

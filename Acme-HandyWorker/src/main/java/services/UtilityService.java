@@ -38,7 +38,7 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		Set<String> curriculumTickers;
+		final Set<String> curriculumTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
@@ -46,7 +46,8 @@ public class UtilityService {
 		day = currentDate.getDayOfMonth();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
-		curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
+		//curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
+		curriculumTickers = new HashSet<>();
 		counter = 0;
 
 		do {
