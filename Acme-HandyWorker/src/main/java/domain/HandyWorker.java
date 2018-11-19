@@ -21,7 +21,7 @@ public class HandyWorker extends Endorsable {
 
 	// Constructor
 
-	private HandyWorker() {
+	public HandyWorker() {
 		super();
 	}
 
