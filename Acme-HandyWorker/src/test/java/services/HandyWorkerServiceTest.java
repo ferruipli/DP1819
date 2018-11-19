@@ -4,11 +4,12 @@ package services;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
+import utilities.AbstractTest;
 import domain.HandyWorker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,7 +17,7 @@ import domain.HandyWorker;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class HandyWorkerServiceTest {
+public class HandyWorkerServiceTest extends AbstractTest {
 
 	//Service under test ----------------------------------
 	@Autowired
@@ -25,14 +26,10 @@ public class HandyWorkerServiceTest {
 
 	// Test ------------------------------------------------
 	@Test
-	@Rollback
 	public void createTestValid() {
-		HandyWorker handyWorker;
-
+		final HandyWorker handyWorker;
 		handyWorker = this.handyWorkerService.create();
-
-		handyWorker.setAddress("Calle FranDEqUE");
-		handyWorker = this.handyWorkerService.save(handyWorker);
+		Assert.isTrue(handyWorker.getIsSuspicious() == true);
 	}
 
 }
