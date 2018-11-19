@@ -1,15 +1,11 @@
 
 package services;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 @Service
 @Transactional
@@ -33,31 +29,31 @@ public class UtilityService {
 
 	// Other business methods --------------------------------------------------
 
-	public String generateValidTicker() {
-		String numbers, result;
-		Integer day, month, year;
-		LocalDate currentDate;
-		Integer counter;
-		Set<String> curriculumTickers;
-
-		currentDate = LocalDate.now();
-		year = currentDate.getYear() % 100;
-		month = currentDate.getMonthOfYear();
-		day = currentDate.getDayOfMonth();
-
-		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
-		curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
-		counter = 0;
-
-		do {
-			result = numbers + this.createRandomLetters();
-			counter++;
-		} while (curriculumTickers.contains(result) || counter < 650000);
-
-		Assert.isTrue(counter == 650000);
-
-		return result;
-	}
+	//	public String generateValidTicker() {
+	//		String numbers, result;
+	//		Integer day, month, year;
+	//		LocalDate currentDate;
+	//		Integer counter;
+	//		Set<String> curriculumTickers;
+	//
+	//		currentDate = LocalDate.now();
+	//		year = currentDate.getYear() % 100;
+	//		month = currentDate.getMonthOfYear();
+	//		day = currentDate.getDayOfMonth();
+	//
+	//		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
+	//		curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
+	//		counter = 0;
+	//
+	//		do {
+	//			result = numbers + this.createRandomLetters();
+	//			counter++;
+	//		} while (curriculumTickers.contains(result) || counter < 650000);
+	//
+	//		Assert.isTrue(counter == 650000);
+	//
+	//		return result;
+	//	}
 
 	// Private methods ---------------------------------------------------------
 

@@ -1,17 +1,21 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.Application;
+import domain.Finder;
 import domain.HandyWorker;
 
 @Service
@@ -33,16 +37,32 @@ public class HandyWorkerService {
 
 	public HandyWorker create() {
 		HandyWorker result;
+		Finder finder;
+		Collection<Application> applications;
+		UserAccount userAccount;
 
 		result = new HandyWorker();
+		finder = new Finder();
+		applications = new ArrayList<Application>();
+		userAccount = new UserAccount();
+
+		result.setApplications(applications);
+		result.setFinder(finder);
+		result.setUserAccount(userAccount);
 
 		return result;
 	}
 
 	public HandyWorker save(final HandyWorker handyWorker) {
 		Assert.notNull(handyWorker);
-
+		final Md5PasswordEncoder encoder;
+		final String passwordHash;
 		HandyWorker result;
+
+		encoder = new Md5PasswordEncoder();
+		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
+		handyWorker.getUserAccount().setPassword(passwordHash);
+		result = this.handyWorkerRepository.save(handyWorker);
 
 		result = this.handyWorkerRepository.save(handyWorker);
 
