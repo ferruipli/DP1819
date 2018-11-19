@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.HandyWorker;
 
 @Service
@@ -73,5 +75,13 @@ public class HandyWorkerService {
 		this.handyWorkerRepository.delete(handyWorker);
 	}
 	//Other business methods-------------------------------------------
+
+	public HandyWorker findByPrincipal() {
+		HandyWorker result;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		result = this.handyWorkerRepository.findByUserAccountId(userAccount.getId());
+		return result;
+	}
 
 }
