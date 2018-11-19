@@ -15,6 +15,7 @@ import repositories.CurriculumRepository;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.PersonalRecord;
 import domain.ProfessionalRecord;
@@ -25,12 +26,30 @@ public class CurriculumService {
 
 	// Managed repository ------------------------------
 	@Autowired
-	private CurriculumRepository	curriculumRepository;
+	private CurriculumRepository		curriculumRepository;
 
 	// Supporting services -----------------------------
 
 	@Autowired
-	private UtilityService			utilityService;
+	private UtilityService				utilityService;
+
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
+
+	@Autowired
+	private PersonalRecordService		personalRecordService;
+
+	@Autowired
+	private EducationRecordService		educationRecordService;
+
+	@Autowired
+	private ProfessionalRecordService	professionalRecordService;
+
+	@Autowired
+	private MiscellaneousRecordService	miscellaneousRecordService;
+
+	@Autowired
+	private EndorserRecordService		endorserRecordService;
 
 
 	// Constructors ------------------------------------
@@ -71,6 +90,28 @@ public class CurriculumService {
 		Assert.isTrue(curriculum.getId() != 0);
 		Assert.isTrue(this.curriculumRepository.exists(curriculum.getId()));
 
+		PersonalRecord personalRecord;
+
+		// Eliminamos el personal record asociado
+		personalRecord = curriculum.getPersonalRecord();
+		this.personalRecordService.delete(personalRecord);
+
+		// Eliminamos los educations records asociados
+		for (final EducationRecord educationRecord : curriculum.getEducationRecords())
+			this.educationRecordService.delete(educationRecord);
+
+		// Eliminamos los professional records asociados
+		for (final ProfessionalRecord professionalRecord : curriculum.getProfessionalRecords())
+			this.professionalRecordService.delete(professionalRecord);
+
+		// Eliminamos los miscellaneous records asociados
+		for (final MiscellaneousRecord miscellaneousRecord : curriculum.getMiscellaneousRecords())
+			this.miscellaneousRecordService.delete(miscellaneousRecord);
+
+		// Eliminamos los endorser records asociados
+		for (final EndorserRecord endorserRecord : curriculum.getEndorserRecords())
+			this.endorserRecordService.delete(endorserRecord);
+
 		this.curriculumRepository.delete(curriculum);
 
 	}
@@ -80,8 +121,11 @@ public class CurriculumService {
 		Assert.isTrue(!(this.curriculumRepository.exists(curriculum.getId())));
 
 		Curriculum result;
+		HandyWorker handyWorker;
 
+		handyWorker = this.handyWorkerService.findByPrincipal();
 		result = this.curriculumRepository.save(curriculum);
+		handyWorker.setCurriculum(result);
 
 		return result;
 	}

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PersonalRecordRepository;
+import domain.Curriculum;
+import domain.HandyWorker;
 import domain.PersonalRecord;
 
 @Service
@@ -55,31 +57,29 @@ public class PersonalRecordService {
 
 	}
 
-	/*
-	 * public void delete(final PersonalRecord personalRecord) {
-	 * Assert.notNull(personalRecord);
-	 * Assert.isTrue(personalRecord.getId() != 0);
-	 * Assert.isTrue(this.personalRecordRepository.exists(personalRecord.getId()));
-	 * 
-	 * // Debemos de eliminar el personalRecord del curriculum del handyworker
-	 * 
-	 * HandyWorker handyworker;
-	 * Curriculum curriculum;
-	 * 
-	 * handyworker = this.handyWorkerService.findByPrincipal();
-	 * curriculum = handyworker.getCurriculum();
-	 * Assert.notNull(curriculum);
-	 * Assert.isTrue(curriculum.getPersonalRecord().equals(personalRecord);
-	 * 
-	 * // Eliminamos el PersonalRecord del curriculum del handyworker Principal
-	 * 
-	 * this.curriculumService.removePersonalRecord(curriculum, null);
-	 * 
-	 * // Eliminamos definitivamente el personalRecord
-	 * 
-	 * this.personalRecordRepository.delete(personalRecord);
-	 * }
-	 */
+	public void delete(final PersonalRecord personalRecord) {
+		Assert.notNull(personalRecord);
+		Assert.isTrue(personalRecord.getId() != 0);
+		Assert.isTrue(this.personalRecordRepository.exists(personalRecord.getId()));
+
+		// Debemos de eliminar el personalRecord del curriculum del handyworker
+
+		HandyWorker handyworker;
+		Curriculum curriculum;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyworker.getCurriculum();
+		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getPersonalRecord().equals(personalRecord));
+
+		// Eliminamos el PersonalRecord del curriculum del handyworker Principal
+
+		this.curriculumService.removePersonalRecord(curriculum, null);
+
+		// Eliminamos definitivamente el personalRecord
+
+		this.personalRecordRepository.delete(personalRecord);
+	}
 
 	// Other business methods --------------------------
 

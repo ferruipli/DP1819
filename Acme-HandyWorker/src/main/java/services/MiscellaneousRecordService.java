@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MiscellaneousRecordRepository;
+import domain.Curriculum;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 
 @Service
@@ -55,31 +57,29 @@ public class MiscellaneousRecordService {
 		return result;
 	}
 
-	/*
-	 * public void delete(final MiscellaneousRecord miscellaneousRecord) {
-	 * Assert.notNull(miscellaneousRecord);
-	 * Assert.isTrue(miscellaneousRecord.getId() != 0);
-	 * Assert.isTrue(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()));
-	 * 
-	 * // Debemos de eliminar el miscellaneousRecord del curriculum del handyworker
-	 * 
-	 * HandyWorker handyworker;
-	 * Curriculum curriculum;
-	 * 
-	 * handyworker = this.handyWorkerService.findByPrincipal();
-	 * curriculum = handyworker.getCurriculum();
-	 * Assert.notNull(curriculum);
-	 * Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
-	 * 
-	 * // Eliminamos el MiscellaneousRecord del curriculum del handyworker Principal
-	 * 
-	 * this.curriculumService.removeMiscellaneousRecord(curriculum, miscellaneousRecord);
-	 * 
-	 * // Eliminamos definitivamente el miscellaneousRecord
-	 * 
-	 * this.miscellaneousRecordRepository.delete(miscellaneousRecord);
-	 * }
-	 */
+	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+		Assert.notNull(miscellaneousRecord);
+		Assert.isTrue(miscellaneousRecord.getId() != 0);
+		Assert.isTrue(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()));
+
+		// Debemos de eliminar el miscellaneousRecord del curriculum del handyworker
+
+		HandyWorker handyworker;
+		Curriculum curriculum;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyworker.getCurriculum();
+		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
+
+		// Eliminamos el MiscellaneousRecord del curriculum del handyworker Principal
+
+		this.curriculumService.removeMiscellaneousRecord(curriculum, miscellaneousRecord);
+
+		// Eliminamos definitivamente el miscellaneousRecord
+
+		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
+	}
 
 	// Other business methods --------------------------
 
