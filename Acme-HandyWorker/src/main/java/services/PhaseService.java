@@ -22,7 +22,7 @@ public class PhaseService {
 
 	// Constructor ------------------------------------------------------------
 
-	private PhaseService() {
+	public PhaseService() {
 		super();
 	}
 

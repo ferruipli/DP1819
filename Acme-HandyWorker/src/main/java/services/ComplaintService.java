@@ -22,7 +22,7 @@ public class ComplaintService {
 
 	// Constructor ------------------------------------------------------------
 
-	private ComplaintService() {
+	public ComplaintService() {
 		super();
 	}
 

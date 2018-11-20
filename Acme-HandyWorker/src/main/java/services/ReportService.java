@@ -22,7 +22,7 @@ public class ReportService {
 
 	// Constructor ------------------------------------------------------------
 
-	private ReportService() {
+	public ReportService() {
 		super();
 	}
 

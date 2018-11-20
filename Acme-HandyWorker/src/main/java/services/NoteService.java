@@ -22,7 +22,7 @@ public class NoteService {
 
 	// Constructor ------------------------------------------------------------
 
-	private NoteService() {
+	public NoteService() {
 		super();
 	}
 

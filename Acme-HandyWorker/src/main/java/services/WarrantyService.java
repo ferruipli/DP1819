@@ -22,7 +22,7 @@ public class WarrantyService {
 
 	// Constructor ------------------------------------------------------------
 
-	private WarrantyService() {
+	public WarrantyService() {
 		super();
 	}
 

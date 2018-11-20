@@ -22,7 +22,7 @@ public class FixUpTaskService {
 
 	// Constructor ------------------------------------------------------------
 
-	private FixUpTaskService() {
+	public FixUpTaskService() {
 		super();
 	}
 

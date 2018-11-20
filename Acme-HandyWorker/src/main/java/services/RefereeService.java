@@ -22,7 +22,7 @@ public class RefereeService {
 
 	// Constructor ------------------------------------------------------------
 
-	private RefereeService() {
+	public RefereeService() {
 		super();
 	}
 
