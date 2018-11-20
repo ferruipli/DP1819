@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.SectionRepository;
 import domain.Section;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -20,11 +21,14 @@ public class SectionService {
 	@Autowired
 	private SectionRepository	sectionRepository;
 
-
 	// Supporting services -------------------------------------------
 
+	@Autowired
+	private TutorialService		tutorialService;
+
+
 	//Constructor ----------------------------------------------------
-	private SectionService() {
+	public SectionService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------
@@ -66,11 +70,17 @@ public class SectionService {
 		return result;
 	}
 	public void delete(final Section section) {
+		Tutorial tutorial;
 		Assert.isTrue(section.getId() != 0);
 		Assert.notNull(section);
 		Assert.isTrue(this.sectionRepository.exists(section.getId()));
 
+		tutorial = this.tutorialService.findTutorialBySection(section);
+		this.tutorialService.removeSection(tutorial, section);
+
 		this.sectionRepository.delete(section);
+
+		Assert.isTrue(!(tutorial.getSections().contains(section)));
 	}
 	//Other business methods-------------------------------------------
 }

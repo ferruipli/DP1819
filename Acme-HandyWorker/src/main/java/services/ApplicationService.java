@@ -24,7 +24,7 @@ public class ApplicationService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private ApplicationService() {
+	public ApplicationService() {
 		super();
 	}
 

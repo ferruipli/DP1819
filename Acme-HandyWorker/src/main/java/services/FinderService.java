@@ -24,7 +24,7 @@ public class FinderService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private FinderService() {
+	public FinderService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------

@@ -1,15 +1,11 @@
 
 package services;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 @Service
 @Transactional
