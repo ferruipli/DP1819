@@ -80,5 +80,25 @@ public class EndorserRecordService {
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
 
+	public EndorserRecord save(final EndorserRecord endorserRecord) {
+		Assert.notNull(endorserRecord);
+		Assert.isTrue(!(this.endorserRecordRepository.exists(endorserRecord.getId())));
+
+		HandyWorker handyWorker;
+		EndorserRecord result;
+		Curriculum curriculum;
+
+		result = this.endorserRecordRepository.save(endorserRecord);
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyWorker.getCurriculum();
+		Assert.notNull(curriculum);
+
+		this.curriculumService.addEndorserRecord(curriculum, result);
+
+		return result;
+
+	}
+
 	// Other business methods --------------------------
 }

@@ -81,6 +81,26 @@ public class EducationRecordService {
 		this.educationRecordRepository.delete(educationRecord);
 	}
 
+	public EducationRecord save(final EducationRecord educationRecord) {
+		Assert.notNull(educationRecord);
+		Assert.isTrue(!(this.educationRecordRepository.exists(educationRecord.getId())));
+
+		EducationRecord result;
+		HandyWorker handyWorker;
+		Curriculum curriculum;
+
+		result = this.educationRecordRepository.save(educationRecord);
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyWorker.getCurriculum();
+		Assert.notNull(curriculum);
+
+		this.curriculumService.addEducationRecord(curriculum, result);
+
+		return result;
+
+	}
+
 	// Other business methods --------------------------
 
 }

@@ -80,6 +80,25 @@ public class ProfessionalRecordService {
 		this.professionalRecordRepository.delete(professionalRecord);
 	}
 
+	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
+		Assert.notNull(professionalRecord);
+		Assert.isTrue(!(this.professionalRecordRepository.exists(professionalRecord.getId())));
+
+		HandyWorker handyWorker;
+		Curriculum curriculum;
+		ProfessionalRecord result;
+
+		result = this.professionalRecordRepository.save(professionalRecord);
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyWorker.getCurriculum();
+		Assert.notNull(curriculum);
+
+		this.curriculumService.addProfessionalRecord(curriculum, result);
+
+		return result;
+	}
+
 	// Other business methods --------------------------
 
 }

@@ -81,6 +81,26 @@ public class MiscellaneousRecordService {
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 
+	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
+		Assert.notNull(miscellaneousRecord);
+		Assert.isTrue(!(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())));
+
+		HandyWorker handyWorker;
+		MiscellaneousRecord result;
+		Curriculum curriculum;
+
+		result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyWorker.getCurriculum();
+		Assert.notNull(curriculum);
+
+		this.curriculumService.addMiscellaneousRecord(curriculum, result);
+
+		return result;
+
+	}
+
 	// Other business methods --------------------------
 
 }
