@@ -1902,137 +1902,69 @@
    
  	<!-- Customisations -->
  	<bean id="customisation1" class="domain.Customisation">
-		<property name="systemName" value="system name 1"/>
-		<property name="banner" value="http://www.google.es"/>
-		<property name="welcomeMessageEn" value="welcome message en 1" />
-		<property name="welcomeMessageSp" value="welcome message sp 1"/>
+		<property name="systemName" value="Acme Handy Worker"/>
+		<property name="banner" value="https://tinyurl.com/acme-handy-worker-logo"/>
+		<property name="welcomeMessageEn" value="Welcome to Acme Handy Worker! Price, quality, and trust in a single place" />
+		<property name="welcomeMessageSp" value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio"/>
 		<property name="VAT" value="0.21"/>
 		<property name="countryCode" value="+34" />
 		<property name="creditCardMakes">
 			<list>
 				<value>VISA</value>
-			</list>
-		</property>
-		<property name="timeCachedFinderResults" value="20"/>
-		<property name="maxFinderResults" value="50" />
-		<property name="spamWords">
-			<list>
-				<value>Viagra</value>
-				<value>Sex</value>
-			</list>
-		</property>
-		<property name="positiveWords">
-			<list>
-				<value>Good</value>
-				<value>Fantastic</value>
-			</list>
-		</property>
-		<property name="negativeWords">
-			<list>
-				<value>Not</value>
-				<value>Bad</value>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="customisation2" class="domain.Customisation">
-		<property name="systemName" value="system name 2"/>
-		<property name="banner" value="http://www.google.es"/>
-		<property name="welcomeMessageEn" value="welcome message en 2" />
-		<property name="welcomeMessageSp" value="welcome message sp 2"/>
-		<property name="VAT" value="0.21"/>
-		<property name="countryCode" value="+1" />
-		<property name="creditCardMakes">
-			<list>
 				<value>MASTER</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
 			</list>
 		</property>
-		<property name="timeCachedFinderResults" value="15"/>
-		<property name="maxFinderResults" value="75" />
+		<property name="timeCachedFinderResults" value="1"/>
+		<property name="maxFinderResults" value="10" />
 		<property name="spamWords">
 			<list>
-				<null></null>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you´ve been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millon</value>
+				<value>ha sido seleccionado</value>
 			</list>
 		</property>
 		<property name="positiveWords">
 			<list>
-				<value>Excellent</value>
-				<value>Great</value>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>bien</value>
+				<value>fantastico</value>
+				<value>excelente</value>
+				<value>genial</value>
+				<value>increible</value>
+				<value>terrorifico</value>
+				<value>hermosos</value>
 			</list>
 		</property>
 		<property name="negativeWords">
 			<list>
-				<null></null>
+				<value>not</value>
+				<value>bad</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>disaster</value>
+				<value>no</value>
+				<value>mal</value>
+				<value>mediocre</value>
+				<value>desastre</value>
 			</list>
 		</property>
 	</bean>
 	
-	<bean id="customisation3" class="domain.Customisation">
-		<property name="systemName" value="system name 3"/>
-		<property name="banner" value="http://www.google.es"/>
-		<property name="welcomeMessageEn" value="welcome message en 3" />
-		<property name="welcomeMessageSp" value="welcome message sp 3"/>
-		<property name="VAT" value="0.21"/>
-		<property name="countryCode" value="+58" />
-		<property name="creditCardMakes">
-			<list>
-				<value>VISA</value>
-			</list>
-		</property>
-		<property name="timeCachedFinderResults" value="10"/>
-		<property name="maxFinderResults" value="25" />
-		<property name="spamWords">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="positiveWords">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="negativeWords">
-			<list>
-				<value>Horrible</value>
-				<value>Average</value>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="customisation4" class="domain.Customisation">
-		<property name="systemName" value="system name 4"/>
-		<property name="banner" value="http://www.google.es"/>
-		<property name="welcomeMessageEn" value="welcome message en 4" />
-		<property name="welcomeMessageSp" value="welcome message sp 4"/>
-		<property name="VAT" value="0.21"/>
-		<property name="countryCode" value="+8" />
-		<property name="creditCardMakes">
-			<list>
-				<value>MASTER</value>
-			</list>
-		</property>
-		<property name="timeCachedFinderResults" value="05"/>
-		<property name="maxFinderResults" value="23" />
-		<property name="spamWords">
-			<list>
-				<value>Cialis</value>
-				<value>One Million</value>
-			</list>
-		</property>
-		<property name="positiveWords">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="negativeWords">
-			<list>
-				<null></null>
-			</list>
-		</property>
-	</bean>
- 
  	<!-- CreditCards -->
-  	
  	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="holder1" />
 		<property name="brandName" value="brand1" />
