@@ -1,9 +1,7 @@
 
 package services;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +36,6 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		Set<String> curriculumTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
@@ -46,13 +43,12 @@ public class UtilityService {
 		day = currentDate.getDayOfMonth();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
-		curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
 		counter = 0;
 
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumTickers.contains(result) || counter < 650000);
+		} while (!this.curriculumService.findCurriculumByTicker(result).equals(null) || counter < 650000);
 
 		Assert.isTrue(counter == 650000);
 

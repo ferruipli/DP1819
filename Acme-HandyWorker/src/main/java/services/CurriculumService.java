@@ -132,12 +132,20 @@ public class CurriculumService {
 
 	// Other business methods --------------------------
 
-	public Collection<String> findAllTickers() {
-		final Collection<String> results;
+	public Curriculum findCurriculumByTicker(final String ticker) {
+		Curriculum result;
 
-		results = this.curriculumRepository.findAllTickers();
+		result = this.curriculumRepository.findCurriculumByTicker(ticker);
 
-		return results;
+		return result;
+	}
+
+	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
+		Collection<EducationRecord> aux;
+
+		aux = new HashSet<>(curriculum.getEducationRecords());
+		aux.add(educationRecord);
+		curriculum.setEducationRecords(aux);
 	}
 
 	protected void removeEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
@@ -148,12 +156,28 @@ public class CurriculumService {
 		curriculum.setEducationRecords(aux);
 	}
 
+	protected void addEndorserRecord(final Curriculum curriculum, final EndorserRecord endorserRecord) {
+		Collection<EndorserRecord> aux;
+
+		aux = new HashSet<>(curriculum.getEndorserRecords());
+		aux.add(endorserRecord);
+		curriculum.setEndorserRecords(aux);
+	}
+
 	protected void removeEndorserRecord(final Curriculum curriculum, final EndorserRecord endorserRecord) {
 		Collection<EndorserRecord> aux;
 
 		aux = new HashSet<>(curriculum.getEndorserRecords());
 		aux.remove(endorserRecord);
 		curriculum.setEndorserRecords(aux);
+	}
+
+	protected void addMiscellaneousRecord(final Curriculum curriculum, final MiscellaneousRecord miscellaneousRecord) {
+		Collection<MiscellaneousRecord> aux;
+
+		aux = new HashSet<>(curriculum.getMiscellaneousRecords());
+		aux.add(miscellaneousRecord);
+		curriculum.setMiscellaneousRecords(aux);
 	}
 
 	protected void removeMiscellaneousRecord(final Curriculum curriculum, final MiscellaneousRecord miscellaneousRecord) {
@@ -164,8 +188,21 @@ public class CurriculumService {
 		curriculum.setMiscellaneousRecords(aux);
 	}
 
-	protected void removePersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
+	protected void addPersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
 		curriculum.setPersonalRecord(personalRecord);
+	}
+
+	protected void removePersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
+		Assert.isNull(personalRecord);
+		curriculum.setPersonalRecord(personalRecord);
+	}
+
+	protected void addProfessionalRecord(final Curriculum curriculum, final ProfessionalRecord professionalRecord) {
+		Collection<ProfessionalRecord> aux;
+
+		aux = new HashSet<>(curriculum.getProfessionalRecords());
+		aux.add(professionalRecord);
+		curriculum.setProfessionalRecords(aux);
 	}
 
 	protected void removeProfessionalRecord(final Curriculum curriculum, final ProfessionalRecord professionalRecord) {
