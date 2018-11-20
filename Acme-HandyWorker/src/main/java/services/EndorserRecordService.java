@@ -88,7 +88,10 @@ public class EndorserRecordService {
 		EndorserRecord result;
 		Curriculum curriculum;
 
-		result = this.endorserRecordRepository.save(endorserRecord);
+		if (endorserRecord.getEmail().matches("A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+") || endorserRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+			result = this.endorserRecordRepository.save(endorserRecord);
+		else
+			throw new IllegalArgumentException();
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		curriculum = handyWorker.getCurriculum();

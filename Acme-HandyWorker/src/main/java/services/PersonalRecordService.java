@@ -89,7 +89,10 @@ public class PersonalRecordService {
 		PersonalRecord result;
 		Curriculum curriculum;
 
-		result = this.personalRecordRepository.save(personalRecord);
+		if (personalRecord.getEmail().matches("A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+") || personalRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+			result = this.personalRecordRepository.save(personalRecord);
+		else
+			throw new IllegalArgumentException();
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		curriculum = handyWorker.getCurriculum();
