@@ -30,7 +30,7 @@ public class HandyWorkerService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private HandyWorkerService() {
+	public HandyWorkerService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------

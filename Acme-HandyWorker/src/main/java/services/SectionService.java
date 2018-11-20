@@ -28,7 +28,7 @@ public class SectionService {
 
 
 	//Constructor ----------------------------------------------------
-	private SectionService() {
+	public SectionService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------

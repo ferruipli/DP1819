@@ -18,13 +18,13 @@ public class SponsorshipService {
 
 	// Managed repository ---------------------------------------------
 	@Autowired
-	private SponsorshipRepository	sponsorshipRepository;
+	public SponsorshipRepository	sponsorshipRepository;
 
 
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private SponsorshipService() {
+	public SponsorshipService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------

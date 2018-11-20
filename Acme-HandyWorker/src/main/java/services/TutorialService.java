@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
@@ -14,6 +17,8 @@ import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
 
+@Service
+@Transactional
 public class TutorialService {
 
 	// Managed repository ---------------------------------------------
@@ -24,7 +29,7 @@ public class TutorialService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private TutorialService() {
+	public TutorialService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------

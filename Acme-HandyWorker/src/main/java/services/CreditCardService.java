@@ -24,7 +24,7 @@ public class CreditCardService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private CreditCardService() {
+	public CreditCardService() {
 		super();
 	}
 
