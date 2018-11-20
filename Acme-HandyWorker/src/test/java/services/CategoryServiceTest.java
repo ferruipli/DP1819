@@ -50,17 +50,59 @@ public class CategoryServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/* Se inserta con exito un objeto en la BD */
 	@Test
 	public void positiveTestSave_uno() {
 		super.authenticate("admin1");
 
 		Category category;
-		final Category saved;
+		final Category saved, parent;
 		final Collection<Category> all;
 
 		category = this.categoryService.create();
 		category.setParent(this.getParent());
 		category.setCategoriesTranslations(this.categoriesTranslation());
+
+		saved = this.categoryService.save(category);
+
+		all = this.categoryService.findAll();
+		parent = saved.getParent();
+
+		Assert.isTrue(all.contains(saved));
+		Assert.isTrue(parent.getDescendants().contains(saved));
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Se edita con exito un categoryTranslation: se modifica el
+	 * padre del objeto y se actualizar correctamente la jerarquia
+	 */
+	@Test
+	public void positiveTestSave_dos() {
+		super.authenticate("admin1");
+
+		int new_parentId, edited_CategoryId;
+		final Category edited, saved_edited, parent, new_parent;
+		final Collection<Category> all;
+
+		edited_CategoryId = super.getEntityId("category25");
+		new_parentId = super.getEntityId("category3");
+
+		edited = this.categoryService.findOne(edited_CategoryId);
+
+		parent = edited.getParent();
+		new_parent = this.categoryService.findOne(new_parentId);
+
+		edited.setParent(new_parent);
+
+		saved_edited = this.categoryService.save(edited);
+
+		all = this.categoryService.findAll();
+
+		Assert.isTrue(all.contains(saved_edited));
+		Assert.isTrue(!parent.getDescendants().contains(saved_edited));
+		Assert.isTrue(new_parent.getDescendants().contains(saved_edited));
 
 		super.unauthenticate();
 	}
@@ -120,6 +162,73 @@ public class CategoryServiceTest extends AbstractTest {
 		all = this.categoryService.findAll();
 
 		Assert.isTrue(!all.contains(saved));
+
+		super.unauthenticate();
+	}
+
+	/* Test negativo: category = null */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestDelete_uno() {
+		super.authenticate("admin1");
+
+		Category category;
+		Collection<Category> all;
+
+		category = null;
+
+		this.categoryService.delete(category);
+
+		all = this.categoryService.findAll();
+
+		Assert.isTrue(!all.contains(category));
+
+		super.unauthenticate();
+	}
+
+	/* Test negativo: category.id = 0 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestDelete_dos() {
+		super.authenticate("admin1");
+
+		Category category;
+		Collection<Category> all;
+
+		category = this.categoryService.create();
+		category.setParent(this.getParent());
+		category.setCategoriesTranslations(this.categoriesTranslation());
+
+		this.categoryService.delete(category);
+
+		all = this.categoryService.findAll();
+
+		Assert.isTrue(!all.contains(category));
+
+		super.unauthenticate();
+	}
+
+	@Test
+	public void positiveTestDelete_uno() {
+		super.authenticate("admin1");
+
+		final int id = super.getEntityId("category3");
+		Category category, parent;
+		Collection<Category> categories, all;
+
+		category = this.categoryService.findOne(id);
+
+		parent = category.getParent();
+		categories = category.getDescendants();
+
+		this.categoryService.delete(category);
+
+		all = this.categoryService.findAll();
+
+		Assert.isTrue(all.contains(category));
+
+		for (final Category c : categories) {
+			Assert.isTrue(c.getParent().equals(parent));
+			Assert.isTrue(parent.getDescendants().contains(c));
+		}
 
 		super.unauthenticate();
 	}

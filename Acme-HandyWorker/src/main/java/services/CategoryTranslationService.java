@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -78,10 +77,25 @@ public class CategoryTranslationService {
 	}
 
 	// Other business methods --------------------------
+	public CategoryTranslation findByLanguageCategory(final int categoryId, final String language) {
+		CategoryTranslation result;
+
+		result = this.findByLanguageCategory(categoryId, language);
+
+		return result;
+	}
 
 	// Private methods ---------------------------------
 	private boolean validLanguage(final CategoryTranslation categoryTranslation) {
-		List<String> languages;
+		Collection<String> languages;
+
+		languages = this.findLanguages();
+
+		return languages.contains(categoryTranslation.getLanguage());
+	}
+
+	private Collection<String> findLanguages() {
+		Collection<String> languages;
 		int n;
 
 		n = this.LANGUAGES.length;
@@ -90,7 +104,6 @@ public class CategoryTranslationService {
 		for (int i = 0; i < n; i++)
 			languages.add(this.LANGUAGES[i]);
 
-		return languages.contains(categoryTranslation.getLanguage());
+		return languages;
 	}
-
 }

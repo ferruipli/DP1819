@@ -169,5 +169,26 @@ public class CategoryService {
 
 		return result;
 	}
+	//TODO: No hace lo que tiene que hacer.
+	private boolean validLanguages(final Category category) {
+		Collection<CategoryTranslation> categoriesTranslations;
+		boolean is_present_es, is_present_en;
+		String es, en;
+
+		es = "Español";
+		en = "Ingles";
+
+		is_present_es = false;
+		is_present_en = false;
+
+		categoriesTranslations = category.getCategoriesTranslations();
+
+		for (final CategoryTranslation c : categoriesTranslations)
+			if (c.getLanguage().equals(es))
+				is_present_es = true;
+			else if (c.getLanguage().equals(en))
+				is_present_en = true;
+		return (is_present_es == true && is_present_en == false) || (is_present_es == false && is_present_en == true);
+	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Category;
 import domain.CategoryTranslation;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,8 +26,10 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	@Autowired
 	private CategoryTranslationService	categoryTranslationService;
 
-
 	// Supporting services ------------------------------------------------
+	@Autowired
+	private CategoryService				categoryService;
+
 
 	// Tests --------------------------------------------------------------
 
@@ -204,4 +207,20 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	@Test
+	public void testfindByLanguageCategory() {
+		int id;
+		String language;
+		final CategoryTranslation categoryTranslation;
+		Category category;
+
+		id = super.getEntityId("category5");
+		language = "Español";
+		category = this.categoryService.findOne(id);
+		categoryTranslation = this.categoryTranslationService.findByLanguageCategory(id, language);
+
+		Assert.notNull(categoryTranslation);
+		Assert.isTrue(category.getCategoriesTranslations().contains(categoryTranslation));
+		Assert.isTrue(categoryTranslation.getLanguage().equals(language));
+	}
 }
