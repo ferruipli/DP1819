@@ -32,30 +32,33 @@ public class CustomerServiceTest extends AbstractTest {
 
 	@Test
 	public void testTopThreeCustomer() {
-		super.authenticate("admin1");
-
 		Collection<Customer> customers;
 
 		customers = this.customerService.topThreeCustomer();
 
 		Assert.notNull(customers);
 		Assert.isTrue(customers.size() == 3);
-
-		super.unauthenticate();
 	}
 
 	@Test
 	public void testCustomerMoreThanAverage() {
-		super.authenticate("admin1");
-
 		Collection<Customer> customers;
 
 		customers = this.customerService.topThreeCustomer();
 
 		Assert.notNull(customers);
 		Assert.isTrue(customers.size() > 0);
+	}
 
-		super.unauthenticate();
+	@Test
+	public void testFindEndorsableCustomers() {
+		Collection<Customer> customers;
+		final int handyWorkerId = super.getEntityId("handyworker3");
+
+		customers = this.customerService.findEndorsableCustomers(handyWorkerId);
+
+		Assert.notNull(customers);
+		Assert.isTrue(customers.size() == 2);
 	}
 
 }
