@@ -37,9 +37,6 @@ public class CurriculumService {
 	private HandyWorkerService			handyWorkerService;
 
 	@Autowired
-	private PersonalRecordService		personalRecordService;
-
-	@Autowired
 	private EducationRecordService		educationRecordService;
 
 	@Autowired
@@ -89,12 +86,6 @@ public class CurriculumService {
 		Assert.notNull(curriculum);
 		Assert.isTrue(curriculum.getId() != 0);
 		Assert.isTrue(this.curriculumRepository.exists(curriculum.getId()));
-
-		PersonalRecord personalRecord;
-
-		// Eliminamos el personal record asociado
-		personalRecord = curriculum.getPersonalRecord();
-		this.personalRecordService.delete(personalRecord);
 
 		// Eliminamos los educations records asociados
 		for (final EducationRecord educationRecord : curriculum.getEducationRecords())
@@ -189,11 +180,6 @@ public class CurriculumService {
 	}
 
 	protected void addPersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
-		curriculum.setPersonalRecord(personalRecord);
-	}
-
-	protected void removePersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
-		Assert.isNull(personalRecord);
 		curriculum.setPersonalRecord(personalRecord);
 	}
 

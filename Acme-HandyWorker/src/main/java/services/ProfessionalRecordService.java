@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,14 @@ public class ProfessionalRecordService {
 
 		return result;
 
+	}
+
+	public Collection<ProfessionalRecord> findAll() {
+		Collection<ProfessionalRecord> results;
+
+		results = this.professionalRecordRepository.findAll();
+
+		return results;
 	}
 
 	public void delete(final ProfessionalRecord professionalRecord) {

@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,28 +59,12 @@ public class PersonalRecordService {
 
 	}
 
-	public void delete(final PersonalRecord personalRecord) {
-		Assert.notNull(personalRecord);
-		Assert.isTrue(personalRecord.getId() != 0);
-		Assert.isTrue(this.personalRecordRepository.exists(personalRecord.getId()));
+	public Collection<PersonalRecord> findAll() {
+		Collection<PersonalRecord> results;
 
-		// Debemos de eliminar el personalRecord del curriculum del handyworker
+		results = this.personalRecordRepository.findAll();
 
-		HandyWorker handyworker;
-		Curriculum curriculum;
-
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getPersonalRecord().equals(personalRecord));
-
-		// Eliminamos el PersonalRecord del curriculum del handyworker Principal
-
-		this.curriculumService.removePersonalRecord(curriculum, null);
-
-		// Eliminamos definitivamente el personalRecord
-
-		this.personalRecordRepository.delete(personalRecord);
+		return results;
 	}
 
 	public PersonalRecord save(final PersonalRecord personalRecord) {
@@ -89,7 +75,7 @@ public class PersonalRecordService {
 		PersonalRecord result;
 		Curriculum curriculum;
 
-		if (personalRecord.getEmail().matches("A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+") || personalRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+		if (personalRecord.getEmail().matches("[\\w]+[\\w]+@[a-zA-Z0-9.-]+") || personalRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
 			result = this.personalRecordRepository.save(personalRecord);
 		else
 			throw new IllegalArgumentException();
@@ -102,7 +88,6 @@ public class PersonalRecordService {
 
 		return result;
 	}
-
 	// Other business methods --------------------------
 
 }
