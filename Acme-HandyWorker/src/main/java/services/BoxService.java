@@ -48,6 +48,7 @@ public class BoxService {
 
 		result.setMessages(messages);
 		result.setActor(actor);
+		result.setIsSystemBox(false);
 
 		return result;
 	}
@@ -98,6 +99,7 @@ public class BoxService {
 	}
 
 	// Other business methods -------------------------------------------------
+
 	public Collection<Box> createDefaultFolders() {
 		Actor actor;
 		actor = this.actorService.findPrincipal();
