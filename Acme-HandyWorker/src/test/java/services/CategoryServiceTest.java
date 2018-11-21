@@ -108,7 +108,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test negativo: category = null */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_uno() {
 		super.authenticate("admin1");
 
@@ -127,7 +127,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test negativo: categoria sin padre */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_dos() {
 		super.authenticate("admin1");
 
@@ -147,7 +147,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test invalido: numero de categoyTranslation insuficiente */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_tres() {
 		super.authenticate("admin1");
 
@@ -223,7 +223,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 		all = this.categoryService.findAll();
 
-		Assert.isTrue(all.contains(category));
+		Assert.isTrue(!all.contains(category));
 
 		for (final Category c : categories) {
 			Assert.isTrue(c.getParent().equals(parent));
