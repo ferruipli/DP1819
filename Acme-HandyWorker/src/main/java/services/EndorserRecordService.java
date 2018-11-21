@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,14 @@ public class EndorserRecordService {
 		return result;
 	}
 
+	public Collection<EndorserRecord> findAll() {
+		Collection<EndorserRecord> results;
+
+		results = this.endorserRecordRepository.findAll();
+
+		return results;
+	}
+
 	public void delete(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(endorserRecord.getId() != 0);
@@ -88,7 +98,7 @@ public class EndorserRecordService {
 		EndorserRecord result;
 		Curriculum curriculum;
 
-		if (endorserRecord.getEmail().matches("A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+") || endorserRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+		if (endorserRecord.getEmail().matches("[\\w]+[\\w]+@[a-zA-Z0-9.-]+") || endorserRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
 			result = this.endorserRecordRepository.save(endorserRecord);
 		else
 			throw new IllegalArgumentException();

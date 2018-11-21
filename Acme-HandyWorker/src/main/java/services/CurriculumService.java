@@ -30,8 +30,8 @@ public class CurriculumService {
 
 	// Supporting services -----------------------------
 
-	//@Autowired
-	//private UtilityService				utilityService;
+	@Autowired
+	private UtilityService				utilityService;
 
 	@Autowired
 	private HandyWorkerService			handyWorkerService;
@@ -64,7 +64,7 @@ public class CurriculumService {
 
 		result = new Curriculum();
 
-		//result.setTicker(this.utilityService.generateValidTicker());
+		result.setTicker(this.utilityService.generateValidTicker());
 		result.setEducationRecords(Collections.<EducationRecord> emptySet());
 		result.setProfessionalRecords(Collections.<ProfessionalRecord> emptySet());
 		result.setEndorserRecords(Collections.<EndorserRecord> emptySet());

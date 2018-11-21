@@ -3,9 +3,13 @@ package services;
 
 import java.util.Random;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import repositories.CurriculumRepository;
 
 @Service
 @Transactional
@@ -13,10 +17,13 @@ public class UtilityService {
 
 	// Managed repository ------------------------------------------------------
 
+	@Autowired
+	private CurriculumRepository	curriculumRepository;
+
 	// Supporting services -----------------------------------------------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService		curriculumService;
 
 
 	// Constructors ------------------------------------------------------------
@@ -34,7 +41,6 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		final Set<String> curriculumTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
@@ -42,14 +48,12 @@ public class UtilityService {
 		day = currentDate.getDayOfMonth();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
-		//curriculumTickers = new HashSet<>(this.curriculumService.findAllTickers());
-		curriculumTickers = new HashSet<>();
 		counter = 0;
 
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumTickers.contains(result) || counter < 650000);
+		} while (this.curriculumRepository.exists(this.curriculumService.findCurriculumByTicker(result).getId()) || counter < 650000);
 
 		Assert.isTrue(counter == 650000);
 
@@ -71,5 +75,19 @@ public class UtilityService {
 
 		return result;
 	}
+
+	/*
+	 * private boolean existCurriculum(final String ticker) {
+	 * Boolean result;
+	 * 
+	 * if (this.curriculumRepository.exists(this.curriculumService.findCurriculumByTicker(ticker).getId()))
+	 * result = true;
+	 * else
+	 * result = false;
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
 
 }

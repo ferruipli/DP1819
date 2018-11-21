@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,14 @@ public class MiscellaneousRecordService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Collection<MiscellaneousRecord> findAll() {
+		Collection<MiscellaneousRecord> results;
+
+		results = this.miscellaneousRecordRepository.findAll();
+
+		return results;
 	}
 
 	public void delete(final MiscellaneousRecord miscellaneousRecord) {

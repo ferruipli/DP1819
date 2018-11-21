@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,14 @@ public class EducationRecordService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Collection<EducationRecord> findAll() {
+		Collection<EducationRecord> results;
+
+		results = this.educationRecordRepository.findAll();
+
+		return results;
 	}
 
 	public void delete(final EducationRecord educationRecord) {
