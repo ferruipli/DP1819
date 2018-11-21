@@ -74,7 +74,6 @@ public abstract class Actor extends DomainEntity {
 		this.photoLink = photoLink;
 	}
 
-	@Pattern(regexp = "[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]")
 	@NotBlank
 	public String getEmail() {
 		return this.email;

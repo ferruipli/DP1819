@@ -24,7 +24,7 @@ public class SponsorService {
 	// Supporting services -------------------------------------------
 
 	//Constructor ----------------------------------------------------
-	private SponsorService() {
+	public SponsorService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------
