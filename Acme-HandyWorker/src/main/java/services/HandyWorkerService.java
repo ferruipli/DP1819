@@ -115,5 +115,10 @@ public class HandyWorkerService {
 
 		return handyWorker;
 	}
+	public Collection<HandyWorker> findEndorsableHandyWorkers(final int customerId) {
+		Collection<HandyWorker> handyWorkers;
+		handyWorkers = this.handyWorkerRepository.findEndorsableHandyWorkers(customerId);
+		return handyWorkers;
+	}
 
 }
