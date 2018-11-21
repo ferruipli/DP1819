@@ -20,7 +20,7 @@ import domain.Customisation;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class CustomisationTest extends AbstractTest {
+public class CustomisationServiceTest extends AbstractTest {
 
 	// Services under testing --------------------------------
 	@Autowired
