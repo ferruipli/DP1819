@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
 import domain.Actor;
@@ -81,9 +82,25 @@ public class ActorService {
 		Assert.notNull(actor);
 
 		UserAccount result;
-
 		result = this.userAccountService.findByActor(actor);
 
 		return result;
+	}
+
+	public Actor findPrincipal() {
+		Actor result;
+		int userAccountId;
+		userAccountId = LoginService.getPrincipal().getId();
+
+		result = this.actorRepository.findActorByUseraccount(userAccountId);
+		Assert.notNull(result);
+
+		return null;
+	}
+
+	public Actor findActorByUseraccount(final int id) {
+		Actor res;
+		res = this.findActorByUseraccount(id);
+		return res;
 	}
 }
