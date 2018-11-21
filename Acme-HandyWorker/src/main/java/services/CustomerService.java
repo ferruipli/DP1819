@@ -55,12 +55,4 @@ public class CustomerService {
 		return results;
 	}
 
-	public Collection<Customer> findEndorsableCustomers(final int handyWorkerId) {
-		Collection<Customer> results;
-
-		results = this.customerRepository.findEndorsableCustomers(handyWorkerId);
-
-		return results;
-	}
-
 }
