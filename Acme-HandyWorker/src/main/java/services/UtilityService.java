@@ -9,21 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.CurriculumRepository;
-
 @Service
 @Transactional
 public class UtilityService {
 
 	// Managed repository ------------------------------------------------------
 
-	@Autowired
-	private CurriculumRepository	curriculumRepository;
-
 	// Supporting services -----------------------------------------------------
 
 	@Autowired
-	private CurriculumService		curriculumService;
+	private CurriculumService	curriculumService;
 
 
 	// Constructors ------------------------------------------------------------
@@ -53,9 +48,9 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (this.curriculumRepository.exists(this.curriculumService.findCurriculumByTicker(result).getId()) || counter < 650000);
+		} while (this.curriculumService.existCurriculum(result) == true || counter < 1000);
 
-		Assert.isTrue(counter == 650000);
+		Assert.isTrue(counter == 1000);
 
 		return result;
 	}
@@ -70,24 +65,10 @@ public class UtilityService {
 		randomNumber = new Random();
 		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-		for (int i = 0; i <= 3; i++)
+		for (int i = 0; i <= 5; i++)
 			result += characters.charAt(randomNumber.nextInt(characters.length()));
 
 		return result;
 	}
-
-	/*
-	 * private boolean existCurriculum(final String ticker) {
-	 * Boolean result;
-	 * 
-	 * if (this.curriculumRepository.exists(this.curriculumService.findCurriculumByTicker(ticker).getId()))
-	 * result = true;
-	 * else
-	 * result = false;
-	 * 
-	 * return result;
-	 * 
-	 * }
-	 */
 
 }

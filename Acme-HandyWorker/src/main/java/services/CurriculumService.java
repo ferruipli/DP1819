@@ -82,6 +82,14 @@ public class CurriculumService {
 
 	}
 
+	public Collection<Curriculum> findAll() {
+		Collection<Curriculum> results;
+
+		results = this.curriculumRepository.findAll();
+
+		return results;
+	}
+
 	public void delete(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(curriculum.getId() != 0);
@@ -123,10 +131,10 @@ public class CurriculumService {
 
 	// Other business methods --------------------------
 
-	public Curriculum findCurriculumByTicker(final String ticker) {
-		Curriculum result;
+	public Boolean existCurriculum(final String ticker) {
+		Boolean result;
 
-		result = this.curriculumRepository.findCurriculumByTicker(ticker);
+		result = this.curriculumRepository.existCurriculum(ticker);
 
 		return result;
 	}

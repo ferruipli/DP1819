@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.CurriculumRepository;
 import utilities.AbstractTest;
 import domain.Curriculum;
+import domain.EducationRecord;
+import domain.EndorserRecord;
+import domain.MiscellaneousRecord;
+import domain.PersonalRecord;
+import domain.ProfessionalRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -22,7 +30,27 @@ public class CurriculumServiceTest extends AbstractTest {
 	//Service under test ----------------------------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService			curriculumService;
+
+	@Autowired
+	private CurriculumRepository		curriculumRepository;
+
+	// Supporting services ---------------------------------
+
+	@Autowired
+	private EducationRecordService		educationRecordService;
+
+	@Autowired
+	private ProfessionalRecordService	professionalRecordService;
+
+	@Autowired
+	private EndorserRecordService		endorserRecordService;
+
+	@Autowired
+	private MiscellaneousRecordService	miscellaneousRecordService;
+
+	@Autowired
+	private PersonalRecordService		personalRecordService;
 
 
 	// Test ------------------------------------------------
@@ -42,5 +70,83 @@ public class CurriculumServiceTest extends AbstractTest {
 		Assert.notNull(curriculum.getMiscellaneousRecords());
 
 	}
+
+	@Test
+	public void testSaveCurriculum() {
+		final Curriculum curriculum, saved;
+		final Collection<Curriculum> curriculums;
+		final Collection<EducationRecord> educationRecords;
+		final Collection<ProfessionalRecord> professionalRecords;
+		final Collection<EndorserRecord> endorserRecords;
+		final Collection<MiscellaneousRecord> miscellaneousRecords;
+		EducationRecord educationRecord;
+		ProfessionalRecord professionalRecord;
+		EndorserRecord endorserRecord;
+		MiscellaneousRecord miscellaneousRecord;
+		final PersonalRecord personalRecord;
+
+		super.authenticate("handyworker1");
+
+		curriculum = this.curriculumService.create();
+
+		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
+		professionalRecord = this.professionalRecordService.findOne(super.getEntityId("professionalRecord1"));
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		personalRecord = this.personalRecordService.findOne(super.getEntityId("personalRecord1"));
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
+
+		educationRecords = curriculum.getEducationRecords();
+		endorserRecords = curriculum.getEndorserRecords();
+		professionalRecords = curriculum.getProfessionalRecords();
+		miscellaneousRecords = curriculum.getMiscellaneousRecords();
+
+		Assert.isTrue(!educationRecords.contains(educationRecord));
+		Assert.isTrue(!professionalRecords.contains(professionalRecord));
+		Assert.isTrue(!endorserRecords.contains(endorserRecord));
+		Assert.isTrue(!miscellaneousRecords.contains(miscellaneousRecord));
+
+		this.curriculumService.addEducationRecord(curriculum, educationRecord);
+		this.curriculumService.addEndorserRecord(curriculum, endorserRecord);
+		this.curriculumService.addMiscellaneousRecord(curriculum, miscellaneousRecord);
+		this.curriculumService.addProfessionalRecord(curriculum, professionalRecord);
+		this.curriculumService.addPersonalRecord(curriculum, personalRecord);
+
+		Assert.isTrue(curriculum.getEducationRecords().contains(educationRecord));
+		Assert.isTrue(curriculum.getProfessionalRecords().contains(professionalRecord));
+		Assert.isTrue(curriculum.getEndorserRecords().contains(endorserRecord));
+		Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
+
+		saved = this.curriculumService.save(curriculum);
+
+		curriculums = this.curriculumService.findAll();
+
+		Assert.isTrue(curriculums.contains(saved));
+
+		super.authenticate(null);
+
+	}
+	/*
+	 * @Test
+	 * public void testDeleteCurriculum() {
+	 * Curriculum curriculum;
+	 * Collection<Curriculum> curriculums;
+	 * 
+	 * super.authenticate("handyworker1");
+	 * 
+	 * curriculum = this.curriculumService.findOne(super.getEntityId("curriculum1"));
+	 * curriculums = this.curriculumService.findAll();
+	 * 
+	 * Assert.isTrue(curriculums.contains(curriculum));
+	 * 
+	 * this.curriculumService.delete(curriculum);
+	 * 
+	 * curriculums = this.curriculumService.findAll();
+	 * 
+	 * Assert.isTrue(!(curriculums.contains(curriculum)));
+	 * 
+	 * super.authenticate(null);
+	 * 
+	 * }
+	 */
 
 }

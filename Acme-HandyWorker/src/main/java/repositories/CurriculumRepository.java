@@ -10,7 +10,7 @@ import domain.Curriculum;
 @Repository
 public interface CurriculumRepository extends JpaRepository<Curriculum, Integer> {
 
-	@Query("select c from Curriculum c where c.ticker = ?1")
-	Curriculum findCurriculumByTicker(String ticker);
+	@Query("select case when (count(c)>0) then true else false end from Curriculum c where c.ticker = ?1")
+	Boolean existCurriculum(String ticker);
 
 }
