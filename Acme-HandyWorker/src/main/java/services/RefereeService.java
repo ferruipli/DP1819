@@ -61,7 +61,7 @@ public class RefereeService {
 
 	// Other business methods -------------------------------------------------
 
-	public void addComplaint(final Referee referee, final Complaint complaint) {
+	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
 		referee.getComplaints().add(complaint);
 	}
 }

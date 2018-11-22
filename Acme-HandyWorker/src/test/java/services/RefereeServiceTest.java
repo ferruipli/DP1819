@@ -12,6 +12,8 @@ import org.springframework.util.Assert;
 import security.UserAccount;
 import security.UserAccountRepository;
 import utilities.AbstractTest;
+import domain.Complaint;
+import domain.FixUpTask;
 import domain.Referee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,17 +28,19 @@ public class RefereeServiceTest extends AbstractTest {
 	@Autowired
 	private RefereeService			refereeService;
 
-	// Supporting repositories ------------------------------------------------
+	// Supporting services/repositories ---------------------------------------
+
+	@Autowired
+	private ComplaintService		complaintService;
+
+	@Autowired
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
 
 	// Test -------------------------------------------------------------------
-
-	// TODO: Esperar a que acabe Complaint
-	// complaint1 = coger un complaint para añadirselo al referee guardado 
-	// y comprobar que se actualiza la base de datos al añadir otro
 
 	@Test
 	public void testSaveReferee() {
@@ -57,5 +61,39 @@ public class RefereeServiceTest extends AbstractTest {
 
 		saved = this.refereeService.save(referee);
 		Assert.isTrue(this.refereeService.findOne(saved.getId()).equals(saved));
+	}
+
+	@Test
+	public void selfAssignComplaint() {
+		int refereeId, complaintsSelfAssigned1, complaintsSelfAssigned2;
+		Referee referee1, referee2;
+		Complaint complaint;
+
+		complaint = this.createSimpleComplaint();
+		refereeId = super.getEntityId("referee1");
+
+		referee1 = this.refereeService.findOne(refereeId);
+		complaintsSelfAssigned1 = referee1.getComplaints().size();
+
+		this.refereeService.selfAssignComplaint(referee1, complaint);
+		referee2 = this.refereeService.findOne(refereeId);
+		complaintsSelfAssigned2 = referee2.getComplaints().size();
+
+		Assert.isTrue(complaintsSelfAssigned1 == complaintsSelfAssigned2 - 1);
+	}
+
+	// Ancillary methods ------------------------------------------------------
+
+	private Complaint createSimpleComplaint() {
+		Complaint complaint, saved;
+		FixUpTask fixUpTask;
+
+		fixUpTask = this.fixUpTaskService.findOne(super.getEntityId("fixUpTask6"));
+
+		complaint = this.complaintService.create();
+		complaint.setFixUpTask(fixUpTask);
+		saved = this.complaintService.save(complaint);
+
+		return saved;
 	}
 }
