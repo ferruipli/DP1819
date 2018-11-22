@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -40,7 +41,7 @@ public class BoxService {
 
 	public Box create() {
 		Box result;
-		Collection<Message> messages;
+		List<Message> messages;
 		final Actor actor = this.actorService.findPrincipal();
 
 		result = new Box();
@@ -48,7 +49,6 @@ public class BoxService {
 
 		result.setMessages(messages);
 		result.setActor(actor);
-		result.setIsSystemBox(false);
 
 		return result;
 	}
@@ -78,12 +78,12 @@ public class BoxService {
 
 		actor = this.actorService.findPrincipal();
 
+		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
 		Assert.notNull(actor);
-		//tengo q asegurarme que si el id != 0 , que ese actor contenga esa box
+		//si el id != 0 , esa box sea del mismo actor q está modificando
 		if (box.getId() != 0)
-			Assert.isTrue(this.actorService.findPrincipal().getBox().contains(messageFolder));
-		Assert.isTrue(this.noDefaultBox(box));
+			Assert.isTrue(this.boxInActor(box, actor));
 
 		result = this.boxRepository.save(box);
 

@@ -25,7 +25,7 @@ public class BoxServiceTest extends AbstractTest {
 	private BoxService	boxService;
 
 
-	// Tests ----------------------------------------------
+	//Tests ----------------------------------------------
 	@Test
 	public void testCreate() {
 		final Box box;
@@ -33,20 +33,18 @@ public class BoxServiceTest extends AbstractTest {
 		Assert.notNull(box);
 	}
 
-	@Test
-	public void testSave() {
-		final Box box;
-		final Box boxSaved;
-
-		box = this.boxService.findOne(super.getEntityId("box22"));
-
-		handyWorker.setAddress("Francisco de Quevedo 12");
-		handyWorker.setEmail("maria@gmail.com");
-		handyWorker.setSurname("Jiménez");
-
-		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
-
-		Assert.notNull(handyWorkerSaved);
-	}
+	//	@Test
+	//	public void testSave() {
+	//		final Box box;
+	//		final Box boxSaved;
+	//
+	//		box = this.boxService.findOne(super.getEntityId("box23"));
+	//
+	//		box.setName("amigos box");
+	//
+	//		boxSaved = this.boxService.save(box);
+	//
+	//		Assert.notNull(boxSaved);
+	//	}
 
 }

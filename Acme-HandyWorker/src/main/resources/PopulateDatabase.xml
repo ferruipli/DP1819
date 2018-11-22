@@ -616,8 +616,8 @@
 	</bean>
 	
 	<bean id="box23" class="domain.Box">
-		<property name="name" value="trash box"/>
-		<property name="isSystemBox" value="true"/>
+		<property name="name" value="favorita box"/>
+		<property name="isSystemBox" value="false"/>
 		<property name="messages">
 			<list>
 				<null></null> 
