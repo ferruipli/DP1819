@@ -1,16 +1,21 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Sponsor;
+import domain.Sponsorship;
 
 @Service
 @Transactional
@@ -31,17 +36,28 @@ public class SponsorService {
 
 	public Sponsor create() {
 		Sponsor result;
+		UserAccount userAccount;
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = new ArrayList<Sponsorship>();
+		userAccount = new UserAccount();
 
 		result = new Sponsor();
+		result.setUserAccount(userAccount);
+		result.setSponsorships(sponsorships);
 
 		return result;
 	}
 
 	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
+		final Md5PasswordEncoder encoder;
+		final String passwordHash;
 
 		Sponsor result;
-
+		encoder = new Md5PasswordEncoder();
+		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
+		sponsor.getUserAccount().setPassword(passwordHash);
 		result = this.sponsorRepository.save(sponsor);
 
 		return result;
@@ -74,4 +90,11 @@ public class SponsorService {
 	}
 	//Other business methods-------------------------------------------
 
+	public Sponsor findByPrincipal() {
+		Sponsor result;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		result = this.sponsorRepository.findByUserAccountId(userAccount.getId());
+		return result;
+	}
 }

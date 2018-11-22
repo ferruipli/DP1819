@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
+import domain.CreditCard;
 import domain.Sponsorship;
 
 @Service
@@ -31,8 +32,12 @@ public class SponsorshipService {
 
 	public Sponsorship create() {
 		Sponsorship result;
+		CreditCard creditCard;
 
 		result = new Sponsorship();
+		creditCard = new CreditCard();
+
+		result.setCreditCard(creditCard);
 
 		return result;
 	}

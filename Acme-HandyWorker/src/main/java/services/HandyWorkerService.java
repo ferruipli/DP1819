@@ -64,8 +64,6 @@ public class HandyWorkerService {
 		handyWorker.getUserAccount().setPassword(passwordHash);
 		result = this.handyWorkerRepository.save(handyWorker);
 
-		result = this.handyWorkerRepository.save(handyWorker);
-
 		return result;
 	}
 
