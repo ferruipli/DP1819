@@ -9,4 +9,6 @@ import domain.Phase;
 @Repository
 public interface PhaseRepository extends JpaRepository<Phase, Integer> {
 
+	// COMPLT: Query para obtener las fases ordenadas por su número dado un id de un FixUpTask
+
 }
