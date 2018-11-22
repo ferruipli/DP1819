@@ -3,6 +3,8 @@ package services;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -172,20 +174,32 @@ public class CategoryService {
 	}
 	//TODO: No se abstrae de los idiomas soportados pero funciona correctamente.
 	private boolean validLanguages(final Category category) {
+		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;
 		boolean result;
-		int n_es = 0, n_en = 0;
-		final String es = "Español";
+		final String[] languages;
+		Integer valor;
+		final int n;
 
+		map = new HashMap<String, Integer>();
+		languages = CategoryTranslationService.LANGUAGES;
 		categoriesTranslations = category.getCategoriesTranslations();
+		result = true;
+		valor = 0;
+		n = languages.length;
 
-		for (final CategoryTranslation ct : categoriesTranslations)
-			if (ct.getLanguage().equals(es))
-				n_es++;
-			else
-				n_en++;
+		for (int i = 0; i < n; i++)
+			map.put(languages[i], 0);
 
-		result = n_es == 1 && n_en == 1;
+		for (final CategoryTranslation ct : categoriesTranslations) {
+			valor = map.get(ct.getLanguage());
+			valor++;
+			map.put(ct.getLanguage(), valor);
+		}
+
+		for (final Integer i : map.values())
+			result = result && i.equals(1);
+
 		return result;
 	}
 
