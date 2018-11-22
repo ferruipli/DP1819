@@ -66,6 +66,7 @@ public class CategoryService {
 		Assert.notNull(category);
 		Assert.notNull(category.getParent());
 		Assert.isTrue(category.getCategoriesTranslations().size() == this.IDIOMAS_SOPORTADOS);
+		Assert.isTrue(this.validLanguages(category));
 
 		final Category result, parent_category, old_category, old_parent_category;
 
@@ -90,7 +91,6 @@ public class CategoryService {
 
 		return result;
 	}
-
 	public void delete(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() != 0);
@@ -154,14 +154,15 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
-	private Category findRootCategory() {
-		Category result;
-
-		result = this.categoryRepository.findRootCategory();
-
-		return result;
-	}
-
+	/*
+	 * private Category findRootCategory() {
+	 * Category result;
+	 * 
+	 * result = this.categoryRepository.findRootCategory();
+	 * 
+	 * return result;
+	 * }
+	 */
 	private Category findOneToEdit(final int categoryId) {
 		Category result;
 
@@ -169,26 +170,23 @@ public class CategoryService {
 
 		return result;
 	}
-	//TODO: No hace lo que tiene que hacer.
+	//TODO: No se abstrae de los idiomas soportados pero funciona correctamente.
 	private boolean validLanguages(final Category category) {
 		Collection<CategoryTranslation> categoriesTranslations;
-		boolean is_present_es, is_present_en;
-		String es, en;
-
-		es = "Español";
-		en = "Ingles";
-
-		is_present_es = false;
-		is_present_en = false;
+		boolean result;
+		int n_es = 0, n_en = 0;
+		final String es = "Español";
 
 		categoriesTranslations = category.getCategoriesTranslations();
 
-		for (final CategoryTranslation c : categoriesTranslations)
-			if (c.getLanguage().equals(es))
-				is_present_es = true;
-			else if (c.getLanguage().equals(en))
-				is_present_en = true;
-		return (is_present_es == true && is_present_en == false) || (is_present_es == false && is_present_en == true);
+		for (final CategoryTranslation ct : categoriesTranslations)
+			if (ct.getLanguage().equals(es))
+				n_es++;
+			else
+				n_en++;
+
+		result = n_es == 1 && n_en == 1;
+		return result;
 	}
 
 }
