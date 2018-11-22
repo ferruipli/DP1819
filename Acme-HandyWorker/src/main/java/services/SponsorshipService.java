@@ -38,6 +38,7 @@ public class SponsorshipService {
 		creditCard = new CreditCard();
 
 		result.setCreditCard(creditCard);
+		Assert.notNull(creditCard);
 
 		return result;
 	}

@@ -32,6 +32,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	public void testCreate() {
 		final Sponsorship sponsorship;
 		sponsorship = this.sponsorshipService.create();
+
 		Assert.notNull(sponsorship);
 	}
 	@Test
