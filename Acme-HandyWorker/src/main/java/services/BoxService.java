@@ -80,6 +80,7 @@ public class BoxService {
 
 		Assert.notNull(box);
 		Assert.notNull(actor);
+		Assert.isTrue(!(this.boxRepository.existName(box.getName())));
 
 		result = this.boxRepository.save(box);
 
@@ -100,9 +101,7 @@ public class BoxService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Box> createDefaultFolders() {
-		Actor actor;
-		actor = this.actorService.findPrincipal();
+	public Collection<Box> createDefaultFolders(final Actor actor) {
 		Box inbox;
 		Box outbox;
 		Box trashbox;
@@ -150,7 +149,6 @@ public class BoxService {
 		res.add(spambox);
 
 		return res;
-
 	}
 
 }
