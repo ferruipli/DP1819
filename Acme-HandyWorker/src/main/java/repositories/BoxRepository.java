@@ -12,7 +12,7 @@ import domain.Box;
 @Repository
 public interface BoxRepository extends JpaRepository<Box, Integer> {
 
-	@Query("select b.name from Box b join b.actor a where a.id =?2 and b.name=?1")
-	Collection<String> existNameboxForActor(String name, int actorId);
+	@Query("select b.name from Box b join b.actor a where a.id =?1")
+	Collection<String> existNameboxForActor(int actorId);
 
 }

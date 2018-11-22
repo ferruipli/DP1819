@@ -3,12 +3,15 @@ package services;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Box;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -21,6 +24,29 @@ public class BoxServiceTest extends AbstractTest {
 	@Autowired
 	private BoxService	boxService;
 
+
 	// Tests ----------------------------------------------
+	@Test
+	public void testCreate() {
+		final Box box;
+		box = this.boxService.create();
+		Assert.notNull(box);
+	}
+
+	@Test
+	public void testSave() {
+		final Box box;
+		final Box boxSaved;
+
+		box = this.boxService.findOne(super.getEntityId("box22"));
+
+		handyWorker.setAddress("Francisco de Quevedo 12");
+		handyWorker.setEmail("maria@gmail.com");
+		handyWorker.setSurname("Jiménez");
+
+		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
+
+		Assert.notNull(handyWorkerSaved);
+	}
 
 }

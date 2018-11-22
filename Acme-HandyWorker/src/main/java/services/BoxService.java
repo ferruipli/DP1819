@@ -80,7 +80,10 @@ public class BoxService {
 
 		Assert.notNull(box);
 		Assert.notNull(actor);
-		Assert.isTrue(this.noExistNamebox(box, actor));
+		//tengo q asegurarme que si el id != 0 , que ese actor contenga esa box
+		if (box.getId() != 0)
+			Assert.isTrue(this.actorService.findPrincipal().getBox().contains(messageFolder));
+		Assert.isTrue(this.noDefaultBox(box));
 
 		result = this.boxRepository.save(box);
 
@@ -101,12 +104,12 @@ public class BoxService {
 
 	// Other business methods -------------------------------------------------
 
-	//si es TRUE = No existe una box con ese nombre y ese actor
-	public boolean noExistNamebox(final Box box, final Actor actor) {
-		boolean res = false;
+	//si es TRUE = existe una box con ese nombre y ese actor
+	public boolean boxInActor(final Box box, final Actor actor) {
+		boolean res = true;
 
 		if ((this.boxRepository.existNameboxForActor(box.getName(), actor.getId()).isEmpty()))
-			res = true;
+			res = false;
 
 		return res;
 	}
