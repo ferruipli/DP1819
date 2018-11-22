@@ -35,7 +35,6 @@ public class EndorsementServiceTest extends AbstractTest {
 	private EndorsableService	endorsableService;
 
 
-	@Autowired
 	// Test ---------------------------------------------------------
 	@Test
 	public void testPlayedRole() {
@@ -50,6 +49,34 @@ public class EndorsementServiceTest extends AbstractTest {
 		res = this.endorsementService.playedRole(handyWorker, "HANDYWORKER");
 
 		Assert.isTrue(res);
+
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testFindSentEndorsements() {
+		super.authenticate("customer1");
+
+		Collection<Endorsement> all;
+
+		all = this.endorsementService.findSentEndorsements();
+
+		Assert.notNull(all);
+		Assert.isTrue(all.size() > 0);
+
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testFindReceivedEndorsements() {
+		super.authenticate("customer1");
+
+		Collection<Endorsement> all;
+
+		all = this.endorsementService.findReceivedEndorsements();
+
+		Assert.notNull(all);
+		Assert.isTrue(all.size() > 0);
 
 		super.unauthenticate();
 	}
@@ -80,6 +107,7 @@ public class EndorsementServiceTest extends AbstractTest {
 		Collection<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
+		final Endorsement e;
 		int recipientId;
 
 		recipientId = super.getEntityId("handyworker6");
@@ -92,7 +120,9 @@ public class EndorsementServiceTest extends AbstractTest {
 		saved = this.endorsementService.save(endorsement);
 
 		all = this.endorsementService.findSentEndorsements();
+		//e = this.endorsementService.findOne(saved.getId());
 
+		//Assert.notNull(e);
 		Assert.isTrue(all.contains(saved));
 
 		super.unauthenticate();
@@ -170,7 +200,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	 * Test negativo: el customer va a realizar una recomendacion
 	 * sobre un handyWorker que no ha trabajado con el
 	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_tres() {
 		super.authenticate("customer3");
 
@@ -199,7 +229,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	 * Test negativo: El handyworker6 no ha trabajado para dicho
 	 * customer3 y va a realizarle una recomendacion
 	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_cuatro() {
 		super.authenticate("handyworker6");
 
@@ -228,7 +258,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	 * El handyworker6 solo ha trabajado para el customer6
 	 * pero quiere hacer una recomendacion sobre el customer1
 	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_cinco() {
 		super.authenticate("handyworker6");
 
@@ -258,7 +288,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	 * sobre los handyworkers 2 y 3 pero se la hace al
 	 * handyworker 5
 	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_seis() {
 		super.authenticate("customer2");
 
@@ -279,6 +309,92 @@ public class EndorsementServiceTest extends AbstractTest {
 		all = this.endorsementService.findSentEndorsements();
 
 		Assert.isTrue(!all.contains(saved));
+
+		super.unauthenticate();
+	}
+
+	/* Test negativo: endorsement null */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestDelete_uno() {
+		super.authenticate("customer2");
+
+		Collection<Endorsement> all;
+		Endorsement endorsement;
+
+		endorsement = null;
+
+		this.endorsementService.delete(endorsement);
+
+		all = this.endorsementService.findSentEndorsements();
+
+		Assert.isTrue(all.contains(endorsement));
+
+		super.unauthenticate();
+	}
+
+	/* Test negativo: endorsement que no se encuentra en la BD */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestDelete_dos() {
+		super.authenticate("customer1");
+
+		Endorsement endorsement, deleted;
+		Endorsable recipient;
+		int recipientId;
+
+		recipientId = super.getEntityId("customer5");
+		recipient = this.endorsableService.findOne(recipientId);
+
+		endorsement = this.endorsementService.create();
+		endorsement.setRecipient(recipient);
+		endorsement.setComments("Gran trabajador, mejor persona.");
+
+		this.endorsementService.delete(endorsement);
+
+		deleted = this.endorsementService.findOne(endorsement.getId());
+
+		Assert.isNull(deleted);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test negativo: customer3 tratar de borrar una recomendacion
+	 * que no ha escrito el o ella.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestDelete_tres() {
+		super.authenticate("customer3");
+
+		Endorsement endorsement, e;
+		int id;
+
+		id = super.getEntityId("endorsement1");
+		endorsement = this.endorsementService.findOne(id);
+
+		this.endorsementService.delete(endorsement);
+
+		e = this.endorsementService.findOne(id);
+
+		Assert.notNull(e);
+
+		super.unauthenticate();
+	}
+
+	@Test
+	public void positiveTestDelete() {
+		super.authenticate("customer1");
+
+		Endorsement endorsement, e;
+		int id;
+
+		id = super.getEntityId("endorsement1");
+		endorsement = this.endorsementService.findOne(id);
+
+		this.endorsementService.delete(endorsement);
+
+		e = this.endorsementService.findOne(id);
+
+		Assert.isNull(e);
 
 		super.unauthenticate();
 	}
