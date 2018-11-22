@@ -74,16 +74,14 @@ public class BoxService {
 
 	public Box save(final Box box) {
 		Box result;
-		Actor actor;
+		final Actor actor = this.actorService.findPrincipal();
 
-		actor = this.actorService.findPrincipal();
-
-		Assert.isTrue(!(box.getIsSystemBox()));
+		//Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
 		Assert.notNull(actor);
 		//si el id != 0 , esa box sea del mismo actor q está modificando
-		if (box.getId() != 0)
-			Assert.isTrue(this.boxInActor(box, actor));
+		//		if (box.getId() == 0)
+		//			Assert.isTrue(this.boxInActor(box, actor));
 
 		result = this.boxRepository.save(box);
 
@@ -93,10 +91,10 @@ public class BoxService {
 	public void delete(final Box box) {
 		Assert.notNull(box);
 		Assert.isTrue(box.getId() != 0);
-		Assert.isTrue(box.getName() != "in box");
-		Assert.isTrue(box.getName() != "out box");
-		Assert.isTrue(box.getName() != "trash box");
-		Assert.isTrue(box.getName() != "spam box");
+		Assert.isTrue(!(box.getName().equals("in box")));
+		Assert.isTrue(!(box.getName().equals("out box")));
+		Assert.isTrue(!(box.getName().equals("trash box")));
+		Assert.isTrue(!(box.getName().equals("spam box")));
 		Assert.isTrue(this.boxRepository.exists(box.getId()));
 
 		this.boxRepository.delete(box);

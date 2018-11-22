@@ -28,9 +28,11 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		super.authenticate("HandyWorker1");
 		final Message message;
 		message = this.messageService.create();
 		Assert.notNull(message);
+		super.unauthenticate();
 	}
 
 }
