@@ -2897,7 +2897,6 @@
 	
 	<!-- Phase -->
 	<bean id="phase1" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="Sacar muebles y cosas" />
 		<property name="description" value="Sacar muebles y cosas y meterlas en el camion" />
 		<property name="startMoment" value="2019/01/14 08:01" />
@@ -2905,7 +2904,6 @@
 	</bean>
 	
 	<bean id="phase2" class="domain.Phase">
-		<property name="number" value="2" />
 		<property name="title" value="Llevar las cosas hacia el lugar de destino" />
 		<property name="description" value="Comprobar que no haya habido ningun desperfectos" />
 		<property name="startMoment" value="2019/01/14 10:01" />
@@ -2913,7 +2911,6 @@
 	</bean>
 	
 	<bean id="phase3" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="title 3" />
 		<property name="description" value="Descripcion 3" />
 		<property name="startMoment" value="2018/10/22 09:01" />
@@ -2921,7 +2918,6 @@
 	</bean>
 	
 	<bean id="phase4" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="Comprar la pintura del color solicitado por el cliente" />
 		<property name="description" value="Ir a una tienda especializada de pintura y comprar la pintura en el menor tiempo posible" />
 		<property name="startMoment" value="2018/12/15 10:00" />
@@ -2929,7 +2925,6 @@
 	</bean>
 	
 	<bean id="phase5" class="domain.Phase">
-		<property name="number" value="2" />
 		<property name="title" value="Pintar" />
 		<property name="description" value="Aplicar varias capas de pintura." />
 		<property name="startMoment" value="2018/12/15 11:30" />
@@ -2937,7 +2932,6 @@
 	</bean>
 	
 	<bean id="phase6" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="Reparar ventana" />
 		<property name="description" value="Sustituir ventana y cambiarla por otra" />
 		<property name="startMoment" value="2018/09/25 16:01" />
@@ -2945,7 +2939,6 @@
 	</bean>
 	
 	<bean id="phase7" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="Planificar trabajo para la cocina" />
 		<property name="description" value="Planificar tiempo y recursos necesarios para realizar el trabajo" />
 		<property name="startMoment" value="2017/07/30 10:00" />
@@ -2953,7 +2946,6 @@
 	</bean>
 	
 	<bean id="phase8" class="domain.Phase">
-		<property name="number" value="2" />
 		<property name="title" value="Diseñar cocina" />
 		<property name="description" value="Diseñar cocina teniendo en cuenta las indicaciones de los clientes" />
 		<property name="startMoment" value="2017/07/31 10:00" />
@@ -2961,7 +2953,6 @@
 	</bean>
 	
 	<bean id="phase9" class="domain.Phase">
-		<property name="number" value="3" />
 		<property name="title" value="Construir cocina" />
 		<property name="description" value="Construir cocina y mantener informado a los clientes de los avances" />
 		<property name="startMoment" value="2017/08/04 10:00" />
@@ -2969,7 +2960,6 @@
 	</bean>
 	
 	<bean id="phase10" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="title 10" />
 		<property name="description" value="descripcion 10" />
 		<property name="startMoment" value="2017/02/27 09:01" />
@@ -2977,7 +2967,6 @@
 	</bean>
 	
 	<bean id="phase11" class="domain.Phase">
-		<property name="number" value="1" />
 		<property name="title" value="title 11" />
 		<property name="description" value="descripcion 11" />
 		<property name="startMoment" value="2018/06/20 09:00" />

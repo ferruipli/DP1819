@@ -29,14 +29,10 @@ public class PhaseService {
 
 	// Simple CRUD methods ----------------------------------------------------
 
-	// El número de cada fase debe pasarse como parámetro desde el controlador,
-	// para asegurar que los números son consecutivos
-	// COMPLT: dejar hasta aclarar atributo de orden
 	public Phase create(final int number) {
 		Phase result;
 
 		result = new Phase();
-		result.setNumber(number);
 
 		return result;
 	}

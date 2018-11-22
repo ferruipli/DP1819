@@ -25,20 +25,11 @@ public class Phase extends DomainEntity {
 
 	// Attributes
 
-	private int		number;
 	private String	title;
 	private String	description;
 	private Date	startMoment;
 	private Date	endMoment;
 
-
-	public int getNumber() {
-		return this.number;
-	}
-
-	public void setNumber(final int number) {
-		this.number = number;
-	}
 
 	@NotBlank
 	public String getTitle() {
