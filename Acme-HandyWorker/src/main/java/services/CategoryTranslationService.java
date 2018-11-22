@@ -80,7 +80,7 @@ public class CategoryTranslationService {
 	public CategoryTranslation findByLanguageCategory(final int categoryId, final String language) {
 		CategoryTranslation result;
 
-		result = this.findByLanguageCategory(categoryId, language);
+		result = this.categoryTranslationRepository.findByLanguageCategory(categoryId, language);
 
 		return result;
 	}
