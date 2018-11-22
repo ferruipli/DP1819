@@ -1,13 +1,12 @@
 
 package services;
 
-import javax.transaction.Transactional;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
@@ -33,18 +32,26 @@ public class BoxServiceTest extends AbstractTest {
 		Assert.notNull(box);
 	}
 
-	//	@Test
-	//	public void testSave() {
-	//		final Box box;
-	//		final Box boxSaved;
-	//
-	//		box = this.boxService.findOne(super.getEntityId("box23"));
-	//
-	//		box.setName("amigos box");
-	//
-	//		boxSaved = this.boxService.save(box);
-	//
-	//		Assert.notNull(boxSaved);
-	//	}
+	@Test
+	public void testSave() {
+		final Box box;
+		final Box boxSaved;
+
+		box = this.boxService.findOne(super.getEntityId("box23"));
+
+		box.setName("amigos box");
+
+		boxSaved = this.boxService.save(box);
+
+		Assert.notNull(boxSaved);
+	}
+
+	@Test
+	public void testDelete() {
+		final Box box;
+		box = this.boxService.findOne(super.getEntityId("box23"));
+		this.boxService.delete(box);
+
+	}
 
 }
