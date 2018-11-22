@@ -108,7 +108,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test negativo: category = null */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_uno() {
 		super.authenticate("admin1");
 
@@ -127,7 +127,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test negativo: categoria sin padre */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_dos() {
 		super.authenticate("admin1");
 
@@ -147,7 +147,7 @@ public class CategoryServiceTest extends AbstractTest {
 	}
 
 	/* Test invalido: numero de categoyTranslation insuficiente */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_tres() {
 		super.authenticate("admin1");
 
@@ -155,13 +155,38 @@ public class CategoryServiceTest extends AbstractTest {
 		Collection<Category> all;
 
 		category = this.categoryService.create();
-		category.setCategoriesTranslations(this.invalid_categoriesTranslation());
+		category.setParent(this.getParent());
+		category.setCategoriesTranslations(this.invalid_number_categoriesTranslation());
 
 		saved = this.categoryService.save(category);
 
 		all = this.categoryService.findAll();
 
 		Assert.isTrue(!all.contains(saved));
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test invalido: numero de categoyTranslation correcto pero ambas
+	 * categoriesTranslation son del mismo idioma
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestSave_cuatro() {
+		super.authenticate("admin1");
+
+		Category category, saved;
+		final Category showed;
+
+		category = this.categoryService.create();
+		category.setParent(this.getParent());
+		category.setCategoriesTranslations(this.invalid_categoriesTranslation());
+
+		saved = this.categoryService.save(category);
+
+		showed = this.categoryService.findOne(saved.getId());
+
+		Assert.isNull(showed);
 
 		super.unauthenticate();
 	}
@@ -223,7 +248,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 		all = this.categoryService.findAll();
 
-		Assert.isTrue(all.contains(category));
+		Assert.isTrue(!all.contains(category));
 
 		for (final Category c : categories) {
 			Assert.isTrue(c.getParent().equals(parent));
@@ -260,11 +285,34 @@ public class CategoryServiceTest extends AbstractTest {
 	private List<CategoryTranslation> invalid_categoriesTranslation() {
 		List<CategoryTranslation> results;
 
+		CategoryTranslation ct1, ct2, ct1_saved, ct2_saved;
+
+		ct1 = this.categoryTranslationService.create();
+		ct1.setLanguage("Ingles");
+		ct1.setName("Formatear PC");
+
+		ct2 = this.categoryTranslationService.create();
+		ct2.setLanguage("Ingles");
+		ct2.setName("Format PC");
+
+		ct1_saved = this.categoryTranslationService.save(ct1);
+		ct2_saved = this.categoryTranslationService.save(ct2);
+
+		results = new ArrayList<CategoryTranslation>();
+		results.add(ct1_saved);
+		results.add(ct2_saved);
+
+		return results;
+	}
+
+	private List<CategoryTranslation> invalid_number_categoriesTranslation() {
+		List<CategoryTranslation> results;
+
 		CategoryTranslation ct, saved;
 
 		ct = this.categoryTranslationService.create();
 		ct.setLanguage("Español");
-		ct.setName("Arreglar videoconsola");
+		ct.setName("Instalar programas PC");
 
 		saved = this.categoryTranslationService.save(ct);
 

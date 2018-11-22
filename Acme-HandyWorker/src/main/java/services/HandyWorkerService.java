@@ -93,6 +93,7 @@ public class HandyWorkerService {
 		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
 
 		this.handyWorkerRepository.delete(handyWorker);
+
 	}
 	//Other business methods-------------------------------------------
 
@@ -102,6 +103,22 @@ public class HandyWorkerService {
 		userAccount = LoginService.getPrincipal();
 		result = this.handyWorkerRepository.findByUserAccountId(userAccount.getId());
 		return result;
+	}
+	public HandyWorker changeMake(final String make) {
+		HandyWorker handyWorker;
+		Assert.isTrue(!(make.isEmpty()));
+
+		handyWorker = this.findByPrincipal();
+		Assert.notNull(handyWorker);
+		handyWorker.setMake(make);
+		Assert.isTrue(handyWorker.getMake() == make);
+
+		return handyWorker;
+	}
+	public Collection<HandyWorker> findEndorsableHandyWorkers(final int customerId) {
+		Collection<HandyWorker> handyWorkers;
+		handyWorkers = this.handyWorkerRepository.findEndorsableHandyWorkers(customerId);
+		return handyWorkers;
 	}
 
 }

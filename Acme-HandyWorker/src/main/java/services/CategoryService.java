@@ -3,6 +3,8 @@ package services;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -66,6 +68,7 @@ public class CategoryService {
 		Assert.notNull(category);
 		Assert.notNull(category.getParent());
 		Assert.isTrue(category.getCategoriesTranslations().size() == this.IDIOMAS_SOPORTADOS);
+		Assert.isTrue(this.validLanguages(category));
 
 		final Category result, parent_category, old_category, old_parent_category;
 
@@ -90,7 +93,6 @@ public class CategoryService {
 
 		return result;
 	}
-
 	public void delete(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() != 0);
@@ -154,14 +156,15 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
-	private Category findRootCategory() {
-		Category result;
-
-		result = this.categoryRepository.findRootCategory();
-
-		return result;
-	}
-
+	/*
+	 * private Category findRootCategory() {
+	 * Category result;
+	 * 
+	 * result = this.categoryRepository.findRootCategory();
+	 * 
+	 * return result;
+	 * }
+	 */
 	private Category findOneToEdit(final int categoryId) {
 		Category result;
 
@@ -169,26 +172,35 @@ public class CategoryService {
 
 		return result;
 	}
-	//TODO: No hace lo que tiene que hacer.
+	//TODO: No se abstrae de los idiomas soportados pero funciona correctamente.
 	private boolean validLanguages(final Category category) {
+		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;
-		boolean is_present_es, is_present_en;
-		String es, en;
+		boolean result;
+		final String[] languages;
+		Integer valor;
+		final int n;
 
-		es = "Español";
-		en = "Ingles";
-
-		is_present_es = false;
-		is_present_en = false;
-
+		map = new HashMap<String, Integer>();
+		languages = CategoryTranslationService.LANGUAGES;
 		categoriesTranslations = category.getCategoriesTranslations();
+		result = true;
+		valor = 0;
+		n = languages.length;
 
-		for (final CategoryTranslation c : categoriesTranslations)
-			if (c.getLanguage().equals(es))
-				is_present_es = true;
-			else if (c.getLanguage().equals(en))
-				is_present_en = true;
-		return (is_present_es == true && is_present_en == false) || (is_present_es == false && is_present_en == true);
+		for (int i = 0; i < n; i++)
+			map.put(languages[i], 0);
+
+		for (final CategoryTranslation ct : categoriesTranslations) {
+			valor = map.get(ct.getLanguage());
+			valor++;
+			map.put(ct.getLanguage(), valor);
+		}
+
+		for (final Integer i : map.values())
+			result = result && i.equals(1);
+
+		return result;
 	}
 
 }
