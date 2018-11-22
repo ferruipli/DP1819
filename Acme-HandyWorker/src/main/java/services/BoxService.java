@@ -80,7 +80,7 @@ public class BoxService {
 
 		Assert.notNull(box);
 		Assert.notNull(actor);
-		Assert.isTrue(!(this.boxRepository.existName(box.getName())));
+		Assert.isTrue(this.noExistNamebox(box, actor));
 
 		result = this.boxRepository.save(box);
 
@@ -101,7 +101,17 @@ public class BoxService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Box> createDefaultFolders(final Actor actor) {
+	//si es TRUE = No existe una box con ese nombre y ese actor
+	public boolean noExistNamebox(final Box box, final Actor actor) {
+		boolean res = false;
+
+		if ((this.boxRepository.existNameboxForActor(box.getName(), actor.getId()).isEmpty()))
+			res = true;
+
+		return res;
+	}
+
+	public Collection<Box> createDefaultBox(final Actor actor) {
 		Box inbox;
 		Box outbox;
 		Box trashbox;
