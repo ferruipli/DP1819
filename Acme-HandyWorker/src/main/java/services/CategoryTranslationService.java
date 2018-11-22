@@ -17,7 +17,7 @@ import domain.CategoryTranslation;
 @Transactional
 public class CategoryTranslationService {
 
-	final String[]							LANGUAGES	= {
+	final static String[]					LANGUAGES	= {
 		"Español", "Ingles"
 														};
 
@@ -98,11 +98,11 @@ public class CategoryTranslationService {
 		Collection<String> languages;
 		int n;
 
-		n = this.LANGUAGES.length;
+		n = CategoryTranslationService.LANGUAGES.length;
 		languages = new ArrayList<>();
 
 		for (int i = 0; i < n; i++)
-			languages.add(this.LANGUAGES[i]);
+			languages.add(CategoryTranslationService.LANGUAGES[i]);
 
 		return languages;
 	}

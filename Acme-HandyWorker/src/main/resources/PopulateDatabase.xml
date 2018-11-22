@@ -653,7 +653,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message11" />
 			</list>
 		</property>
 		<property name="actor" ref="customer3"/>
@@ -708,7 +708,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> 
+				<null> </null> 
 			</list>
 		</property>
 		<property name="actor" ref="customer4"/>
@@ -719,7 +719,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> 
+				<ref bean="message11" />
 			</list>
 		</property>
 		<property name="actor" ref="customer4"/>
@@ -829,7 +829,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message12" />
 			</list>
 		</property>
 		<property name="actor" ref="handyworker2"/>
@@ -895,7 +895,7 @@
 		<property name="isSystemBox" value="true"/>
 		<property name="messages">
 			<list>
-				<null></null> 
+				<ref bean="message12" /> 
 			</list>
 		</property>
 		<property name="actor" ref="handyworker3"/>
@@ -1837,7 +1837,7 @@
 		<property name="email" value="customer3@gmail.com" />
 		<property name="phoneNumber" value="632014701" />
 		<property name="address" value="Address 3" />
-		<property name="isSuspicious" value="false" />
+		<property name="isSuspicious" value="true" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="fixUpTasks">
 			<list>
@@ -2216,7 +2216,8 @@
 	</bean>
 	
 	<bean id="finder2" class="domain.Finder">
-		<property name="category" value="Limpieza" />
+		<property name="category" value="Limpieza" />		
+		<property name="lastUpdate" value="2018/11/21 21:21" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask2" />
@@ -2227,7 +2228,8 @@
 	</bean>
 	
 	<bean id="finder3" class="domain.Finder">
-		<property name="warranty" value="title y" />
+		<property name="warranty" value="title y" />		
+		<property name="lastUpdate" value="2018/11/21 15:31" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask1" />
@@ -2239,7 +2241,7 @@
 	<bean id="finder4" class="domain.Finder">
 		<property name="keyword" value="keyword X"/>
 		<property name="category" value="Moving" />
-		<property name="warranty" value="warranty x" />
+		<property name="warranty" value="warranty x" />		
 		<property name="fixUpTasks">
 			<list>
 				<null></null>
@@ -2252,6 +2254,7 @@
 		<property name="endPrice" value="200.99" />
 		<property name="startDate" value="2018/10/22" />
 		<property name="endDate" value="2012/10/22" />
+		<property name="lastUpdate" value="2018/11/21 16:31" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask2" />
@@ -2260,7 +2263,8 @@
 	</bean>
 	
 	<bean id="finder6" class="domain.Finder">
-		<property name="keyword" value="Task z"/>
+		<property name="keyword" value="Task z"/>		
+		<property name="lastUpdate" value="2018/11/21 16:31" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask6" />
@@ -2537,7 +2541,7 @@
 		<property name="email" value="handyworker2@gmail.com"/>
 		<property name="phoneNumber" value="654122078" />
 		<property name="address" value="Address 2"/>
-		<property name="isSuspicious" value="false"/>
+		<property name="isSuspicious" value="true"/>
 		<property name="userAccount" ref="userAccount11"/>
 		<property name="make" value="Make 2"/>
 		<!--  <property name="score" value="0.5"/> -->
@@ -2791,6 +2795,35 @@
 		</property>
 	</bean> 
  	
+ 	<bean id="message11" class="domain.Message">
+		<property name="sendMoment" value="2018/11/16 05:00"/>
+		<property name="subject" value="sexo, alcohol y drogas"/>
+		<property name="body" value="Este fin de semana quedamos" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="1" />
+		<property name="isSpam" value="true" />
+		<property name="sender" ref="customer3" />
+		<property name="recipients">
+			<list>
+				<ref bean="customer4"/>
+			</list>
+		</property>
+	</bean>
+ 	
+ 	<bean id="message12" class="domain.Message">
+		<property name="sendMoment" value="2015/01/01 01:30"/>
+		<property name="subject" value="Secuestro"/>
+		<property name="body" value="He secuestrado a tu perro. Quiero un millón de criptomonedas" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="1" />
+		<property name="isSpam" value="true" />
+		<property name="sender" ref="customer3" />
+		<property name="recipients">
+			<list>
+				<ref bean="customer4"/>
+			</list>
+		</property>
+	</bean>
  	
 	<!-- Miscellaneous Records -->
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
