@@ -74,6 +74,37 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveWithWrongEmailEndorserRecord() {
+		EndorserRecord endorserRecord, saved;
+		Collection<EndorserRecord> endorserRecords;
+		String fullName, email, phoneNumber, linkedInProfile, comments;
+
+		super.authenticate("handyworker1");
+		endorserRecord = this.endorserRecordService.create();
+
+		fullName = "Evaristo";
+		email = "Evaristo <evaristo@>";
+		phoneNumber = "954780123";
+		linkedInProfile = "http://www.linkedin.com";
+		comments = "comments";
+
+		endorserRecord.setFullName(fullName);
+		endorserRecord.setEmail(email);
+		endorserRecord.setPhoneNumber(phoneNumber);
+		endorserRecord.setLinkedInProfile(linkedInProfile);
+		endorserRecord.setComments(comments);
+
+		saved = this.endorserRecordService.save(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(saved));
+
+		super.authenticate(null);
+
+	}
+
 	@Test
 	public void testDeleteEndorserRecord() {
 		EndorserRecord endorserRecord;
