@@ -43,12 +43,14 @@ public class BoxService {
 		Box result;
 		List<Message> messages;
 		final Actor actor = this.actorService.findPrincipal();
+		Assert.notNull(actor);
 
 		result = new Box();
 		messages = new ArrayList<Message>();
 
 		result.setMessages(messages);
 		result.setActor(actor);
+		result.setIsSystemBox(false);
 
 		return result;
 	}
@@ -57,6 +59,7 @@ public class BoxService {
 		Collection<Box> result;
 
 		result = this.boxRepository.findAll();
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -78,7 +81,7 @@ public class BoxService {
 
 		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
-		//Assert.notNull(actor);
+		Assert.notNull(actor);
 		//si el id != 0 , esa box sea del mismo actor q está modificando
 		if (box.getId() == 0)
 			Assert.isTrue(this.boxInActor(box, actor));

@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -45,12 +46,17 @@ public class MessageService {
 		Message result;
 		List<Actor> recipients;
 		final Actor sender = this.actorService.findPrincipal();
+		Date sendMoment;
+		Assert.notNull(sender);
 
 		result = new Message();
 		recipients = new ArrayList<Actor>();
+		sendMoment = new Date();
+		System.out.println(sendMoment);
 
 		result.setSender(sender);
 		result.setRecipients(recipients);
+		result.setSendMoment(sendMoment);
 
 		return result;
 	}
@@ -62,13 +68,13 @@ public class MessageService {
 		Assert.notNull(result);
 		return result;
 	}
-	public Collection<Message> findAll() {
 
+	public Collection<Message> findAll() {
 		Collection<Message> result;
 		result = this.messageRepository.findAll();
 		return result;
-
 	}
+
 	public Message save(final Message message) {
 		Assert.notNull(message);
 		Message result;
