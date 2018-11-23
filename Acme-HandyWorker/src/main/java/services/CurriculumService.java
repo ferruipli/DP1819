@@ -76,12 +76,10 @@ public class CurriculumService {
 		Curriculum result;
 
 		result = this.curriculumRepository.findOne(curriculumId);
-		Assert.notNull(result);
 
 		return result;
 
 	}
-
 	public Collection<Curriculum> findAll() {
 		Collection<Curriculum> results;
 
@@ -93,7 +91,11 @@ public class CurriculumService {
 	public void delete(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(curriculum.getId() != 0);
-		Assert.isTrue(this.curriculumRepository.exists(curriculum.getId()));
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+
+		Assert.isTrue(handyWorker.getCurriculum().equals(curriculum));
 
 		// Eliminamos los educations records asociados
 		for (final EducationRecord educationRecord : curriculum.getEducationRecords())
@@ -131,10 +133,10 @@ public class CurriculumService {
 
 	// Other business methods --------------------------
 
-	public Boolean existCurriculum(final String ticker) {
+	public Boolean existCurriculumByTicker(final String ticker) {
 		Boolean result;
 
-		result = this.curriculumRepository.existCurriculum(ticker);
+		result = this.curriculumRepository.existCurriculumByTicker(ticker);
 
 		return result;
 	}

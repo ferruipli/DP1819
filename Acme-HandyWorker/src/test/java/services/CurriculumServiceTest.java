@@ -31,9 +31,6 @@ public class CurriculumServiceTest extends AbstractTest {
 	@Autowired
 	private CurriculumService			curriculumService;
 
-	//@Autowired
-	//private CurriculumRepository		curriculumRepository;
-
 	// Supporting services ---------------------------------
 
 	@Autowired
@@ -129,22 +126,63 @@ public class CurriculumServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteCurriculum() {
-		Curriculum curriculum;
+		Curriculum curriculum, deleted;
+		int id;
 		//final Curriculum deletedCurriculum;
 		//Collection<Curriculum> curriculums;
 
 		super.authenticate("handyworker1");
 
-		curriculum = this.curriculumService.findOne(super.getEntityId("curriculum1"));
+		id = super.getEntityId("curriculum1");
+		System.out.println(id);
+		curriculum = this.curriculumService.findOne(id);
+		System.out.println(curriculum);
 		//curriculums = this.curriculumService.findAll();
 
 		//Assert.isTrue(curriculums.contains(curriculum));
 
 		this.curriculumService.delete(curriculum);
 
+		deleted = this.curriculumService.findOne(id);
+		System.out.println(deleted);
+		Assert.isNull(deleted);
+
 		//curriculums = this.curriculumService.findAll();
 
 		//Assert.isTrue(!(curriculums.contains(curriculum)));
+		//Assert.isTrue(!this.curriculumRepository.exists(curriculum.getId()));
+
+		super.authenticate(null);
+
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testDeleteCurriculumByAnotherHandyWorker() {
+		Curriculum curriculum, deleted;
+		int id;
+		//final Curriculum deletedCurriculum;
+		//Collection<Curriculum> curriculums;
+
+		super.authenticate("handyworker2");
+
+		id = super.getEntityId("curriculum1");
+		System.out.println(id);
+		curriculum = this.curriculumService.findOne(id);
+		System.out.println(curriculum);
+		//curriculums = this.curriculumService.findAll();
+
+		//Assert.isTrue(curriculums.contains(curriculum));
+
+		this.curriculumService.delete(curriculum);
+
+		deleted = this.curriculumService.findOne(id);
+		System.out.println(deleted);
+		Assert.isNull(deleted);
+
+		//curriculums = this.curriculumService.findAll();
+
+		//Assert.isTrue(!(curriculums.contains(curriculum)));
+		//Assert.isTrue(!this.curriculumRepository.exists(curriculum.getId()));
 
 		super.authenticate(null);
 
