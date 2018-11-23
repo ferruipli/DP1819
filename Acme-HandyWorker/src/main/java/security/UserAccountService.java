@@ -49,12 +49,6 @@ public class UserAccountService {
 		return result;
 	}
 
-	public void delete(final UserAccount userAccount) {
-		Assert.isTrue(userAccount.getId() != 0);
-
-		this.userAccountRepository.delete(userAccount);
-	}
-
 	// Other business methods -------------------------------------------------
 
 }

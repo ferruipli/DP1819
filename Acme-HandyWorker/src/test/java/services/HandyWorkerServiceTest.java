@@ -35,6 +35,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		super.authenticate("handyworker2");
 		final HandyWorker handyWorker;
 		final HandyWorker handyWorkerSaved;
 
@@ -47,14 +48,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
 
 		Assert.notNull(handyWorkerSaved);
-	}
-	@Test
-	public void testDelete() {
-
-		final HandyWorker handyWorker;
-		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
-		this.handyWorkerService.delete(handyWorker);
-
+		super.unauthenticate();
 	}
 
 	@Test
@@ -75,20 +69,4 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testChangeMake() {
-		super.authenticate("handyworker2");
-		HandyWorker handyWorker;
-		String make;
-
-		make = "makeTest";
-		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
-		Assert.isTrue(!(handyWorker.getMake() == make));
-		handyWorker = this.handyWorkerService.changeMake(make);
-		Assert.isTrue(handyWorker.getMake() == make);
-		Assert.notNull(handyWorker);
-
-		super.unauthenticate();
-
-	}
 }

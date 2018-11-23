@@ -47,7 +47,6 @@ public class SocialProfileService {
 		return result;
 	}
 	public Collection<SocialProfile> findAll() {
-
 		Collection<SocialProfile> result;
 		result = this.socialProfileRepository.findAll();
 		return result;
