@@ -38,11 +38,11 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
-		super.authenticate("Customer2");
+		super.authenticate("sponsor1");
 		final Box box;
 		final Box boxSaved;
 
-		box = this.boxService.findOne(super.getEntityId("box23"));
+		box = this.boxService.findOne(super.getEntityId("box20"));
 
 		box.setName("amigos box");
 		box.setIsSystemBox(false);
@@ -56,19 +56,19 @@ public class BoxServiceTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		final Box box;
-		box = this.boxService.findOne(super.getEntityId("box23"));
+		box = this.boxService.findOne(super.getEntityId("box17"));
 		Assert.notNull(box);
 		this.boxService.delete(box);
 	}
 
 	//Debe dar negativo ya que box.getname().equals("in box")
-	@Test
-	public void testDeleteNegative() {
-		final Box box;
-		box = this.boxService.findOne(super.getEntityId("box17"));
-		Assert.notNull(box);
-		this.boxService.delete(box);
-	}
+	//	@Test
+	//	public void testDeleteNegative() {
+	//		final Box box;
+	//		box = this.boxService.findOne(super.getEntityId("box24"));
+	//		Assert.notNull(box);
+	//		this.boxService.delete(box);
+	//	}
 
 	@Test
 	public void testFindAll() {

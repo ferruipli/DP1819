@@ -76,12 +76,12 @@ public class BoxService {
 		Box result;
 		final Actor actor = this.actorService.findPrincipal();
 
-		//Assert.isTrue(!(box.getIsSystemBox()));
+		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
-		Assert.notNull(actor);
+		//Assert.notNull(actor);
 		//si el id != 0 , esa box sea del mismo actor q está modificando
-		//		if (box.getId() == 0)
-		//			Assert.isTrue(this.boxInActor(box, actor));
+		if (box.getId() == 0)
+			Assert.isTrue(this.boxInActor(box, actor));
 
 		result = this.boxRepository.save(box);
 
