@@ -15,6 +15,7 @@ import domain.Complaint;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
+import domain.Report;
 
 @Service
 @Transactional
@@ -131,6 +132,19 @@ public class ComplaintService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Complaint findByReportId(final int reportId) {
+		Complaint result;
+
+		result = this.complaintRepository.findByReportId(reportId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	protected void addReport(final Complaint complaint, final Report report) {
+		complaint.setReport(report);
 	}
 
 }
