@@ -33,13 +33,9 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 
 	// Tests --------------------------------------------------------------
-
-	//TODO: Añadir las excepciones que se esperan capturar cuando se ejecuten
-	// los test negativos
-
 	@Test
 	public void testCreate() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation;
 
@@ -55,7 +51,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	/* Test positivo en el que se inserta en la BD un objeto valido */
 	@Test
 	public void positiveTestSave_uno() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation, saved;
 		Collection<CategoryTranslation> all;
@@ -81,7 +77,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void negativeTestSave_uno() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation, saved;
 		Collection<CategoryTranslation> all;
@@ -105,7 +101,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_dos() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation, saved;
 		Collection<CategoryTranslation> all;
@@ -124,7 +120,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	/* Test negativo: idioma no soportado */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_tres() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation, saved;
 		Collection<CategoryTranslation> all;
@@ -145,7 +141,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	/* Test positivo en el que se borra un objeto valido */
 	@Test
 	public void positiveTestDelete_uno() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		final int id = super.getEntityId("categoryTranslation30");
 		CategoryTranslation categoryTranslation;
@@ -167,7 +163,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestDelete_uno() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation;
 		Collection<CategoryTranslation> all;
@@ -191,7 +187,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestDelete_dos() {
-		super.authenticate("admin1");
+		super.authenticate("administrator1");
 
 		CategoryTranslation categoryTranslation;
 		Collection<CategoryTranslation> all;
