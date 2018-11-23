@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Finder;
-import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -81,16 +80,4 @@ public class FinderServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testSearch() {
-		Finder finder;
-		Collection<FixUpTask> fixUpTasks;
-		final Date date = new Date();
-		finder = this.finderService.findOne(super.getEntityId("finder3"));
-		finder.setKeyword("181022-ABC001");
-		finder.setStartPrice(22.2);
-		fixUpTasks = this.finderService.search(finder);
-		Assert.notNull(fixUpTasks);
-
-	}
 }

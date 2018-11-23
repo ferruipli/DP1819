@@ -53,6 +53,10 @@ public class SponsorService {
 		Assert.notNull(sponsor);
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
 
 		Sponsor result;
 		encoder = new Md5PasswordEncoder();

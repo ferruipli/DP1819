@@ -35,6 +35,7 @@ public class SponsorServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		super.authenticate("sponsor1");
 		final Sponsor sponsor;
 		final Sponsor sponsorSaved;
 
@@ -47,6 +48,7 @@ public class SponsorServiceTest extends AbstractTest {
 		sponsorSaved = this.sponsorService.save(sponsor);
 
 		Assert.notNull(sponsorSaved);
+		super.unauthenticate();
 	}
 
 	@Test
