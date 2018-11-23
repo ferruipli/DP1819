@@ -60,10 +60,14 @@ public class FixUpTaskService {
 	public FixUpTask save(final FixUpTask fixUpTask) {
 		FixUpTask result;
 
+		// COMPLT: comprobar que cuando un handyWorker esta actualizando 
+		// las fases de un fixUpTask, ese handyworker tiene una solicitud
+		// aceptada para dicho fixUpTask
+
 		result = this.fixUpTaskRepository.save(fixUpTask);
 
 		// COMPLT: 
-		//if(fixUpTask.getId() == 0) {
+		//if(this.fixUpTaskRepository.exists(fixUpTask.getId())) {
 		//	añadir addFixUpTask al customer principal
 		//}
 
