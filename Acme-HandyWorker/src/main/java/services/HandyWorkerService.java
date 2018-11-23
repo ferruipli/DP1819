@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
-import repositories.PhaseRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Application;
@@ -28,11 +27,8 @@ public class HandyWorkerService {
 	@Autowired
 	private HandyWorkerRepository	handyWorkerRepository;
 
+
 	// Supporting services -------------------------------------------
-
-	@Autowired
-	private PhaseRepository			phaseRepository;
-
 
 	//Constructor ----------------------------------------------------
 	public HandyWorkerService() {
@@ -120,7 +116,7 @@ public class HandyWorkerService {
 	public int findPhaseCreator(final Phase phase) {
 		int result;
 
-		result = this.phaseRepository.findPhaseCreatorId(phase);
+		result = this.handyWorkerRepository.findPhaseCreatorId(phase);
 
 		return result;
 	}
