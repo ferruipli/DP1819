@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PhaseRepository;
+import domain.FixUpTask;
 import domain.Phase;
 
 @Service
@@ -19,13 +20,16 @@ public class PhaseService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PhaseRepository	phaseRepository;
-
+	private PhaseRepository		phaseRepository;
 
 	// Supporting services ----------------------------------------------------
 
-	//	@Autowired
-	//	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -56,8 +60,12 @@ public class PhaseService {
 	}
 
 	public void delete(final Phase phase) {
-		// COMPLT: comprobar que el handyWorker principal es el dueño de dicha fase
-		// COMPLT: es necesario eliminar la fase previamente del fixUpTask??
+		FixUpTask fixUpTask;
+
+		this.checkOwner(phase);
+		fixUpTask = this.fixUpTaskService.findByPhase(phase);
+		this.fixUpTaskService.removePhase(fixUpTask, phase);
+
 		this.phaseRepository.delete(phase);
 	}
 
@@ -72,15 +80,6 @@ public class PhaseService {
 
 	// Other business methods -------------------------------------------------
 
-	// COMPLT: mover a HandyWorkerService
-	//	public int findPhaseCreator(final Phase phase) {
-	//		int result;
-	//
-	//		result = this.phaseRepository.findPhaseCreatorId(phase);
-	//
-	//		return result;
-	//	}
-
 	public Collection<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId) {
 		Collection<Phase> result;
 
@@ -91,12 +90,11 @@ public class PhaseService {
 	}
 
 	private void checkOwner(final Phase phase) {
-		// COMPLT: 
-		//		int principalId, ownerId;
-		//
-		//		principalId = this.handyWorkerService.findByPrincipal().getId();
-		//		ownerId = this.handyWorkerService.findPhaseCreator(phase);
-		//
-		//		Assert.isTrue(principalId == ownerId);
+		int principalId, ownerId;
+
+		principalId = this.handyWorkerService.findByPrincipal().getId();
+		ownerId = this.handyWorkerService.findPhaseCreator(phase);
+
+		Assert.isTrue(principalId == ownerId);
 	}
 }

@@ -94,7 +94,20 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
+	public FixUpTask findByPhase(final Phase phase) {
+		FixUpTask result;
+
+		result = this.fixUpTaskRepository.findByPhase(phase);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected void addComplaint(final FixUpTask fixUpTask, final Complaint complaint) {
 		fixUpTask.getComplaints().add(complaint);
+	}
+
+	protected void removePhase(final FixUpTask fixUpTask, final Phase phase) {
+		fixUpTask.getPhases().remove(phase);
 	}
 }
