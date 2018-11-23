@@ -25,8 +25,10 @@ public class TutorialService {
 	@Autowired
 	private TutorialRepository	tutorialRepository;
 
-
 	// Supporting services -------------------------------------------
+
+	private HandyWorkerService	handyWorkerService;
+
 
 	//Constructor ----------------------------------------------------
 	public TutorialService() {
@@ -39,10 +41,14 @@ public class TutorialService {
 		Date date;
 		HandyWorker handyWorker;
 		Collection<Sponsorship> sponsorships;
+		//TODO da fallo con el getPrincipal
+		//handyWorker = this.handyWorkerService.findByPrincipal();
+		//Assert.notNull(handyWorker);
+		handyWorker = new HandyWorker();
 
 		result = new Tutorial();
 		date = new Date(System.currentTimeMillis() - 1);
-		handyWorker = new HandyWorker();
+
 		sponsorships = new ArrayList<Sponsorship>();
 
 		result.setMoment(date);
@@ -101,6 +107,20 @@ public class TutorialService {
 	public void removeSection(final Tutorial tutorial, final Section section) {
 		Assert.isTrue((tutorial.getSections().contains(section)));
 		tutorial.getSections().remove(section);
+		Assert.isTrue(!(tutorial.getSections().contains(section)));
+	}
+	public void addSectionToTutorial(final Tutorial tutorial, final Section section) {
+		Collection<Section> sections;
+		sections = tutorial.getSections();
+		sections.add(section);
+		tutorial.setSections(sections);
+		Assert.isTrue(tutorial.getSections().contains(section));
+	}
+	public void deleteSectionToTutorial(final Tutorial tutorial, final Section section) {
+		Collection<Section> sections;
+		sections = tutorial.getSections();
+		sections.remove(section);
+		tutorial.setSections(sections);
 		Assert.isTrue(!(tutorial.getSections().contains(section)));
 	}
 }

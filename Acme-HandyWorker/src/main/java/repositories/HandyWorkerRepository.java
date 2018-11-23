@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.HandyWorker;
+import domain.Phase;
 
 @Repository
 public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Integer> {
@@ -17,5 +18,8 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 
 	@Query("select distinct h from HandyWorker h join h.applications a where a.status='ACCEPTED' and a.fixUpTask.customer.id=?1")
 	Collection<HandyWorker> findEndorsableHandyWorkers(int customerId);
+
+	@Query("select a.handyWorker.id from FixUpTask f join f.applications a where ?1 member of f.phases and a.status = 'ACCEPTED'")
+	int findPhaseCreatorId(Phase phase);
 
 }
