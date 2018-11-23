@@ -52,7 +52,6 @@ public class MessageService {
 		result = new Message();
 		recipients = new ArrayList<Actor>();
 		sendMoment = new Date();
-		System.out.println(sendMoment);
 
 		result.setSender(sender);
 		result.setRecipients(recipients);

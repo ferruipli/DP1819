@@ -91,11 +91,10 @@ public class ActorService {
 		Actor result;
 		int userAccountId;
 		userAccountId = LoginService.getPrincipal().getId();
-
 		result = this.actorRepository.findActorByUseraccount(userAccountId);
 		Assert.notNull(result);
 
-		return null;
+		return result;
 	}
 
 	public Actor findActorByUseraccount(final int id) {
