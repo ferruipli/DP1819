@@ -9,11 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,9 +25,7 @@ public class HandyWorker extends Endorsable {
 
 
 	// Atributes
-
 	private String	make;
-	private Double	score;
 
 
 	@NotBlank
@@ -39,16 +35,6 @@ public class HandyWorker extends Endorsable {
 
 	public void setMake(final String make) {
 		this.make = make;
-	}
-
-	@Digits(integer = 3, fraction = 2)
-	@Range(min = -1, max = 1)
-	public Double getScore() {
-		return this.score;
-	}
-
-	public void setScore(final Double score) {
-		this.score = score;
 	}
 
 

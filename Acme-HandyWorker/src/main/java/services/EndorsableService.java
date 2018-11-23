@@ -29,6 +29,13 @@ public class EndorsableService {
 	}
 
 	// Simple CRUD methods -----------------------------
+	public Endorsable findOne(final int endorsableId) {
+		Endorsable result;
+
+		result = this.endorsableRepository.findOne(endorsableId);
+
+		return result;
+	}
 
 	// Other business methods --------------------------
 
