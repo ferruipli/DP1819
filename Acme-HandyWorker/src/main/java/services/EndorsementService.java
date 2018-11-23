@@ -67,18 +67,16 @@ public class EndorsementService {
 
 	public Endorsement save(final Endorsement endorsement) {
 		Assert.notNull(endorsement);
+		this.checkByPrincipal(endorsement);
 
 		boolean is_role;
 		Date moment;
 		Endorsement result;
-		Endorsable sender, principal;
+		Endorsable sender;
 		final Collection<Customer> customers;
 		final Collection<HandyWorker> handyWorkers;
 
-		principal = this.endorsableService.findByPrincipal();
 		sender = endorsement.getSender();
-
-		Assert.isTrue(sender.equals(principal));
 
 		is_role = this.playedRole(sender, "CUSTOMER");
 
@@ -107,12 +105,7 @@ public class EndorsementService {
 	public void delete(final Endorsement endorsement) {
 		Assert.notNull(endorsement);
 		Assert.isTrue(endorsement.getId() != 0);
-
-		Endorsable principal;
-
-		principal = this.endorsableService.findByPrincipal();
-
-		Assert.isTrue(principal.equals(endorsement.getSender()));
+		this.checkByPrincipal(endorsement);
 
 		this.endorsementRepository.delete(endorsement);
 	}
@@ -120,6 +113,14 @@ public class EndorsementService {
 	// Other business methods --------------------------
 
 	// private methods ---------------------------------
+	public void checkByPrincipal(final Endorsement endorsement) {
+		Endorsable principal;
+
+		principal = this.endorsableService.findByPrincipal();
+
+		Assert.isTrue(principal.equals(endorsement.getSender()));
+	}
+
 	public Collection<Endorsement> findSentEndorsements() {
 		Collection<Endorsement> results;
 		Endorsable principal;

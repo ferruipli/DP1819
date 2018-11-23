@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +35,49 @@ public class FinderServiceTest extends AbstractTest {
 		finder = this.finderService.create();
 		Assert.notNull(finder);
 	}
-	@Test
-	public void testCompareTime() {
-		Finder finder;
-		Boolean res;
 
-		finder = this.finderService.findOne(super.getEntityId("finder2"));
-		res = this.finderService.compareTime(finder.getLastUpdate(), 1);
-		Assert.isTrue(!res);
+	@Test
+	public void testSave() {
+		final Finder finder;
+		final Finder finderSaved;
+		Date dateFinder;
+		Date dateFinderSaved;
+
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
+		dateFinder = finder.getLastUpdate();
+
+		finder.setKeyword("fixUpTask");
+		finderSaved = this.finderService.save(finder);
+		dateFinderSaved = finderSaved.getLastUpdate();
+
+		Assert.isTrue(dateFinder != dateFinderSaved);
+		Assert.notNull(finderSaved);
+	}
+	@Test
+	public void testDelete() {
+
+		final Finder finder;
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
+		this.finderService.delete(finder);
 
 	}
+
+	@Test
+	public void testFindAll() {
+		Collection<Finder> finders;
+		finders = this.finderService.findAll();
+		Assert.notEmpty(finders);
+		Assert.notNull(finders);
+
+	}
+
+	@Test
+	public void testFindOne() {
+		Finder finder;
+
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
+		Assert.notNull(finder);
+
+	}
+
 }

@@ -91,42 +91,4 @@ public class FinderService {
 
 	//Other business methods-------------------------------------------
 
-	public Collection<FixUpTask> search(final Finder finder) {
-		final Collection<FixUpTask> fixUpTasks;
-		final int maxFinderResults;
-		fixUpTasks = finder.getFixUpTasks();
-
-		//TODO
-		//	maxFinderResults = customisationService.getmaxFinderResults();
-		//este valor de maxFInder result es temporal
-		maxFinderResults = 1;
-		if (this.compareTime(finder.getLastUpdate(), maxFinderResults)) {
-
-		}
-
-		return fixUpTasks;
-
-	}
-	//TODO: HACER PRIVADO
-	public boolean compareTime(final Date lastUpdate, final Integer cache) {
-		final Boolean result;
-		Long time;
-		Long hours;
-		Date date;
-
-		date = new Date();
-
-		//time me lo da en milesegundos
-		//*1000 paso a seg
-		//*60 a minutos
-		time = date.getTime() - lastUpdate.getTime();
-		hours = time / (1000 * 60 * 60);
-
-		if (hours > cache)
-			result = true;
-		else
-			result = false;
-		return result;
-
-	}
 }

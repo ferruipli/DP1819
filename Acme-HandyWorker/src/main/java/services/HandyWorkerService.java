@@ -17,6 +17,7 @@ import security.UserAccount;
 import domain.Application;
 import domain.Finder;
 import domain.HandyWorker;
+import domain.Phase;
 
 @Service
 @Transactional
@@ -58,12 +59,21 @@ public class HandyWorkerService {
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
 		HandyWorker result;
+		String make;
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.isTrue(userAccount.equals(handyWorker.getUserAccount()));
+		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
+		if (handyWorker.getId() == 0) {
+			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
+			handyWorker.setMake(make);
+		}
 
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
-		handyWorker.getUserAccount().setPassword(passwordHash);
-		result = this.handyWorkerRepository.save(handyWorker);
 
+		handyWorker.getUserAccount().setPassword(passwordHash);
 		result = this.handyWorkerRepository.save(handyWorker);
 
 		return result;
@@ -87,14 +97,7 @@ public class HandyWorkerService {
 
 		return result;
 	}
-	public void delete(final HandyWorker handyWorker) {
-		Assert.isTrue(handyWorker.getId() != 0);
-		Assert.notNull(handyWorker);
-		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
 
-		this.handyWorkerRepository.delete(handyWorker);
-
-	}
 	//Other business methods-------------------------------------------
 
 	public HandyWorker findByPrincipal() {
@@ -104,21 +107,18 @@ public class HandyWorkerService {
 		result = this.handyWorkerRepository.findByUserAccountId(userAccount.getId());
 		return result;
 	}
-	public HandyWorker changeMake(final String make) {
-		HandyWorker handyWorker;
-		Assert.isTrue(!(make.isEmpty()));
 
-		handyWorker = this.findByPrincipal();
-		Assert.notNull(handyWorker);
-		handyWorker.setMake(make);
-		Assert.isTrue(handyWorker.getMake() == make);
-
-		return handyWorker;
-	}
 	public Collection<HandyWorker> findEndorsableHandyWorkers(final int customerId) {
 		Collection<HandyWorker> handyWorkers;
 		handyWorkers = this.handyWorkerRepository.findEndorsableHandyWorkers(customerId);
 		return handyWorkers;
+	}
+	public int findPhaseCreator(final Phase phase) {
+		int result;
+
+		result = this.handyWorkerRepository.findPhaseCreatorId(phase);
+
+		return result;
 	}
 
 }
