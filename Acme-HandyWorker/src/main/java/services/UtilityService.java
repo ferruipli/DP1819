@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Random;
 
 import org.joda.time.LocalDate;
@@ -36,11 +37,13 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
+		Collection<String> curriculumsTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
 		month = currentDate.getMonthOfYear();
 		day = currentDate.getDayOfMonth();
+		curriculumsTickers = this.curriculumService.findAllTickers();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
@@ -48,9 +51,9 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (this.curriculumService.existCurriculum(result) == true || counter < 1000);
+		} while (curriculumsTickers.contains(result) || counter < 650000);
 
-		Assert.isTrue(counter == 1000);
+		Assert.isTrue(counter == 650000);
 
 		return result;
 	}

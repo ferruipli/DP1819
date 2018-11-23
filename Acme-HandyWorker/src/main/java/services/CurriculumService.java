@@ -141,6 +141,22 @@ public class CurriculumService {
 		return result;
 	}
 
+	public Collection<Curriculum> findAllCurriculums() {
+		Collection<Curriculum> results;
+
+		results = this.curriculumRepository.findAllCurriculums();
+
+		return results;
+	}
+
+	public Collection<String> findAllTickers() {
+		Collection<String> results;
+
+		results = this.curriculumRepository.findAllTickers();
+
+		return results;
+	}
+
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
 		Collection<EducationRecord> aux;
 
