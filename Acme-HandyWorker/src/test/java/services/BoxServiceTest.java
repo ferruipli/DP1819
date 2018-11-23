@@ -58,10 +58,12 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
+		super.authenticate("sponsor1");
 		final Box box;
 		box = this.boxService.findOne(super.getEntityId("box17"));
 		Assert.notNull(box);
 		this.boxService.delete(box);
+		super.unauthenticate();
 	}
 
 	//Debe dar negativo ya que box.getname().equals("in box")
