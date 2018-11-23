@@ -79,6 +79,15 @@ public class ComplaintService {
 		return result;
 	}
 
+	public Complaint findOne(final int complaintId) {
+		Complaint result;
+
+		result = this.complaintRepository.findOne(complaintId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 
 	public Collection<Complaint> findByCustomerPrincipal() {
@@ -101,7 +110,8 @@ public class ComplaintService {
 		return result;
 	}
 
-	// COMPLT: si llamo a esto y modifico la coleccion lo pilla la base de datos?
+	// Every change (such as .add(Object), .remove(Object), ...) in the collection 
+	// returned by this method, is persisted in the database.
 	public Collection<Complaint> findSelfAssignedByPrincipal() {
 		Collection<Complaint> result;
 		Referee principal;
