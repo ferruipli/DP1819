@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RefereeRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Complaint;
 import domain.Referee;
 
@@ -24,6 +26,9 @@ public class RefereeService {
 
 
 	// Supporting services ----------------------------------------------------
+
+	//	@Autowired
+	//	private ActorService actorService;
 
 	// Constructor ------------------------------------------------------------
 
@@ -45,9 +50,9 @@ public class RefereeService {
 	public Referee save(final Referee referee) {
 		Referee result;
 
-		// COMPLT: comprobar email valido
+		Assert.isTrue(referee.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+ | [\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]\\n | [A-Za-z_.]+[\\w]+@ |  [\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"));
 		result = this.refereeRepository.save(referee);
-		// COMPLT: Llamar a crear las carpetas del sistema
+		// COMPLT: this.actorService.createDefaultBox(referee);
 
 		return result;
 	}
@@ -62,6 +67,25 @@ public class RefereeService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Referee findByPrincipal() {
+		Referee result;
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+
+		result = this.findByUserAccount(userAccount.getId());
+
+		return result;
+	}
+
+	private Referee findByUserAccount(final int userAccountId) {
+		Referee result;
+
+		result = this.refereeRepository.findByUserAccount(userAccountId);
+
+		return result;
+	}
 
 	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
 		referee.getComplaints().add(complaint);
