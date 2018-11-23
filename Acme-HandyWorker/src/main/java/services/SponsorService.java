@@ -51,18 +51,24 @@ public class SponsorService {
 
 	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
+		Sponsor result;
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
 		UserAccount userAccount;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
-
-		Sponsor result;
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
 		sponsor.getUserAccount().setPassword(passwordHash);
-		result = this.sponsorRepository.save(sponsor);
+
+		if (sponsor.getId() == 0)
+			//TODO
+			//actorService.initializeSystemBox();
+			result = this.sponsorRepository.save(sponsor);
+		else {
+			userAccount = LoginService.getPrincipal();
+			Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
+			result = this.sponsorRepository.save(sponsor);
+		}
 
 		return result;
 	}
