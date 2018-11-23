@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Box;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +24,9 @@ public class BoxServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private BoxService	boxService;
+	private BoxService		boxService;
+	@Autowired
+	private ActorService	actorService;
 
 
 	//Tests ----------------------------------------------
@@ -62,7 +65,7 @@ public class BoxServiceTest extends AbstractTest {
 	}
 
 	//Debe dar negativo ya que box.getname().equals("in box")
-	//	@Test
+	//	@Test(expective = except)
 	//	public void testDeleteNegative() {
 	//		final Box box;
 	//		box = this.boxService.findOne(super.getEntityId("box24"));
@@ -84,6 +87,22 @@ public class BoxServiceTest extends AbstractTest {
 		Box box;
 		box = this.boxService.findOne(super.getEntityId("box23"));
 		Assert.notNull(box);
+
+	}
+
+	@Test
+	public void testQueryBoxInActor() {
+		super.authenticate("customer2");
+		boolean boxInActor;
+		Box box;
+		Actor actor;
+
+		box = this.boxService.findOne(super.getEntityId("box23"));
+		actor = this.actorService.findPrincipal();
+
+		boxInActor = this.boxService.boxInActor(box, actor);
+		Assert.isTrue(boxInActor);
+		super.unauthenticate();
 
 	}
 

@@ -79,18 +79,19 @@ public class BoxService {
 		Box result;
 		final Actor actor = this.actorService.findPrincipal();
 
+		//asegurarme que id != 0
 		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
 		Assert.notNull(actor);
 		//si el id != 0 , esa box sea del mismo actor q está modificando
-		if (box.getId() == 0)
-			Assert.isTrue(this.boxInActor(box, actor));
+		Assert.isTrue(this.boxInActor(box, actor));
 
 		result = this.boxRepository.save(box);
 
 		return result;
 	}
 
+	//TODO que solo pueda eliminar las suyas
 	public void delete(final Box box) {
 		Assert.notNull(box);
 		Assert.isTrue(box.getId() != 0);
