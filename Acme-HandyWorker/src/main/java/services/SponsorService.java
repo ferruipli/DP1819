@@ -101,4 +101,9 @@ public class SponsorService {
 		result = this.sponsorRepository.findByUserAccountId(userAccount.getId());
 		return result;
 	}
+	protected Sponsor findSponsorBySponsorshipId(final int id) {
+		Sponsor sponsor;
+		sponsor = this.sponsorRepository.findSponsorBySponsorshipId(id);
+		return sponsor;
+	}
 }

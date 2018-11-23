@@ -71,7 +71,6 @@ public class HandyWorkerService {
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
 		handyWorker.getUserAccount().setPassword(passwordHash);
-		handyWorker.getUserAccount().setPassword(passwordHash);
 
 		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
 		if (handyWorker.getId() == 0) {

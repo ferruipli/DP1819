@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
 import domain.CreditCard;
+import domain.Sponsor;
 import domain.Sponsorship;
 
 @Service
@@ -21,8 +22,12 @@ public class SponsorshipService {
 	@Autowired
 	public SponsorshipRepository	sponsorshipRepository;
 
-
 	// Supporting services -------------------------------------------
+	@Autowired
+	public SponsorService			sponsorService;
+	@Autowired
+	public ActorService				actorService;
+
 
 	//Constructor ----------------------------------------------------
 	public SponsorshipService() {
@@ -42,13 +47,22 @@ public class SponsorshipService {
 
 		return result;
 	}
-
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-
+		Sponsor principal;
+		Sponsor sponsorOwner;
 		Sponsorship result;
 
-		result = this.sponsorshipRepository.save(sponsorship);
+		principal = this.sponsorService.findByPrincipal();
+
+		if (sponsorship.getId() == 0) {
+			result = this.sponsorshipRepository.save(sponsorship);
+			this.addSponsorshipToSponsor(principal, result);
+		} else {
+			sponsorOwner = this.sponsorService.findSponsorBySponsorshipId(sponsorship.getId());
+			Assert.isTrue(principal.equals(sponsorOwner));
+			result = this.sponsorshipRepository.save(sponsorship);
+		}
 
 		return result;
 	}
@@ -79,5 +93,20 @@ public class SponsorshipService {
 		this.sponsorshipRepository.delete(sponsorship);
 	}
 	//Other business methods-------------------------------------------
+	protected void addSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = sponsor.getSponsorships();
+		Assert.isTrue(!(sponsorships.contains(sponsorship)));
+		sponsorships.add(sponsorship);
+		sponsor.setSponsorships(sponsorships);
+		Assert.isTrue(sponsorships.contains(sponsorship));
+
+	}
+	public void addCreditCardToSponsorship(final Sponsorship sponsorship, final CreditCard creditCard) {
+		Assert.notNull(creditCard);
+		sponsorship.setCreditCard(creditCard);
+		Assert.isTrue(sponsorship.getCreditCard().equals(creditCard));
+	}
 
 }
