@@ -85,14 +85,7 @@ public class HandyWorkerService {
 
 		return result;
 	}
-	public void delete(final HandyWorker handyWorker) {
-		Assert.isTrue(handyWorker.getId() != 0);
-		Assert.notNull(handyWorker);
-		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
 
-		this.handyWorkerRepository.delete(handyWorker);
-
-	}
 	//Other business methods-------------------------------------------
 
 	public HandyWorker findByPrincipal() {

@@ -48,14 +48,6 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		Assert.notNull(handyWorkerSaved);
 	}
-	@Test
-	public void testDelete() {
-
-		final HandyWorker handyWorker;
-		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
-		this.handyWorkerService.delete(handyWorker);
-
-	}
 
 	@Test
 	public void testFindAll() {

@@ -48,14 +48,6 @@ public class SponsorServiceTest extends AbstractTest {
 
 		Assert.notNull(sponsorSaved);
 	}
-	@Test
-	public void testDelete() {
-
-		final Sponsor sponsor;
-		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
-		this.sponsorService.delete(sponsor);
-
-	}
 
 	@Test
 	public void testFindAll() {

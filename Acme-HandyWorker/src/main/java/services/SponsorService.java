@@ -81,13 +81,7 @@ public class SponsorService {
 
 		return result;
 	}
-	public void delete(final Sponsor sponsor) {
-		Assert.isTrue(sponsor.getId() != 0);
-		Assert.notNull(sponsor);
-		Assert.isTrue(this.sponsorRepository.exists(sponsor.getId()));
 
-		this.sponsorRepository.delete(sponsor);
-	}
 	//Other business methods-------------------------------------------
 
 	public Sponsor findByPrincipal() {
