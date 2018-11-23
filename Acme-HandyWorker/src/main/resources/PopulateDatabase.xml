@@ -358,7 +358,7 @@
 	<!-- Boxes -->
 
 	<bean id="box1" class="domain.Box">
-		<property name="name" value="inBox1" />
+		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -370,7 +370,7 @@
 	</bean>
 
 	<bean id="box2" class="domain.Box">
-		<property name="name" value="outBox1" />
+		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -382,7 +382,7 @@
 	</bean>
 
 	<bean id="box3" class="domain.Box">
-		<property name="name" value="trashBox1" />
+		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -393,8 +393,30 @@
 	</bean>
 
 	<bean id="box4" class="domain.Box">
-		<property name="name" value="spamBox1" />
+		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+	
+	<bean id="box01" class="domain.Box">
+		<property name="name" value="favorita box" />
+		<property name="isSystemBox" value="false" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+	
+		<bean id="box02" class="domain.Box">
+		<property name="name" value="trabajo box" />
+		<property name="isSystemBox" value="false" />
 		<property name="messages">
 			<list>
 				<null></null>
@@ -404,7 +426,7 @@
 	</bean>
 
 	<bean id="box5" class="domain.Box">
-		<property name="name" value="inBox2" />
+		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -416,7 +438,7 @@
 	</bean>
 
 	<bean id="box6" class="domain.Box">
-		<property name="name" value="outBox2" />
+		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -428,7 +450,7 @@
 	</bean>
 
 	<bean id="box7" class="domain.Box">
-		<property name="name" value="trashBox2" />
+		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -439,7 +461,7 @@
 	</bean>
 
 	<bean id="box8" class="domain.Box">
-		<property name="name" value="spamBox2" />
+		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -450,7 +472,7 @@
 	</bean>
 
 	<bean id="box9" class="domain.Box">
-		<property name="name" value="inBox3" />
+		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -462,7 +484,7 @@
 	</bean>
 
 	<bean id="box10" class="domain.Box">
-		<property name="name" value="outBox3" />
+		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -474,7 +496,7 @@
 	</bean>
 
 	<bean id="box11" class="domain.Box">
-		<property name="name" value="trashBox3" />
+		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -485,8 +507,30 @@
 	</bean>
 
 	<bean id="box12" class="domain.Box">
-		<property name="name" value="spamBox3" />
+		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="handyworker1" />
+	</bean>
+	
+		<bean id="box012" class="domain.Box">
+		<property name="name" value="casa box" />
+		<property name="isSystemBox" value="false" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="handyworker1" />
+	</bean>
+	
+		<bean id="box013" class="domain.Box">
+		<property name="name" value="mi carpeta" />
+		<property name="isSystemBox" value="false" />
 		<property name="messages">
 			<list>
 				<null></null>
@@ -496,7 +540,7 @@
 	</bean>
 
 	<bean id="box13" class="domain.Box">
-		<property name="name" value="inBox4" />
+		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -508,7 +552,7 @@
 	</bean>
 
 	<bean id="box14" class="domain.Box">
-		<property name="name" value="outBox4" />
+		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -520,7 +564,7 @@
 	</bean>
 
 	<bean id="box15" class="domain.Box">
-		<property name="name" value="trashBox4" />
+		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -531,7 +575,7 @@
 	</bean>
 
 	<bean id="box16" class="domain.Box">
-		<property name="name" value="spamBox4" />
+		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -542,7 +586,7 @@
 	</bean>
 
 	<bean id="box17" class="domain.Box">
-		<property name="name" value="inBox5" />
+		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -554,7 +598,7 @@
 	</bean>
 
 	<bean id="box18" class="domain.Box">
-		<property name="name" value="outBox5" />
+		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -566,7 +610,7 @@
 	</bean>
 
 	<bean id="box19" class="domain.Box">
-		<property name="name" value="trashBox5" />
+		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -577,7 +621,7 @@
 	</bean>
 
 	<bean id="box20" class="domain.Box">
-		<property name="name" value="spamBox5" />
+		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
@@ -623,6 +667,28 @@
 	<bean id="box24" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<bean id="box024" class="domain.Box">
+		<property name="name" value="mis favoritos" />
+		<property name="isSystemBox" value="false" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<bean id="box025" class="domain.Box">
+		<property name="name" value="mis amigos" />
+		<property name="isSystemBox" value="false" />
 		<property name="messages">
 			<list>
 				<null></null>
