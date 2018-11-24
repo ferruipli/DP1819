@@ -91,6 +91,7 @@ public class ComplaintService {
 
 	// Other business methods -------------------------------------------------
 
+	// COMPLT: al acabar, comprobar que todos estos métodos me sirven de verdad
 	public Collection<Complaint> findByCustomerPrincipal() {
 		Collection<Complaint> result;
 		Customer principal;
