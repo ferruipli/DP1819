@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.FinderRepository;
 import domain.Finder;
 import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -24,8 +25,12 @@ public class FinderService {
 
 	// Supporting services -------------------------------------------
 
+	@Autowired
 	private FixUpTaskService		fixUpTaskService;
+	@Autowired
 	private CustomisationService	customisationService;
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	//Constructor ----------------------------------------------------
@@ -41,21 +46,27 @@ public class FinderService {
 
 		result = new Finder();
 		date = new Date();
-		//TODO
-		//		fixUpTasks = fixUpTaskService.findAll();
+		fixUpTasks = this.fixUpTaskService.findAll();
 
-		//		result.setFixUpTasks(fixUpTasks);
+		result.setFixUpTasks(fixUpTasks);
 		result.setLastUpdate(date);
 
 		return result;
 	}
-
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
+		HandyWorker handyWorker;
 		Finder result;
 		Date date;
 
 		date = new Date();
+
+		if (finder.getId() != 0) {
+
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			System.out.println(handyWorker);
+			Assert.isTrue(handyWorker.getFinder().getId() == finder.getId());
+		}
 
 		finder.setLastUpdate(date);
 		result = this.finderRepository.save(finder);

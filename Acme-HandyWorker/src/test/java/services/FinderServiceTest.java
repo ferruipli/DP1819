@@ -38,6 +38,7 @@ public class FinderServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
+		super.authenticate("handyWorker1");
 		final Finder finder;
 		final Finder finderSaved;
 		Date dateFinder;
@@ -52,6 +53,7 @@ public class FinderServiceTest extends AbstractTest {
 
 		Assert.isTrue(dateFinder != dateFinderSaved);
 		Assert.notNull(finderSaved);
+		super.unauthenticate();
 	}
 	@Test
 	public void testDelete() {

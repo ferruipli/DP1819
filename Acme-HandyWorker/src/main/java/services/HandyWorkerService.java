@@ -30,6 +30,8 @@ public class HandyWorkerService {
 	// Supporting services -------------------------------------------
 	@Autowired
 	private BoxService				boxService;
+	@Autowired
+	private FinderService			finderService;
 
 
 	//Constructor ----------------------------------------------------
@@ -45,7 +47,8 @@ public class HandyWorkerService {
 		UserAccount userAccount;
 
 		result = new HandyWorker();
-		finder = new Finder();
+		finder = this.finderService.create();
+		finder = this.finderService.save(finder);
 		applications = new ArrayList<Application>();
 		userAccount = new UserAccount();
 
