@@ -26,27 +26,15 @@ public class CurriculumService {
 
 	// Managed repository ------------------------------
 	@Autowired
-	private CurriculumRepository		curriculumRepository;
+	private CurriculumRepository	curriculumRepository;
 
 	// Supporting services -----------------------------
 
 	@Autowired
-	private UtilityService				utilityService;
+	private UtilityService			utilityService;
 
 	@Autowired
-	private HandyWorkerService			handyWorkerService;
-
-	@Autowired
-	private EducationRecordService		educationRecordService;
-
-	@Autowired
-	private ProfessionalRecordService	professionalRecordService;
-
-	@Autowired
-	private MiscellaneousRecordService	miscellaneousRecordService;
-
-	@Autowired
-	private EndorserRecordService		endorserRecordService;
+	private HandyWorkerService		handyWorkerService;
 
 
 	// Constructors ------------------------------------
@@ -96,22 +84,6 @@ public class CurriculumService {
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		Assert.isTrue(handyWorker.getCurriculum().equals(curriculum));
-
-		// Eliminamos los educations records asociados
-		for (final EducationRecord educationRecord : curriculum.getEducationRecords())
-			this.educationRecordService.delete(educationRecord);
-
-		// Eliminamos los professional records asociados
-		for (final ProfessionalRecord professionalRecord : curriculum.getProfessionalRecords())
-			this.professionalRecordService.delete(professionalRecord);
-
-		// Eliminamos los miscellaneous records asociados
-		for (final MiscellaneousRecord miscellaneousRecord : curriculum.getMiscellaneousRecords())
-			this.miscellaneousRecordService.delete(miscellaneousRecord);
-
-		// Eliminamos los endorser records asociados
-		for (final EndorserRecord endorserRecord : curriculum.getEndorserRecords())
-			this.endorserRecordService.delete(endorserRecord);
 
 		this.curriculumRepository.delete(curriculum);
 

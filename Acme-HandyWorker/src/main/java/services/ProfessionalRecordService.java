@@ -66,30 +66,6 @@ public class ProfessionalRecordService {
 		return results;
 	}
 
-	public void delete(final ProfessionalRecord professionalRecord) {
-		Assert.notNull(professionalRecord);
-		Assert.isTrue(professionalRecord.getId() != 0);
-		Assert.isTrue(this.professionalRecordRepository.exists(professionalRecord.getId()));
-
-		// Debemos de eliminar el professionalRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
-		Curriculum curriculum;
-
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getProfessionalRecords().contains(professionalRecord));
-
-		// Eliminamos el ProfessionalRecord del curriculum del handyworker Principal
-
-		this.curriculumService.removeProfessionalRecord(curriculum, professionalRecord);
-
-		// Eliminamos definitivamente el ProfessionalRecord
-
-		this.professionalRecordRepository.delete(professionalRecord);
-	}
-
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		Assert.isTrue(!(this.professionalRecordRepository.exists(professionalRecord.getId())));

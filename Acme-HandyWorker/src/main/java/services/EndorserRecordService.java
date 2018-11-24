@@ -66,30 +66,6 @@ public class EndorserRecordService {
 		return results;
 	}
 
-	public void delete(final EndorserRecord endorserRecord) {
-		Assert.notNull(endorserRecord);
-		Assert.isTrue(endorserRecord.getId() != 0);
-		Assert.isTrue(this.endorserRecordRepository.exists(endorserRecord.getId()));
-
-		// Debemos de eliminar el endorserRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
-		Curriculum curriculum;
-
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getEndorserRecords().contains(endorserRecord));
-
-		// Eliminamos el EndorserRecord del curriculum del handyworker Principal
-
-		this.curriculumService.removeEndorserRecord(curriculum, endorserRecord);
-
-		// Eliminamos definitivamente el education record
-
-		this.endorserRecordRepository.delete(endorserRecord);
-	}
-
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(!(this.endorserRecordRepository.exists(endorserRecord.getId())));
