@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,13 @@ public class CustomisationService {
 		result = all[0];
 
 		return result;
+	}
+
+	public Collection<String> spamWords() {
+		Collection<String> res = null;
+		res = this.customisationRepository.spamWords();
+		return res;
+
 	}
 
 }

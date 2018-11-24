@@ -87,6 +87,11 @@ public class BoxService {
 		if (box.getId() != 0)
 			Assert.isTrue(box.getActor().equals(actor));
 
+		Assert.isTrue(!(box.getName().equals("in box")));
+		Assert.isTrue(!(box.getName().equals("out box")));
+		Assert.isTrue(!(box.getName().equals("trash box")));
+		Assert.isTrue(!(box.getName().equals("spam box")));
+
 		result = this.boxRepository.save(box);
 
 		return result;
@@ -155,6 +160,13 @@ public class BoxService {
 		res.add(spambox);
 
 		return res;
+	}
+
+	public Box searchBox(final Actor actor, final String nameBox) {
+		Box spamBox;
+		spamBox = this.boxRepository.searchBox(actor.getId(), nameBox);
+		return spamBox;
+
 	}
 
 }

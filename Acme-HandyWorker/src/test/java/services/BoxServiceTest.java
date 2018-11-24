@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Box;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +24,10 @@ public class BoxServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private BoxService	boxService;
+	private BoxService		boxService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	//Tests ----------------------------------------------
@@ -44,7 +48,7 @@ public class BoxServiceTest extends AbstractTest {
 
 		box = this.boxService.findOne(super.getEntityId("box024"));
 
-		box.setName("amigos box");
+		box.setName("family box");
 
 		boxSaved = this.boxService.save(box);
 
@@ -54,9 +58,9 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
-		super.authenticate("handyworker1");
+		super.authenticate("customer2");
 		final Box box;
-		box = this.boxService.findOne(super.getEntityId("box012"));
+		box = this.boxService.findOne(super.getEntityId("box024"));
 		Assert.notNull(box);
 		this.boxService.delete(box);
 		super.unauthenticate();
@@ -75,6 +79,21 @@ public class BoxServiceTest extends AbstractTest {
 		Box box;
 		box = this.boxService.findOne(super.getEntityId("box23"));
 		Assert.notNull(box);
+	}
+
+	@Test
+	public void testSearchBox() {
+		super.authenticate("handyworker2");
+		final Box box;
+		Actor actor;
+		final String nameBox = "out box";
+		actor = this.actorService.findPrincipal();
+
+		box = this.boxService.searchBox(actor, nameBox);
+		Assert.notNull(box);
+
+		System.out.println(box);
+		super.unauthenticate();
 	}
 
 }

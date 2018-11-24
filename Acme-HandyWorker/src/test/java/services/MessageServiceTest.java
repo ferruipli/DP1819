@@ -58,14 +58,16 @@ public class MessageServiceTest extends AbstractTest {
 		final Message message;
 		final Message messageSaved;
 
-		message = this.messageService.findOne(super.getEntityId("message1"));
+		message = new Message();
+		message.setBody("Hola este es el cuerpo del mensaje, viagra");
+		message.setRecipients("")
+		
 
 		messageSaved = this.messageService.save(message);
 
 		Assert.notNull(messageSaved);
 		super.unauthenticate();
 	}
-
 	@Test
 	public void testDelete() {
 		final Message message;
