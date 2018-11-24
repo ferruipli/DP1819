@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.FixUpTaskRepository;
 import domain.Application;
 import domain.Complaint;
+import domain.Customer;
 import domain.FixUpTask;
 import domain.Phase;
 
@@ -30,6 +31,9 @@ public class FixUpTaskService {
 
 	@Autowired
 	private UtilityService		utilityService;
+
+	@Autowired
+	private CustomerService		customerService;
 
 
 	// Constructor ------------------------------------------------------------
@@ -52,24 +56,24 @@ public class FixUpTaskService {
 		result.setComplaints(Collections.<Complaint> emptySet());
 		result.setApplications(Collections.<Application> emptySet());
 		result.setPhases(Collections.<Phase> emptySet());
-		// COMPLT: fixUpTask.setCustomer(Customer.findByPrincipal);
+		result.setCustomer(this.customerService.findByPrincipal());
 
 		return result;
 	}
 
 	public FixUpTask save(final FixUpTask fixUpTask) {
 		FixUpTask result;
+		Customer principal;
 
-		// COMPLT: comprobar que cuando un handyWorker esta actualizando 
-		// las fases de un fixUpTask, ese handyworker tiene una solicitud
-		// aceptada para dicho fixUpTask
+		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot update a FixUpTaks with an Application associated
+		principal = this.customerService.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
 
-		// COMPLT: 
-		//if(this.fixUpTaskRepository.exists(fixUpTask.getId())) {
-		//	añadir addFixUpTask al customer principal
-		//}
+		if (this.fixUpTaskRepository.exists(fixUpTask.getId()))
+			this.customerService.addFixUpTask(result.getCustomer(), result);
 
 		return result;
 	}
@@ -94,9 +98,25 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
+	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
+		fixUpTask.getPhases().add(phase);
+		this.fixUpTaskRepository.flush();
+		this.fixUpTaskRepository.save(fixUpTask);
+	}
+
+	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
+		Collection<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public FixUpTask findByPhase(final Phase phase) {
 		FixUpTask result;
 
+		Assert.isTrue(phase.getId() != 0);
 		result = this.fixUpTaskRepository.findByPhase(phase);
 		Assert.notNull(result);
 
