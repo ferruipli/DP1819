@@ -104,4 +104,64 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
+	// Guardar un personal record sin estar autenticado
+	@Test(expected = IllegalArgumentException.class)
+	public void testSavePersonalRecordNegative() {
+		PersonalRecord personalRecord, saved;
+		Collection<PersonalRecord> personalRecords;
+		String fullName, photoLink, email, phoneNumber, linkedInProfile;
+
+		personalRecord = this.personalRecordService.create();
+
+		fullName = "Jesús";
+		photoLink = "http://www.instagram.com";
+		email = "jesus@gmail.com";
+		phoneNumber = "954301287";
+		linkedInProfile = "http://www.linkedin.com";
+
+		personalRecord.setFullName(fullName);
+		personalRecord.setPhotoLink(photoLink);
+		personalRecord.setEmail(email);
+		personalRecord.setPhoneNumber(phoneNumber);
+		personalRecord.setLinkedInProfile(linkedInProfile);
+
+		saved = this.personalRecordService.save(personalRecord);
+
+		personalRecords = this.personalRecordService.findAll();
+
+		Assert.isTrue(personalRecords.contains(saved));
+
+	}
+
+	// Guardar un personal record sin ser handyworker
+	@Test(expected = NullPointerException.class)
+	public void testSavePersonalRecordNegative2() {
+		PersonalRecord personalRecord, saved;
+		Collection<PersonalRecord> personalRecords;
+		String fullName, photoLink, email, phoneNumber, linkedInProfile;
+
+		super.authenticate("customer1");
+		personalRecord = this.personalRecordService.create();
+
+		fullName = "Jesús";
+		photoLink = "http://www.instagram.com";
+		email = "jesus@gmail.com";
+		phoneNumber = "954301287";
+		linkedInProfile = "http://www.linkedin.com";
+
+		personalRecord.setFullName(fullName);
+		personalRecord.setPhotoLink(photoLink);
+		personalRecord.setEmail(email);
+		personalRecord.setPhoneNumber(phoneNumber);
+		personalRecord.setLinkedInProfile(linkedInProfile);
+
+		saved = this.personalRecordService.save(personalRecord);
+
+		personalRecords = this.personalRecordService.findAll();
+
+		Assert.isTrue(personalRecords.contains(saved));
+
+		super.authenticate(null);
+	}
+
 }

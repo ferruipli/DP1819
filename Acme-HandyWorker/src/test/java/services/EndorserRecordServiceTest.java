@@ -74,6 +74,66 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
+	// Guardar un endorser record sin autenticarse
+	@Test(expected = NullPointerException.class)
+	public void testSaveEndorserRecordNegative() {
+		EndorserRecord endorserRecord, saved;
+		Collection<EndorserRecord> endorserRecords;
+		String fullName, email, phoneNumber, linkedInProfile, comments;
+
+		endorserRecord = this.endorserRecordService.create();
+
+		fullName = "Evaristo";
+		email = "evaristo@gmail.com";
+		phoneNumber = "954780123";
+		linkedInProfile = "http://www.linkedin.com";
+		comments = "comments";
+
+		endorserRecord.setFullName(fullName);
+		endorserRecord.setEmail(email);
+		endorserRecord.setPhoneNumber(phoneNumber);
+		endorserRecord.setLinkedInProfile(linkedInProfile);
+		endorserRecord.setComments(comments);
+
+		saved = this.endorserRecordService.save(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(saved));
+
+	}
+	// Customer guarda un endorser record
+	@Test(expected = NullPointerException.class)
+	public void testSaveEndorserRecordNegative2() {
+		EndorserRecord endorserRecord, saved;
+		Collection<EndorserRecord> endorserRecords;
+		String fullName, email, phoneNumber, linkedInProfile, comments;
+
+		super.authenticate("customer1");
+		endorserRecord = this.endorserRecordService.create();
+
+		fullName = "Evaristo";
+		email = "evaristo@gmail.com";
+		phoneNumber = "954780123";
+		linkedInProfile = "http://www.linkedin.com";
+		comments = "comments";
+
+		endorserRecord.setFullName(fullName);
+		endorserRecord.setEmail(email);
+		endorserRecord.setPhoneNumber(phoneNumber);
+		endorserRecord.setLinkedInProfile(linkedInProfile);
+		endorserRecord.setComments(comments);
+
+		saved = this.endorserRecordService.save(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(saved));
+
+		super.authenticate(null);
+
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveWithWrongEmailEndorserRecord() {
 		EndorserRecord endorserRecord, saved;
@@ -111,6 +171,48 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		Collection<EndorserRecord> endorserRecords;
 
 		super.authenticate("handyworker1");
+
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+		this.endorserRecordService.delete(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(!(endorserRecords.contains(endorserRecord)));
+
+		super.authenticate(null);
+
+	}
+
+	// Eliminar un endorser record sin estar autenticado
+	@Test(expected = NullPointerException.class)
+	public void testDeleteEndorserRecordNegative() {
+		EndorserRecord endorserRecord;
+		Collection<EndorserRecord> endorserRecords;
+
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+		this.endorserRecordService.delete(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(!(endorserRecords.contains(endorserRecord)));
+
+	}
+
+	// Customer elimina un endorser record 
+	@Test(expected = NullPointerException.class)
+	public void testDeleteEndorserRecordNegative2() {
+		EndorserRecord endorserRecord;
+		Collection<EndorserRecord> endorserRecords;
+
+		super.authenticate("customer1");
 
 		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
 		endorserRecords = this.endorserRecordService.findAll();

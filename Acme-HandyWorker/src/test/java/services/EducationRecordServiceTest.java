@@ -80,6 +80,73 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	}
 
+	// Usuario sin autenticar
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveEducationRecordNegative() {
+		final EducationRecord educationRecord, saved;
+		final Collection<EducationRecord> educationRecords;
+		final String titleDiploma, institution, attachment, comments;
+		final Date startDate, endDate;
+
+		educationRecord = this.educationRecordService.create();
+
+		titleDiploma = "English B1";
+		institution = "University of Cambridge";
+		startDate = LocalDate.parse("2017-01-01").toDate();
+		endDate = LocalDate.parse("2018-01-01").toDate();
+		attachment = "http://wwww.cambridge.com";
+		comments = "comment";
+
+		educationRecord.setTitleDiploma(titleDiploma);
+		educationRecord.setStartDate(startDate);
+		educationRecord.setEndDate(endDate);
+		educationRecord.setInstitution(institution);
+		educationRecord.setAttachment(attachment);
+		educationRecord.setComments(comments);
+
+		saved = this.educationRecordService.save(educationRecord);
+
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(educationRecords.contains(saved));
+
+	}
+
+	// El usuario que guarda el education record es un customer
+	@Test(expected = NullPointerException.class)
+	public void testSaveEducationRecordNegative2() {
+		final EducationRecord educationRecord, saved;
+		final Collection<EducationRecord> educationRecords;
+		final String titleDiploma, institution, attachment, comments;
+		final Date startDate, endDate;
+
+		super.authenticate("customer1");
+		educationRecord = this.educationRecordService.create();
+
+		titleDiploma = "English B1";
+		institution = "University of Cambridge";
+		startDate = LocalDate.parse("2017-01-01").toDate();
+		endDate = LocalDate.parse("2018-01-01").toDate();
+		attachment = "http://wwww.cambridge.com";
+		comments = "comment";
+
+		educationRecord.setTitleDiploma(titleDiploma);
+		educationRecord.setStartDate(startDate);
+		educationRecord.setEndDate(endDate);
+		educationRecord.setInstitution(institution);
+		educationRecord.setAttachment(attachment);
+		educationRecord.setComments(comments);
+
+		saved = this.educationRecordService.save(educationRecord);
+
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(educationRecords.contains(saved));
+
+		super.authenticate(null);
+
+	}
+
 	@Test
 	public void testDeleteEducationRecord() {
 		EducationRecord educationRecord;
@@ -98,6 +165,25 @@ public class EducationRecordServiceTest extends AbstractTest {
 		Assert.isTrue(!(educationRecords.contains(educationRecord)));
 
 		super.authenticate(null);
+
+	}
+
+	// Eliminar un education record sin autenticarse
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteEducationRecordNegative() {
+		EducationRecord educationRecord;
+		Collection<EducationRecord> educationRecords;
+
+		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(educationRecords.contains(educationRecord));
+
+		this.educationRecordService.delete(educationRecord);
+
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(!(educationRecords.contains(educationRecord)));
 
 	}
 
