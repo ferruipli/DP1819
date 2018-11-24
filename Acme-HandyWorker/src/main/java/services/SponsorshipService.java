@@ -28,6 +28,9 @@ public class SponsorshipService {
 	@Autowired
 	public ActorService				actorService;
 
+	@Autowired
+	public TutorialService			tutorialService;
+
 
 	//Constructor ----------------------------------------------------
 	public SponsorshipService() {
@@ -90,6 +93,7 @@ public class SponsorshipService {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
 
+		this.tutorialService.removeSponsorShipToTutorial(sponsorship);
 		this.sponsorshipRepository.delete(sponsorship);
 	}
 	//Other business methods-------------------------------------------

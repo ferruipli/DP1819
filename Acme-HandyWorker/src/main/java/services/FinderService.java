@@ -101,5 +101,32 @@ public class FinderService {
 	}
 
 	//Other business methods-------------------------------------------
+	//TODO
+	//	public Collection<FixUpTask> search(final Finder finder) {
+	//		String keyWord;
+	//		Double startPrice;
+	//		Double endPrice;
+	//		Date startDate;
+	//		Date endDate;
+	//		String warranty;
+	//		String category;
+	//		Page<FixUpTask> collectionFixUpTasks;
+	//
+	//		final int maxFinderResults;
+	//		final int timeCacheFinderResults;
+	//		maxFinderResults = 10;
+	//		final Pageable pageable = new PageRequest(0, maxFinderResults);
+	//
+	//		keyWord = finder.getKeyword();
+	//		startPrice = finder.getStartPrice();
+	//		endPrice = finder.getEndPrice();
+	//		startDate = finder.getStartDate();
+	//		endDate = finder.getEndDate();
+	//		warranty = finder.getWarranty();
+	//		category = finder.getCategory();
+	//
+	//		collectionFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+	//		return collectionFixUpTasks.getContent();
+	//	}
 
 }

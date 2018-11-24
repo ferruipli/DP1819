@@ -58,11 +58,13 @@ public class TutorialService {
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 
-		Date dateNow;
 		Tutorial result;
 
-		dateNow = new Date();
-		Assert.isTrue(tutorial.getMoment().before(dateNow));
+		if (tutorial.getId() != 0) {
+			Date dateNow;
+			dateNow = new Date();
+			Assert.isTrue(tutorial.getMoment().before(dateNow));
+		}
 
 		result = this.tutorialRepository.save(tutorial);
 
@@ -102,4 +104,11 @@ public class TutorialService {
 	}
 	//Other business methods-------------------------------------------
 
+	public void addSponsorShipToTutorial(final Tutorial tutorial, final Sponsorship sponsorship) {
+		tutorial.getSponsorShips().add(sponsorship);
+		this.save(tutorial);
+	}
+	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
+
+	}
 }

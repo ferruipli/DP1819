@@ -81,5 +81,15 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finder);
 
 	}
-
+	//TODO
+	//	@Test
+	//	public void testSearch() {
+	//		Collection<FixUpTask> result;
+	//		Finder finder;
+	//		finder = this.finderService.findOne(super.getEntityId("finder1"));
+	//
+	//		result = this.finderService.search(finder);
+	//		System.out.println(result);
+	//
+	//	}
 }
