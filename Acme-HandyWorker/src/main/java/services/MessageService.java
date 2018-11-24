@@ -82,7 +82,11 @@ public class MessageService {
 		Assert.notNull(message.getSender());
 		Assert.notNull(message.getRecipients());
 		Assert.notNull(message);
-		Assert.isTrue(message.getId() != 0);
+		Assert.isTrue(message.getId() == 0);
+
+		Date sendMoment;
+		sendMoment = new Date();
+		message.setSendMoment(sendMoment);
 
 		final Message result;
 		final Actor sender = this.actorService.findPrincipal();
@@ -90,24 +94,25 @@ public class MessageService {
 
 		Assert.isTrue(message.getSender().equals(sender));
 
-		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
-		outBoxSender.getMessages().add(message);
-
 		if (this.isSpamMessage(message))
 			for (final Actor r : recipients) {
+				message.setIsSpam(true);
 				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipiens.getMessages().add(message);
+				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			}
 		else
 			for (final Actor r : recipients) {
-				final Box spamBoxRecipiens = this.boxService.searchBox(r, "in box");
-				spamBoxRecipiens.getMessages().add(message);
+				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
+				inBoxRecipiens.getMessages().add(message);
+				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			}
 		result = this.messageRepository.save(message);
 
-		Assert.notNull(result);
-		Assert.isTrue(result.getId() != 0);
+		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
+		outBoxSender.getMessages().add(message);
 
+		Assert.notNull(result);
 		return result;
 	}
 
@@ -123,7 +128,6 @@ public class MessageService {
 	public boolean isSpamMessage(final Message message) {
 		boolean res = false;
 		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
-		System.out.println(spamWords);
 		for (final String sw : spamWords)
 			if (message.getSubject().contains(sw) || message.getBody().contains(sw)) {
 				res = true;
