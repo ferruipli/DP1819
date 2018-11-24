@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Actor;
 import domain.Box;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,9 +23,7 @@ public class BoxServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private BoxService		boxService;
-	@Autowired
-	private ActorService	actorService;
+	private BoxService	boxService;
 
 
 	//Tests ----------------------------------------------
@@ -41,14 +38,13 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
-		super.authenticate("sponsor1");
+		super.authenticate("customer2");
 		final Box box;
 		final Box boxSaved;
 
-		box = this.boxService.findOne(super.getEntityId("box20"));
+		box = this.boxService.findOne(super.getEntityId("box024"));
 
 		box.setName("amigos box");
-		box.setIsSystemBox(false);
 
 		boxSaved = this.boxService.save(box);
 
@@ -58,22 +54,13 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
-		super.authenticate("sponsor1");
+		super.authenticate("handyworker1");
 		final Box box;
-		box = this.boxService.findOne(super.getEntityId("box17"));
+		box = this.boxService.findOne(super.getEntityId("box012"));
 		Assert.notNull(box);
 		this.boxService.delete(box);
 		super.unauthenticate();
 	}
-
-	//Debe dar negativo ya que box.getname().equals("in box")
-	//	@Test(expective = except)
-	//	public void testDeleteNegative() {
-	//		final Box box;
-	//		box = this.boxService.findOne(super.getEntityId("box24"));
-	//		Assert.notNull(box);
-	//		this.boxService.delete(box);
-	//	}
 
 	@Test
 	public void testFindAll() {
@@ -81,7 +68,6 @@ public class BoxServiceTest extends AbstractTest {
 		boxs = this.boxService.findAll();
 		Assert.notEmpty(boxs);
 		Assert.notNull(boxs);
-
 	}
 
 	@Test
@@ -89,23 +75,6 @@ public class BoxServiceTest extends AbstractTest {
 		Box box;
 		box = this.boxService.findOne(super.getEntityId("box23"));
 		Assert.notNull(box);
-
-	}
-
-	@Test
-	public void testQueryBoxInActor() {
-		super.authenticate("customer2");
-		boolean boxInActor;
-		Box box;
-		Actor actor;
-
-		box = this.boxService.findOne(super.getEntityId("box23"));
-		actor = this.actorService.findPrincipal();
-
-		boxInActor = this.boxService.boxInActor(box, actor);
-		Assert.isTrue(boxInActor);
-		super.unauthenticate();
-
 	}
 
 }

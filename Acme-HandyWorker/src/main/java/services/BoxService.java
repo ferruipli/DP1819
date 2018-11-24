@@ -85,7 +85,7 @@ public class BoxService {
 		Assert.notNull(actor);
 
 		if (box.getId() != 0)
-			Assert.isTrue(this.boxInActor(box, actor));
+			Assert.isTrue(box.getActor().equals(actor));
 
 		result = this.boxRepository.save(box);
 
@@ -101,22 +101,11 @@ public class BoxService {
 		Assert.isTrue(box.getActor().equals(actor));
 		Assert.isTrue(box.getId() != 0);
 		Assert.isTrue(!(box.getIsSystemBox()));
-		Assert.isTrue(this.boxInActor(box, actor));
 
 		this.boxRepository.delete(box);
 	}
 
 	// Other business methods -------------------------------------------------
-
-	//si es TRUE = existe una box con ese nombre y ese actor
-	public boolean boxInActor(final Box box, final Actor actor) {
-		boolean res = true;
-
-		if ((this.boxRepository.existNameboxForActor(box.getName(), actor.getId()).isEmpty()))
-			res = false;
-
-		return res;
-	}
 
 	public Collection<Box> createDefaultBox(final Actor actor) {
 		Box inbox;
