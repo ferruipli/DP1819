@@ -26,6 +26,7 @@ public class TutorialService {
 
 	// Supporting services -------------------------------------------
 
+	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
 
@@ -103,12 +104,10 @@ public class TutorialService {
 		this.tutorialRepository.delete(tutorial);
 	}
 	//Other business methods-------------------------------------------
-
-	public void addSponsorShipToTutorial(final Tutorial tutorial, final Sponsorship sponsorship) {
-		tutorial.getSponsorShips().add(sponsorship);
-		this.save(tutorial);
+	protected Tutorial findTutorialBySponsorship(final Sponsorship sponsorship) {
+		Tutorial tutorial;
+		tutorial = this.tutorialRepository.findTutorialBySponsorship(sponsorship.getId());
+		return tutorial;
 	}
-	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
 
-	}
 }

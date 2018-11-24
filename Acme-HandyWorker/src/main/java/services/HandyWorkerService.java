@@ -52,6 +52,10 @@ public class HandyWorkerService {
 		applications = new ArrayList<Application>();
 		userAccount = new UserAccount();
 
+		Assert.notNull(finder);
+		Assert.notNull(applications);
+		Assert.notNull(userAccount);
+
 		result.setApplications(applications);
 		result.setFinder(finder);
 		result.setUserAccount(userAccount);
@@ -78,12 +82,15 @@ public class HandyWorkerService {
 		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
 		if (handyWorker.getId() == 0) {
 
+			if (handyWorker.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
+				handyWorker.setMiddleName("");
 			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
 			handyWorker.setMake(make);
 			result = this.handyWorkerRepository.save(handyWorker);
 			this.boxService.createDefaultBox(handyWorker);
 		} else {
 			userAccount = LoginService.getPrincipal();
+			Assert.notNull(userAccount);
 			Assert.isTrue(userAccount.equals(handyWorker.getUserAccount()));
 			result = this.handyWorkerRepository.save(handyWorker);
 
@@ -122,15 +129,6 @@ public class HandyWorkerService {
 
 		return result;
 	}
-	public HandyWorker findHandyWorkerByUserAccount(final UserAccount userAccount) {
-		HandyWorker result;
-		int userAccountId;
-		userAccountId = LoginService.getPrincipal().getId();
-		result = this.handyWorkerRepository.findByUserAccountId(userAccountId);
-		Assert.notNull(result);
-
-		return result;
-	}
 
 	public Collection<HandyWorker> findEndorsableHandyWorkers(final int customerId) {
 		Collection<HandyWorker> handyWorkers;
@@ -141,14 +139,6 @@ public class HandyWorkerService {
 		int result;
 
 		result = this.handyWorkerRepository.findPhaseCreatorId(phase);
-
-		return result;
-	}
-	protected HandyWorker findByUserAccount(final int userAccountId) {
-		HandyWorker result;
-
-		result = this.handyWorkerRepository.findByUserAccount(userAccountId);
-		Assert.notNull(result);
 
 		return result;
 	}

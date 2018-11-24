@@ -55,14 +55,6 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finderSaved);
 		super.unauthenticate();
 	}
-	@Test
-	public void testDelete() {
-
-		final Finder finder;
-		finder = this.finderService.findOne(super.getEntityId("finder1"));
-		this.finderService.delete(finder);
-
-	}
 
 	@Test
 	public void testFindAll() {
@@ -91,5 +83,5 @@ public class FinderServiceTest extends AbstractTest {
 	//		result = this.finderService.search(finder);
 	//		System.out.println(result);
 	//
-	//	}
+	//	} 
 }

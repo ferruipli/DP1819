@@ -25,8 +25,10 @@ public class SponsorService {
 	@Autowired
 	private SponsorRepository	sponsorRepository;
 
-
 	// Supporting services -------------------------------------------
+	@Autowired
+	private BoxService			boxService;
+
 
 	//Constructor ----------------------------------------------------
 	public SponsorService() {
@@ -60,11 +62,10 @@ public class SponsorService {
 		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
 		sponsor.getUserAccount().setPassword(passwordHash);
 
-		if (sponsor.getId() == 0)
-			//TODO
-			//actorService.initializeSystemBox();
+		if (sponsor.getId() == 0) {
 			result = this.sponsorRepository.save(sponsor);
-		else {
+			this.boxService.createDefaultBox(sponsor);
+		} else {
 			userAccount = LoginService.getPrincipal();
 			Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
 			result = this.sponsorRepository.save(sponsor);
@@ -72,7 +73,6 @@ public class SponsorService {
 
 		return result;
 	}
-
 	public Sponsor findOne(final int idSponsor) {
 		Sponsor result;
 

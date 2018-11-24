@@ -64,7 +64,6 @@ public class FinderService {
 		if (finder.getId() != 0) {
 
 			handyWorker = this.handyWorkerService.findByPrincipal();
-			System.out.println(handyWorker);
 			Assert.isTrue(handyWorker.getFinder().getId() == finder.getId());
 		}
 
@@ -91,13 +90,6 @@ public class FinderService {
 		Assert.notNull(result);
 
 		return result;
-	}
-	public void delete(final Finder finder) {
-		Assert.isTrue(finder.getId() != 0);
-		Assert.notNull(finder);
-		Assert.isTrue(this.finderRepository.exists(finder.getId()));
-
-		this.finderRepository.delete(finder);
 	}
 
 	//Other business methods-------------------------------------------

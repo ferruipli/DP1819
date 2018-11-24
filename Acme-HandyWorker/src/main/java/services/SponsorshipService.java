@@ -13,6 +13,7 @@ import repositories.SponsorshipRepository;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -30,6 +31,9 @@ public class SponsorshipService {
 
 	@Autowired
 	public TutorialService			tutorialService;
+
+	@Autowired
+	public CreditCardService		creditCardService;
 
 
 	//Constructor ----------------------------------------------------
@@ -92,25 +96,37 @@ public class SponsorshipService {
 		Assert.isTrue(sponsorship.getId() != 0);
 		Assert.notNull(sponsorship);
 		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
+		Sponsor principal;
 
-		this.tutorialService.removeSponsorShipToTutorial(sponsorship);
+		principal = this.sponsorService.findByPrincipal();
+
+		this.removeSponsorshipToSponsor(principal, sponsorship);
+		this.removeSponsorShipToTutorial(sponsorship);
 		this.sponsorshipRepository.delete(sponsorship);
 	}
 	//Other business methods-------------------------------------------
 	protected void addSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
-		Collection<Sponsorship> sponsorships;
+		sponsor.getSponsorships().add(sponsorship);
+		Assert.isTrue(sponsor.getSponsorships().contains(sponsorship));
 
-		sponsorships = sponsor.getSponsorships();
-		Assert.isTrue(!(sponsorships.contains(sponsorship)));
-		sponsorships.add(sponsorship);
-		sponsor.setSponsorships(sponsorships);
-		Assert.isTrue(sponsorships.contains(sponsorship));
+	}
+
+	protected void removeSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
+		sponsor.getSponsorships().remove(sponsorship);
+		Assert.isTrue(!(sponsor.getSponsorships().contains(sponsorship)));
 
 	}
 	public void addCreditCardToSponsorship(final Sponsorship sponsorship, final CreditCard creditCard) {
 		Assert.notNull(creditCard);
 		sponsorship.setCreditCard(creditCard);
 		Assert.isTrue(sponsorship.getCreditCard().equals(creditCard));
+	}
+
+	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
+		Tutorial tutorial;
+		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
+		tutorial.getSponsorShips().add(sponsorship);
+		this.tutorialService.save(tutorial);
 	}
 
 }
