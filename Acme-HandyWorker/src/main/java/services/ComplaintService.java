@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -11,7 +12,10 @@ import org.springframework.util.Assert;
 
 import repositories.ComplaintRepository;
 import domain.Complaint;
-import domain.FixUpTask;
+import domain.Customer;
+import domain.HandyWorker;
+import domain.Referee;
+import domain.Report;
 
 @Service
 @Transactional
@@ -29,6 +33,15 @@ public class ComplaintService {
 
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private CustomerService		customerService;
+
+	@Autowired
+	private RefereeService		refereeService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor ------------------------------------------------------------
@@ -54,19 +67,85 @@ public class ComplaintService {
 
 	public Complaint save(final Complaint complaint) {
 		Complaint result;
-		FixUpTask fixUpTask;
+		Customer principal;
 
-		fixUpTask = complaint.getFixUpTask();
-		Assert.notNull(fixUpTask);
+		Assert.isTrue(!this.complaintRepository.exists(complaint.getId()));
+		principal = this.customerService.findByPrincipal();
+		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));
 
 		result = this.complaintRepository.save(complaint);
-		this.fixUpTaskService.addComplaint(fixUpTask, result);
+
+		this.fixUpTaskService.addComplaint(complaint.getFixUpTask(), result);
 
 		return result;
 	}
 
-	// COMPLT: método de búsqueda de los Complaints que no están asignados.
+	public Complaint findOne(final int complaintId) {
+		Complaint result;
+
+		result = this.complaintRepository.findOne(complaintId);
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	// Other business methods -------------------------------------------------
+
+	// COMPLT: al acabar, comprobar que todos estos métodos me sirven de verdad
+	public Collection<Complaint> findByCustomerPrincipal() {
+		Collection<Complaint> result;
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		result = this.complaintRepository.findByCustomerPrincipal(principal.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Complaint> findNotSelfAssigned() {
+		Collection<Complaint> result;
+
+		result = this.complaintRepository.findNotSelfAssigned();
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	// Every change (such as .add(Object), .remove(Object), ...) in the collection 
+	// returned by this method, is persisted in the database.
+	public Collection<Complaint> findSelfAssignedByPrincipal() {
+		Collection<Complaint> result;
+		Referee principal;
+
+		principal = this.refereeService.findByPrincipal();
+		result = principal.getComplaints();
+
+		return result;
+	}
+
+	public Collection<Complaint> findInvolvedByHandyWorkerId(final int handyWorkerId) {
+		Collection<Complaint> result;
+		HandyWorker principal;
+
+		principal = this.handyWorkerService.findByPrincipal();
+		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Complaint findByReportId(final int reportId) {
+		Complaint result;
+
+		result = this.complaintRepository.findByReportId(reportId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	protected void addReport(final Complaint complaint, final Report report) {
+		complaint.setReport(report);
+	}
 
 }
