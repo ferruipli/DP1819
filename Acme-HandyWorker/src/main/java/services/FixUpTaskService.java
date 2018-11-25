@@ -88,7 +88,7 @@ public class FixUpTaskService {
 		Assert.notNull(principal);
 		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 
-		// COMPLT: this.customerService.removeFixUpTask(principal, fixUpTask);
+		this.customerService.removeFixUpTask(principal, fixUpTask);
 
 		this.fixUpTaskRepository.delete(fixUpTask);
 	}
@@ -113,12 +113,6 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
-	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
-		fixUpTask.getPhases().add(phase);
-		this.fixUpTaskRepository.flush();
-		this.fixUpTaskRepository.save(fixUpTask);
-	}
-
 	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
 		Collection<FixUpTask> result;
 
@@ -136,6 +130,12 @@ public class FixUpTaskService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
+		fixUpTask.getPhases().add(phase);
+		this.fixUpTaskRepository.flush();
+		this.fixUpTaskRepository.save(fixUpTask);
 	}
 
 	protected void addComplaint(final FixUpTask fixUpTask, final Complaint complaint) {

@@ -152,4 +152,13 @@ public class HandyWorkerService {
 		return result;
 	}
 
+	public HandyWorker findByReportId(final int reportId) {
+		HandyWorker result;
+
+		result = this.handyWorkerRepository.findByReportId(reportId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

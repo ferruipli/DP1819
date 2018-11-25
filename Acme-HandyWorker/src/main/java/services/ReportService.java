@@ -55,20 +55,33 @@ public class ReportService {
 		return result;
 	}
 
-	// COMPLT: Este método sirve para actualizar un report pero no para insertarlo,
-	// ya que al insertarlo complaintInvolved devolvería null --> cambiar 
-	// navegabilidades
-	public Report save(final Report report) {
+	public Report writeNewReport(final int complaintId, final Report report) {
+		Report result;
+		Complaint complaint;
+
+		Assert.isTrue(!this.reportRepository.exists(report.getId()));
+		complaint = this.complaintService.findOne(complaintId);
+		Assert.isTrue(report.getMoment().after(complaint.getMoment()));
+		this.checkRefPrincipalHandles(complaint);
+
+		result = this.reportRepository.save(report);
+
+		this.complaintService.addReport(complaint, result);
+
+		return result;
+	}
+
+	public Report update(final Report report) {
 		Report result;
 		Complaint complaintInvolved;
 
-		complaintInvolved = this.complaintService.findByReportId(report.getId());
-
-		this.checkRefPrincipalHandles(complaintInvolved);
+		Assert.isTrue(this.reportRepository.exists(report.getId()));
 		Assert.isTrue(!report.getFinalMode());
+		complaintInvolved = this.complaintService.findByReportId(report.getId());
+		Assert.isTrue(report.getMoment().after(complaintInvolved.getMoment()));
+		this.checkRefPrincipalHandles(complaintInvolved);
 
 		result = this.reportRepository.save(report);
-		complaintInvolved.setReport(result);
 
 		return result;
 	}
@@ -76,12 +89,12 @@ public class ReportService {
 	public void delete(final Report report) {
 		Complaint complaintInvolved;
 
-		complaintInvolved = this.complaintService.findByReportId(report.getId());
-
-		this.checkRefPrincipalHandles(complaintInvolved);
+		Assert.isTrue(this.reportRepository.exists(report.getId()));
 		Assert.isTrue(!report.getFinalMode());
+		complaintInvolved = this.complaintService.findByReportId(report.getId());
+		this.checkRefPrincipalHandles(complaintInvolved);
 
-		complaintInvolved.setReport(null);
+		this.complaintService.removeReport(complaintInvolved);
 		this.reportRepository.delete(report);
 	}
 
@@ -96,10 +109,24 @@ public class ReportService {
 
 	// Other business methods -------------------------------------------------
 
+	public Report findByNoteId(final int noteId) {
+		Report result;
+
+		result = this.reportRepository.findByNoteId(noteId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	protected void addNote(final Report report, final Note note) {
+		report.getNotes().add(note);
+	}
+
 	private void checkRefPrincipalHandles(final Complaint complaintInvolved) {
 		Referee principal;
 
 		principal = this.refereeService.findByPrincipal();
+		Assert.notNull(principal);
 		Assert.isTrue(principal.getComplaints().contains(complaintInvolved));
 	}
 }

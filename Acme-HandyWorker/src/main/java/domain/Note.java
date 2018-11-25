@@ -29,6 +29,9 @@ public class Note extends DomainEntity {
 	private String	commentCustomer;
 	private String	commentHandyWorker;
 	private String	commentReferee;
+	private boolean	isCommentedByCustomer;
+	private boolean	isCommentedByReferee;
+	private boolean	isCommentedByHandyWorker;
 
 
 	@Past
@@ -67,6 +70,30 @@ public class Note extends DomainEntity {
 
 	public void setCommentReferee(final String commentReferee) {
 		this.commentReferee = commentReferee;
+	}
+
+	public boolean getIsCommentedByCustomer() {
+		return this.isCommentedByCustomer;
+	}
+
+	public void setIsCommentedByCustomer(final boolean isCommentedByCustomer) {
+		this.isCommentedByCustomer = isCommentedByCustomer;
+	}
+
+	public boolean getIsCommentedByReferee() {
+		return this.isCommentedByReferee;
+	}
+
+	public void setIsCommentedByReferee(final boolean isCommentedByReferee) {
+		this.isCommentedByReferee = isCommentedByReferee;
+	}
+
+	public boolean getIsCommentedByHandyWorker() {
+		return this.isCommentedByHandyWorker;
+	}
+
+	public void setIsCommentedByHandyWorker(final boolean isCommentedByHandyWorker) {
+		this.isCommentedByHandyWorker = isCommentedByHandyWorker;
 	}
 
 }

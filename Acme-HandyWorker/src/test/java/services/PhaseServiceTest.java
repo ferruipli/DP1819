@@ -26,6 +26,8 @@ public class PhaseServiceTest extends AbstractTest {
 	@Autowired
 	private PhaseService		phaseService;
 
+	// Supporting services ----------------------------------------------------
+
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
 
@@ -107,15 +109,17 @@ public class PhaseServiceTest extends AbstractTest {
 		Phase phase;
 		int fixUpTaskId;
 		FixUpTask fixUpTask;
+		LocalDate localDate;
 
 		fixUpTaskId = super.getEntityId("fixUpTask6");
+		localDate = LocalDate.parse("2017-07-29");
 
 		super.authenticate("handyworker3");
 
 		phase = this.phaseService.create();
 		phase.setDescription("Esto es una descripción de prueba");
-		phase.setStartMoment(LocalDate.now().toDate());
-		phase.setEndMoment((LocalDate.now().plusMonths(5)).toDate());
+		phase.setStartMoment(localDate.toDate());
+		phase.setEndMoment(localDate.plusDays(10).toDate());
 		phase.setTitle("Título TEST");
 
 		this.phaseService.saveNewPhase(fixUpTaskId, phase);
@@ -131,15 +135,17 @@ public class PhaseServiceTest extends AbstractTest {
 		Phase phase;
 		int fixUpTaskId;
 		FixUpTask fixUpTask;
+		LocalDate localDate;
 
 		fixUpTaskId = super.getEntityId("fixUpTask6");
+		localDate = LocalDate.parse("2017-07-29");
 
 		super.authenticate("handyworker2");
 
 		phase = this.phaseService.create();
 		phase.setDescription("Esto es una descripción de prueba");
-		phase.setStartMoment(LocalDate.now().toDate());
-		phase.setEndMoment((LocalDate.now().plusMonths(5)).toDate());
+		phase.setStartMoment(localDate.toDate());
+		phase.setEndMoment(localDate.plusDays(10).toDate());
 		phase.setTitle("Título TEST");
 
 		this.phaseService.saveNewPhase(fixUpTaskId, phase);
@@ -148,5 +154,67 @@ public class PhaseServiceTest extends AbstractTest {
 
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 		Assert.isTrue(fixUpTask.getPhases().contains(phase));
+	}
+
+	// Phase::startMoment is before than FixUpTask::startMoment
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateConflictDate() {
+		Phase phase;
+
+		phase = this.phaseService.findOne(super.getEntityId("phase8"));
+
+		super.authenticate("handyWorker3");
+
+		phase.setTitle("Título modificado");
+		phase.setDescription("Esta fase ha sido modificada para un test");
+		phase.setStartMoment(LocalDate.parse("2017-07-27").toDate());
+		this.phaseService.update(phase);
+
+		super.unauthenticate();
+	}
+
+	// Phase::endMoment is after than FixUpTask::endDate
+	@Test(expected = IllegalArgumentException.class)
+	public void testNewPhaseConflictDate() {
+		Phase phase;
+		int fixUpTaskId;
+		FixUpTask fixUpTask;
+		LocalDate localDate;
+
+		fixUpTaskId = super.getEntityId("fixUpTask6");
+		localDate = LocalDate.parse("2017-07-29");
+
+		super.authenticate("handyworker3");
+
+		phase = this.phaseService.create();
+		phase.setDescription("Esto es una descripción de prueba");
+		phase.setStartMoment(localDate.toDate());
+		phase.setEndMoment(localDate.plusMonths(5).toDate());
+		phase.setTitle("Título TEST");
+
+		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+
+		super.unauthenticate();
+
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		Assert.isTrue(fixUpTask.getPhases().contains(phase));
+	}
+
+	// EndDate is before than StartDate
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateWrongDates() {
+		Phase phase;
+
+		phase = this.phaseService.findOne(super.getEntityId("phase8"));
+
+		super.authenticate("handyWorker3");
+
+		phase.setTitle("Título modificado");
+		phase.setDescription("Esta fase ha sido modificada para un test");
+		phase.setStartMoment(LocalDate.parse("2017-08-02").toDate());
+		phase.setEndMoment(LocalDate.parse("2017-07-31").toDate());
+		this.phaseService.update(phase);
+
+		super.unauthenticate();
 	}
 }

@@ -91,12 +91,12 @@ public class ComplaintService {
 
 	// Other business methods -------------------------------------------------
 
-	// COMPLT: al acabar, comprobar que todos estos métodos me sirven de verdad
 	public Collection<Complaint> findByCustomerPrincipal() {
 		Collection<Complaint> result;
 		Customer principal;
 
 		principal = this.customerService.findByPrincipal();
+		Assert.notNull(principal);
 		result = this.complaintRepository.findByCustomerPrincipal(principal.getId());
 		Assert.notNull(result);
 
@@ -119,6 +119,7 @@ public class ComplaintService {
 		Referee principal;
 
 		principal = this.refereeService.findByPrincipal();
+		Assert.notNull(principal);
 		result = principal.getComplaints();
 
 		return result;
@@ -129,6 +130,7 @@ public class ComplaintService {
 		HandyWorker principal;
 
 		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
 		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId());
 		Assert.notNull(result);
 
@@ -146,6 +148,10 @@ public class ComplaintService {
 
 	protected void addReport(final Complaint complaint, final Report report) {
 		complaint.setReport(report);
+	}
+
+	protected void removeReport(final Complaint complaint) {
+		complaint.setReport(null);
 	}
 
 }

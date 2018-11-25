@@ -48,11 +48,35 @@ public class PhaseService {
 		return result;
 	}
 
+	public void saveNewPhase(final int fixUpTaskId, final Phase phase) {
+		FixUpTask fixUpTask;
+		HandyWorker principal;
+		Collection<FixUpTask> workableFixUpTasks;
+
+		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
+		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
+		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+
+		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
+		Assert.isTrue(phase.getStartMoment().after(fixUpTask.getStartDate()) && phase.getStartMoment().before(fixUpTask.getEndDate()));
+		Assert.isTrue(phase.getEndMoment().after(fixUpTask.getStartDate()) && phase.getEndMoment().before(fixUpTask.getEndDate()));
+
+		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
+	}
+
 	public Phase update(final Phase phase) {
 		Phase result;
 
-		// This method is only available for update purposes.
 		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
+		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
+
+		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
+		Assert.isTrue(this.phaseRepository.checkPhaseDate(phase.getId()));
+
 		this.checkCreator(phase);
 
 		result = this.phaseRepository.save(phase);
@@ -81,20 +105,6 @@ public class PhaseService {
 
 	// Other business methods -------------------------------------------------
 
-	public void saveNewPhase(final int fixUpTaskId, final Phase phase) {
-		FixUpTask fixUpTask;
-		HandyWorker principal;
-		Collection<FixUpTask> workableFixUpTasks;
-
-		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
-		principal = this.handyWorkerService.findByPrincipal();
-		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
-		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
-
-		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
-	}
-
 	public Collection<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId) {
 		Collection<Phase> result;
 
@@ -105,9 +115,12 @@ public class PhaseService {
 	}
 
 	private void checkCreator(final Phase phase) {
+		HandyWorker principal;
 		int principalId, ownerId;
 
-		principalId = this.handyWorkerService.findByPrincipal().getId();
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
+		principalId = principal.getId();
 		ownerId = this.handyWorkerService.findPhaseCreator(phase);
 
 		Assert.isTrue(principalId == ownerId);
