@@ -121,31 +121,28 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testApplicationForChanged() {
 		super.authenticate("system");
-		final Actor actor = this.actorService.findPrincipal();
-		System.out.println("si es nulo si solo muestro esta frase");
-		Assert.notNull(actor);
-		System.out.println("no es nulo el actor");
 		Application application;
+		Box inBoxHandyWorker1;
+		final Box inBoxHandyWorker2;
 
-		Box inBoxHandyWorker;
-		Box inBoxHandyWorkerSave;
-
-		Integer beforeSave;
-		Integer afterSave;
+		final int size1;
+		final int size2;
 
 		application = this.applicationService.findOne(this.getEntityId("application1"));
-
-		inBoxHandyWorker = this.boxService.searchBox(application.getHandyWorker(), "in box");
-
-		beforeSave = inBoxHandyWorker.getMessages().size();
+		inBoxHandyWorker1 = this.boxService.searchBox(application.getHandyWorker(), "in box");
+		size1 = inBoxHandyWorker1.getMessages().size();
 
 		this.messageService.messageForNotificationToStatusRejected(application);
-		inBoxHandyWorkerSave = this.boxService.searchBox(application.getHandyWorker(), "in box");
-		afterSave = inBoxHandyWorkerSave.getMessages().size();
-		Assert.isTrue(beforeSave + 1 == afterSave);
 
-		System.out.println(beforeSave);
+		System.out.println("Aquí si imprime");
+
+		inBoxHandyWorker2 = this.boxService.searchBox(application.getHandyWorker(), "in box");
+
+		System.out.println("Aquí no imprime");
+
+		size2 = inBoxHandyWorker2.getMessages().size();
+
+		Assert.isTrue(size1 + 1 == size2);
 		super.unauthenticate();
 	}
-
 }
