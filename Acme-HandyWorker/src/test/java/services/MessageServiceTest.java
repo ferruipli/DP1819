@@ -75,6 +75,7 @@ public class MessageServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+
 	@Test
 	public void testDelete() {
 		final Message message;

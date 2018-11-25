@@ -60,6 +60,7 @@ public class MessageService {
 		result.setSender(sender);
 		result.setRecipients(recipients);
 		result.setSendMoment(sendMoment);
+		result.setIsSpam(false);
 
 		return result;
 	}
@@ -91,34 +92,45 @@ public class MessageService {
 		final Message result;
 		final Actor sender = this.actorService.findPrincipal();
 		final Collection<Actor> recipients = message.getRecipients();
+		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
 
 		Assert.isTrue(message.getSender().equals(sender));
 
 		if (this.isSpamMessage(message))
+			message.setIsSpam(true);
+		else
+			message.setIsSpam(false);
+
+		result = this.messageRepository.save(message);
+
+		if (message.getIsSpam())
 			for (final Actor r : recipients) {
-				message.setIsSpam(true);
 				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipiens.getMessages().add(message);
-				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			}
 		else
 			for (final Actor r : recipients) {
 				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
 				inBoxRecipiens.getMessages().add(message);
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			}
-		result = this.messageRepository.save(message);
 
-		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
 		outBoxSender.getMessages().add(message);
 
 		Assert.notNull(result);
 		return result;
 	}
-
 	public void delete(final Message message) {
 		Assert.notNull(message);
 		Assert.notNull(this.messageRepository.findOne(message.getId()));
+		final Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue((message.getSender().equals(actor)) || (message.getRecipients().contains(actor)));
+		final Box trashBoxActor = this.boxService.searchBox(actor, "trash box");
+		final Collection<Message> messagesTrashBox = trashBoxActor.getMessages();
+		if (messagesTrashBox.contains(message))
+			this.deleteFromAllBox(actor, message);
+		else {
+
+		}
 		this.messageRepository.delete(message);
 
 	}
@@ -128,11 +140,18 @@ public class MessageService {
 	public boolean isSpamMessage(final Message message) {
 		boolean res = false;
 		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
+		System.out.println(spamWords);
 		for (final String sw : spamWords)
-			if (message.getSubject().contains(sw) || message.getBody().contains(sw)) {
+			if (message.getSubject().contains(sw) || message.getBody().contains(sw))
 				res = true;
-				break;
-			}
 		return res;
 	}
+
+	private void deleteFromAllBox(final Actor actor, final Message message) {
+		final Collection<Box> findAllBoxByActor = this.boxService.findAllByActor(actor);
+		for (final Box b : findAllBoxByActor)
+			if (b.getMessages().contains(message))
+				b.getMessages().remove(message);
+	}
+
 }
