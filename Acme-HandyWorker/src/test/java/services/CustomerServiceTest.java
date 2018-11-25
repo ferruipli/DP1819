@@ -68,7 +68,7 @@ public class CustomerServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_dos() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		int id;
 		Customer customer, saved;
@@ -86,6 +86,7 @@ public class CustomerServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/* Formato de correo: "identifier@domain" */
 	@Test
 	public void positiveTestSave_uno() {
 		Customer customer, saved, showed;
@@ -112,8 +113,35 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notNull(showed);
 	}
 
+	/* Formato de correo: "identifier@domain" */
 	@Test
 	public void positiveTestSave_dos() {
+		Customer customer, saved, showed;
+		UserAccount userAccount;
+
+		customer = this.customerService.create();
+		customer.setAddress("C/ Columbia");
+		customer.setEmail("Georgia <georgeg@alum.us.es>");
+		customer.setMiddleName("Ronald");
+		customer.setName("George");
+		customer.setPhoneNumber("+34 611203040");
+		customer.setSurname("Martin");
+
+		userAccount = customer.getUserAccount();
+		userAccount.setUsername("customer7");
+		userAccount.setPassword("customer7");
+
+		customer.setUserAccount(userAccount);
+
+		saved = this.customerService.save(customer);
+
+		showed = this.customerService.findOne(saved.getId());
+
+		Assert.notNull(showed);
+	}
+
+	@Test
+	public void positiveTestSave_tres() {
 		super.authenticate("customer1");
 
 		Customer customer, saved, showed;

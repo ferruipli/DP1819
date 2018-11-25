@@ -36,7 +36,7 @@ public class CategoryServiceTest extends AbstractTest {
 	// Test --------------------------------------------------
 	@Test
 	public void testCreate() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category;
 
@@ -53,7 +53,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Se inserta con exito un objeto en la BD */
 	@Test
 	public void positiveTestSave_uno() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category;
 		final Category saved, parent;
@@ -80,7 +80,7 @@ public class CategoryServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void positiveTestSave_dos() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		int new_parentId, edited_CategoryId;
 		final Category edited, saved_edited, parent, new_parent;
@@ -110,7 +110,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Test negativo: category = null */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_uno() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category, saved;
 		Collection<Category> all;
@@ -129,7 +129,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Test negativo: categoria sin padre */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_dos() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category, saved;
 		Collection<Category> all;
@@ -149,7 +149,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Test invalido: numero de categoyTranslation insuficiente */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_tres() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category, saved;
 		Collection<Category> all;
@@ -173,7 +173,7 @@ public class CategoryServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestSave_cuatro() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category, saved;
 		final Category showed;
@@ -194,7 +194,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Test negativo: category = null */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestDelete_uno() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category;
 		Collection<Category> all;
@@ -213,7 +213,7 @@ public class CategoryServiceTest extends AbstractTest {
 	/* Test negativo: category.id = 0 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeTestDelete_dos() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Category category;
 		Collection<Category> all;
@@ -233,7 +233,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 	@Test
 	public void positiveTestDelete_uno() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		final int id = super.getEntityId("category3");
 		Category category, parent;
