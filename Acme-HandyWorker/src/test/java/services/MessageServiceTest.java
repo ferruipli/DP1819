@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,6 +25,9 @@ public class MessageServiceTest extends AbstractTest {
 	// Service under test ---------------------------------
 	@Autowired
 	private MessageService	messageService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Tests ----------------------------------------------
@@ -55,17 +59,22 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testSave() {
 		super.authenticate("customer1");
-		final Message message;
-		final Message messageSaved;
+		Message message;
 
-		message = this.messageService.findOne(super.getEntityId("message1"));
+		final Actor recipient = this.actorService.findOne(super.getEntityId("customer2"));
+		final Actor sender = this.actorService.findPrincipal();
 
-		messageSaved = this.messageService.save(message);
+		message = this.messageService.create();
+		message.setBody("Hola éste es el cuerpo del mensaje, viagra");
+		message.getRecipients().add(recipient);
+		message.setSender(sender);
+		message.setSubject("buenas tardes");
+		message.setPriority("NEUTRAL");
 
-		Assert.notNull(messageSaved);
+		message = this.messageService.save(message);
+
 		super.unauthenticate();
 	}
-
 	@Test
 	public void testDelete() {
 		final Message message;

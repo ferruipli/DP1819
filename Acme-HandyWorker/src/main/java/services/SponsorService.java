@@ -25,8 +25,10 @@ public class SponsorService {
 	@Autowired
 	private SponsorRepository	sponsorRepository;
 
-
 	// Supporting services -------------------------------------------
+	@Autowired
+	private BoxService			boxService;
+
 
 	//Constructor ----------------------------------------------------
 	public SponsorService() {
@@ -51,22 +53,26 @@ public class SponsorService {
 
 	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
+		Sponsor result;
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
 		UserAccount userAccount;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
-
-		Sponsor result;
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
 		sponsor.getUserAccount().setPassword(passwordHash);
-		result = this.sponsorRepository.save(sponsor);
+
+		if (sponsor.getId() == 0) {
+			result = this.sponsorRepository.save(sponsor);
+			this.boxService.createDefaultBox(sponsor);
+		} else {
+			userAccount = LoginService.getPrincipal();
+			Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
+			result = this.sponsorRepository.save(sponsor);
+		}
 
 		return result;
 	}
-
 	public Sponsor findOne(final int idSponsor) {
 		Sponsor result;
 
@@ -91,8 +97,24 @@ public class SponsorService {
 	public Sponsor findByPrincipal() {
 		Sponsor result;
 		UserAccount userAccount;
+
 		userAccount = LoginService.getPrincipal();
-		result = this.sponsorRepository.findByUserAccountId(userAccount.getId());
+
+		result = this.findByUserAccount(userAccount.getId());
+
 		return result;
+	}
+
+	protected Sponsor findByUserAccount(final int userAccountId) {
+		Sponsor result;
+
+		result = this.sponsorRepository.findByUserAccount(userAccountId);
+
+		return result;
+	}
+	protected Sponsor findSponsorBySponsorshipId(final int id) {
+		Sponsor sponsor;
+		sponsor = this.sponsorRepository.findSponsorBySponsorshipId(id);
+		return sponsor;
 	}
 }

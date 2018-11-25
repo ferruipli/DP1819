@@ -85,8 +85,8 @@ public class CustomerService {
 		customer.getUserAccount().setPassword(hash);
 
 		if (customer.getId() == 0)
-			//TODO: this.actorService.initializeSystemBox();
 			result = this.customerRepository.save(customer);
+		//TODO: this.actorService.initializeSystemBox();
 		else {
 			this.checkByPrincipal(customer);
 
@@ -146,7 +146,7 @@ public class CustomerService {
 		return result;
 	}
 
-	private Customer findByUserAccount(final int userAccountId) {
+	protected Customer findByUserAccount(final int userAccountId) {
 		Customer result;
 
 		result = this.customerRepository.findByUserAccount(userAccountId);
@@ -159,6 +159,15 @@ public class CustomerService {
 
 		fixUpTasks = customer.getFixUpTasks();
 		fixUpTasks.add(f);
+
+		customer.setFixUpTasks(fixUpTasks);
+	}
+
+	protected void removeFixUpTask(final Customer customer, final FixUpTask f) {
+		Collection<FixUpTask> fixUpTasks;
+
+		fixUpTasks = customer.getFixUpTasks();
+		fixUpTasks.remove(f);
 
 		customer.setFixUpTasks(fixUpTasks);
 	}

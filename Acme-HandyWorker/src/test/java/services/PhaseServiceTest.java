@@ -1,6 +1,7 @@
 
 package services;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 		phase.setTitle("Título modificado");
 		phase.setDescription("Esta fase ha sido modificada para un test");
-		this.phaseService.save(phase);
+		this.phaseService.update(phase);
 
 		super.unauthenticate();
 	}
@@ -56,7 +57,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 		phase.setTitle("Título modificado");
 		phase.setDescription("Esta fase ha sido modificada para un test");
-		this.phaseService.save(phase);
+		this.phaseService.update(phase);
 
 		super.unauthenticate();
 	}
@@ -99,5 +100,53 @@ public class PhaseServiceTest extends AbstractTest {
 		Assert.isTrue(!referedFUT.getPhases().contains(phase));
 
 		super.unauthenticate();
+	}
+
+	@Test
+	public void testNewPhasePositive() {
+		Phase phase;
+		int fixUpTaskId;
+		FixUpTask fixUpTask;
+
+		fixUpTaskId = super.getEntityId("fixUpTask6");
+
+		super.authenticate("handyworker3");
+
+		phase = this.phaseService.create();
+		phase.setDescription("Esto es una descripción de prueba");
+		phase.setStartMoment(LocalDate.now().toDate());
+		phase.setEndMoment((LocalDate.now().plusMonths(5)).toDate());
+		phase.setTitle("Título TEST");
+
+		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+
+		super.unauthenticate();
+
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		Assert.isTrue(fixUpTask.getPhases().contains(phase));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNewPhaseNegative() {
+		Phase phase;
+		int fixUpTaskId;
+		FixUpTask fixUpTask;
+
+		fixUpTaskId = super.getEntityId("fixUpTask6");
+
+		super.authenticate("handyworker2");
+
+		phase = this.phaseService.create();
+		phase.setDescription("Esto es una descripción de prueba");
+		phase.setStartMoment(LocalDate.now().toDate());
+		phase.setEndMoment((LocalDate.now().plusMonths(5)).toDate());
+		phase.setTitle("Título TEST");
+
+		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+
+		super.unauthenticate();
+
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		Assert.isTrue(fixUpTask.getPhases().contains(phase));
 	}
 }

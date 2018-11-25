@@ -63,5 +63,14 @@ public class WarrantyService {
 		this.warrantyRepository.delete(warranty);
 	}
 
+	public Warranty findOne(final int warrantyId) {
+		Warranty result;
+
+		result = this.warrantyRepository.findOne(warrantyId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 }

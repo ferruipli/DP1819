@@ -173,6 +173,7 @@ public class FixUpTask extends DomainEntity {
 		this.warranty = warranty;
 	}
 
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Phase> getPhases() {
 		return this.phases;
