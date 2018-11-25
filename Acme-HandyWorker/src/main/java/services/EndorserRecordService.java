@@ -30,6 +30,9 @@ public class EndorserRecordService {
 	@Autowired
 	private CurriculumService			curriculumService;
 
+	@Autowired
+	private UtilityService				utilityService;
+
 
 	// Constructors ------------------------------------
 
@@ -69,15 +72,13 @@ public class EndorserRecordService {
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(!(this.endorserRecordRepository.exists(endorserRecord.getId())));
+		this.utilityService.checkEmailRecords(endorserRecord.getEmail());
 
 		HandyWorker handyWorker;
-		EndorserRecord result;
+		final EndorserRecord result;
 		Curriculum curriculum;
 
-		if (endorserRecord.getEmail().matches("[\\w]+[\\w]+@[a-zA-Z0-9.-]+") || endorserRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
-			result = this.endorserRecordRepository.save(endorserRecord);
-		else
-			throw new IllegalArgumentException();
+		result = this.endorserRecordRepository.save(endorserRecord);
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		curriculum = handyWorker.getCurriculum();
@@ -88,6 +89,5 @@ public class EndorserRecordService {
 		return result;
 
 	}
-
 	// Other business methods --------------------------
 }

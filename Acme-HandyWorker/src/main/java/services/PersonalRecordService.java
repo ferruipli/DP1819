@@ -31,6 +31,9 @@ public class PersonalRecordService {
 	@Autowired
 	private CurriculumService			curriculumService;
 
+	@Autowired
+	private UtilityService				utilityService;
+
 
 	// Constructors ------------------------------------
 
@@ -70,15 +73,13 @@ public class PersonalRecordService {
 	public PersonalRecord save(final PersonalRecord personalRecord) {
 		Assert.notNull(personalRecord);
 		Assert.isTrue(!(this.personalRecordRepository.exists(personalRecord.getId())));
+		this.utilityService.checkEmailRecords(personalRecord.getEmail());
 
 		HandyWorker handyWorker;
 		PersonalRecord result;
 		Curriculum curriculum;
 
-		if (personalRecord.getEmail().matches("[\\w]+[\\w]+@[a-zA-Z0-9.-]+") || personalRecord.getEmail().matches("[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
-			result = this.personalRecordRepository.save(personalRecord);
-		else
-			throw new IllegalArgumentException();
+		result = this.personalRecordRepository.save(personalRecord);
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		curriculum = handyWorker.getCurriculum();
