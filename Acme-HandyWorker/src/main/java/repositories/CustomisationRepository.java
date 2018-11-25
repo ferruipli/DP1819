@@ -12,5 +12,4 @@ public interface CustomisationRepository extends JpaRepository<Customisation, In
 
 	@Query("select c from Customisation c")
 	Customisation[] find();
-
 }

@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
 import domain.HandyWorker;
-import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
 
@@ -27,6 +26,7 @@ public class TutorialService {
 
 	// Supporting services -------------------------------------------
 
+	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
 
@@ -39,20 +39,18 @@ public class TutorialService {
 	public Tutorial create() {
 		Tutorial result;
 		Date date;
-		HandyWorker handyWorker;
+		final HandyWorker principal;
 		Collection<Sponsorship> sponsorships;
 		//TODO da fallo con el getPrincipal
-		//handyWorker = this.handyWorkerService.findByPrincipal();
-		//Assert.notNull(handyWorker);
-		handyWorker = new HandyWorker();
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
 
 		result = new Tutorial();
 		date = new Date(System.currentTimeMillis() - 1);
-
 		sponsorships = new ArrayList<Sponsorship>();
 
 		result.setMoment(date);
-		result.setHandyWorker(handyWorker);
+		result.setHandyWorker(principal);
 		result.setSponsorShips(sponsorships);
 
 		return result;
@@ -61,11 +59,13 @@ public class TutorialService {
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 
-		Date dateNow;
 		Tutorial result;
 
-		dateNow = new Date();
-		Assert.isTrue(tutorial.getMoment().before(dateNow));
+		if (tutorial.getId() != 0) {
+			Date dateNow;
+			dateNow = new Date();
+			Assert.isTrue(tutorial.getMoment().before(dateNow));
+		}
 
 		result = this.tutorialRepository.save(tutorial);
 
@@ -91,36 +91,23 @@ public class TutorialService {
 	}
 
 	public void delete(final Tutorial tutorial) {
+		HandyWorker handyWorker;
+		HandyWorker principal;
 		Assert.isTrue(tutorial.getId() != 0);
 		Assert.notNull(tutorial);
 		Assert.isTrue(this.tutorialRepository.exists(tutorial.getId()));
 
+		handyWorker = tutorial.getHandyWorker();
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.isTrue(handyWorker.equals(principal));
+
 		this.tutorialRepository.delete(tutorial);
 	}
 	//Other business methods-------------------------------------------
-	public Tutorial findTutorialBySection(final Section section) {
+	protected Tutorial findTutorialBySponsorship(final Sponsorship sponsorship) {
 		Tutorial tutorial;
-		tutorial = this.tutorialRepository.findTutorialBySection(section.getId());
-		Assert.isTrue((tutorial.getSections().contains(section)));
+		tutorial = this.tutorialRepository.findTutorialBySponsorship(sponsorship.getId());
 		return tutorial;
 	}
-	public void removeSection(final Tutorial tutorial, final Section section) {
-		Assert.isTrue((tutorial.getSections().contains(section)));
-		tutorial.getSections().remove(section);
-		Assert.isTrue(!(tutorial.getSections().contains(section)));
-	}
-	public void addSectionToTutorial(final Tutorial tutorial, final Section section) {
-		Collection<Section> sections;
-		sections = tutorial.getSections();
-		sections.add(section);
-		tutorial.setSections(sections);
-		Assert.isTrue(tutorial.getSections().contains(section));
-	}
-	public void deleteSectionToTutorial(final Tutorial tutorial, final Section section) {
-		Collection<Section> sections;
-		sections = tutorial.getSections();
-		sections.remove(section);
-		tutorial.setSections(sections);
-		Assert.isTrue(!(tutorial.getSections().contains(section)));
-	}
+
 }

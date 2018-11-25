@@ -41,6 +41,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
 
+		handyWorker.setId(0);
 		handyWorker.setAddress("Francisco de Quevedo 12");
 		handyWorker.setEmail("maria@gmail.com");
 		handyWorker.setSurname("Jiménez");

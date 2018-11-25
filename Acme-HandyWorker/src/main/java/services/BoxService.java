@@ -85,7 +85,12 @@ public class BoxService {
 		Assert.notNull(actor);
 
 		if (box.getId() != 0)
-			Assert.isTrue(this.boxInActor(box, actor));
+			Assert.isTrue(box.getActor().equals(actor));
+
+		Assert.isTrue(!(box.getName().equals("in box")));
+		Assert.isTrue(!(box.getName().equals("out box")));
+		Assert.isTrue(!(box.getName().equals("trash box")));
+		Assert.isTrue(!(box.getName().equals("spam box")));
 
 		result = this.boxRepository.save(box);
 
@@ -101,22 +106,11 @@ public class BoxService {
 		Assert.isTrue(box.getActor().equals(actor));
 		Assert.isTrue(box.getId() != 0);
 		Assert.isTrue(!(box.getIsSystemBox()));
-		Assert.isTrue(this.boxInActor(box, actor));
 
 		this.boxRepository.delete(box);
 	}
 
 	// Other business methods -------------------------------------------------
-
-	//si es TRUE = existe una box con ese nombre y ese actor
-	public boolean boxInActor(final Box box, final Actor actor) {
-		boolean res = true;
-
-		if ((this.boxRepository.existNameboxForActor(box.getName(), actor.getId()).isEmpty()))
-			res = false;
-
-		return res;
-	}
 
 	public Collection<Box> createDefaultBox(final Actor actor) {
 		Box inbox;
@@ -166,6 +160,15 @@ public class BoxService {
 		res.add(spambox);
 
 		return res;
+	}
+
+	public Box searchBox(final Actor actor, final String nameBox) {
+		Box searchBox;
+		Assert.isTrue(nameBox.equals("in box") || nameBox.equals("out box") || nameBox.equals("trash box") || nameBox.equals("spam box"));
+		searchBox = this.boxRepository.searchBox(actor.getId(), nameBox);
+		Assert.notNull(searchBox);
+		return searchBox;
+
 	}
 
 }

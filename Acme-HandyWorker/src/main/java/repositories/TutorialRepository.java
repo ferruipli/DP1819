@@ -10,7 +10,7 @@ import domain.Tutorial;
 @Repository
 public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
 
-	@Query("select t from Tutorial t join t.sections s where s.id = ?1")
-	Tutorial findTutorialBySection(int id);
+	@Query("select t from Tutorial t join t.sponsorShips s where s.id = ?1")
+	Tutorial findTutorialBySponsorship(int id);
 
 }

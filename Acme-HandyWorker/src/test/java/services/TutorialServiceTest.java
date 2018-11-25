@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.HandyWorker;
 import domain.Tutorial;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,20 +23,15 @@ public class TutorialServiceTest extends AbstractTest {
 
 	//Service under test ----------------------------------
 	@Autowired
-	private TutorialService		tutorialService;
-
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private TutorialService	tutorialService;
 
 
 	// Test ------------------------------------------------
 	@Test
 	public void testCreate() {
-		super.authenticate("handyworker2");
+		super.authenticate("handyworker5");
 		final Tutorial tutorial;
-		HandyWorker handyWorker;
 
-		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
 		tutorial = this.tutorialService.create();
 		Assert.notNull(tutorial);
 		super.unauthenticate();
@@ -57,10 +51,11 @@ public class TutorialServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testDelete() {
-
+		super.authenticate("handyworker1");
 		final Tutorial tutorial;
 		tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
 		this.tutorialService.delete(tutorial);
+		super.unauthenticate();
 
 	}
 

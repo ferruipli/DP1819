@@ -27,8 +27,12 @@ public class HandyWorkerService {
 	@Autowired
 	private HandyWorkerRepository	handyWorkerRepository;
 
-
 	// Supporting services -------------------------------------------
+	@Autowired
+	private BoxService				boxService;
+	@Autowired
+	private FinderService			finderService;
+
 
 	//Constructor ----------------------------------------------------
 	public HandyWorkerService() {
@@ -43,13 +47,22 @@ public class HandyWorkerService {
 		UserAccount userAccount;
 
 		result = new HandyWorker();
-		finder = new Finder();
+		finder = this.finderService.create();
+		finder = this.finderService.save(finder);
 		applications = new ArrayList<Application>();
 		userAccount = new UserAccount();
+
+		Assert.notNull(finder);
+		Assert.notNull(applications);
+		Assert.notNull(userAccount);
 
 		result.setApplications(applications);
 		result.setFinder(finder);
 		result.setUserAccount(userAccount);
+
+		Assert.notNull(result.getApplications());
+		Assert.notNull(result.getFinder());
+		Assert.notNull(result.getUserAccount());
 
 		return result;
 	}
@@ -62,23 +75,30 @@ public class HandyWorkerService {
 		String make;
 		UserAccount userAccount;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.isTrue(userAccount.equals(handyWorker.getUserAccount()));
-		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
-		if (handyWorker.getId() == 0) {
-			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
-			handyWorker.setMake(make);
-		}
-
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
-
 		handyWorker.getUserAccount().setPassword(passwordHash);
-		result = this.handyWorkerRepository.save(handyWorker);
+
+		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
+		if (handyWorker.getId() == 0) {
+
+			if (handyWorker.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
+				handyWorker.setMiddleName("");
+			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
+			handyWorker.setMake(make);
+			result = this.handyWorkerRepository.save(handyWorker);
+			this.boxService.createDefaultBox(handyWorker);
+		} else {
+			userAccount = LoginService.getPrincipal();
+			Assert.notNull(userAccount);
+			Assert.isTrue(userAccount.equals(handyWorker.getUserAccount()));
+			result = this.handyWorkerRepository.save(handyWorker);
+
+		}
 
 		return result;
-	}
 
+	}
 	public HandyWorker findOne(final int idHandyWorker) {
 		HandyWorker result;
 
@@ -103,8 +123,19 @@ public class HandyWorkerService {
 	public HandyWorker findByPrincipal() {
 		HandyWorker result;
 		UserAccount userAccount;
+
 		userAccount = LoginService.getPrincipal();
-		result = this.handyWorkerRepository.findByUserAccountId(userAccount.getId());
+
+		result = this.findByUserAccount(userAccount.getId());
+
+		return result;
+	}
+
+	private HandyWorker findByUserAccount(final int userAccountId) {
+		HandyWorker result;
+
+		result = this.handyWorkerRepository.findByUserAccount(userAccountId);
+
 		return result;
 	}
 
