@@ -54,11 +54,16 @@ public class PhaseService {
 		Collection<FixUpTask> workableFixUpTasks;
 
 		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
+		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
 		principal = this.handyWorkerService.findByPrincipal();
 		Assert.notNull(principal);
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
 		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+
+		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
+		Assert.isTrue(phase.getStartMoment().after(fixUpTask.getStartDate()) && phase.getStartMoment().before(fixUpTask.getEndDate()));
+		Assert.isTrue(phase.getEndMoment().after(fixUpTask.getStartDate()) && phase.getEndMoment().before(fixUpTask.getEndDate()));
 
 		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
 	}
@@ -67,6 +72,11 @@ public class PhaseService {
 		Phase result;
 
 		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
+		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
+
+		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
+		Assert.isTrue(this.phaseRepository.checkPhaseDate(phase.getId()));
+
 		this.checkCreator(phase);
 
 		result = this.phaseRepository.save(phase);

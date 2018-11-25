@@ -60,7 +60,10 @@ public class RefereeServiceTest extends AbstractTest {
 		Referee referee1, referee2;
 		Complaint complaint;
 
+		super.authenticate("customer4");
 		complaint = this.createSimpleComplaint();
+		super.unauthenticate();
+
 		refereeId = super.getEntityId("referee1");
 
 		referee1 = this.refereeService.findOne(refereeId);

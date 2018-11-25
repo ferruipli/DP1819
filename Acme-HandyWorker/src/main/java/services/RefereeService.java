@@ -34,9 +34,6 @@ public class RefereeService {
 	@Autowired
 	private UtilityService		utilityService;
 
-	@Autowired
-	private Md5PasswordEncoder	encoder;
-
 
 	// Constructor ------------------------------------------------------------
 
@@ -67,11 +64,13 @@ public class RefereeService {
 	public Referee save(final Referee referee) {
 		Referee result;
 		String password, hash;
+		Md5PasswordEncoder encoder;
 
 		this.utilityService.checkEmailActors(referee);
 
+		encoder = new Md5PasswordEncoder();
 		password = referee.getUserAccount().getPassword();
-		hash = this.encoder.encodePassword(password, null);
+		hash = encoder.encodePassword(password, null);
 		referee.getUserAccount().setPassword(hash);
 
 		result = this.refereeRepository.save(referee);
@@ -102,13 +101,13 @@ public class RefereeService {
 
 		return result;
 	}
-	
-	public Referee findByReportId(int reportId) {
+
+	public Referee findByReportId(final int reportId) {
 		Referee result;
-		
+
 		result = this.refereeRepository.findByReportId(reportId);
 		Assert.notNull(result);
-		
+
 		return result;
 	}
 

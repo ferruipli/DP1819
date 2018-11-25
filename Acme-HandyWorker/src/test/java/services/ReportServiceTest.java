@@ -1,6 +1,7 @@
 
 package services;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class ReportServiceTest extends AbstractTest {
 		String description;
 
 		description = "Esto es una descripción de prueba modificada";
-		report = this.reportService.findOne(super.getEntityId("report1"));
+		report = this.reportService.findOne(super.getEntityId("report2"));
 
 		super.authenticate("referee1");
 
@@ -84,9 +85,9 @@ public class ReportServiceTest extends AbstractTest {
 		String description;
 
 		description = "Esto es una descripción de prueba modificada";
-		report = this.reportService.findOne(super.getEntityId("report3"));
+		report = this.reportService.findOne(super.getEntityId("report2"));
 
-		super.authenticate("referee1");
+		super.authenticate("referee2");
 
 		report.setDescription(description);
 
@@ -103,14 +104,35 @@ public class ReportServiceTest extends AbstractTest {
 		Complaint complaint;
 		int complaintId;
 
-		report = this.reportService.findOne(super.getEntityId("report3"));
+		report = this.reportService.findOne(super.getEntityId("report2"));
 		complaintId = this.complaintService.findByReportId(report.getId()).getId();
 
-		super.authenticate("referee1");
+		super.authenticate("referee2");
 
 		this.reportService.delete(report);
 		complaint = this.complaintService.findOne(complaintId);
 		Assert.isTrue(complaint.getReport() == null);
+
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateReportConflictDate() {
+		Report report, saved;
+		Complaint complaint;
+		String description;
+
+		description = "Esto es una descripción de prueba modificada";
+		report = this.reportService.findOne(super.getEntityId("report2"));
+
+		super.authenticate("referee1");
+
+		report.setDescription(description);
+		report.setMoment(LocalDate.parse("1997-10-10").toDate());
+
+		saved = this.reportService.update(report);
+		complaint = this.complaintService.findByReportId(saved.getId());
+		Assert.isTrue(complaint.getReport().getDescription().equals(description));
 
 		super.unauthenticate();
 	}

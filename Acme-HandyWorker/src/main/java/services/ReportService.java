@@ -61,6 +61,7 @@ public class ReportService {
 
 		Assert.isTrue(!this.reportRepository.exists(report.getId()));
 		complaint = this.complaintService.findOne(complaintId);
+		Assert.isTrue(report.getMoment().after(complaint.getMoment()));
 		this.checkRefPrincipalHandles(complaint);
 
 		result = this.reportRepository.save(report);
@@ -77,6 +78,7 @@ public class ReportService {
 		Assert.isTrue(this.reportRepository.exists(report.getId()));
 		Assert.isTrue(!report.getFinalMode());
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
+		Assert.isTrue(report.getMoment().after(complaintInvolved.getMoment()));
 		this.checkRefPrincipalHandles(complaintInvolved);
 
 		result = this.reportRepository.save(report);

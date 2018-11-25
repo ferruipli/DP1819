@@ -68,6 +68,7 @@ public class NoteService {
 
 		Assert.isTrue(this.noteRepository.exists(note.getId()));
 		report = this.reportService.findByNoteId(note.getId());
+		Assert.isTrue(note.getMoment().after(report.getMoment()));
 		this.checkUsersAndComments(report, note);
 
 		this.noteRepository.save(note);
@@ -80,6 +81,7 @@ public class NoteService {
 		Assert.isTrue(!this.noteRepository.exists(note.getId()));
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getFinalMode());
+		Assert.isTrue(note.getMoment().after(report.getMoment()));
 		this.checkUsersAndComments(report, note);
 
 		result = this.noteRepository.save(note);
