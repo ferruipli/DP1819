@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Administrator;
+
 @Service
 @Transactional
 public class UtilityService {
@@ -31,6 +34,13 @@ public class UtilityService {
 	// Simple CRUD methods -----------------------------------------------------
 
 	// Other business methods --------------------------------------------------
+	public void checkEmailActors(final Actor actor) {
+		Assert.isTrue(actor.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"));
+	}
+
+	public void checkEmailAdministrator(final Administrator admin) {
+		Assert.isTrue(admin.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"));
+	}
 
 	public String generateValidTicker() {
 		String numbers, result;

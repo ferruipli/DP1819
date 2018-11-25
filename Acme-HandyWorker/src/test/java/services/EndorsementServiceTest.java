@@ -109,7 +109,6 @@ public class EndorsementServiceTest extends AbstractTest {
 		Collection<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
-		final Endorsement e;
 		int recipientId;
 
 		recipientId = super.getEntityId("handyworker6");
@@ -122,9 +121,7 @@ public class EndorsementServiceTest extends AbstractTest {
 		saved = this.endorsementService.save(endorsement);
 
 		all = this.endorsementService.findSentEndorsements();
-		//e = this.endorsementService.findOne(saved.getId());
 
-		//Assert.notNull(e);
 		Assert.isTrue(all.contains(saved));
 
 		super.unauthenticate();

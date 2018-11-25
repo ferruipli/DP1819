@@ -31,7 +31,7 @@ public class CustomisationServiceTest extends AbstractTest {
 
 	@Test()
 	public void testSave() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Customisation customisation, saved;
 		List<String> positiveWords;
