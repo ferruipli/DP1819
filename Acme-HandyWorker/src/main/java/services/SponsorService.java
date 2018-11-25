@@ -105,7 +105,7 @@ public class SponsorService {
 		return result;
 	}
 
-	private Sponsor findByUserAccount(final int userAccountId) {
+	protected Sponsor findByUserAccount(final int userAccountId) {
 		Sponsor result;
 
 		result = this.sponsorRepository.findByUserAccount(userAccountId);
