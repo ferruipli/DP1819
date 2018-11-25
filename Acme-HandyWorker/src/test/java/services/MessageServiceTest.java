@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Box;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,6 +29,9 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private BoxService		boxService;
 
 
 	// Tests ----------------------------------------------
@@ -83,6 +87,30 @@ public class MessageServiceTest extends AbstractTest {
 		message = this.messageService.findOne(super.getEntityId("message6"));
 		Assert.notNull(message);
 		this.messageService.delete(message);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void deleteMessageFromBoxTest() {
+		super.authenticate("customer1");
+		final Message message;
+		Box box;
+		message = this.messageService.findOne(super.getEntityId("message1"));
+		box = this.boxService.findOne(super.getEntityId("box5"));
+		this.messageService.deleteMessageFromBox(box, message);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void moveMessageFromBoxToBoxTest() {
+		super.authenticate("handyworker1");
+		final Message message;
+		Box box1;
+		Box box2;
+		message = this.messageService.findOne(super.getEntityId("message2"));
+		box1 = this.boxService.findOne(super.getEntityId("box9"));
+		box2 = this.boxService.findOne(super.getEntityId("box10"));
+		this.messageService.moveMessageFromBoxToBox(box1, box2, message);
 		super.unauthenticate();
 	}
 

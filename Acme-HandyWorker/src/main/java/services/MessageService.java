@@ -122,7 +122,6 @@ public class MessageService {
 	public void delete(final Message message) {
 		Assert.notNull(message);
 		Assert.notNull(this.messageRepository.findOne(message.getId()));
-		System.out.println(message);
 		final Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue((message.getSender().equals(actor)) || (message.getRecipients().contains(actor)));
 		final Box trashBoxActor = this.boxService.searchBox(actor, "trash box");
@@ -141,7 +140,6 @@ public class MessageService {
 	public boolean isSpamMessage(final Message message) {
 		boolean res = false;
 		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
-		System.out.println(spamWords);
 		for (final String sw : spamWords)
 			if (message.getSubject().contains(sw) || message.getBody().contains(sw))
 				res = true;
@@ -161,4 +159,24 @@ public class MessageService {
 			this.messageRepository.delete(message);
 	}
 
+	public void deleteMessageFromBox(final Box box, final Message message) {
+		final Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue(box.getActor().equals(actor));
+		Assert.isTrue(box.getMessages().contains(message));
+		Assert.notNull(message);
+		Assert.notNull(box);
+		box.getMessages().remove(message);
+	}
+
+	public void moveMessageFromBoxToBox(final Box boxInicio, final Box boxFin, final Message message) {
+		final Actor actor = this.actorService.findPrincipal();
+		Assert.isTrue((boxInicio.getActor().equals(actor)) && (boxFin.getActor().equals(actor)));
+		Assert.isTrue(boxInicio.getMessages().contains(message));
+		Assert.isTrue(!(boxFin.getMessages().contains(message)));
+		Assert.notNull(message);
+		Assert.notNull(boxInicio);
+		Assert.notNull(boxFin);
+		boxInicio.getMessages().remove(message);
+		boxInicio.getMessages().add(message);
+	}
 }
