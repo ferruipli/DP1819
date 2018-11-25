@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -107,10 +108,10 @@ public class ReportService {
 		return result;
 	}
 
-	public Report findByNoteId(final int noteId) {
-		Report result;
+	public Collection<Report> findByRefereeId(final int refereeId) {
+		Collection<Report> result;
 
-		result = this.reportRepository.findByNoteId(noteId);
+		result = this.reportRepository.findByRefereeId(refereeId);
 		Assert.notNull(result);
 
 		return result;

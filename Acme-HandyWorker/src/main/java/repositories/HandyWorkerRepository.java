@@ -22,4 +22,7 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	@Query("select a.handyWorker.id from FixUpTask f join f.applications a where ?1 member of f.phases and a.status = 'ACCEPTED'")
 	int findPhaseCreatorId(Phase phase);
 
+	@Query("select a.handyWorker from FixUpTask f join f.complaints com join f.applications a where a.status = 'ACCEPTED' AND com.report.id = ?1")
+	HandyWorker findByReportId(int reportId);
+
 }

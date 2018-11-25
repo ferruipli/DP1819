@@ -63,14 +63,14 @@ public class NoteService {
 		return result;
 	}
 
-	public Note save(final Note note) {
+	public Note save(final int reportId, final Note note) {
 		Note result;
-		Report reportInvolved;
+		Report report;
 
 		Assert.isTrue(!this.noteRepository.exists(note.getId()));
-		reportInvolved = this.reportService.findByNoteId(note.getId());
-		Assert.isTrue(reportInvolved.getFinalMode());
-		this.checkUsers();
+		report = this.reportService.findOne(reportId);
+		Assert.isTrue(report.getFinalMode());
+		this.checkUsersAndComments(report);
 
 		result = this.noteRepository.save(note);
 
@@ -88,12 +88,12 @@ public class NoteService {
 
 	// Other business methods--------------------------------------------------
 
-	private void checkUsers() {
+	private void checkUsersAndComments(Report report) {
 		Authority authReferee, authCustomer, authHandyWorker;
 		UserAccount principal;
 		Referee referee;
-		Customer customer;
-		final HandyWorker handyWorker;
+		Customer customer, customerInvolved;
+		HandyWorker handyWorker, handyWorkerInvolved;
 
 		authReferee = new Authority();
 		authReferee.setAuthority(Authority.REFEREE);
@@ -104,12 +104,17 @@ public class NoteService {
 
 		principal = LoginService.getPrincipal();
 
-		if (principal.getAuthorities().contains(authReferee))
-			referee = this.refereeService.findByUserAccount(principal.getId());
-		else if (principal.getAuthorities().contains(authCustomer))
+		if (principal.getAuthorities().contains(authReferee)) {
+			referee = this.refereeService.findByUserAccount(principal.getId()); // COMPLT: quiza sobra porque solo tengo en referee principal solo para obtener su id?? Igual para customer y handyworker
+			Assert.isTrue(this.reportService.findByRefereeId(referee.getId()).contains(report));
+		} else if (principal.getAuthorities().contains(authCustomer)) {
+			//customerInvolved = this.customerService.findByReportId(report.getId());
 			customer = this.customerService.findByUserAccount(principal.getId());
-		else if (principal.getAuthorities().contains(authHandyWorker)) {
-			//handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+			//Assert.isTrue(customerInvolved.equals(customer));
+		} else if (principal.getAuthorities().contains(authHandyWorker)) {
+			handyWorkerInvolved = this.handyWorkerService.findByReportId(report.getId());
+			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+			Assert.isTrue(handyWorkerInvolved.equals(handyWorker));
 		}
 	}
 }
