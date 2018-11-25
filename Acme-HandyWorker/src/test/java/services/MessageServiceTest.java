@@ -13,6 +13,9 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Application;
+import domain.Box;
+import domain.HandyWorker;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,17 +27,23 @@ public class MessageServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private MessageService	messageService;
+	private MessageService		messageService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private BoxService			boxService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// Tests ----------------------------------------------
 
 	@Test
 	public void testCreate() {
-		super.authenticate("HandyWorker1");
+		super.authenticate("sponsor1");
 		final Message message;
 		message = this.messageService.create();
 		Assert.notNull(message);
@@ -75,12 +84,63 @@ public class MessageServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+
 	@Test
 	public void testDelete() {
+		super.authenticate("sponsor1");
 		final Message message;
-		message = this.messageService.findOne(super.getEntityId("message1"));
+		message = this.messageService.findOne(super.getEntityId("message6"));
 		Assert.notNull(message);
 		this.messageService.delete(message);
+		super.unauthenticate();
 	}
 
+	@Test
+	public void deleteMessageFromBoxTest() {
+		super.authenticate("customer1");
+		final Message message;
+		Box box;
+		message = this.messageService.findOne(super.getEntityId("message1"));
+		box = this.boxService.findOne(super.getEntityId("box5"));
+		this.messageService.deleteMessageFromBox(box, message);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void moveMessageFromBoxToBoxTest() {
+		super.authenticate("handyworker1");
+		final Message message;
+		Box box1;
+		Box box2;
+		message = this.messageService.findOne(super.getEntityId("message2"));
+		box1 = this.boxService.findOne(super.getEntityId("box9"));
+		box2 = this.boxService.findOne(super.getEntityId("box10"));
+		this.messageService.moveMessageFromBoxToBox(box1, box2, message);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void messageToStatusTest() {
+		super.authenticate("customer1");
+		Application application;
+		Box inBoxHandyWorker1;
+		Box inBoxHandyWorker2;
+
+		final int size1;
+		final int size2;
+
+		application = this.applicationService.findOne(this.getEntityId("application2"));
+		final HandyWorker hw = application.getHandyWorker();
+		inBoxHandyWorker1 = this.boxService.searchBox(hw, "in box");
+		size1 = inBoxHandyWorker1.getMessages().size();
+
+		this.messageService.messageToStatus(application, "rejected");
+
+		inBoxHandyWorker2 = this.boxService.searchBox(hw, "in box");
+
+		size2 = inBoxHandyWorker2.getMessages().size();
+
+		Assert.isTrue(size1 + 1 == size2);
+		super.unauthenticate();
+	}
 }

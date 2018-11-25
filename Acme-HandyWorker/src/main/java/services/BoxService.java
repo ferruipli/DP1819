@@ -97,7 +97,6 @@ public class BoxService {
 		return result;
 	}
 
-	//TODO que solo pueda eliminar las suyas
 	public void delete(final Box box) {
 		Assert.notNull(box);
 
@@ -164,10 +163,23 @@ public class BoxService {
 
 	public Box searchBox(final Actor actor, final String nameBox) {
 		Box searchBox;
-		Assert.isTrue(nameBox.equals("in box") || nameBox.equals("out box") || nameBox.equals("trash box") || nameBox.equals("spam box"));
 		searchBox = this.boxRepository.searchBox(actor.getId(), nameBox);
 		Assert.notNull(searchBox);
 		return searchBox;
+
+	}
+
+	public Collection<Box> findAllBoxByActor(final Actor actor) {
+		Collection<Box> res = null;
+		res = this.boxRepository.findAllBoxByActor(actor.getId());
+		return res;
+
+	}
+
+	public Collection<Box> boxWithMessage(final Message message) {
+		Collection<Box> res = null;
+		res = this.boxRepository.boxWithMessage(message.getId());
+		return res;
 
 	}
 

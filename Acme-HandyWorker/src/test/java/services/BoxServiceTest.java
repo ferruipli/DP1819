@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Box;
+import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -28,6 +29,9 @@ public class BoxServiceTest extends AbstractTest {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private MessageService	messageService;
 
 
 	//Tests ----------------------------------------------
@@ -92,7 +96,30 @@ public class BoxServiceTest extends AbstractTest {
 		box = this.boxService.searchBox(actor, nameBox);
 		Assert.notNull(box);
 
-		System.out.println(box);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testFindAllBoxByActor() {
+		super.authenticate("handyworker2");
+		final Collection<Box> boxs;
+		Actor actor;
+		actor = this.actorService.findPrincipal();
+		boxs = this.boxService.findAllBoxByActor(actor);
+		//System.out.println(boxs);
+		Assert.notNull(boxs);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testBoxWithMessage() {
+		super.authenticate("handyworker2");
+		final Collection<Box> boxs;
+		Message message;
+		message = this.messageService.findOne(super.getEntityId("message2"));
+		boxs = this.boxService.boxWithMessage(message);
+		//System.out.println(boxs);
+		Assert.notNull(boxs);
 		super.unauthenticate();
 	}
 
