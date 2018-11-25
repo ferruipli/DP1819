@@ -36,6 +36,7 @@ public class SectionServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		super.authenticate("handyworker1");
 		final Section section;
 		final Section sectionSaved;
 
@@ -46,13 +47,16 @@ public class SectionServiceTest extends AbstractTest {
 		sectionSaved = this.sectionService.save(section);
 
 		Assert.notNull(sectionSaved);
+		super.unauthenticate();
 	}
 	@Test
 	public void testDelete() {
+		super.authenticate("handyworker1");
 
 		final Section section;
 		section = this.sectionService.findOne(super.getEntityId("section1"));
 		this.sectionService.delete(section);
+		super.unauthenticate();
 
 	}
 
@@ -73,4 +77,5 @@ public class SectionServiceTest extends AbstractTest {
 		Assert.notNull(section);
 
 	}
+
 }

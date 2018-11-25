@@ -30,29 +30,35 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		sponsorship = this.sponsorshipService.create();
 
 		Assert.notNull(sponsorship);
+		super.unauthenticate();
 	}
 	@Test
 	public void testSave() {
+		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		final Sponsorship sponsorshipSaved;
 
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
 
-		sponsorship.setBanner("banerbaner");
+		sponsorship.setBanner("http://baner.com");
 		sponsorshipSaved = this.sponsorshipService.save(sponsorship);
 
 		Assert.notNull(sponsorshipSaved);
+		super.unauthenticate();
 	}
 	@Test
 	public void testDelete() {
 
+		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
 		this.sponsorshipService.delete(sponsorship);
+		super.unauthenticate();
 
 	}
 
