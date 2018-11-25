@@ -182,7 +182,7 @@ public class MessageService {
 	}
 
 	public void messageForNotificationToStatusRejected(final Application application) {
-		// TODO Auto-generated method stub
+		final Actor systemActor = this.actorService.findPrincipal();
 
 	}
 

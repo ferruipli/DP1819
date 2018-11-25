@@ -97,7 +97,6 @@ public class BoxService {
 		return result;
 	}
 
-	//TODO que solo pueda eliminar las suyas
 	public void delete(final Box box) {
 		Assert.notNull(box);
 

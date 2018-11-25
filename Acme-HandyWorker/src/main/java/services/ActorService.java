@@ -60,20 +60,9 @@ public class ActorService {
 
 	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
-
 		Actor result;
-
 		result = this.actorRepository.save(actor);
-
 		return result;
-	}
-
-	public void delete(final Actor actor) {
-		Assert.notNull(actor);
-		Assert.isTrue(actor.getId() != 0);
-		Assert.isTrue(this.actorRepository.exists(actor.getId()));
-
-		this.actorRepository.delete(actor);
 	}
 
 	// Other business methods -------------------------------------------------
@@ -101,5 +90,12 @@ public class ActorService {
 		Actor res;
 		res = this.findActorByUseraccount(id);
 		return res;
+	}
+
+	public Actor findActorByName(final String nameActor) {
+		Actor result;
+		result = this.actorRepository.findActorByName(nameActor);
+		Assert.notNull(result);
+		return result;
 	}
 }
