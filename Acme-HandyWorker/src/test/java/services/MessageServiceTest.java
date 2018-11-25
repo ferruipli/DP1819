@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Application;
 import domain.Box;
 import domain.Message;
 
@@ -25,13 +26,16 @@ public class MessageServiceTest extends AbstractTest {
 
 	// Service under test ---------------------------------
 	@Autowired
-	private MessageService	messageService;
+	private MessageService		messageService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private BoxService		boxService;
+	private BoxService			boxService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// Tests ----------------------------------------------
@@ -112,6 +116,32 @@ public class MessageServiceTest extends AbstractTest {
 		box2 = this.boxService.findOne(super.getEntityId("box10"));
 		this.messageService.moveMessageFromBoxToBox(box1, box2, message);
 		super.unauthenticate();
+	}
+
+	@Test
+	public void testApplicationForChanged() {
+		this.authenticate("administrator1");
+		Application application;
+
+		Box inBoxHandyWorker;
+		Box inBoxHandyWorkerSave;
+
+		Integer beforeSave;
+		Integer afterSave;
+
+		application = this.applicationService.findOne(this.getEntityId("application1"));
+
+		inBoxHandyWorker = this.boxService.searchBox(application.getHandyWorker(), "in box");
+		beforeSave = inBoxHandyWorker.getMessages().size();
+
+		this.messageService.messageForNotificationToStatusRejected(application);
+		inBoxHandyWorkerSave = this.boxService.searchBox(application.getHandyWorker(), "in box");
+		afterSave = inBoxHandyWorkerSave.getMessages().size();
+		Assert.isTrue(beforeSave + 1 == afterSave);
+
+		System.out.println(beforeSave);
+
+		this.unauthenticate();
 	}
 
 }

@@ -16,6 +16,8 @@ import repositories.MessageRepository;
 import domain.Actor;
 import domain.Application;
 import domain.Box;
+import domain.Customer;
+import domain.HandyWorker;
 import domain.Message;
 
 @Service
@@ -182,10 +184,61 @@ public class MessageService {
 	}
 
 	public void messageForNotificationToStatusRejected(final Application application) {
-		final Actor systemActor = this.actorService.findPrincipal();
 
+		final Message messageHandyWorker;
+		final Message messageCustomer;
+
+		final Message messageSaveHandyWorker;
+		final Message messageSaveCustomer;
+
+		HandyWorker handyWorkerApplication;
+		Customer customerApplication;
+		Actor systemActor;
+
+		handyWorkerApplication = application.getHandyWorker();
+		customerApplication = application.getFixUpTask().getCustomer();
+		systemActor = this.actorService.findActorByName("System");
+
+		Box inBoxHandyWorker;
+		Box inBoxCustomer;
+
+		inBoxHandyWorker = this.boxService.searchBox(handyWorkerApplication, "in box");
+		inBoxCustomer = this.boxService.searchBox(customerApplication, "in box");
+
+		messageHandyWorker = new Message();
+		messageCustomer = new Message();
+
+		messageHandyWorker.setSender(systemActor);
+		messageHandyWorker.setSubject("Status changed");
+		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to rejected status");
+		messageHandyWorker.setPriority("HIGH");
+		Date sendMoment;
+		sendMoment = new Date(System.currentTimeMillis() - 1000);
+		messageHandyWorker.setSendMoment(sendMoment);
+		final List<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(handyWorkerApplication);
+		messageHandyWorker.setRecipients(recipients);
+
+		messageSaveHandyWorker = this.messageRepository.save(messageHandyWorker);
+		inBoxHandyWorker.getMessages().add(messageHandyWorker);
+
+		messageCustomer.setSender(systemActor);
+		messageCustomer.setSubject("Status changed");
+		messageCustomer.setBody("The status for application for " + application.getId() + " is change to rejected status");
+		messageCustomer.setPriority("HIGH");
+		Date sendMoment2;
+		sendMoment2 = new Date(System.currentTimeMillis() - 1000);
+		messageCustomer.setSendMoment(sendMoment2);
+		final List<Actor> recipients2 = new ArrayList<Actor>();
+		recipients2.add(customerApplication);
+		messageHandyWorker.setRecipients(recipients2);
+
+		messageSaveCustomer = this.messageRepository.save(messageCustomer);
+		inBoxCustomer.getMessages().add(messageCustomer);
+
+		Assert.notNull(messageSaveHandyWorker);
+		Assert.notNull(messageSaveCustomer);
 	}
-
 	public void messageForNotificationToStatusAccepted(final Application application) {
 		// TODO Auto-generated method stub
 
