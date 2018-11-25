@@ -29,6 +29,9 @@ public class AdministratorService {
 	@Autowired
 	private ActorService			actorService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors ----------------------------------------
 	public AdministratorService() {
@@ -67,6 +70,7 @@ public class AdministratorService {
 
 	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
+		//this.utilityService.checkEmailAdministrator(administrator);
 
 		final Administrator result;
 		Md5PasswordEncoder encoder;
