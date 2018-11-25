@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PhaseRepository;
+import domain.FixUpTask;
+import domain.HandyWorker;
 import domain.Phase;
 
 @Service
@@ -19,13 +21,16 @@ public class PhaseService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private PhaseRepository	phaseRepository;
-
+	private PhaseRepository		phaseRepository;
 
 	// Supporting services ----------------------------------------------------
 
-	//	@Autowired
-	//	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -35,7 +40,7 @@ public class PhaseService {
 
 	// Simple CRUD methods ----------------------------------------------------
 
-	public Phase create(final int number) {
+	public Phase create() {
 		Phase result;
 
 		result = new Phase();
@@ -43,12 +48,12 @@ public class PhaseService {
 		return result;
 	}
 
-	public Phase save(final Phase phase) {
+	public Phase update(final Phase phase) {
 		Phase result;
 
 		// This method is only available for update purposes.
 		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
-		this.checkOwner(phase);
+		this.checkCreator(phase);
 
 		result = this.phaseRepository.save(phase);
 
@@ -56,8 +61,12 @@ public class PhaseService {
 	}
 
 	public void delete(final Phase phase) {
-		// COMPLT: comprobar que el handyWorker principal es el dueño de dicha fase
-		// COMPLT: es necesario eliminar la fase previamente del fixUpTask??
+		FixUpTask fixUpTask;
+
+		this.checkCreator(phase);
+		fixUpTask = this.fixUpTaskService.findByPhase(phase);
+		this.fixUpTaskService.removePhase(fixUpTask, phase);
+
 		this.phaseRepository.delete(phase);
 	}
 
@@ -72,14 +81,19 @@ public class PhaseService {
 
 	// Other business methods -------------------------------------------------
 
-	// COMPLT: mover a HandyWorkerService
-	//	public int findPhaseCreator(final Phase phase) {
-	//		int result;
-	//
-	//		result = this.phaseRepository.findPhaseCreatorId(phase);
-	//
-	//		return result;
-	//	}
+	public void saveNewPhase(final int fixUpTaskId, final Phase phase) {
+		FixUpTask fixUpTask;
+		HandyWorker principal;
+		Collection<FixUpTask> workableFixUpTasks;
+
+		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
+		principal = this.handyWorkerService.findByPrincipal();
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
+		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+
+		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
+	}
 
 	public Collection<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId) {
 		Collection<Phase> result;
@@ -90,13 +104,12 @@ public class PhaseService {
 		return result;
 	}
 
-	private void checkOwner(final Phase phase) {
-		// COMPLT: 
-		//		int principalId, ownerId;
-		//
-		//		principalId = this.handyWorkerService.findByPrincipal().getId();
-		//		ownerId = this.handyWorkerService.findPhaseCreator(phase);
-		//
-		//		Assert.isTrue(principalId == ownerId);
+	private void checkCreator(final Phase phase) {
+		int principalId, ownerId;
+
+		principalId = this.handyWorkerService.findByPrincipal().getId();
+		ownerId = this.handyWorkerService.findPhaseCreator(phase);
+
+		Assert.isTrue(principalId == ownerId);
 	}
 }

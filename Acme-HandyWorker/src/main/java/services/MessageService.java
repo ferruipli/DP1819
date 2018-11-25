@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import domain.Actor;
+import domain.Box;
 import domain.Message;
 
 @Service
@@ -23,15 +24,18 @@ public class MessageService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private BoxService			boxService;
+	private BoxService				boxService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -75,14 +79,43 @@ public class MessageService {
 	}
 
 	public Message save(final Message message) {
+		Assert.notNull(message.getSender());
+		Assert.notNull(message.getRecipients());
 		Assert.notNull(message);
-		Message result;
-		result = this.messageRepository.save(message);
-		Assert.notNull(result);
-		Assert.isTrue(result.getId() != 0);
-		return result;
+		Assert.isTrue(message.getId() == 0);
 
+		Date sendMoment;
+		sendMoment = new Date();
+		message.setSendMoment(sendMoment);
+
+		final Message result;
+		final Actor sender = this.actorService.findPrincipal();
+		final Collection<Actor> recipients = message.getRecipients();
+
+		Assert.isTrue(message.getSender().equals(sender));
+
+		if (this.isSpamMessage(message))
+			for (final Actor r : recipients) {
+				message.setIsSpam(true);
+				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
+				spamBoxRecipiens.getMessages().add(message);
+				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			}
+		else
+			for (final Actor r : recipients) {
+				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
+				inBoxRecipiens.getMessages().add(message);
+				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			}
+		result = this.messageRepository.save(message);
+
+		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
+		outBoxSender.getMessages().add(message);
+
+		Assert.notNull(result);
+		return result;
 	}
+
 	public void delete(final Message message) {
 		Assert.notNull(message);
 		Assert.notNull(this.messageRepository.findOne(message.getId()));
@@ -92,4 +125,14 @@ public class MessageService {
 
 	// Other business methods -------------------------------------------------
 
+	public boolean isSpamMessage(final Message message) {
+		boolean res = false;
+		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
+		for (final String sw : spamWords)
+			if (message.getSubject().contains(sw) || message.getBody().contains(sw)) {
+				res = true;
+				break;
+			}
+		return res;
+	}
 }

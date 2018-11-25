@@ -69,12 +69,107 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
+	// Guardar un miscellaneous record sin estar autenticado
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveMiscellaneousRecordNegative() {
+		MiscellaneousRecord miscellaneousRecord, saved;
+		Collection<MiscellaneousRecord> miscellaneousRecords;
+		String title, attachment, comments;
+
+		miscellaneousRecord = this.miscellaneousRecordService.create();
+
+		title = "miscellaneous record 1";
+		attachment = "http://www.google.com";
+		comments = "comment";
+
+		miscellaneousRecord.setTitle(title);
+		miscellaneousRecord.setAttachment(attachment);
+		miscellaneousRecord.setComments(comments);
+
+		saved = this.miscellaneousRecordService.save(miscellaneousRecord);
+
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(miscellaneousRecords.contains(saved));
+
+	}
+
+	// Guardar un miscellaneous record sin ser un handyworker
+	@Test(expected = NullPointerException.class)
+	public void testSaveMiscellaneousRecordNegative2() {
+		MiscellaneousRecord miscellaneousRecord, saved;
+		Collection<MiscellaneousRecord> miscellaneousRecords;
+		String title, attachment, comments;
+
+		super.authenticate("customer1");
+
+		miscellaneousRecord = this.miscellaneousRecordService.create();
+
+		title = "miscellaneous record 1";
+		attachment = "http://www.google.com";
+		comments = "comment";
+
+		miscellaneousRecord.setTitle(title);
+		miscellaneousRecord.setAttachment(attachment);
+		miscellaneousRecord.setComments(comments);
+
+		saved = this.miscellaneousRecordService.save(miscellaneousRecord);
+
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(miscellaneousRecords.contains(saved));
+
+		super.authenticate(null);
+
+	}
+
 	@Test
 	public void testDeleteMiscellaneousRecord() {
 		MiscellaneousRecord miscellaneousRecord;
 		Collection<MiscellaneousRecord> miscellaneousRecords;
 
 		super.authenticate("handyworker1");
+
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(miscellaneousRecords.contains(miscellaneousRecord));
+
+		this.miscellaneousRecordService.delete(miscellaneousRecord);
+
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(!(miscellaneousRecords.contains(miscellaneousRecord)));
+
+		super.authenticate(null);
+	}
+
+	//Eliminar un miscellaneous record sin estar autenticado
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteMiscellaneousRecordNegative() {
+		MiscellaneousRecord miscellaneousRecord;
+		Collection<MiscellaneousRecord> miscellaneousRecords;
+
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(miscellaneousRecords.contains(miscellaneousRecord));
+
+		this.miscellaneousRecordService.delete(miscellaneousRecord);
+
+		miscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.isTrue(!(miscellaneousRecords.contains(miscellaneousRecord)));
+
+	}
+
+	// Eliminar un miscellaneous record sin ser un handyworker
+	@Test(expected = NullPointerException.class)
+	public void testDeleteMiscellaneousRecordNegative2() {
+		MiscellaneousRecord miscellaneousRecord;
+		Collection<MiscellaneousRecord> miscellaneousRecords;
+
+		super.authenticate("customer1");
 
 		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
 		miscellaneousRecords = this.miscellaneousRecordService.findAll();

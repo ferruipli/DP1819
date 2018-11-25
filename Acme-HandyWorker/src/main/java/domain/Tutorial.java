@@ -83,7 +83,7 @@ public class Tutorial extends DomainEntity {
 	private HandyWorker				handyWorker;
 
 
-	//	@NotNull
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Section> getSections() {
 		return this.sections;
