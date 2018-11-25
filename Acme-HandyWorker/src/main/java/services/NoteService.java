@@ -63,6 +63,16 @@ public class NoteService {
 		return result;
 	}
 
+	public void writeComment(final Note note) {
+		Report report;
+
+		Assert.isTrue(this.noteRepository.exists(note.getId()));
+		report = this.reportService.findByNoteId(note.getId());
+		this.checkUsersAndComments(report, note);
+
+		this.noteRepository.save(note);
+	}
+
 	public Note save(final int reportId, final Note note) {
 		Note result;
 		Report report;
@@ -89,20 +99,10 @@ public class NoteService {
 
 	// Other business methods -------------------------------------------------
 
-	public void writeComment(final Note note) {
-		Report report;
-
-		Assert.isTrue(this.noteRepository.exists(note.getId()));
-		report = this.reportService.findByNoteId(note.getId());
-		this.checkUsersAndComments(report, note);
-
-		this.noteRepository.save(note);
-	}
-
 	private void checkUsersAndComments(final Report report, final Note note) {
 		Authority authReferee, authCustomer, authHandyWorker;
 		UserAccount principal;
-		Referee referee;
+		Referee referee, refereeInvolved;
 		Customer customer, customerInvolved;
 		HandyWorker handyWorker, handyWorkerInvolved;
 
@@ -116,32 +116,42 @@ public class NoteService {
 		principal = LoginService.getPrincipal();
 
 		if (principal.getAuthorities().contains(authReferee)) {
+			// Check if the actor is writing the comment in the correct attribute and/or he is not writing a comment again.
 			Assert.isTrue(!note.getIsCommentedByReferee());
-			referee = this.refereeService.findByUserAccount(principal.getId()); // COMPLT: quiza sobra porque solo tengo en referee principal solo para obtener su id?? Igual para customer y handyworker
-			Assert.isTrue(this.reportService.findByRefereeId(referee.getId()).contains(report));
 			Assert.isTrue(!this.isEmpty(note.getCommentReferee()));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentHandyWorker()));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentCustomer()));
 
+			// Check if the actor has permission to write on this note
+			refereeInvolved = this.refereeService.findByReportId(report.getId());
+			referee = this.refereeService.findByUserAccount(principal.getId());
+			Assert.isTrue(refereeInvolved.equals(referee));
+
 			note.setIsCommentedByReferee(true);
 		} else if (principal.getAuthorities().contains(authCustomer)) {
+			// Check if the actor is writing the comment in the correct attribute and/or he is not writing a comment again.
 			Assert.isTrue(!note.getIsCommentedByCustomer());
-			customerInvolved = this.customerService.findCustomerByComplaint(report.getId()); // COMPLT: cambiar el nombre de la consulta a findCustomerByReport
-			customer = this.customerService.findByUserAccount(principal.getId());
-			Assert.isTrue(customerInvolved.equals(customer));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentReferee()));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentHandyWorker()));
 			Assert.isTrue(!this.isEmpty(note.getCommentCustomer()));
 
+			// Check if the actor has permission to write on this note
+			customerInvolved = this.customerService.findCustomerByComplaint(report.getId());
+			customer = this.customerService.findByUserAccount(principal.getId());
+			Assert.isTrue(customerInvolved.equals(customer));
+
 			note.setIsCommentedByCustomer(true);
 		} else if (principal.getAuthorities().contains(authHandyWorker)) {
+			// Check if the actor is writing the comment in the correct attribute and/or he is not writing a comment again.
 			Assert.isTrue(!note.getIsCommentedByHandyWorker());
-			handyWorkerInvolved = this.handyWorkerService.findByReportId(report.getId());
-			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
-			Assert.isTrue(handyWorkerInvolved.equals(handyWorker));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentReferee()));
 			Assert.isTrue(!this.isEmpty(note.getCommentHandyWorker()));
 			Assert.isTrue(this.noteRepository.exists(note.getId()) || this.isEmpty(note.getCommentCustomer()));
+
+			// Check if the actor has permission to write on this note
+			handyWorkerInvolved = this.handyWorkerService.findByReportId(report.getId());
+			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+			Assert.isTrue(handyWorkerInvolved.equals(handyWorker));
 
 			note.setIsCommentedByHandyWorker(true);
 		}

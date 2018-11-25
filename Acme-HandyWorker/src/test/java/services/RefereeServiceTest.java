@@ -9,8 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import security.UserAccount;
-import security.UserAccountRepository;
 import utilities.AbstractTest;
 import domain.Complaint;
 import domain.FixUpTask;
@@ -26,18 +24,15 @@ public class RefereeServiceTest extends AbstractTest {
 	// Service under test -----------------------------------------------------
 
 	@Autowired
-	private RefereeService			refereeService;
+	private RefereeService		refereeService;
 
 	// Supporting services/repositories ---------------------------------------
 
 	@Autowired
-	private ComplaintService		complaintService;
+	private ComplaintService	complaintService;
 
 	@Autowired
-	private FixUpTaskService		fixUpTaskService;
-
-	@Autowired
-	private UserAccountRepository	userAccountRepository;
+	private FixUpTaskService	fixUpTaskService;
 
 
 	// Test -------------------------------------------------------------------
@@ -45,9 +40,6 @@ public class RefereeServiceTest extends AbstractTest {
 	@Test
 	public void testSaveReferee() {
 		Referee referee, saved;
-		UserAccount userAccount;
-
-		userAccount = this.userAccountRepository.findByUsername("referee1");
 
 		referee = this.refereeService.create();
 		referee.setName("Juan");
@@ -57,7 +49,6 @@ public class RefereeServiceTest extends AbstractTest {
 		referee.setPhoneNumber("+42 123123123");
 		referee.setPhotoLink("hhtps://imagetest.com/12g5hr45");
 		referee.setSurname("López");
-		referee.setUserAccount(userAccount);
 
 		saved = this.refereeService.save(referee);
 		Assert.isTrue(this.refereeService.findOne(saved.getId()).equals(saved));

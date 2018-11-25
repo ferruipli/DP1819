@@ -48,10 +48,24 @@ public class PhaseService {
 		return result;
 	}
 
+	public void saveNewPhase(final int fixUpTaskId, final Phase phase) {
+		FixUpTask fixUpTask;
+		HandyWorker principal;
+		Collection<FixUpTask> workableFixUpTasks;
+
+		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
+		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+
+		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
+	}
+
 	public Phase update(final Phase phase) {
 		Phase result;
 
-		// This method is only available for update purposes.
 		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
 		this.checkCreator(phase);
 
@@ -80,21 +94,6 @@ public class PhaseService {
 	}
 
 	// Other business methods -------------------------------------------------
-
-	public void saveNewPhase(final int fixUpTaskId, final Phase phase) {
-		FixUpTask fixUpTask;
-		HandyWorker principal;
-		Collection<FixUpTask> workableFixUpTasks;
-
-		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
-		principal = this.handyWorkerService.findByPrincipal();
-		Assert.notNull(principal);
-		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
-		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
-
-		this.fixUpTaskService.addNewPhase(fixUpTask, phase);
-	}
 
 	public Collection<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId) {
 		Collection<Phase> result;

@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -56,6 +55,21 @@ public class ReportService {
 		return result;
 	}
 
+	public Report writeNewReport(final int complaintId, final Report report) {
+		Report result;
+		Complaint complaint;
+
+		Assert.isTrue(!this.reportRepository.exists(report.getId()));
+		complaint = this.complaintService.findOne(complaintId);
+		this.checkRefPrincipalHandles(complaint);
+
+		result = this.reportRepository.save(report);
+
+		this.complaintService.addReport(complaint, result);
+
+		return result;
+	}
+
 	public Report update(final Report report) {
 		Report result;
 		Complaint complaintInvolved;
@@ -93,30 +107,6 @@ public class ReportService {
 
 	// Other business methods -------------------------------------------------
 
-	public Report writeNewReport(final int complaintId, final Report report) {
-		Report result;
-		Complaint complaint;
-
-		Assert.isTrue(!this.reportRepository.exists(report.getId()));
-		complaint = this.complaintService.findOne(complaintId);
-		this.checkRefPrincipalHandles(complaint);
-
-		result = this.reportRepository.save(report);
-
-		this.complaintService.addReport(complaint, result);
-
-		return result;
-	}
-
-	public Collection<Report> findByRefereeId(final int refereeId) {
-		Collection<Report> result;
-
-		result = this.reportRepository.findByRefereeId(refereeId);
-		Assert.notNull(result);
-
-		return result;
-	}
-
 	public Report findByNoteId(final int noteId) {
 		Report result;
 
@@ -126,15 +116,15 @@ public class ReportService {
 		return result;
 	}
 
+	protected void addNote(final Report report, final Note note) {
+		report.getNotes().add(note);
+	}
+
 	private void checkRefPrincipalHandles(final Complaint complaintInvolved) {
 		Referee principal;
 
 		principal = this.refereeService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(principal.getComplaints().contains(complaintInvolved));
-	}
-
-	protected void addNote(final Report report, final Note note) {
-		report.getNotes().add(note);
 	}
 }

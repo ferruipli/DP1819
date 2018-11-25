@@ -26,6 +26,8 @@ public class PhaseServiceTest extends AbstractTest {
 	@Autowired
 	private PhaseService		phaseService;
 
+	// Supporting services ----------------------------------------------------
+
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
 

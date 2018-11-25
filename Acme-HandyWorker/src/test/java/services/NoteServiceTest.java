@@ -25,6 +25,8 @@ public class NoteServiceTest extends AbstractTest {
 	@Autowired
 	private NoteService		noteService;
 
+	// Supporting services ----------------------------------------------------
+
 	@Autowired
 	private ReportService	reportService;
 
