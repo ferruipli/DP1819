@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.FinderRepository;
 import domain.Finder;
 import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -24,8 +25,12 @@ public class FinderService {
 
 	// Supporting services -------------------------------------------
 
+	@Autowired
 	private FixUpTaskService		fixUpTaskService;
+	@Autowired
 	private CustomisationService	customisationService;
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	//Constructor ----------------------------------------------------
@@ -41,21 +46,26 @@ public class FinderService {
 
 		result = new Finder();
 		date = new Date();
-		//TODO
-		//		fixUpTasks = fixUpTaskService.findAll();
+		fixUpTasks = this.fixUpTaskService.findAll();
 
-		//		result.setFixUpTasks(fixUpTasks);
+		result.setFixUpTasks(fixUpTasks);
 		result.setLastUpdate(date);
 
 		return result;
 	}
-
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
+		HandyWorker handyWorker;
 		Finder result;
 		Date date;
 
 		date = new Date();
+
+		if (finder.getId() != 0) {
+
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			Assert.isTrue(handyWorker.getFinder().getId() == finder.getId());
+		}
 
 		finder.setLastUpdate(date);
 		result = this.finderRepository.save(finder);
@@ -81,14 +91,34 @@ public class FinderService {
 
 		return result;
 	}
-	public void delete(final Finder finder) {
-		Assert.isTrue(finder.getId() != 0);
-		Assert.notNull(finder);
-		Assert.isTrue(this.finderRepository.exists(finder.getId()));
-
-		this.finderRepository.delete(finder);
-	}
 
 	//Other business methods-------------------------------------------
+	//TODO
+	//	public Collection<FixUpTask> search(final Finder finder) {
+	//		String keyWord;
+	//		Double startPrice;
+	//		Double endPrice;
+	//		Date startDate;
+	//		Date endDate;
+	//		String warranty;
+	//		String category;
+	//		Page<FixUpTask> collectionFixUpTasks;
+	//
+	//		final int maxFinderResults;
+	//		final int timeCacheFinderResults;
+	//		maxFinderResults = 10;
+	//		final Pageable pageable = new PageRequest(0, maxFinderResults);
+	//
+	//		keyWord = finder.getKeyword();
+	//		startPrice = finder.getStartPrice();
+	//		endPrice = finder.getEndPrice();
+	//		startDate = finder.getStartDate();
+	//		endDate = finder.getEndDate();
+	//		warranty = finder.getWarranty();
+	//		category = finder.getCategory();
+	//
+	//		collectionFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+	//		return collectionFixUpTasks.getContent();
+	//	}
 
 }

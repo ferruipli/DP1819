@@ -38,6 +38,7 @@ public class FinderServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
+		super.authenticate("handyWorker1");
 		final Finder finder;
 		final Finder finderSaved;
 		Date dateFinder;
@@ -52,14 +53,7 @@ public class FinderServiceTest extends AbstractTest {
 
 		Assert.isTrue(dateFinder != dateFinderSaved);
 		Assert.notNull(finderSaved);
-	}
-	@Test
-	public void testDelete() {
-
-		final Finder finder;
-		finder = this.finderService.findOne(super.getEntityId("finder1"));
-		this.finderService.delete(finder);
-
+		super.unauthenticate();
 	}
 
 	@Test
@@ -79,5 +73,15 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finder);
 
 	}
-
+	//TODO
+	//	@Test
+	//	public void testSearch() {
+	//		Collection<FixUpTask> result;
+	//		Finder finder;
+	//		finder = this.finderService.findOne(super.getEntityId("finder1"));
+	//
+	//		result = this.finderService.search(finder);
+	//		System.out.println(result);
+	//
+	//	} 
 }

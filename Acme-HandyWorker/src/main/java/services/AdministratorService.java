@@ -78,8 +78,8 @@ public class AdministratorService {
 		administrator.getUserAccount().setPassword(hash);
 
 		if (administrator.getId() == 0)
-			//TODO:this.actorService.initializeSystemBox();
 			result = this.administratorRepository.save(administrator);
+		//TODO:this.actorService.initializeSystemBox();
 		else {
 			this.checkByPrincipal(administrator);
 

@@ -14,7 +14,7 @@ import domain.Phase;
 public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Integer> {
 
 	@Query("select h from HandyWorker h where h.userAccount.id = ?1")
-	HandyWorker findByUserAccountId(int id);
+	HandyWorker findByUserAccount(int id);
 
 	@Query("select distinct h from HandyWorker h join h.applications a where a.status='ACCEPTED' and a.fixUpTask.customer.id=?1")
 	Collection<HandyWorker> findEndorsableHandyWorkers(int customerId);
