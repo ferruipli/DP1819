@@ -402,7 +402,7 @@
 		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
-	
+
 	<bean id="box01" class="domain.Box">
 		<property name="name" value="favorita box" />
 		<property name="isSystemBox" value="false" />
@@ -413,8 +413,8 @@
 		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
-	
-		<bean id="box02" class="domain.Box">
+
+	<bean id="box02" class="domain.Box">
 		<property name="name" value="trabajo box" />
 		<property name="isSystemBox" value="false" />
 		<property name="messages">
@@ -516,8 +516,8 @@
 		</property>
 		<property name="actor" ref="handyworker1" />
 	</bean>
-	
-		<bean id="box012" class="domain.Box">
+
+	<bean id="box012" class="domain.Box">
 		<property name="name" value="casa box" />
 		<property name="isSystemBox" value="false" />
 		<property name="messages">
@@ -527,8 +527,8 @@
 		</property>
 		<property name="actor" ref="handyworker1" />
 	</bean>
-	
-		<bean id="box013" class="domain.Box">
+
+	<bean id="box013" class="domain.Box">
 		<property name="name" value="mi carpeta" />
 		<property name="isSystemBox" value="false" />
 		<property name="messages">
@@ -674,7 +674,7 @@
 		</property>
 		<property name="actor" ref="customer2" />
 	</bean>
-	
+
 	<bean id="box024" class="domain.Box">
 		<property name="name" value="mis favoritos" />
 		<property name="isSystemBox" value="false" />
@@ -685,7 +685,7 @@
 		</property>
 		<property name="actor" ref="customer2" />
 	</bean>
-	
+
 	<bean id="box025" class="domain.Box">
 		<property name="name" value="mis amigos" />
 		<property name="isSystemBox" value="false" />
@@ -2984,8 +2984,10 @@
 	</bean>
 
 	<bean id="phase4" class="domain.Phase">
-		<property name="title" value="Comprar la pintura del color solicitado por el cliente" />
-		<property name="description" value="Ir a una tienda especializada de pintura y comprar la pintura en el menor tiempo posible" />
+		<property name="title"
+			value="Comprar la pintura del color solicitado por el cliente" />
+		<property name="description"
+			value="Ir a una tienda especializada de pintura y comprar la pintura en el menor tiempo posible" />
 		<property name="startMoment" value="2018/12/15 10:00" />
 		<property name="endMoment" value="2018/12/15 11:00" />
 	</bean>
