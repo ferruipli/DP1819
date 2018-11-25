@@ -120,7 +120,11 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testApplicationForChanged() {
-		this.authenticate("administrator1");
+		super.authenticate("system");
+		final Actor actor = this.actorService.findPrincipal();
+		System.out.println("si es nulo si solo muestro esta frase");
+		Assert.notNull(actor);
+		System.out.println("no es nulo el actor");
 		Application application;
 
 		Box inBoxHandyWorker;
@@ -132,6 +136,7 @@ public class MessageServiceTest extends AbstractTest {
 		application = this.applicationService.findOne(this.getEntityId("application1"));
 
 		inBoxHandyWorker = this.boxService.searchBox(application.getHandyWorker(), "in box");
+
 		beforeSave = inBoxHandyWorker.getMessages().size();
 
 		this.messageService.messageForNotificationToStatusRejected(application);
@@ -140,8 +145,7 @@ public class MessageServiceTest extends AbstractTest {
 		Assert.isTrue(beforeSave + 1 == afterSave);
 
 		System.out.println(beforeSave);
-
-		this.unauthenticate();
+		super.unauthenticate();
 	}
 
 }
