@@ -109,15 +109,15 @@ public class MessageService {
 		if (message.getIsSpam())
 			for (final Actor r : recipients) {
 				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
-				spamBoxRecipiens.getMessages().add(message);
+				spamBoxRecipiens.getMessages().add(result);
 			}
 		else
 			for (final Actor r : recipients) {
 				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
-				inBoxRecipiens.getMessages().add(message);
+				inBoxRecipiens.getMessages().add(result);
 			}
 
-		outBoxSender.getMessages().add(message);
+		outBoxSender.getMessages().add(result);
 
 		Assert.notNull(result);
 		return result;
@@ -183,7 +183,7 @@ public class MessageService {
 		boxInicio.getMessages().add(message);
 	}
 
-	public void messageForNotificationToStatusRejected(final Application application) {
+	public void messageToStatus(final Application application, final String status) {
 		final Actor systemActor = this.actorService.findPrincipal();
 		final Message messageHandyWorker;
 		final Message messageCustomer;
@@ -209,7 +209,7 @@ public class MessageService {
 
 		messageHandyWorker.setSender(systemActor);
 		messageHandyWorker.setSubject("Status changed");
-		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to rejected status");
+		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to " + status + " status");
 		messageHandyWorker.setPriority("HIGH");
 		Date sendMoment;
 		sendMoment = new Date();
@@ -219,12 +219,12 @@ public class MessageService {
 		messageHandyWorker.setRecipients(recipients);
 
 		messageSaveHandyWorker = this.messageRepository.save(messageHandyWorker);
-		inBoxHandyWorker.getMessages().add(messageHandyWorker);
-		outBoxSystemActor.getMessages().add(messageHandyWorker);
+		inBoxHandyWorker.getMessages().add(messageSaveHandyWorker);
+		outBoxSystemActor.getMessages().add(messageSaveHandyWorker);
 
 		messageCustomer.setSender(systemActor);
 		messageCustomer.setSubject("Status changed");
-		messageCustomer.setBody("The status for application for " + application.getId() + " is change to rejected status");
+		messageCustomer.setBody("The status for application for " + application.getId() + " is change to " + status + " status");
 		messageCustomer.setPriority("HIGH");
 		Date sendMoment2;
 		sendMoment2 = new Date();
@@ -234,14 +234,10 @@ public class MessageService {
 		messageCustomer.setRecipients(recipients2);
 
 		messageSaveCustomer = this.messageRepository.save(messageCustomer);
-		inBoxCustomer.getMessages().add(messageCustomer);
-		outBoxSystemActor.getMessages().add(messageCustomer);
+		inBoxCustomer.getMessages().add(messageSaveCustomer);
+		outBoxSystemActor.getMessages().add(messageSaveCustomer);
 
 		Assert.notNull(messageSaveHandyWorker);
 		Assert.notNull(messageSaveCustomer);
-	}
-	public void messageForNotificationToStatusAccepted(final Application application) {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -163,7 +163,6 @@ public class BoxService {
 
 	public Box searchBox(final Actor actor, final String nameBox) {
 		Box searchBox;
-		Assert.isTrue(nameBox.equals("in box") || nameBox.equals("out box") || nameBox.equals("trash box") || nameBox.equals("spam box"));
 		searchBox = this.boxRepository.searchBox(actor.getId(), nameBox);
 		Assert.notNull(searchBox);
 		return searchBox;

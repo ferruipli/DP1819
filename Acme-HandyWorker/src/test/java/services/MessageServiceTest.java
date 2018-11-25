@@ -15,6 +15,7 @@ import utilities.AbstractTest;
 import domain.Actor;
 import domain.Application;
 import domain.Box;
+import domain.HandyWorker;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -119,26 +120,23 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testApplicationForChanged() {
-		super.authenticate("system");
+	public void messageToStatusTest() {
+		super.authenticate("customer1");
 		Application application;
 		Box inBoxHandyWorker1;
-		final Box inBoxHandyWorker2;
+		Box inBoxHandyWorker2;
 
 		final int size1;
 		final int size2;
 
-		application = this.applicationService.findOne(this.getEntityId("application1"));
-		inBoxHandyWorker1 = this.boxService.searchBox(application.getHandyWorker(), "in box");
+		application = this.applicationService.findOne(this.getEntityId("application2"));
+		final HandyWorker hw = application.getHandyWorker();
+		inBoxHandyWorker1 = this.boxService.searchBox(hw, "in box");
 		size1 = inBoxHandyWorker1.getMessages().size();
 
-		this.messageService.messageForNotificationToStatusRejected(application);
+		this.messageService.messageToStatus(application, "rejected");
 
-		System.out.println("Aquí si imprime");
-
-		inBoxHandyWorker2 = this.boxService.searchBox(application.getHandyWorker(), "in box");
-
-		System.out.println("Aquí no imprime");
+		inBoxHandyWorker2 = this.boxService.searchBox(hw, "in box");
 
 		size2 = inBoxHandyWorker2.getMessages().size();
 
