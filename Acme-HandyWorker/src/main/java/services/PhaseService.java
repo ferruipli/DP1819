@@ -88,6 +88,7 @@ public class PhaseService {
 
 		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
 		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
 		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
@@ -105,9 +106,12 @@ public class PhaseService {
 	}
 
 	private void checkCreator(final Phase phase) {
+		HandyWorker principal;
 		int principalId, ownerId;
 
-		principalId = this.handyWorkerService.findByPrincipal().getId();
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.notNull(principal);
+		principalId = principal.getId();
 		ownerId = this.handyWorkerService.findPhaseCreator(phase);
 
 		Assert.isTrue(principalId == ownerId);

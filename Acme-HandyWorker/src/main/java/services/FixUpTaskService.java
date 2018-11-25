@@ -88,7 +88,7 @@ public class FixUpTaskService {
 		Assert.notNull(principal);
 		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 
-		// COMPLT: this.customerService.removeFixUpTask(principal, fixUpTask);
+		this.customerService.removeFixUpTask(principal, fixUpTask);
 
 		this.fixUpTaskRepository.delete(fixUpTask);
 	}

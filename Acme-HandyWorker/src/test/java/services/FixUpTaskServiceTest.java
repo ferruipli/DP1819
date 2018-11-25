@@ -42,16 +42,9 @@ public class FixUpTaskServiceTest extends AbstractTest {
 
 	// Test -------------------------------------------------------------------
 
-	// Test1: crear, guardar (y comprobar que está insertado en el customer correspondiente)
-	// y borrar (y comprobar que no está insertado en el customer correspondiente) normalmente.
-	// Test2: [PETE] actualizar con customer no correspondiente
-	// Test3: [PETE] actualizar con applications
-	// Test4: [PETE] eliminar con customer no correspondiente
-	// Test5: [PETE] eliminar con applications
-
 	@Test
 	public void testSaveDeleteFixUpTask() {
-		FixUpTask fixUpTask;
+		FixUpTask fixUpTask, saved;
 		Warranty warranty;
 		Category category;
 		Customer customer;
@@ -74,14 +67,104 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		fixUpTask.setStartDate(LocalDate.now().plusMonths(1).toDate());
 		fixUpTask.setWarranty(warranty);
 
-		this.fixUpTaskService.save(fixUpTask);
+		saved = this.fixUpTaskService.save(fixUpTask);
 
 		customer = this.customerService.findByPrincipal();
-		Assert.isTrue(customer.getFixUpTasks().contains(fixUpTask));
+		Assert.isTrue(customer.getFixUpTasks().contains(saved));
 
 		this.fixUpTaskService.delete(fixUpTask);
 		customer = this.customerService.findByPrincipal();
 		Assert.isTrue(!customer.getFixUpTasks().contains(fixUpTask));
+
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateNotOwnedFixUpTask() {
+		FixUpTask fixUpTask, saved;
+		Warranty warranty;
+		Category category;
+		Customer customer;
+
+		category = this.categoryService.findOne(super.getEntityId("category1"));
+		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
+
+		super.authenticate("customer1");
+		customer = this.customerService.findByPrincipal();
+		fixUpTask = this.fixUpTaskService.create();
+		fixUpTask.setAddress("Direccion de test");
+		fixUpTask.setCategory(category);
+		fixUpTask.setCustomer(customer);
+		fixUpTask.setDescription("Descripción de test");
+		fixUpTask.setEndDate(LocalDate.now().plusYears(1).toDate());
+		fixUpTask.setMaxPrice(5000.0);
+		fixUpTask.setPublicationMoment(LocalDate.now().toDate());
+		fixUpTask.setStartDate(LocalDate.now().plusMonths(1).toDate());
+		fixUpTask.setWarranty(warranty);
+		saved = this.fixUpTaskService.save(fixUpTask);
+		super.unauthenticate();
+
+		super.authenticate("customer2");
+		fixUpTask = this.fixUpTaskService.findOne(saved.getId());
+		fixUpTask.setAddress("Actualizando dirección en los tests");
+		this.fixUpTaskService.save(fixUpTask);
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateFixUpTaskWithApplications() {
+		FixUpTask fixUpTask;
+
+		fixUpTask = this.fixUpTaskService.findOne(super.getEntityId("fixUpTask7"));
+
+		super.authenticate("customer6");
+
+		fixUpTask.setAddress("Actualizando dirección en los tests");
+		this.fixUpTaskService.save(fixUpTask);
+
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteNotOwnedFixUpTask() {
+		FixUpTask fixUpTask, saved;
+		Warranty warranty;
+		Category category;
+		Customer customer;
+
+		category = this.categoryService.findOne(super.getEntityId("category1"));
+		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
+
+		super.authenticate("customer1");
+		customer = this.customerService.findByPrincipal();
+		fixUpTask = this.fixUpTaskService.create();
+		fixUpTask.setAddress("Direccion de test");
+		fixUpTask.setCategory(category);
+		fixUpTask.setCustomer(customer);
+		fixUpTask.setDescription("Descripción de test");
+		fixUpTask.setEndDate(LocalDate.now().plusYears(1).toDate());
+		fixUpTask.setMaxPrice(5000.0);
+		fixUpTask.setPublicationMoment(LocalDate.now().toDate());
+		fixUpTask.setStartDate(LocalDate.now().plusMonths(1).toDate());
+		fixUpTask.setWarranty(warranty);
+		saved = this.fixUpTaskService.save(fixUpTask);
+		super.unauthenticate();
+
+		super.authenticate("customer2");
+		fixUpTask = this.fixUpTaskService.findOne(saved.getId());
+		this.fixUpTaskService.delete(fixUpTask);
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteFixUpTaskWithApplications() {
+		FixUpTask fixUpTask;
+
+		fixUpTask = this.fixUpTaskService.findOne(super.getEntityId("fixUpTask7"));
+
+		super.authenticate("customer6");
+
+		this.fixUpTaskService.delete(fixUpTask);
 
 		super.unauthenticate();
 	}
