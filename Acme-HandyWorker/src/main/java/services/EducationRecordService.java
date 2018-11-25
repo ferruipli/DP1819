@@ -67,30 +67,6 @@ public class EducationRecordService {
 		return results;
 	}
 
-	public void delete(final EducationRecord educationRecord) {
-		Assert.notNull(educationRecord);
-		Assert.isTrue(educationRecord.getId() != 0);
-		Assert.isTrue(this.educationRecordRepository.exists(educationRecord.getId()));
-
-		// Debemos de eliminar el educationRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
-		Curriculum curriculum;
-
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getEducationRecords().contains(educationRecord));
-
-		// Eliminamos el EducationRecord del curriculum del handyworker Principal
-
-		this.curriculumService.removeEducationRecord(curriculum, educationRecord);
-
-		// Eliminamos definitivamente el education record
-
-		this.educationRecordRepository.delete(educationRecord);
-	}
-
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		Assert.isTrue(!(this.educationRecordRepository.exists(educationRecord.getId())));

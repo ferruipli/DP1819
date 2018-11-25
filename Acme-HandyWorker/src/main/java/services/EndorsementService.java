@@ -83,14 +83,12 @@ public class EndorsementService {
 		if (is_role) {
 			handyWorkers = this.handyWorkerService.findEndorsableHandyWorkers(sender.getId());
 
-			Assert.notNull(handyWorkers);
-			Assert.isTrue(handyWorkers.size() > 0);
+			Assert.isTrue(handyWorkers != null && handyWorkers.size() > 0);
 			Assert.isTrue(handyWorkers.contains(endorsement.getRecipient()));
 		} else {
 			customers = this.customerService.findEndorsableCustomers(sender.getId());
 
-			Assert.notNull(customers);
-			Assert.isTrue(customers.size() > 0);
+			Assert.isTrue(customers != null && customers.size() > 0);
 			Assert.isTrue(customers.contains(endorsement.getRecipient()));
 		}
 

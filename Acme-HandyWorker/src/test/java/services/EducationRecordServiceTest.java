@@ -147,44 +147,4 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testDeleteEducationRecord() {
-		EducationRecord educationRecord;
-		Collection<EducationRecord> educationRecords;
-
-		super.authenticate("handyworker1");
-		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
-		educationRecords = this.educationRecordService.findAll();
-
-		Assert.isTrue(educationRecords.contains(educationRecord));
-
-		this.educationRecordService.delete(educationRecord);
-
-		educationRecords = this.educationRecordService.findAll();
-
-		Assert.isTrue(!(educationRecords.contains(educationRecord)));
-
-		super.authenticate(null);
-
-	}
-
-	// Eliminar un education record sin autenticarse
-	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteEducationRecordNegative() {
-		EducationRecord educationRecord;
-		Collection<EducationRecord> educationRecords;
-
-		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
-		educationRecords = this.educationRecordService.findAll();
-
-		Assert.isTrue(educationRecords.contains(educationRecord));
-
-		this.educationRecordService.delete(educationRecord);
-
-		educationRecords = this.educationRecordService.findAll();
-
-		Assert.isTrue(!(educationRecords.contains(educationRecord)));
-
-	}
-
 }

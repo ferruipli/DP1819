@@ -35,6 +35,9 @@ public class CustomerService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructors ----------------------------------
 	public CustomerService() {
@@ -74,6 +77,7 @@ public class CustomerService {
 
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
+		this.utilityService.checkEmailActors(customer);
 
 		Md5PasswordEncoder encoder;
 		Customer result;

@@ -214,8 +214,20 @@
 		<property name="isBanned" value="false" />
 	</bean>
 
-	<!-- Administrator -->
+	<bean id="userAccount17" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
 
+	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Fernando" />
 		<property name="middleName" value="" />
@@ -228,9 +240,15 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 
+	<bean id="system" class="domain.Administrator">
+		<property name="name" value="System" />
+		<property name="surname" value="System" />
+		<property name="email" value="system@" />
+		<property name="isSuspicious" value="false" />
+		<property name="userAccount" ref="userAccount17" />
+	</bean>
 
 	<!-- Application -->
-
 	<bean id="application1" class="domain.Application">
 		<property name="registerMoment" value="2018/07/23 11:43" />
 		<property name="status" value="PENDING" />
@@ -1136,6 +1154,50 @@
 			</list>
 		</property>
 		<property name="actor" ref="referee2" />
+	</bean>
+
+	<bean id="box65" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box66" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box67" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box68" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
 	</bean>
 
 	<!-- Category -->
@@ -2216,14 +2278,14 @@
 
 	<bean id="endorsement3" class="domain.Endorsement">
 		<property name="moment" value="2018/05/16 14:20" />
-		<property name="comments" value="fantastic not bad" />
+		<property name="comments" value="desastre y mediocre" />
 		<property name="sender" ref="handyworker2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
 
 	<bean id="endorsement4" class="domain.Endorsement">
 		<property name="moment" value="2018/10/02 14:30" />
-		<property name="comments" value="excellet and great disaster" />
+		<property name="comments" value="excellent and great disaster" />
 		<property name="sender" ref="handyworker3" />
 		<property name="recipient" ref="customer2" />
 	</bean>

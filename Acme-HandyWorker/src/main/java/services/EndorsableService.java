@@ -56,12 +56,49 @@ public class EndorsableService {
 		final Double score;
 		Integer p, n;
 		final Collection<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements();
-		List<Integer> ls = new ArrayList<Integer>();
+		List<Integer> ls;
 
-		ls = this.positiveNegativeWordNumbers(receivedEndorsements);
+		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements));
 		p = ls.get(0);
 		n = ls.get(1);
 
+		score = (p - n) / this.max(p, n);
+
+		Assert.isTrue(score >= -1.0 && score <= 1.0);
+
+		endorsable.setScore(score);
+	}
+
+	public Endorsable findByPrincipal() {
+		UserAccount userAccount;
+		Endorsable result;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+
+		result = this.findByUserAccount(userAccount.getId());
+
+		return result;
+	}
+
+	// Private methods 
+	private Endorsable findByUserAccount(final int userAccountId) {
+		Endorsable result;
+
+		result = this.endorsableRepository.findByUserAccount(userAccountId);
+
+		return result;
+	}
+
+	private Double max(final Integer n, final Integer p) {
+		Double result;
+
+		if (n >= p)
+			result = n * 1.0;
+		else
+			result = p * 1.0;
+
+		return result;
 	}
 
 	private List<Integer> positiveNegativeWordNumbers(final Collection<Endorsement> receivedEndorsements) {
@@ -79,7 +116,7 @@ public class EndorsableService {
 			words = comments.split(" ");
 
 			for (final String word : words)
-				if (positive_ls.contains(word))
+				if (positive_ls.contains(word.toLowerCase()))
 					positive++;
 				else if (negative_ls.contains(word))
 					negative++;
@@ -90,26 +127,6 @@ public class EndorsableService {
 		results.add(negative);
 
 		return results;
-	}
-
-	public Endorsable findByPrincipal() {
-		UserAccount userAccount;
-		Endorsable result;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-
-		result = this.findByUserAccount(userAccount.getId());
-
-		return result;
-	}
-
-	private Endorsable findByUserAccount(final int userAccountId) {
-		Endorsable result;
-
-		result = this.endorsableRepository.findByUserAccount(userAccountId);
-
-		return result;
 	}
 
 }
