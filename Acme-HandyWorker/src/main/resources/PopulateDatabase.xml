@@ -2975,17 +2975,21 @@
 	<bean id="note1" class="domain.Note">
 		<property name="moment" value="2017/03/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 1" />
+		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="2012/03/010 11:11" />
 		<property name="commentCustomer" value="commentCustomer 2" />
 		<property name="commentReferee" value="commentReferee 2" />
+		<property name="isCommentedByCustomer" value="true" />
+		<property name="isCommentedByReferee" value="true" />
 	</bean>
 
 	<bean id="note3" class="domain.Note">
 		<property name="moment" value="2018/07/10 13:30" />
 		<property name="commentHandyWorker" value="commentHandyWorker 3" />
+		<property name="isCommentedByHandyWorker" value="true" />
 	</bean>
 
 	<bean id="note4" class="domain.Note">
@@ -2993,11 +2997,15 @@
 		<property name="commentCustomer" value="commentCustomer 4" />
 		<property name="commentHandyWorker" value="commentHandyWorker 4" />
 		<property name="commentReferee" value="commentReferee 4" />
+		<property name="isCommentedByCustomer" value="true" />
+		<property name="isCommentedByHandyWorker" value="true" />
+		<property name="isCommentedByReferee" value="true" />
 	</bean>
 	
 	<bean id="note5" class="domain.Note">
-		<property name="moment" value="2017/03/08 10:00" />
+		<property name="moment" value="2017/07/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 5" />
+		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<!-- PersonalRecords -->
@@ -3185,7 +3193,7 @@
 		<property name="moment" value="2017/03/07 14:00" />
 		<property name="description" value="Description 1" />
 		<property name="attachments" value="http://www.attachment1.es" />
-		<property name="finalMode" value="false" />
+		<property name="finalMode" value="true" />
 		<property name="notes">
 			<list>
 				<ref bean="note1" />
@@ -3198,7 +3206,7 @@
 		<property name="moment" value="2017/04/02 15:45" />
 		<property name="description" value="Description 2" />
 		<property name="attachments" value="http://www.attachment2.es" />
-		<property name="finalMode" value="true" />
+		<property name="finalMode" value="false" />
 		<property name="notes">
 			<list>
 				<null>
@@ -3215,6 +3223,7 @@
 			<list>
 				<ref bean="note3" />
 				<ref bean="note5" />
+				<ref bean="note4" />
 			</list>
 		</property>
 	</bean>
@@ -3226,7 +3235,6 @@
 		<property name="finalMode" value="false" />
 		<property name="notes">
 			<list>
-				<ref bean="note4" />
 			</list>
 		</property>
 	</bean>
