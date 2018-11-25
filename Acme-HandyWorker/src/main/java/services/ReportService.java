@@ -117,6 +117,15 @@ public class ReportService {
 		return result;
 	}
 
+	public Report findByNoteId(final int noteId) {
+		Report result;
+
+		result = this.reportRepository.findByNoteId(noteId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	private void checkRefPrincipalHandles(final Complaint complaintInvolved) {
 		Referee principal;
 

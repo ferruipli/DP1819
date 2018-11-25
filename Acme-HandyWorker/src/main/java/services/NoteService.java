@@ -70,7 +70,7 @@ public class NoteService {
 		Assert.isTrue(!this.noteRepository.exists(note.getId()));
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getFinalMode());
-		this.checkUsersAndComments(report);
+		this.checkUsersAndComments(report, note);
 
 		result = this.noteRepository.save(note);
 
@@ -86,9 +86,19 @@ public class NoteService {
 		return result;
 	}
 
-	// Other business methods--------------------------------------------------
+	// Other business methods -------------------------------------------------
 
-	private void checkUsersAndComments(Report report) {
+	public void writeComment(final Note note) {
+		Report report;
+
+		Assert.isTrue(this.noteRepository.exists(note.getId()));
+		report = this.reportService.findByNoteId(note.getId());
+		this.checkUsersAndComments(report, note);
+
+		this.noteRepository.save(note);
+	}
+
+	private void checkUsersAndComments(final Report report, final Note note) {
 		Authority authReferee, authCustomer, authHandyWorker;
 		UserAccount principal;
 		Referee referee;
@@ -106,15 +116,27 @@ public class NoteService {
 
 		if (principal.getAuthorities().contains(authReferee)) {
 			referee = this.refereeService.findByUserAccount(principal.getId()); // COMPLT: quiza sobra porque solo tengo en referee principal solo para obtener su id?? Igual para customer y handyworker
+
 			Assert.isTrue(this.reportService.findByRefereeId(referee.getId()).contains(report));
+			Assert.isTrue(!note.getCommentReferee().isEmpty());
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentHandyWorker().isEmpty());
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentCustomer().isEmpty());
 		} else if (principal.getAuthorities().contains(authCustomer)) {
-			//customerInvolved = this.customerService.findByReportId(report.getId());
+			customerInvolved = this.customerService.findCustomerByComplaint(report.getId()); // COMPLT: cambiar el nombre de la consulta a findCustomerByReport
 			customer = this.customerService.findByUserAccount(principal.getId());
-			//Assert.isTrue(customerInvolved.equals(customer));
+
+			Assert.isTrue(customerInvolved.equals(customer));
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentReferee().isEmpty());
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentHandyWorker().isEmpty());
+			Assert.isTrue(!note.getCommentCustomer().isEmpty());
 		} else if (principal.getAuthorities().contains(authHandyWorker)) {
 			handyWorkerInvolved = this.handyWorkerService.findByReportId(report.getId());
 			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+
 			Assert.isTrue(handyWorkerInvolved.equals(handyWorker));
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentReferee().isEmpty());
+			Assert.isTrue(!note.getCommentHandyWorker().isEmpty());
+			Assert.isTrue(this.noteRepository.exists(note.getId()) || note.getCommentCustomer().isEmpty());
 		}
 	}
 }
