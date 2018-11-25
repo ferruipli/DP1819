@@ -44,16 +44,14 @@ public class NoteService {
 		return result;
 	}
 
+	// COMPLT: no se pueden escribir notas sobre complaints que no estén en modo final
 	public Note save(final Note note) {
 		Note result;
 
+		Assert.isTrue(!this.noteRepository.exists(note.getId()));
 		result = this.noteRepository.save(note);
 
 		return result;
-	}
-
-	public void delete(final Note note) {
-		this.noteRepository.delete(note);
 	}
 
 	public Note findOne(final int noteId) {

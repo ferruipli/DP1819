@@ -148,4 +148,8 @@ public class ComplaintService {
 		complaint.setReport(report);
 	}
 
+	protected void removeReport(final Complaint complaint) {
+		complaint.setReport(null);
+	}
+
 }
