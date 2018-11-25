@@ -325,7 +325,7 @@
 
 	<bean id="application8" class="domain.Application">
 		<property name="registerMoment" value="2018/07/08 11:01" />
-		<property name="status" value="PENDING" />
+		<property name="status" value="REJECTED" />
 		<property name="offeredPrice" value="975.99" />
 		<property name="handyWorkerComments" value="Comment 8" />
 		<property name="handyWorker" ref="handyworker4" />
@@ -355,7 +355,7 @@
 
 	<bean id="application11" class="domain.Application">
 		<property name="registerMoment" value="2018/02/21 13:34" />
-		<property name="status" value="PENDING" />
+		<property name="status" value="REJECTED" />
 		<property name="offeredPrice" value="200.00" />
 		<property name="handyWorkerComments" value="Comment 11" />
 		<property name="handyWorker" ref="handyworker5" />
@@ -2994,6 +2994,11 @@
 		<property name="commentHandyWorker" value="commentHandyWorker 4" />
 		<property name="commentReferee" value="commentReferee 4" />
 	</bean>
+	
+	<bean id="note5" class="domain.Note">
+		<property name="moment" value="2017/03/08 10:00" />
+		<property name="commentCustomer" value="commentCustomer 5" />
+	</bean>
 
 	<!-- PersonalRecords -->
 	<bean id="personalRecord1" class="domain.PersonalRecord">
@@ -3209,6 +3214,7 @@
 		<property name="notes">
 			<list>
 				<ref bean="note3" />
+				<ref bean="note5" />
 			</list>
 		</property>
 	</bean>
