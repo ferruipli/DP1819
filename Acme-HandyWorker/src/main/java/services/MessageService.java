@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import domain.Actor;
+import domain.Application;
 import domain.Box;
 import domain.Message;
 
@@ -178,5 +179,15 @@ public class MessageService {
 		Assert.notNull(boxFin);
 		boxInicio.getMessages().remove(message);
 		boxInicio.getMessages().add(message);
+	}
+
+	public void messageForNotificationToStatusRejected(final Application application) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void messageForNotificationToStatusAccepted(final Application application) {
+		// TODO Auto-generated method stub
+
 	}
 }
