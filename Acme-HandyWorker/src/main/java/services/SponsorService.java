@@ -97,8 +97,19 @@ public class SponsorService {
 	public Sponsor findByPrincipal() {
 		Sponsor result;
 		UserAccount userAccount;
+
 		userAccount = LoginService.getPrincipal();
-		result = this.sponsorRepository.findByUserAccountId(userAccount.getId());
+
+		result = this.findByUserAccount(userAccount.getId());
+
+		return result;
+	}
+
+	private Sponsor findByUserAccount(final int userAccountId) {
+		Sponsor result;
+
+		result = this.sponsorRepository.findByUserAccount(userAccountId);
+
 		return result;
 	}
 	protected Sponsor findSponsorBySponsorshipId(final int id) {

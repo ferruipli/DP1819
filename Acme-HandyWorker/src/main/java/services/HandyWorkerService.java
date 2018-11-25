@@ -122,10 +122,19 @@ public class HandyWorkerService {
 
 	public HandyWorker findByPrincipal() {
 		HandyWorker result;
-		int userAccountId;
-		userAccountId = LoginService.getPrincipal().getId();
-		result = this.handyWorkerRepository.findByUserAccountId(userAccountId);
-		Assert.notNull(result);
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+
+		result = this.findByUserAccount(userAccount.getId());
+
+		return result;
+	}
+
+	private HandyWorker findByUserAccount(final int userAccountId) {
+		HandyWorker result;
+
+		result = this.handyWorkerRepository.findByUserAccount(userAccountId);
 
 		return result;
 	}
