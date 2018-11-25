@@ -39,21 +39,21 @@ public class NoteServiceTest extends AbstractTest {
 
 		reportId = super.getEntityId("report3");
 
-		super.authenticate("referee1");
+		super.authenticate("referee2");
 		note = this.noteService.create();
 		note.setCommentReferee("Esto es el comentario de test el creador de la nota");
 
 		saved = this.noteService.save(reportId, note);
 		report = this.reportService.findOne(reportId);
-		Assert.isTrue(report.equals(saved));
+		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
-		super.authenticate("customer6");
+		super.authenticate("customer5");
 		saved.setCommentCustomer("Customer añadiendo un comentario en los tests");
 		this.noteService.writeComment(saved);
 		super.unauthenticate();
 
-		super.authenticate("handyworker6");
+		super.authenticate("handyworker5");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
 		this.noteService.writeComment(saved);
 		super.unauthenticate();
@@ -65,23 +65,23 @@ public class NoteServiceTest extends AbstractTest {
 		int reportId;
 		Report report;
 
-		reportId = super.getEntityId("report1");
+		reportId = super.getEntityId("report3");
 
-		super.authenticate("customer6");
+		super.authenticate("customer5");
 		note = this.noteService.create();
-		note.setCommentReferee("Esto es el comentario de test el creador de la nota");
+		note.setCommentCustomer("Esto es el comentario de test el creador de la nota");
 
 		saved = this.noteService.save(reportId, note);
 		report = this.reportService.findOne(reportId);
-		Assert.isTrue(report.equals(saved));
+		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
-		super.authenticate("referee1");
+		super.authenticate("referee2");
 		saved.setCommentReferee("Referee añadiendo un comentario en los tests");
 		this.noteService.writeComment(saved);
 		super.unauthenticate();
 
-		super.authenticate("handyworker6");
+		super.authenticate("handyworker5");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
 		this.noteService.writeComment(saved);
 		super.unauthenticate();
@@ -94,18 +94,18 @@ public class NoteServiceTest extends AbstractTest {
 		int reportId;
 		Report report;
 
-		reportId = super.getEntityId("report1");
+		reportId = super.getEntityId("report3");
 
-		super.authenticate("handyworker6");
+		super.authenticate("handyworker5");
 		note = this.noteService.create();
-		note.setCommentReferee("Esto es el comentario de test el creador de la nota");
+		note.setCommentHandyWorker("Esto es el comentario de test el creador de la nota");
 
 		saved = this.noteService.save(reportId, note);
 		report = this.reportService.findOne(reportId);
-		Assert.isTrue(report.equals(saved));
+		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
-		super.authenticate("referee1");
+		super.authenticate("referee2");
 		saved.setCommentReferee("Referee añadiendo un comentario en los tests");
 		this.noteService.writeComment(saved);
 		super.unauthenticate();
@@ -121,7 +121,7 @@ public class NoteServiceTest extends AbstractTest {
 	public void testCommentIncorrect1() {
 		Note note;
 
-		note = this.noteService.findOne(super.getEntityId("note1"));
+		note = this.noteService.findOne(super.getEntityId("note5"));
 
 		super.authenticate("handyworker1");
 
@@ -136,9 +136,9 @@ public class NoteServiceTest extends AbstractTest {
 	public void testCommentIncorrect2() {
 		Note note;
 
-		note = this.noteService.findOne(super.getEntityId("note1"));
+		note = this.noteService.findOne(super.getEntityId("note5"));
 
-		super.authenticate("referee4");
+		super.authenticate("referee3");
 
 		note.setCommentReferee("Referee añadiendo un comentario en los tests");
 		this.noteService.writeComment(note);
@@ -151,9 +151,9 @@ public class NoteServiceTest extends AbstractTest {
 	public void testCommentIncorrect3() {
 		Note note;
 
-		note = this.noteService.findOne(super.getEntityId("note1"));
+		note = this.noteService.findOne(super.getEntityId("note5"));
 
-		super.authenticate("customer");
+		super.authenticate("customer5");
 
 		note.setCommentReferee("Customer añadiendo un comentario en los tests");
 		this.noteService.writeComment(note);
@@ -166,9 +166,9 @@ public class NoteServiceTest extends AbstractTest {
 	public void testCommentIncorrect4() {
 		Note note;
 
-		note = this.noteService.findOne(super.getEntityId("note1"));
+		note = this.noteService.findOne(super.getEntityId("note5"));
 
-		super.authenticate("handyworker");
+		super.authenticate("handyworker5");
 
 		note.setCommentCustomer("Handy Worker añadiendo un comentario en los tests");
 		this.noteService.writeComment(note);
@@ -181,9 +181,9 @@ public class NoteServiceTest extends AbstractTest {
 	public void testCommentIncorrect5() {
 		Note note;
 
-		note = this.noteService.findOne(super.getEntityId("note1"));
+		note = this.noteService.findOne(super.getEntityId("note5"));
 
-		super.authenticate("referee4");
+		super.authenticate("referee2");
 
 		note.setCommentHandyWorker("Referee añadiendo un comentario en los tests");
 		this.noteService.writeComment(note);

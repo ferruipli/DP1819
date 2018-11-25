@@ -133,4 +133,8 @@ public class ReportService {
 		Assert.notNull(principal);
 		Assert.isTrue(principal.getComplaints().contains(complaintInvolved));
 	}
+
+	protected void addNote(final Report report, final Note note) {
+		report.getNotes().add(note);
+	}
 }
