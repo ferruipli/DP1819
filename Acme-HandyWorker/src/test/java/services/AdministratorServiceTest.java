@@ -180,12 +180,11 @@ public class AdministratorServiceTest extends AbstractTest {
 
 	@Test
 	public void positiveTestSave_cinco() {
-		super.authenticate("administrator1");
+		super.authenticate("admin1");
 
 		Administrator admin, saved, showed;
 
 		final int id = super.getEntityId("administrator1");
-		System.out.println(id);
 		final String nombre = "Lola";
 		final String apellidos = "Reina Alvarez";
 
@@ -204,5 +203,4 @@ public class AdministratorServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
-
 }

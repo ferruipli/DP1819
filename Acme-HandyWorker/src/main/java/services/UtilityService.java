@@ -35,11 +35,11 @@ public class UtilityService {
 
 	// Other business methods --------------------------------------------------
 	public void checkEmailActors(final Actor actor) {
-		Assert.isTrue(actor.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+ | [\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]\\n"));
+		Assert.isTrue(actor.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"));
 	}
 
 	public void checkEmailAdministrator(final Administrator admin) {
-		Assert.isTrue(admin.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+ | [\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]\\n | [A-Za-z_.]+[\\w]+@ |  [\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"));
+		Assert.isTrue(admin.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"));
 	}
 
 	public String generateValidTicker() {
