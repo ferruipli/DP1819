@@ -97,6 +97,13 @@ public class CustomerService {
 	}
 
 	// Other business methods ------------------------
+	public Customer findCustomerByComplaint(final int reportId) {
+		Customer result;
+
+		result = this.customerRepository.findCustomerByReport(reportId);
+
+		return result;
+	}
 
 	public Collection<Customer> topThreeCustomer() {
 		final Collection<Customer> results;
