@@ -171,9 +171,16 @@ public class BoxService {
 
 	}
 
-	public Collection<Box> findAllByActor(final Actor actor) {
+	public Collection<Box> findAllBoxByActor(final Actor actor) {
 		Collection<Box> res = null;
-		res = this.boxRepository.findAllByActor(actor.getId());
+		res = this.boxRepository.findAllBoxByActor(actor.getId());
+		return res;
+
+	}
+
+	public Collection<Box> boxWithMessage(final Message message) {
+		Collection<Box> res = null;
+		res = this.boxRepository.boxWithMessage(message.getId());
 		return res;
 
 	}

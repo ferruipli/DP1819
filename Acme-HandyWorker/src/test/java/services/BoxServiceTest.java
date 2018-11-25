@@ -92,7 +92,6 @@ public class BoxServiceTest extends AbstractTest {
 		box = this.boxService.searchBox(actor, nameBox);
 		Assert.notNull(box);
 
-		System.out.println(box);
 		super.unauthenticate();
 	}
 

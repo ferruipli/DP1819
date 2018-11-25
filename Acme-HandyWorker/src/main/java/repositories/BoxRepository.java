@@ -13,9 +13,12 @@ import domain.Box;
 public interface BoxRepository extends JpaRepository<Box, Integer> {
 
 	@Query("select b from Box b join b.actor a where b.name=?2 and a.id=?1")
-	Box searchBox(int idUA, String string);
+	Box searchBox(int idActor, String string);
 
 	@Query("select b from Box b join b.actor a where a.id=?1")
-	Collection<Box> findAllByActor(int i);
+	Collection<Box> findAllBoxByActor(int i);
+
+	@Query("select b from Box b join b.messages m where m.id=?1")
+	Collection<Box> boxWithMessage(int i);
 
 }

@@ -122,17 +122,18 @@ public class MessageService {
 	public void delete(final Message message) {
 		Assert.notNull(message);
 		Assert.notNull(this.messageRepository.findOne(message.getId()));
+		System.out.println(message);
 		final Actor actor = this.actorService.findPrincipal();
 		Assert.isTrue((message.getSender().equals(actor)) || (message.getRecipients().contains(actor)));
 		final Box trashBoxActor = this.boxService.searchBox(actor, "trash box");
 		final Collection<Message> messagesTrashBox = trashBoxActor.getMessages();
 		if (messagesTrashBox.contains(message))
-			this.deleteFromAllBox(actor, message);
-		else {
+			this.deleteTrashBoxMessage(message, actor);
 
+		if (!(messagesTrashBox.contains(message))) {
+			this.deleteMessageAllBoxActor(actor, message);
+			trashBoxActor.getMessages().add(message);
 		}
-		this.messageRepository.delete(message);
-
 	}
 
 	// Other business methods -------------------------------------------------
@@ -147,11 +148,17 @@ public class MessageService {
 		return res;
 	}
 
-	private void deleteFromAllBox(final Actor actor, final Message message) {
-		final Collection<Box> findAllBoxByActor = this.boxService.findAllByActor(actor);
+	private void deleteMessageAllBoxActor(final Actor actor, final Message message) {
+		final Collection<Box> findAllBoxByActor = this.boxService.findAllBoxByActor(actor);
 		for (final Box b : findAllBoxByActor)
 			if (b.getMessages().contains(message))
 				b.getMessages().remove(message);
+	}
+
+	private void deleteTrashBoxMessage(final Message message, final Actor actor) {
+		this.deleteMessageAllBoxActor(actor, message);
+		if (this.boxService.boxWithMessage(message).isEmpty())
+			this.messageRepository.delete(message);
 	}
 
 }

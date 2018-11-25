@@ -34,7 +34,7 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
-		super.authenticate("HandyWorker1");
+		super.authenticate("sponsor1");
 		final Message message;
 		message = this.messageService.create();
 		Assert.notNull(message);
@@ -78,10 +78,12 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
+		super.authenticate("sponsor1");
 		final Message message;
-		message = this.messageService.findOne(super.getEntityId("message1"));
+		message = this.messageService.findOne(super.getEntityId("message6"));
 		Assert.notNull(message);
 		this.messageService.delete(message);
+		super.unauthenticate();
 	}
 
 }
