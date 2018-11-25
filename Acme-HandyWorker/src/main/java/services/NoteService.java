@@ -91,8 +91,8 @@ public class NoteService {
 	private void checkUsers() {
 		Authority authReferee, authCustomer, authHandyWorker;
 		UserAccount principal;
-		final Referee referee;
-		final Customer customer;
+		Referee referee;
+		Customer customer;
 		final HandyWorker handyWorker;
 
 		authReferee = new Authority();
@@ -104,11 +104,12 @@ public class NoteService {
 
 		principal = LoginService.getPrincipal();
 
-		//		if (principal.getAuthorities().contains(authReferee))
-		//			referee = this.refereeService.findByUserAccount(principal.getId());
-		//		else if (principal.getAuthorities().contains(authCustomer))
-		//			customer = this.customerService.findByUserAccount(principal.getId());
-		//		else if (principal.getAuthorities().contains(authHandyWorker))
-		//			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+		if (principal.getAuthorities().contains(authReferee))
+			referee = this.refereeService.findByUserAccount(principal.getId());
+		else if (principal.getAuthorities().contains(authCustomer))
+			customer = this.customerService.findByUserAccount(principal.getId());
+		else if (principal.getAuthorities().contains(authHandyWorker)) {
+			//handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
+		}
 	}
 }

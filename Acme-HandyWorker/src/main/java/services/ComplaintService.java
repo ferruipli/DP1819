@@ -144,6 +144,15 @@ public class ComplaintService {
 		return result;
 	}
 
+	public Complaint findByNoteId(final int noteId) {
+		Complaint result;
+
+		result = this.complaintRepository.findByNoteId(noteId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected void addReport(final Complaint complaint, final Report report) {
 		complaint.setReport(report);
 	}
