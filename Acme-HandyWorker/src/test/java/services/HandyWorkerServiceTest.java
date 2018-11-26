@@ -87,5 +87,21 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.notNull(handyWorker);
 
 	}
+	@Test
+	public void testTopThreeHandyWorker() {
+		Collection<HandyWorker> handyWorkers;
 
+		handyWorkers = this.handyWorkerService.topThreeHandyWorker();
+
+		Assert.notNull(handyWorkers);
+		Assert.isTrue(handyWorkers.size() == 3);
+	}
+	@Test
+	public void testAtLeast10Application() {
+		Collection<HandyWorker> handyWorkers;
+
+		handyWorkers = this.handyWorkerService.atLeast10Application();
+
+		Assert.notNull(handyWorkers);
+	}
 }

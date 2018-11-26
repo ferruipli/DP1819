@@ -141,4 +141,41 @@ public class ApplicationService {
 	public void enterCreditCard(final Application application, final CreditCard creditCard) {
 		application.setCreditCard(creditCard);
 	}
+	//Req 12.5.4
+	public Double[] findDataOfApplicationPrice() {
+		Double[] result;
+
+		result = this.applicationRepository.findDataOfApplicationPrice();
+
+		return result;
+	}
+	//Req 12.5.5
+	public Double findRatioPendingApplications() {
+		Double result;
+
+		result = this.applicationRepository.findRatioPendingApplications();
+
+		return result;
+	}//Req 12.5.6
+	public Double findRatioAcceptedApplications() {
+		Double result;
+
+		result = this.applicationRepository.findRatioAcceptedApplications();
+
+		return result;
+	}//Req 12.5.7
+	public Double findRatioRejectedApplications() {
+		Double result;
+
+		result = this.applicationRepository.findRatioRejectedApplications();
+
+		return result;
+	}//Req 12.5.8
+	public Double findRatioPendingApplicationsNotChangeStatus() {
+		Double result;
+
+		result = this.applicationRepository.findRatioPendingApplicationsNotChangeStatus();
+
+		return result;
+	}
 }
