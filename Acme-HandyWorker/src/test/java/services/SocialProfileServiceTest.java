@@ -74,7 +74,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveEditMal() {
+	public void testSaveEditNegative() {
 		super.authenticate("customer1");
 		SocialProfile socialProfile;
 		socialProfile = this.socialProfileService.findOne(super.getEntityId("socialProfile3"));
@@ -96,7 +96,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteMal() {
+	public void testDeleteNegative() {
 		super.authenticate("customer1");
 		SocialProfile socialProfile;
 		socialProfile = this.socialProfileService.findOne(super.getEntityId("socialProfile3"));
