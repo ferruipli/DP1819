@@ -97,7 +97,6 @@ public class SponsorshipService {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
 		Sponsor principal;
-
 		principal = this.sponsorService.findByPrincipal();
 
 		this.removeSponsorshipToSponsor(principal, sponsorship);
@@ -112,6 +111,8 @@ public class SponsorshipService {
 	}
 
 	protected void removeSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
+
+		Assert.isTrue((sponsor.getSponsorships().contains(sponsorship)));
 		sponsor.getSponsorships().remove(sponsorship);
 		Assert.isTrue(!(sponsor.getSponsorships().contains(sponsorship)));
 
@@ -123,6 +124,12 @@ public class SponsorshipService {
 	}
 
 	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
+		Tutorial tutorial;
+		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
+		tutorial.getSponsorShips().remove(sponsorship);
+		this.tutorialService.save(tutorial);
+	}
+	public void addSponsorShipToTutorial(final Sponsorship sponsorship) {
 		Tutorial tutorial;
 		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
 		tutorial.getSponsorShips().add(sponsorship);

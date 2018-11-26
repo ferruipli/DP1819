@@ -49,6 +49,23 @@ public class SectionServiceTest extends AbstractTest {
 		Assert.notNull(sectionSaved);
 		super.unauthenticate();
 	}
+
+	//Modificar un finder que no el no es el propietario
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave() {
+		super.authenticate("handyworker1");
+		final Section section;
+		final Section sectionSaved;
+
+		section = this.sectionService.findOne(super.getEntityId("section1"));
+
+		section.setTitle("title section");
+
+		sectionSaved = this.sectionService.save(section);
+
+		Assert.notNull(sectionSaved);
+		super.unauthenticate();
+	}
 	@Test
 	public void testDelete() {
 		super.authenticate("handyworker1");

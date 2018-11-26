@@ -36,6 +36,9 @@ public class HandyWorkerService {
 	@Autowired
 	private CurriculumService		curriculumService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	//Constructor ----------------------------------------------------
 	public HandyWorkerService() {
@@ -55,17 +58,9 @@ public class HandyWorkerService {
 		applications = new ArrayList<Application>();
 		userAccount = new UserAccount();
 
-		Assert.notNull(finder);
-		Assert.notNull(applications);
-		Assert.notNull(userAccount);
-
 		result.setApplications(applications);
 		result.setFinder(finder);
 		result.setUserAccount(userAccount);
-
-		Assert.notNull(result.getApplications());
-		Assert.notNull(result.getFinder());
-		Assert.notNull(result.getUserAccount());
 
 		return result;
 	}
@@ -81,6 +76,7 @@ public class HandyWorkerService {
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
 		handyWorker.getUserAccount().setPassword(passwordHash);
+		this.utilityService.checkEmailActors(handyWorker);
 
 		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
 		if (handyWorker.getId() == 0) {

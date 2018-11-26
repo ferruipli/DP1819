@@ -51,6 +51,24 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.notNull(handyWorkerSaved);
 		super.unauthenticate();
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave() {
+		super.authenticate("handyworker2");
+		final HandyWorker handyWorker;
+		final HandyWorker handyWorkerSaved;
+
+		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
+
+		handyWorker.setId(0);
+		handyWorker.setAddress("Francisco de Quevedo 12");
+		handyWorker.setEmail("maria@");
+		handyWorker.setSurname("Jiménez");
+
+		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
+
+		Assert.notNull(handyWorkerSaved);
+		super.unauthenticate();
+	}
 
 	@Test
 	public void testFindAll() {

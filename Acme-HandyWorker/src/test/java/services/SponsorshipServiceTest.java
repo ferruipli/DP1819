@@ -51,12 +51,44 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.notNull(sponsorshipSaved);
 		super.unauthenticate();
 	}
+
+	//Modificar un finder que no el no es el propietario
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave() {
+		this.authenticate("sponsor1");
+		final Sponsorship sponsorship;
+		final Sponsorship sponsorshipSaved;
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship3"));
+
+		sponsorship.setBanner("http://baner.com");
+		sponsorshipSaved = this.sponsorshipService.save(sponsorship);
+
+		Assert.notNull(sponsorshipSaved);
+		super.unauthenticate();
+	}
+	//URL NO VALIDA
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave1() {
+		this.authenticate("sponsor1");
+		final Sponsorship sponsorship;
+		final Sponsorship sponsorshipSaved;
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship3"));
+
+		sponsorship.setBanner("/baner.com");
+		sponsorshipSaved = this.sponsorshipService.save(sponsorship);
+
+		Assert.notNull(sponsorshipSaved);
+		super.unauthenticate();
+	}
 	@Test
 	public void testDelete() {
 
 		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
+		System.out.println(sponsorship);
 		this.sponsorshipService.delete(sponsorship);
 		super.unauthenticate();
 
