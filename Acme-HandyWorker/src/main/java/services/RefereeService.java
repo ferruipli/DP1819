@@ -28,8 +28,8 @@ public class RefereeService {
 
 	// Supporting services ----------------------------------------------------
 
-	//	@Autowired
-	//	private ActorService actorService;
+	@Autowired
+	private BoxService			boxService;
 
 	@Autowired
 	private UtilityService		utilityService;
@@ -66,7 +66,11 @@ public class RefereeService {
 		String password, hash;
 		Md5PasswordEncoder encoder;
 
+		// COMPLT: comprobar edición
+
 		this.utilityService.checkEmailActors(referee);
+
+		// COMPLT: usar hash de ActorService;
 
 		encoder = new Md5PasswordEncoder();
 		password = referee.getUserAccount().getPassword();
@@ -75,7 +79,7 @@ public class RefereeService {
 
 		result = this.refereeRepository.save(referee);
 
-		// COMPLT: this.actorService.createDefaultBox(result);
+		this.boxService.createDefaultBox(result);
 
 		return result;
 	}

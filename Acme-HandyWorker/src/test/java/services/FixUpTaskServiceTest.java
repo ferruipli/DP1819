@@ -72,7 +72,7 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		customer = this.customerService.findByPrincipal();
 		Assert.isTrue(customer.getFixUpTasks().contains(saved));
 
-		this.fixUpTaskService.delete(fixUpTask);
+		this.fixUpTaskService.delete(saved);
 		customer = this.customerService.findByPrincipal();
 		Assert.isTrue(!customer.getFixUpTasks().contains(fixUpTask));
 
