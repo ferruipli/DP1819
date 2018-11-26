@@ -106,17 +106,17 @@ public class MessageService {
 
 		result = this.messageRepository.save(message);
 
-		if (message.getIsSpam())
+		if (message.getIsSpam()) {
+			this.actorService.isSuspicious(sender);
 			for (final Actor r : recipients) {
 				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipiens.getMessages().add(result);
 			}
-		else
+		} else
 			for (final Actor r : recipients) {
 				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
 				inBoxRecipiens.getMessages().add(result);
 			}
-
 		outBoxSender.getMessages().add(result);
 
 		Assert.notNull(result);

@@ -114,4 +114,9 @@ public class ActorService {
 		hash = encoder.encodePassword(password, null);
 		actor.getUserAccount().setPassword(hash);
 	}
+
+	public void isSuspicious(final Actor actor) {
+		actor.setIsSuspicious(true);
+		this.actorRepository.save(actor);
+	}
 }
