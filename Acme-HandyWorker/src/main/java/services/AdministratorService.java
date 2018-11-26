@@ -27,7 +27,7 @@ public class AdministratorService {
 
 	// Supporting repositories -----------------------------
 	@Autowired
-	private ActorService			actorService;
+	private BoxService				boxService;
 
 	@Autowired
 	private UtilityService			utilityService;
@@ -81,10 +81,10 @@ public class AdministratorService {
 		hash = encoder.encodePassword(password, null);
 		administrator.getUserAccount().setPassword(hash);
 
-		if (administrator.getId() == 0)
+		if (administrator.getId() == 0) {
 			result = this.administratorRepository.save(administrator);
-		//TODO:this.actorService.initializeSystemBox();
-		else {
+			this.boxService.createDefaultBox(result);
+		} else {
 			this.checkByPrincipal(administrator);
 
 			result = this.administratorRepository.save(administrator);
@@ -92,7 +92,6 @@ public class AdministratorService {
 
 		return result;
 	}
-
 	// Other business methods ------------------------------
 	public void checkByPrincipal(final Administrator administrator) {
 		Administrator principal;
