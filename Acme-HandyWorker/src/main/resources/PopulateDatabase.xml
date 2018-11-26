@@ -3001,7 +3001,7 @@
 		<property name="isCommentedByHandyWorker" value="true" />
 		<property name="isCommentedByReferee" value="true" />
 	</bean>
-	
+
 	<bean id="note5" class="domain.Note">
 		<property name="moment" value="2017/07/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 5" />
