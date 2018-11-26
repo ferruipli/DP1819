@@ -94,7 +94,7 @@ public class SectionService {
 		}
 
 		tutorial = this.findTutorialBySection(section);
-		this.removeSection(tutorial, section);
+		this.removeSectionToTutorial(tutorial, section);
 
 		this.sectionRepository.delete(section);
 
@@ -107,7 +107,7 @@ public class SectionService {
 		handyWoker = this.sectionRepository.findHandyWorkerBySection(id);
 		return handyWoker;
 	}
-	public void removeSection(final Tutorial tutorial, final Section section) {
+	public void removeSectionToTutorial(final Tutorial tutorial, final Section section) {
 		Assert.isTrue((tutorial.getSections().contains(section)));
 		tutorial.getSections().remove(section);
 		Assert.isTrue(!(tutorial.getSections().contains(section)));

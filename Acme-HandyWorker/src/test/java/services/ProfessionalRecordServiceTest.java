@@ -147,4 +147,86 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testUpdateProfessionalRecord() {
+		ProfessionalRecord professionalRecord;
+		int id;
+		String newNameCompany, lastNameCompany;
+
+		id = super.getEntityId("professionalRecord1");
+		newNameCompany = "Nuevo company";
+
+		professionalRecord = this.professionalRecordService.findOne(id);
+		lastNameCompany = professionalRecord.getNameCompany();
+
+		professionalRecord.setNameCompany(newNameCompany);
+
+		this.professionalRecordService.save(professionalRecord);
+
+		Assert.isTrue(!lastNameCompany.equals(professionalRecord.getNameCompany()));
+
+	}
+
+	@Test
+	public void testDeleteProfessionalRecord() {
+		ProfessionalRecord professionalRecord;
+		Collection<ProfessionalRecord> professionalRecords;
+
+		super.authenticate("handyworker1");
+		professionalRecord = this.professionalRecordService.findOne(super.getEntityId("professionalRecord1"));
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(professionalRecords.contains(professionalRecord));
+
+		this.professionalRecordService.delete(professionalRecord);
+
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(!(professionalRecords.contains(professionalRecord)));
+
+		super.authenticate(null);
+
+	}
+
+	//Eliminar un professional record sin autenticarse
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteProfessionalRecordNegative() {
+		ProfessionalRecord professionalRecord;
+		Collection<ProfessionalRecord> professionalRecords;
+
+		professionalRecord = this.professionalRecordService.findOne(super.getEntityId("professionalRecord1"));
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(professionalRecords.contains(professionalRecord));
+
+		this.professionalRecordService.delete(professionalRecord);
+
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(!(professionalRecords.contains(professionalRecord)));
+
+	}
+
+	// Eliminar un professional record sin ser handyworker
+	@Test(expected = NullPointerException.class)
+	public void testDeleteProfessionalRecordNegative2() {
+		ProfessionalRecord professionalRecord;
+		Collection<ProfessionalRecord> professionalRecords;
+
+		super.authenticate("customer1");
+		professionalRecord = this.professionalRecordService.findOne(super.getEntityId("professionalRecord1"));
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(professionalRecords.contains(professionalRecord));
+
+		this.professionalRecordService.delete(professionalRecord);
+
+		professionalRecords = this.professionalRecordService.findAll();
+
+		Assert.isTrue(!(professionalRecords.contains(professionalRecord)));
+
+		super.authenticate(null);
+
+	}
+
 }

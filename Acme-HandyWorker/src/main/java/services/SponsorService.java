@@ -28,6 +28,8 @@ public class SponsorService {
 	// Supporting services -------------------------------------------
 	@Autowired
 	private BoxService			boxService;
+	@Autowired
+	private UtilityService		utilityService;
 
 
 	//Constructor ----------------------------------------------------
@@ -61,6 +63,7 @@ public class SponsorService {
 		encoder = new Md5PasswordEncoder();
 		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
 		sponsor.getUserAccount().setPassword(passwordHash);
+		this.utilityService.checkEmailActors(sponsor);
 
 		if (sponsor.getId() == 0) {
 			result = this.sponsorRepository.save(sponsor);
@@ -117,4 +120,5 @@ public class SponsorService {
 		sponsor = this.sponsorRepository.findSponsorBySponsorshipId(id);
 		return sponsor;
 	}
+
 }

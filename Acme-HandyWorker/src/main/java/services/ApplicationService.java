@@ -62,28 +62,10 @@ public class ApplicationService {
 		//Accedo a la bd y cojo el application que esta guardado para ver cual era su estado anterior
 		//en caso que haya cambiado de pending a rejected pido credit card, ademas si ha cambiado envio mensaje
 		Assert.notNull(application);
-
-		Application applicationBD;
+		Assert.isTrue(application.getStatus().equals("PENDING"));
 		Application result;
 
-		applicationBD = this.findOne(application.getId());
-
-		//si estoy guardando despues de crear
-		if (application.getId() == 0)
-			result = this.applicationRepository.save(application);
-		//this.messageService.messageForNotificationToStatusPending(application);
-		//si no ha cambiado el estado, simplemente se ha modificado
-		else if (applicationBD.getStatus().equals(application.getStatus()))
-			result = this.applicationRepository.save(application);
-		//si se ha actualizado el estado
-		else
-			//TODO	
-			//			
-			//			 if (application.getStatus().equals("REJECTED"))
-			//				this.messageService.messageForNotificationToStatusRejected(application);
-			//			else if (application.getStatus().equals("ACCEPTED"))
-			//				this.messageService.messageForNotificationToStatusAccepted(application);
-			result = this.applicationRepository.save(application);
+		result = this.applicationRepository.save(application);
 
 		return result;
 	}
@@ -118,10 +100,30 @@ public class ApplicationService {
 	}
 	//Other business methods-------------------------------------------
 
-	public void changeStatus(final Application application) {
+	public Application changeStatus(final Application application) {
+		//Accedo a la bd y cojo el application que esta guardado para ver cual era su estado anterior
+		//en caso que haya cambiado de pending a rejected pido credit card, ademas si ha cambiado envio mensaje
+		Assert.notNull(application);
+		Application applicationBd;
+		Application result;
+		FixUpTask fixUpTask;
+		final Collection<Application> applications;
+		applicationBd = this.findOne(application.getId());
+		//aseguro que ha cambiado el estado
+		Assert.isTrue(!(applicationBd.getStatus().equals(application.getStatus())));
 
+		this.messageService.messageToStatus(application, application.getStatus());
+		result = this.applicationRepository.save(application);
+		if (application.getStatus().equals("ACCEPTED")) {
+			fixUpTask = application.getFixUpTask();
+			applications = fixUpTask.getApplications();
+			for (final Application a : applications) {
+				a.setStatus("REJECTED");
+				this.changeStatus(a);
+			}
+		}
+		return result;
 	}
-
 	public void removeApplicationToHandyWorker(final Application application) {
 		HandyWorker handyWorker;
 		handyWorker = application.getHandyWorker();

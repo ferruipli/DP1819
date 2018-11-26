@@ -38,6 +38,7 @@ public class TutorialServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		super.authenticate("handyworker1");
 		final Tutorial tutorial;
 		final Tutorial tutorialSaved;
 
@@ -48,10 +49,38 @@ public class TutorialServiceTest extends AbstractTest {
 		tutorialSaved = this.tutorialService.save(tutorial);
 
 		Assert.notNull(tutorialSaved);
+		super.unauthenticate();
+	}
+
+	//Modificar un finder que no el no es el propietario
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave() {
+		super.authenticate("handyworker3");
+		final Tutorial tutorial;
+		final Tutorial tutorialSaved;
+
+		tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
+
+		tutorial.setTitle("title tutorial");
+
+		tutorialSaved = this.tutorialService.save(tutorial);
+
+		Assert.notNull(tutorialSaved);
+		super.unauthenticate();
 	}
 	@Test
 	public void testDelete() {
 		super.authenticate("handyworker1");
+		final Tutorial tutorial;
+		tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
+		this.tutorialService.delete(tutorial);
+		super.unauthenticate();
+
+	}
+	//Modificar un finder que no el no es el propietario
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeDelete() {
+		super.authenticate("handyworker4");
 		final Tutorial tutorial;
 		tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
 		this.tutorialService.delete(tutorial);
