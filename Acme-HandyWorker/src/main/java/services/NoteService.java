@@ -53,37 +53,42 @@ public class NoteService {
 
 	public Note create() {
 		Note result;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
 
 		result = new Note();
-		result.setMoment(moment);
 
 		return result;
 	}
 
 	public void writeComment(final Note note) {
-		Report report;
-
 		Assert.isTrue(this.noteRepository.exists(note.getId()));
+
+		Report report;
+		Date moment;
+
+		moment = new Date(System.currentTimeMillis() - 1);
 		report = this.reportService.findByNoteId(note.getId());
-		Assert.isTrue(note.getMoment().after(report.getMoment()));
+		Assert.isTrue(moment.after(report.getMoment()));
 		this.checkUsersAndComments(report, note);
 
+		note.setMoment(moment);
 		this.noteRepository.save(note);
 	}
 
 	public Note save(final int reportId, final Note note) {
+		Assert.isTrue(!this.noteRepository.exists(note.getId()));
+
 		Note result;
 		Report report;
+		Date moment;
 
-		Assert.isTrue(!this.noteRepository.exists(note.getId()));
+		moment = new Date(System.currentTimeMillis() - 1);
+
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getFinalMode());
-		Assert.isTrue(note.getMoment().after(report.getMoment()));
+		Assert.isTrue(moment.after(report.getMoment()));
 		this.checkUsersAndComments(report, note);
 
+		note.setMoment(moment);
 		result = this.noteRepository.save(note);
 		this.reportService.addNote(report, result);
 

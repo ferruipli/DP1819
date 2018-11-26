@@ -47,7 +47,7 @@ public class RefereeServiceTest extends AbstractTest {
 		referee.setEmail("juan <juantest@gmail.com>");
 		referee.setMiddleName("Master");
 		referee.setPhoneNumber("+42 123123123");
-		referee.setPhotoLink("hhtps://imagetest.com/12g5hr45");
+		referee.setPhotoLink("https://imagetest.com/12g5hr45");
 		referee.setSurname("López");
 
 		saved = this.refereeService.save(referee);

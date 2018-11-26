@@ -6,7 +6,6 @@ import java.util.Collections;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -27,6 +26,9 @@ public class RefereeService {
 	private RefereeRepository	refereeRepository;
 
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ActorService		actorService;
 
 	@Autowired
 	private BoxService			boxService;
@@ -62,24 +64,15 @@ public class RefereeService {
 	}
 
 	public Referee save(final Referee referee) {
-		Referee result;
-		String password, hash;
-		Md5PasswordEncoder encoder;
-
-		// COMPLT: comprobar edición
-
 		this.utilityService.checkEmailActors(referee);
 
-		// COMPLT: usar hash de ActorService;
+		Referee result;
 
-		encoder = new Md5PasswordEncoder();
-		password = referee.getUserAccount().getPassword();
-		hash = encoder.encodePassword(password, null);
-		referee.getUserAccount().setPassword(hash);
-
+		this.actorService.definePassword(referee);
 		result = this.refereeRepository.save(referee);
 
-		this.boxService.createDefaultBox(result);
+		if (!this.refereeRepository.exists(referee.getId()))
+			this.boxService.createDefaultBox(result);
 
 		return result;
 	}

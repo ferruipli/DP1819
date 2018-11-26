@@ -106,7 +106,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 	@Test
 	public void testNewPhasePositive() {
-		Phase phase;
+		Phase phase, saved;
 		int fixUpTaskId;
 		FixUpTask fixUpTask;
 		LocalDate localDate;
@@ -122,12 +122,12 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setEndMoment(localDate.plusDays(10).toDate());
 		phase.setTitle("Título TEST");
 
-		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+		saved = this.phaseService.saveNewPhase(fixUpTaskId, phase);
 
 		super.unauthenticate();
 
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		Assert.isTrue(fixUpTask.getPhases().contains(phase));
+		Assert.isTrue(fixUpTask.getPhases().contains(saved));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

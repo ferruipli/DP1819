@@ -44,26 +44,26 @@ public class ReportService {
 
 	public Report create() {
 		Report result;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
 
 		result = new Report();
-		result.setMoment(moment);
 		result.setNotes(Collections.<Note> emptySet());
 
 		return result;
 	}
 
 	public Report writeNewReport(final int complaintId, final Report report) {
+		Assert.isTrue(!this.reportRepository.exists(report.getId()));
+
 		Report result;
 		Complaint complaint;
+		Date moment;
 
-		Assert.isTrue(!this.reportRepository.exists(report.getId()));
+		moment = new Date(System.currentTimeMillis() - 1);
 		complaint = this.complaintService.findOne(complaintId);
-		Assert.isTrue(report.getMoment().after(complaint.getMoment()));
+		Assert.isTrue(moment.after(complaint.getMoment()));
 		this.checkRefPrincipalHandles(complaint);
 
+		report.setMoment(moment);
 		result = this.reportRepository.save(report);
 
 		this.complaintService.addReport(complaint, result);
@@ -72,11 +72,12 @@ public class ReportService {
 	}
 
 	public Report update(final Report report) {
+		Assert.isTrue(this.reportRepository.exists(report.getId()));
+		Assert.isTrue(!report.getFinalMode());
+
 		Report result;
 		Complaint complaintInvolved;
 
-		Assert.isTrue(this.reportRepository.exists(report.getId()));
-		Assert.isTrue(!report.getFinalMode());
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
 		Assert.isTrue(report.getMoment().after(complaintInvolved.getMoment()));
 		this.checkRefPrincipalHandles(complaintInvolved);
@@ -87,10 +88,12 @@ public class ReportService {
 	}
 
 	public void delete(final Report report) {
-		Complaint complaintInvolved;
-
+		Assert.notNull(report);
 		Assert.isTrue(this.reportRepository.exists(report.getId()));
 		Assert.isTrue(!report.getFinalMode());
+
+		Complaint complaintInvolved;
+
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
 		this.checkRefPrincipalHandles(complaintInvolved);
 
@@ -126,7 +129,6 @@ public class ReportService {
 		Referee principal;
 
 		principal = this.refereeService.findByPrincipal();
-		Assert.notNull(principal);
 		Assert.isTrue(principal.getComplaints().contains(complaintInvolved));
 	}
 }
