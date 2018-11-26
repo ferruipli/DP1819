@@ -33,7 +33,7 @@ public class CustomerService {
 
 	// Supporting services -------------------------
 	@Autowired
-	private ActorService		actorService;
+	private BoxService			boxService;
 
 	@Autowired
 	private UtilityService		utilityService;
@@ -88,10 +88,10 @@ public class CustomerService {
 		hash = encoder.encodePassword(password, null);
 		customer.getUserAccount().setPassword(hash);
 
-		if (customer.getId() == 0)
+		if (customer.getId() == 0) {
 			result = this.customerRepository.save(customer);
-		//TODO: this.actorService.initializeSystemBox();
-		else {
+			this.boxService.createDefaultBox(result);
+		} else {
 			this.checkByPrincipal(customer);
 
 			result = this.customerRepository.save(customer);
