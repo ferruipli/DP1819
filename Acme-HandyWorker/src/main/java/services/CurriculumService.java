@@ -87,6 +87,8 @@ public class CurriculumService {
 
 		this.curriculumRepository.delete(curriculum);
 
+		this.handyWorkerService.removeCurriculum(handyWorker, null);
+
 	}
 
 	public Curriculum save(final Curriculum curriculum) {
@@ -98,7 +100,7 @@ public class CurriculumService {
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		result = this.curriculumRepository.save(curriculum);
-		handyWorker.setCurriculum(result);
+		this.handyWorkerService.addCurriculum(handyWorker, result);
 
 		return result;
 	}

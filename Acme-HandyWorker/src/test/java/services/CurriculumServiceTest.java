@@ -179,7 +179,7 @@ public class CurriculumServiceTest extends AbstractTest {
 	}
 
 	// Customer guarda un curriculum
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testSaveCurriculumNegative2() {
 		final Curriculum curriculum, saved;
 		//final Collection<Curriculum> curriculums;

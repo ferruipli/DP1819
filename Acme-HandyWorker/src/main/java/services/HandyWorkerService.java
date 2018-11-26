@@ -15,6 +15,7 @@ import repositories.HandyWorkerRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Application;
+import domain.Curriculum;
 import domain.Finder;
 import domain.HandyWorker;
 import domain.Phase;
@@ -32,6 +33,8 @@ public class HandyWorkerService {
 	private BoxService				boxService;
 	@Autowired
 	private FinderService			finderService;
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Constructor ----------------------------------------------------
@@ -159,6 +162,22 @@ public class HandyWorkerService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	protected void addCurriculum(final HandyWorker handyWorker, final Curriculum curriculum) {
+		Assert.notNull(handyWorker);
+		Assert.notNull(curriculum);
+		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
+		Assert.notNull(this.curriculumService.findOne(curriculum.getId()));
+
+		handyWorker.setCurriculum(curriculum);
+	}
+
+	protected void removeCurriculum(final HandyWorker handyWorker, final Curriculum curriculum) {
+		Assert.notNull(handyWorker);
+		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
+
+		handyWorker.setCurriculum(null);
 	}
 
 }
