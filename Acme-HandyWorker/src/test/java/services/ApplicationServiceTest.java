@@ -141,5 +141,44 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.unauthenticate();
 
 	}
+	@Test
+	public void testfindDataOfApplicationPrice() {
+		Double[] result;
 
+		result = this.applicationService.findDataOfApplicationPrice();
+
+		Assert.notNull(result);
+	}
+	@Test
+	public void testfindRatioPendingApplications() {
+		Double result;
+
+		result = this.applicationService.findRatioPendingApplications();
+
+		Assert.notNull(result);
+	}
+	@Test
+	public void testfindRatioAcceptedApplications() {
+		Double result;
+
+		result = this.applicationService.findRatioAcceptedApplications();
+
+		Assert.notNull(result);
+	}
+	@Test
+	public void testfindRatioRejectedApplications() {
+		Double result;
+
+		result = this.applicationService.findRatioRejectedApplications();
+
+		Assert.notNull(result);
+	}
+	@Test
+	public void testfindRatioPendingApplicationsNotChangeStatus() {
+		Double result;
+
+		result = this.applicationService.findRatioPendingApplicationsNotChangeStatus();
+
+		Assert.notNull(result);
+	}
 }

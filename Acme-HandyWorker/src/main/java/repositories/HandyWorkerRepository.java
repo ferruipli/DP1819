@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,4 +27,11 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	@Query("select a.handyWorker from FixUpTask f join f.complaints com join f.applications a where a.status = 'ACCEPTED' AND com.report.id = ?1")
 	HandyWorker findByReportId(int reportId);
 
+	//Req 12.5.10 
+	@Query("select h from HandyWorker h where h.applications.size/ (select avg(h1.applications.size) from HandyWorker h1)>=1.1 order by h.applications.size")
+	Collection<HandyWorker> atLeast10Application();
+
+	//Req 38.5.5 
+	@Query("select h from HandyWorker h join h.applications a join a.fixUpTask f group by a.handyWorker order by f.complaints.size DESC")
+	Page<HandyWorker> topThreeCustomer(Pageable page);
 }

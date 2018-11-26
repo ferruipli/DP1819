@@ -7,6 +7,9 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -174,6 +177,27 @@ public class HandyWorkerService {
 		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
 
 		handyWorker.setCurriculum(null);
+	}
+	//Req 12.5.10
+	public Collection<HandyWorker> atLeast10Application() {
+		final Collection<HandyWorker> result;
+
+		result = this.handyWorkerRepository.atLeast10Application();
+
+		return result;
+	}
+	//Req 38.5.5
+	public Collection<HandyWorker> topThreeHandyWorker() {
+		final Collection<HandyWorker> results;
+		Page<HandyWorker> handyWorkers;
+		Pageable pageable;
+
+		pageable = new PageRequest(0, 3);
+		handyWorkers = this.handyWorkerRepository.topThreeCustomer(pageable);
+
+		results = handyWorkers.getContent();
+
+		return results;
 	}
 
 }
