@@ -1,7 +1,6 @@
 
 package services;
 
-import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,21 +188,6 @@ public class NoteServiceTest extends AbstractTest {
 		super.authenticate("referee2");
 
 		note.setCommentHandyWorker("Referee añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
-
-		super.unauthenticate();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentConflictDate() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("referee2");
-
-		note.setCommentReferee("Referee añadiendo un comentario en los tests");
-		note.setMoment(LocalDate.parse("1997-10-10").toDate());
 		this.noteService.writeComment(note);
 
 		super.unauthenticate();

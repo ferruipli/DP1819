@@ -14,7 +14,6 @@ import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.HandyWorker;
-import domain.Referee;
 import domain.Report;
 
 @Service
@@ -54,25 +53,26 @@ public class ComplaintService {
 
 	public Complaint create() {
 		Complaint result;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
 
 		result = new Complaint();
 		result.setTicker(this.utilityService.generateValidTicker());
-		result.setMoment(moment);
 
 		return result;
 	}
 
 	public Complaint save(final Complaint complaint) {
+		Assert.isTrue(!this.complaintRepository.exists(complaint.getId()));
+
 		Complaint result;
 		Customer principal;
+		Date moment;
 
-		Assert.isTrue(!this.complaintRepository.exists(complaint.getId()));
+		moment = new Date(System.currentTimeMillis() - 1);
 		principal = this.customerService.findByPrincipal();
+
 		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));
 
+		complaint.setMoment(moment);
 		result = this.complaintRepository.save(complaint);
 
 		this.fixUpTaskService.addComplaint(complaint.getFixUpTask(), result);
@@ -116,11 +116,9 @@ public class ComplaintService {
 	// returned by this method, is persisted in the database.
 	public Collection<Complaint> findSelfAssignedByPrincipal() {
 		Collection<Complaint> result;
-		Referee principal;
 
-		principal = this.refereeService.findByPrincipal();
-		Assert.notNull(principal);
-		result = principal.getComplaints();
+		result = this.refereeService.findByPrincipal().getComplaints();
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -130,7 +128,6 @@ public class ComplaintService {
 		HandyWorker principal;
 
 		principal = this.handyWorkerService.findByPrincipal();
-		Assert.notNull(principal);
 		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId());
 		Assert.notNull(result);
 
