@@ -69,22 +69,50 @@ public class MiscellaneousRecordService {
 
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
-		Assert.isTrue(!(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())));
 
-		HandyWorker handyWorker;
 		MiscellaneousRecord result;
-		Curriculum curriculum;
 
-		result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()))
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		else {
+			Assert.isTrue(!(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())));
 
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyWorker.getCurriculum();
-		Assert.notNull(curriculum);
+			HandyWorker handyWorker;
+			Curriculum curriculum;
 
-		this.curriculumService.addMiscellaneousRecord(curriculum, result);
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			curriculum = handyWorker.getCurriculum();
+			Assert.notNull(curriculum);
+
+			this.curriculumService.addMiscellaneousRecord(curriculum, result);
+		}
 		return result;
 
+	}
+	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+		Assert.notNull(miscellaneousRecord);
+		Assert.isTrue(miscellaneousRecord.getId() != 0);
+		Assert.isTrue(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()));
+
+		// Debemos de eliminar el miscellaneousRecord del curriculum del handyworker
+
+		HandyWorker handyworker;
+		Curriculum curriculum;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyworker.getCurriculum();
+		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
+
+		// Eliminamos el MiscellaneousRecord del curriculum del handyworker Principal
+
+		this.curriculumService.removeMiscellaneousRecord(curriculum, miscellaneousRecord);
+
+		// Eliminamos definitivamente el miscellaneousRecord
+
+		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 
 	// Other business methods --------------------------

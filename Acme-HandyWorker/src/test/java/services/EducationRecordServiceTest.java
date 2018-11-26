@@ -80,6 +80,26 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testUpdateEducationRecord() {
+		EducationRecord educationRecord;
+		int id;
+		String newTitleDiploma, lastTitleDiploma;
+
+		id = super.getEntityId("educationRecord1");
+		newTitleDiploma = "Nuevo title diploma";
+
+		educationRecord = this.educationRecordService.findOne(id);
+		lastTitleDiploma = educationRecord.getTitleDiploma();
+
+		educationRecord.setTitleDiploma(newTitleDiploma);
+
+		this.educationRecordService.save(educationRecord);
+
+		Assert.isTrue(!lastTitleDiploma.equals(educationRecord.getTitleDiploma()));
+
+	}
+
 	// Usuario sin autenticar
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveEducationRecordNegative() {
@@ -144,6 +164,46 @@ public class EducationRecordServiceTest extends AbstractTest {
 		Assert.isTrue(educationRecords.contains(saved));
 
 		super.authenticate(null);
+
+	}
+
+	@Test
+	public void testDeleteEducationRecord() {
+		EducationRecord educationRecord;
+		Collection<EducationRecord> educationRecords;
+
+		super.authenticate("handyworker1");
+		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(educationRecords.contains(educationRecord));
+
+		this.educationRecordService.delete(educationRecord);
+
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(!(educationRecords.contains(educationRecord)));
+
+		super.authenticate(null);
+
+	}
+
+	// Eliminar un education record sin autenticarse
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteEducationRecordNegative() {
+		EducationRecord educationRecord;
+		Collection<EducationRecord> educationRecords;
+
+		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(educationRecords.contains(educationRecord));
+
+		this.educationRecordService.delete(educationRecord);
+
+		educationRecords = this.educationRecordService.findAll();
+
+		Assert.isTrue(!(educationRecords.contains(educationRecord)));
 
 	}
 

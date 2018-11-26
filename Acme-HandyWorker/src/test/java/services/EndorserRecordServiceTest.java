@@ -165,4 +165,88 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testUpdateEndorserRecord() {
+		EndorserRecord endorserRecord;
+		int id;
+		String newFullName, lastFullName;
+
+		id = super.getEntityId("endorserRecord1");
+		newFullName = "Nuevo name";
+
+		endorserRecord = this.endorserRecordService.findOne(id);
+		lastFullName = endorserRecord.getFullName();
+
+		endorserRecord.setFullName(newFullName);
+
+		this.endorserRecordService.save(endorserRecord);
+
+		Assert.isTrue(!lastFullName.equals(endorserRecord.getFullName()));
+
+	}
+
+	@Test
+	public void testDeleteEndorserRecord() {
+		EndorserRecord endorserRecord;
+		Collection<EndorserRecord> endorserRecords;
+
+		super.authenticate("handyworker1");
+
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+		this.endorserRecordService.delete(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(!(endorserRecords.contains(endorserRecord)));
+
+		super.authenticate(null);
+
+	}
+
+	// Eliminar un endorser record sin estar autenticado
+	@Test(expected = NullPointerException.class)
+	public void testDeleteEndorserRecordNegative() {
+		EndorserRecord endorserRecord;
+		Collection<EndorserRecord> endorserRecords;
+
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+		this.endorserRecordService.delete(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(!(endorserRecords.contains(endorserRecord)));
+
+	}
+
+	// Customer elimina un endorser record 
+	@Test(expected = NullPointerException.class)
+	public void testDeleteEndorserRecordNegative2() {
+		EndorserRecord endorserRecord;
+		Collection<EndorserRecord> endorserRecords;
+
+		super.authenticate("customer1");
+
+		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+		this.endorserRecordService.delete(endorserRecord);
+
+		endorserRecords = this.endorserRecordService.findAll();
+
+		Assert.isTrue(!(endorserRecords.contains(endorserRecord)));
+
+		super.authenticate(null);
+
+	}
+
 }
