@@ -138,7 +138,7 @@ public class NoteService {
 			Assert.isTrue(!this.isEmpty(note.getCommentCustomer()));
 
 			// Check if the actor has permission to write on this note
-			customerInvolved = this.customerService.findCustomerByComplaint(report.getId());
+			customerInvolved = this.customerService.findCustomerByReport(report.getId());
 			customer = this.customerService.findByUserAccount(principal.getId());
 			Assert.isTrue(customerInvolved.equals(customer));
 

@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -58,13 +59,6 @@ public class ActorService {
 		return result;
 	}
 
-	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
-		Actor result;
-		result = this.actorRepository.save(actor);
-		return result;
-	}
-
 	// Other business methods -------------------------------------------------
 
 	public UserAccount findUserAccount(final Actor actor) {
@@ -98,4 +92,15 @@ public class ActorService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public void definePassword(final Actor actor) {
+		Md5PasswordEncoder encoder;
+		String password, hash;
+
+		encoder = new Md5PasswordEncoder();
+		password = actor.getUserAccount().getPassword();
+		hash = encoder.encodePassword(password, null);
+		actor.getUserAccount().setPassword(hash);
+	}
+
 }

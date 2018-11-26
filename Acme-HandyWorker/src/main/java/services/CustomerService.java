@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -34,6 +33,9 @@ public class CustomerService {
 	// Supporting services -------------------------
 	@Autowired
 	private BoxService			boxService;
+
+	@Autowired
+	private ActorService		actorService;
 
 	@Autowired
 	private UtilityService		utilityService;
@@ -79,20 +81,21 @@ public class CustomerService {
 		Assert.notNull(customer);
 		this.utilityService.checkEmailActors(customer);
 
-		Md5PasswordEncoder encoder;
 		Customer result;
-		String password, hash;
-
-		encoder = new Md5PasswordEncoder();
-		password = customer.getUserAccount().getPassword();
-		hash = encoder.encodePassword(password, null);
-		customer.getUserAccount().setPassword(hash);
+		final Customer found;
 
 		if (customer.getId() == 0) {
+			this.actorService.definePassword(customer);
+
 			result = this.customerRepository.save(customer);
 			this.boxService.createDefaultBox(result);
 		} else {
 			this.checkByPrincipal(customer);
+
+			found = this.findOne(customer.getId());
+
+			if (!found.getUserAccount().getPassword().equals(customer.getUserAccount().getPassword()))
+				this.actorService.definePassword(customer);
 
 			result = this.customerRepository.save(customer);
 		}
@@ -101,7 +104,7 @@ public class CustomerService {
 	}
 
 	// Other business methods ------------------------
-	public Customer findCustomerByComplaint(final int reportId) {
+	public Customer findCustomerByReport(final int reportId) {
 		Customer result;
 
 		result = this.customerRepository.findCustomerByReport(reportId);
