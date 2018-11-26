@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Finder;
+import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -56,6 +57,27 @@ public class FinderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	//Modificar un finder que no el no es el propietario
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegateSave() {
+		super.authenticate("handyWorker5");
+		final Finder finder;
+		final Finder finderSaved;
+		Date dateFinder;
+		Date dateFinderSaved;
+
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
+		dateFinder = finder.getLastUpdate();
+
+		finder.setKeyword("fixUpTask");
+		finderSaved = this.finderService.save(finder);
+		dateFinderSaved = finderSaved.getLastUpdate();
+
+		Assert.isTrue(dateFinder != dateFinderSaved);
+		Assert.notNull(finderSaved);
+		super.unauthenticate();
+	}
+
 	@Test
 	public void testFindAll() {
 		Collection<Finder> finders;
@@ -71,17 +93,21 @@ public class FinderServiceTest extends AbstractTest {
 
 		finder = this.finderService.findOne(super.getEntityId("finder1"));
 		Assert.notNull(finder);
+	}
+
+	@Test
+	public void testSearch() {
+		Finder finder;
+		Collection<FixUpTask> fixUpTasks;
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
+		finder.setCategory("description");
+		finder.setEndPrice(10000000.0);
+		finder.setStartPrice(0.0);
+		this.finderService.save(finder);
+		fixUpTasks = this.finderService.search(finder);
+		System.out.println(fixUpTasks);
+		Assert.notNull(fixUpTasks);
 
 	}
-	//TODO
-	//	@Test
-	//	public void testSearch() {
-	//		Collection<FixUpTask> result;
-	//		Finder finder;
-	//		finder = this.finderService.findOne(super.getEntityId("finder1"));
-	//
-	//		result = this.finderService.search(finder);
-	//		System.out.println(result);
-	//
-	//	} 
+
 }

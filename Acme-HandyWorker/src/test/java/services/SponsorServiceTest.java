@@ -41,9 +41,26 @@ public class SponsorServiceTest extends AbstractTest {
 
 		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
 
-		sponsor.setAddress("Francisco de Quevedo 12");
+		sponsor.setAddress("Quevedo 12");
 		sponsor.setEmail("maria@gmail.com");
 		sponsor.setSurname("Jiménez");
+
+		sponsorSaved = this.sponsorService.save(sponsor);
+
+		Assert.notNull(sponsorSaved);
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSave() {
+		super.authenticate("sponsor1");
+		final Sponsor sponsor;
+		final Sponsor sponsorSaved;
+
+		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
+
+		sponsor.setAddress("Quevedo 12");
+		sponsor.setEmail("maria@");
 
 		sponsorSaved = this.sponsorService.save(sponsor);
 

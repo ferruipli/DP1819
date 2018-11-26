@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -102,5 +103,15 @@ public class ActorService {
 		Assert.notNull(userAccount);
 		userAccount.setIsBanned(false);
 		this.userAccountService.save(userAccount);
+	}
+
+	public void definePassword(final Actor actor) {
+		Md5PasswordEncoder encoder;
+		String password, hash;
+
+		encoder = new Md5PasswordEncoder();
+		password = actor.getUserAccount().getPassword();
+		hash = encoder.encodePassword(password, null);
+		actor.getUserAccount().setPassword(hash);
 	}
 }

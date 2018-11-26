@@ -7,7 +7,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -28,6 +27,9 @@ public class AdministratorService {
 	// Supporting repositories -----------------------------
 	@Autowired
 	private BoxService				boxService;
+
+	@Autowired
+	private ActorService			actorService;
 
 	@Autowired
 	private UtilityService			utilityService;
@@ -72,20 +74,21 @@ public class AdministratorService {
 		Assert.notNull(administrator);
 		this.utilityService.checkEmailAdministrator(administrator);
 
-		final Administrator result;
-		Md5PasswordEncoder encoder;
-		String password, hash;
-
-		encoder = new Md5PasswordEncoder();
-		password = administrator.getUserAccount().getPassword();
-		hash = encoder.encodePassword(password, null);
-		administrator.getUserAccount().setPassword(hash);
+		final Administrator result, found;
 
 		if (administrator.getId() == 0) {
+			this.actorService.definePassword(administrator);
+
 			result = this.administratorRepository.save(administrator);
 			this.boxService.createDefaultBox(result);
 		} else {
 			this.checkByPrincipal(administrator);
+
+			found = this.findOne(administrator.getId());
+
+			// Si son distintas las password, quiere decir que el user ha actualizado su contraseña
+			if (!found.getUserAccount().getPassword().equals(administrator.getUserAccount().getPassword()))
+				this.actorService.definePassword(administrator);
 
 			result = this.administratorRepository.save(administrator);
 		}
