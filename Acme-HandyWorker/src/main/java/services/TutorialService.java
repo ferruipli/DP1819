@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
 import domain.HandyWorker;
+import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
 
@@ -41,26 +42,31 @@ public class TutorialService {
 		Date date;
 		final HandyWorker principal;
 		Collection<Sponsorship> sponsorships;
-		//TODO da fallo con el getPrincipal
+		final Collection<Section> sections;
 		principal = this.handyWorkerService.findByPrincipal();
 		Assert.notNull(principal);
 
 		result = new Tutorial();
 		date = new Date(System.currentTimeMillis() - 1);
 		sponsorships = new ArrayList<Sponsorship>();
+		sections = new ArrayList<Section>();
 
 		result.setMoment(date);
 		result.setHandyWorker(principal);
 		result.setSponsorShips(sponsorships);
 
+		result.setSections(sections);
+
 		return result;
 	}
-
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 
+		final HandyWorker principal;
 		Tutorial result;
 
+		principal = this.handyWorkerService.findByPrincipal();
+		Assert.isTrue(principal.equals(tutorial.getHandyWorker()));
 		if (tutorial.getId() != 0) {
 			Date dateNow;
 			dateNow = new Date();

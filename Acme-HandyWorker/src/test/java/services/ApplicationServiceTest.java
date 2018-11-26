@@ -44,19 +44,51 @@ public class ApplicationServiceTest extends AbstractTest {
 		Assert.notNull(application);
 		super.unauthenticate();
 	}
-	@Test
-	public void testSave() {
+
+	/*
+	 * No se puede editar application en esatado acceptado
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveNegative() {
 		super.authenticate("handyworker2");
 		final Application application;
 		final Application applicationSaved;
 
-		application = this.applicationService.findOne(super.getEntityId("application1"));
+		application = this.applicationService.findOne(super.getEntityId("application3"));
 		application.setStatus("ACCEPTED");
 
 		applicationSaved = this.applicationService.save(application);
 
+		super.unauthenticate();
+	}
+	/*
+	 * No se puede editar application en esatado rechazado
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveNegative1() {
+		super.authenticate("handyworker2");
+		final Application application;
+		final Application applicationSaved;
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		application.setStatus("REJECTED");
+
+		applicationSaved = this.applicationService.save(application);
+
+		super.unauthenticate();
+	}
+	@Test
+	public void testSave() {
+		super.authenticate("handyworker1");
+		final Application application;
+		final Application applicationSaved;
+
+		application = this.applicationService.findOne(super.getEntityId("application1"));
+		application.setOfferedPrice(22.3);
+
+		applicationSaved = this.applicationService.save(application);
+
 		Assert.notNull(applicationSaved);
-		Assert.isTrue(applicationSaved.getStatus().equals("ACCEPTED"));
 		super.unauthenticate();
 	}
 	@Test
@@ -79,6 +111,23 @@ public class ApplicationServiceTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		super.authenticate("handyworker1");
+
+		final Application application;
+		FixUpTask fixUpTask;
+		HandyWorker handyWorker;
+		application = this.applicationService.findOne(super.getEntityId("application2"));
+		fixUpTask = application.getFixUpTask();
+		handyWorker = application.getHandyWorker();
+		this.applicationService.delete(application);
+		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
+		Assert.isTrue(!(handyWorker.getApplications().contains(application)));
+		super.unauthenticate();
+
+	}
+	//No puedo borrar un application que no es suya
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativaDelete() {
+		super.authenticate("handyworker");
 
 		final Application application;
 		FixUpTask fixUpTask;
