@@ -106,5 +106,4 @@ public class TutorialServiceTest extends AbstractTest {
 
 	}
 
-	//TODO: TESTADDSECTION TESTREMOVESECTION
 }
