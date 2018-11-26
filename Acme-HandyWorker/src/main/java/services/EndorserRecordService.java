@@ -71,23 +71,51 @@ public class EndorserRecordService {
 
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
-		Assert.isTrue(!(this.endorserRecordRepository.exists(endorserRecord.getId())));
 		this.utilityService.checkEmailRecords(endorserRecord.getEmail());
 
-		HandyWorker handyWorker;
 		final EndorserRecord result;
-		Curriculum curriculum;
 
-		result = this.endorserRecordRepository.save(endorserRecord);
+		if (this.endorserRecordRepository.exists(endorserRecord.getId()))
+			result = this.endorserRecordRepository.saveAndFlush(endorserRecord);
+		else {
+			HandyWorker handyWorker;
 
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyWorker.getCurriculum();
-		Assert.notNull(curriculum);
+			Curriculum curriculum;
 
-		this.curriculumService.addEndorserRecord(curriculum, result);
+			result = this.endorserRecordRepository.save(endorserRecord);
 
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			curriculum = handyWorker.getCurriculum();
+			Assert.notNull(curriculum);
+
+			this.curriculumService.addEndorserRecord(curriculum, result);
+		}
 		return result;
 
 	}
+
+	public void delete(final EndorserRecord endorserRecord) {
+		Assert.notNull(endorserRecord);
+		Assert.isTrue(endorserRecord.getId() != 0);
+
+		// Debemos de eliminar el endorserRecord del curriculum del handyworker
+
+		HandyWorker handyworker;
+		Curriculum curriculum;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyworker.getCurriculum();
+		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getEndorserRecords().contains(endorserRecord));
+
+		// Eliminamos el EndorserRecord del curriculum del handyworker Principal
+
+		this.curriculumService.removeEndorserRecord(curriculum, endorserRecord);
+
+		// Eliminamos definitivamente el education record
+
+		this.endorserRecordRepository.delete(endorserRecord);
+	}
+
 	// Other business methods --------------------------
 }

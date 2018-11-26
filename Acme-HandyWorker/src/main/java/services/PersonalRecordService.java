@@ -72,21 +72,25 @@ public class PersonalRecordService {
 
 	public PersonalRecord save(final PersonalRecord personalRecord) {
 		Assert.notNull(personalRecord);
-		Assert.isTrue(!(this.personalRecordRepository.exists(personalRecord.getId())));
 		this.utilityService.checkEmailRecords(personalRecord.getEmail());
 
-		HandyWorker handyWorker;
 		PersonalRecord result;
-		Curriculum curriculum;
 
-		result = this.personalRecordRepository.save(personalRecord);
+		if (this.personalRecordRepository.exists(personalRecord.getId()))
+			result = this.personalRecordRepository.save(personalRecord);
+		else {
 
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyWorker.getCurriculum();
-		Assert.notNull(curriculum);
+			HandyWorker handyWorker;
+			Curriculum curriculum;
 
-		this.curriculumService.addPersonalRecord(curriculum, result);
+			result = this.personalRecordRepository.save(personalRecord);
 
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			curriculum = handyWorker.getCurriculum();
+			Assert.notNull(curriculum);
+
+			this.curriculumService.addPersonalRecord(curriculum, result);
+		}
 		return result;
 	}
 	// Other business methods --------------------------

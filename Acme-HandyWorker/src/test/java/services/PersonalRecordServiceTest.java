@@ -164,4 +164,25 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
+	@Test
+	public void testUpdatePersonalRecord() {
+		PersonalRecord personalRecord;
+		int id;
+		String newFullName, lastFullName;
+
+		id = super.getEntityId("personalRecord1");
+		newFullName = "Nuevo name";
+
+		personalRecord = this.personalRecordService.findOne(id);
+		lastFullName = personalRecord.getFullName();
+
+		personalRecord.setFullName(newFullName);
+
+		this.personalRecordService.save(personalRecord);
+
+		Assert.isTrue(!lastFullName.equals(personalRecord.getFullName()));
+		;
+
+	}
+
 }

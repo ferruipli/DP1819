@@ -69,22 +69,51 @@ public class EducationRecordService {
 
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
-		Assert.isTrue(!(this.educationRecordRepository.exists(educationRecord.getId())));
 
 		EducationRecord result;
-		HandyWorker handyWorker;
-		Curriculum curriculum;
 
-		result = this.educationRecordRepository.save(educationRecord);
+		if (this.educationRecordRepository.exists(educationRecord.getId())) //Si existe, actualiza
+			result = this.educationRecordRepository.save(educationRecord);
+		else { // De lo contratio, crea
 
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyWorker.getCurriculum();
-		Assert.notNull(curriculum);
+			HandyWorker handyWorker;
+			Curriculum curriculum;
 
-		this.curriculumService.addEducationRecord(curriculum, result);
+			result = this.educationRecordRepository.save(educationRecord);
+
+			handyWorker = this.handyWorkerService.findByPrincipal();
+			curriculum = handyWorker.getCurriculum();
+			Assert.notNull(curriculum);
+
+			this.curriculumService.addEducationRecord(curriculum, result);
+
+		}
 
 		return result;
 
+	}
+
+	public void delete(final EducationRecord educationRecord) {
+		Assert.notNull(educationRecord);
+		Assert.isTrue(educationRecord.getId() != 0);
+
+		// Debemos de eliminar el educationRecord del curriculum del handyworker
+
+		HandyWorker handyworker;
+		Curriculum curriculum;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		curriculum = handyworker.getCurriculum();
+		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getEducationRecords().contains(educationRecord));
+
+		// Eliminamos el EducationRecord del curriculum del handyworker Principal
+
+		this.curriculumService.removeEducationRecord(curriculum, educationRecord);
+
+		// Eliminamos definitivamente el education record
+
+		this.educationRecordRepository.delete(educationRecord);
 	}
 
 	// Other business methods --------------------------
