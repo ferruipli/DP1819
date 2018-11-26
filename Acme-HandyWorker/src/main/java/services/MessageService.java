@@ -206,10 +206,20 @@ public class MessageService {
 
 		messageHandyWorker = new Message();
 		messageCustomer = new Message();
+		String statusEn = null;
+		String statusEs = null;
+		if (status.equals("REJECTED")) {
+			statusEn = "reject";
+			statusEs = "rechazado";
+		}
+		if (status.equals("ACCEPTED")) {
+			statusEn = "acepted";
+			statusEs = "aceptado";
+		}
 
 		messageHandyWorker.setSender(systemActor);
 		messageHandyWorker.setSubject("Status changed");
-		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to " + status + " status");
+		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to " + statusEn + " status. \n El estado de la solicitud " + application.getId() + " ha cambiado a estado" + statusEs);
 		messageHandyWorker.setPriority("HIGH");
 		Date sendMoment;
 		sendMoment = new Date();
@@ -224,7 +234,7 @@ public class MessageService {
 
 		messageCustomer.setSender(systemActor);
 		messageCustomer.setSubject("Status changed");
-		messageCustomer.setBody("The status for application for " + application.getId() + " is change to " + status + " status");
+		messageCustomer.setBody("The status for application for " + application.getId() + " is change to " + statusEn + " status. \n El estado de la solicitud " + application.getId() + " ha cambiado a estado" + statusEs);
 		messageCustomer.setPriority("HIGH");
 		Date sendMoment2;
 		sendMoment2 = new Date();
