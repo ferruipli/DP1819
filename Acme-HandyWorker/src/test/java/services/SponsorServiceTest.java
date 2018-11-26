@@ -51,8 +51,7 @@ public class SponsorServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//TODO CHECK EMAIL 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeSave() {
 		super.authenticate("sponsor1");
 		final Sponsor sponsor;
@@ -61,7 +60,7 @@ public class SponsorServiceTest extends AbstractTest {
 		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
 
 		sponsor.setAddress("Quevedo 12");
-		sponsor.setEmail("@gmail.com");
+		sponsor.setEmail("maria@");
 
 		sponsorSaved = this.sponsorService.save(sponsor);
 

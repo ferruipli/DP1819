@@ -99,10 +99,11 @@ public class FinderServiceTest extends AbstractTest {
 	public void testSearch() {
 		Finder finder;
 		Collection<FixUpTask> fixUpTasks;
-		finder = this.finderService.findOne(super.getEntityId("finder3"));
+		finder = this.finderService.findOne(super.getEntityId("finder1"));
 		finder.setCategory("description");
 		finder.setEndPrice(10000000.0);
 		finder.setStartPrice(0.0);
+		this.finderService.save(finder);
 		fixUpTasks = this.finderService.search(finder);
 		System.out.println(fixUpTasks);
 		Assert.notNull(fixUpTasks);

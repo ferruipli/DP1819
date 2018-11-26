@@ -51,8 +51,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.notNull(handyWorkerSaved);
 		super.unauthenticate();
 	}
-	@Test
-	//TODO CHECK EMaiL
+	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeSave() {
 		super.authenticate("handyworker2");
 		final HandyWorker handyWorker;
@@ -62,7 +61,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		handyWorker.setId(0);
 		handyWorker.setAddress("Francisco de Quevedo 12");
-		handyWorker.setEmail("maria@gmail.com");
+		handyWorker.setEmail("maria@");
 		handyWorker.setSurname("Jiménez");
 
 		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
