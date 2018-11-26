@@ -87,10 +87,7 @@ public class BoxService {
 		if (box.getId() != 0)
 			Assert.isTrue(box.getActor().equals(actor));
 
-		Assert.isTrue(!(box.getName().equals("in box")));
-		Assert.isTrue(!(box.getName().equals("out box")));
-		Assert.isTrue(!(box.getName().equals("trash box")));
-		Assert.isTrue(!(box.getName().equals("spam box")));
+		Assert.isTrue((!(box.getName().equals("in box"))) && (!(box.getName().equals("out box"))) && (!(box.getName().equals("trash box"))) && (!(box.getName().equals("spam box"))));
 
 		result = this.boxRepository.save(box);
 

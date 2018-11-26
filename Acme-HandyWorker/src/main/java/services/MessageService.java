@@ -164,23 +164,41 @@ public class MessageService {
 
 	public void deleteMessageFromBox(final Box box, final Message message) {
 		final Actor actor = this.actorService.findPrincipal();
+
 		Assert.isTrue(box.getActor().equals(actor));
+		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.isTrue(box.getMessages().contains(message));
 		Assert.notNull(message);
 		Assert.notNull(box);
+
 		box.getMessages().remove(message);
 	}
 
 	public void moveMessageFromBoxToBox(final Box boxInicio, final Box boxFin, final Message message) {
 		final Actor actor = this.actorService.findPrincipal();
+
 		Assert.isTrue((boxInicio.getActor().equals(actor)) && (boxFin.getActor().equals(actor)));
 		Assert.isTrue(boxInicio.getMessages().contains(message));
 		Assert.isTrue(!(boxFin.getMessages().contains(message)));
 		Assert.notNull(message);
 		Assert.notNull(boxInicio);
 		Assert.notNull(boxFin);
+
 		boxInicio.getMessages().remove(message);
-		boxInicio.getMessages().add(message);
+		boxFin.getMessages().add(message);
+	}
+
+	public void copyMessageFromBoxToBox(final Box boxInicio, final Box boxFin, final Message message) {
+		final Actor actor = this.actorService.findPrincipal();
+
+		Assert.isTrue((boxInicio.getActor().equals(actor)) && (boxFin.getActor().equals(actor)));
+		Assert.isTrue(boxInicio.getMessages().contains(message));
+		Assert.isTrue(!(boxFin.getMessages().contains(message)));
+		Assert.notNull(message);
+		Assert.notNull(boxInicio);
+		Assert.notNull(boxFin);
+
+		boxFin.getMessages().add(message);
 	}
 
 	public void messageToStatus(final Application application, final String status) {

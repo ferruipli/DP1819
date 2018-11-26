@@ -58,13 +58,6 @@ public class ActorService {
 		return result;
 	}
 
-	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
-		Actor result;
-		result = this.actorRepository.save(actor);
-		return result;
-	}
-
 	// Other business methods -------------------------------------------------
 
 	public UserAccount findUserAccount(final Actor actor) {
@@ -97,5 +90,17 @@ public class ActorService {
 		result = this.actorRepository.findActorByName(nameActor);
 		Assert.notNull(result);
 		return result;
+	}
+
+	public void isBanner(final UserAccount userAccount) {
+		Assert.notNull(userAccount);
+		userAccount.setIsBanned(true);
+		this.userAccountService.save(userAccount);
+	}
+
+	public void notBanner(final UserAccount userAccount) {
+		Assert.notNull(userAccount);
+		userAccount.setIsBanned(false);
+		this.userAccountService.save(userAccount);
 	}
 }
