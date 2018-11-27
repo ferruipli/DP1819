@@ -103,6 +103,14 @@ public class NoteService {
 
 	// Other business methods -------------------------------------------------
 
+	public double[] findDataNumberNotesPerReport() {
+		double[] result;
+
+		result = this.noteRepository.findDataNumberNotesPerReport();
+
+		return result;
+	}
+
 	private void checkUsersAndComments(final Report report, final Note note) {
 		Authority authReferee, authCustomer, authHandyWorker;
 		UserAccount principal;
