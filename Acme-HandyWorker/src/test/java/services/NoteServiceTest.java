@@ -150,49 +150,4 @@ public class NoteServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
-
-	// Customer comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect3() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("customer5");
-
-		note.setCommentReferee("Customer añadiendo un comentario en los tests");
-		this.noteService.save(note);
-
-		super.unauthenticate();
-	}
-
-	// Handy Worker comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect4() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("handyworker5");
-
-		note.setCommentCustomer("Handy Worker añadiendo un comentario en los tests");
-		this.noteService.save(note);
-
-		super.unauthenticate();
-	}
-
-	// Referee comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect5() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("referee2");
-
-		note.setCommentHandyWorker("Referee añadiendo un comentario en los tests");
-		this.noteService.save(note);
-
-		super.unauthenticate();
-	}
 }

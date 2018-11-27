@@ -2975,21 +2975,17 @@
 	<bean id="note1" class="domain.Note">
 		<property name="moment" value="2017/03/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 1" />
-		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="2012/03/010 11:11" />
 		<property name="commentCustomer" value="commentCustomer 2" />
 		<property name="commentReferee" value="commentReferee 2" />
-		<property name="isCommentedByCustomer" value="true" />
-		<property name="isCommentedByReferee" value="true" />
 	</bean>
 
 	<bean id="note3" class="domain.Note">
 		<property name="moment" value="2018/07/10 13:30" />
 		<property name="commentHandyWorker" value="commentHandyWorker 3" />
-		<property name="isCommentedByHandyWorker" value="true" />
 	</bean>
 
 	<bean id="note4" class="domain.Note">
@@ -2997,15 +2993,11 @@
 		<property name="commentCustomer" value="commentCustomer 4" />
 		<property name="commentHandyWorker" value="commentHandyWorker 4" />
 		<property name="commentReferee" value="commentReferee 4" />
-		<property name="isCommentedByCustomer" value="true" />
-		<property name="isCommentedByHandyWorker" value="true" />
-		<property name="isCommentedByReferee" value="true" />
 	</bean>
 
 	<bean id="note5" class="domain.Note">
 		<property name="moment" value="2017/07/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 5" />
-		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<!-- PersonalRecords -->
