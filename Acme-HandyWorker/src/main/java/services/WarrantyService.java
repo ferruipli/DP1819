@@ -59,7 +59,10 @@ public class WarrantyService {
 	}
 
 	public void delete(final Warranty warranty) {
+		Assert.notNull(warranty);
+		Assert.isTrue(this.warrantyRepository.exists(warranty.getId()));
 		Assert.isTrue(!warranty.getFinalMode());
+
 		this.warrantyRepository.delete(warranty);
 	}
 

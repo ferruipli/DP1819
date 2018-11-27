@@ -46,13 +46,9 @@ public class FixUpTaskService {
 
 	public FixUpTask create() {
 		FixUpTask result;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
 
 		result = new FixUpTask();
 		result.setTicker(this.utilityService.generateValidTicker());
-		result.setPublicationMoment(moment);
 		result.setComplaints(Collections.<Complaint> emptySet());
 		result.setApplications(Collections.<Application> emptySet());
 		result.setPhases(Collections.<Phase> emptySet());
@@ -62,30 +58,36 @@ public class FixUpTaskService {
 	}
 
 	public FixUpTask save(final FixUpTask fixUpTask) {
-		FixUpTask result;
-		Customer principal;
-
+		Assert.notNull(fixUpTask);
 		Assert.isTrue(fixUpTask.getWarranty().getFinalMode());
 		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot update a FixUpTaks with an Application associated
+
+		FixUpTask result;
+		Customer principal;
+		Date moment;
+
 		principal = this.customerService.findByPrincipal();
-		Assert.notNull(principal);
 		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
+
+		moment = new Date(System.currentTimeMillis() - 1);
+		fixUpTask.setPublicationMoment(moment);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
 
-		if (this.fixUpTaskRepository.exists(fixUpTask.getId()))
+		if (!this.fixUpTaskRepository.exists(fixUpTask.getId()))
 			this.customerService.addFixUpTask(result.getCustomer(), result);
 
 		return result;
 	}
 
 	public void delete(final FixUpTask fixUpTask) {
-		Customer principal;
-
+		Assert.notNull(fixUpTask);
+		Assert.isTrue(this.fixUpTaskRepository.exists(fixUpTask.getId()));
 		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot delete a FixUpTaks with an Application associated
 
+		Customer principal;
+
 		principal = this.customerService.findByPrincipal();
-		Assert.notNull(principal);
 		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 
 		this.customerService.removeFixUpTask(principal, fixUpTask);
@@ -134,8 +136,6 @@ public class FixUpTaskService {
 
 	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().add(phase);
-		this.fixUpTaskRepository.flush();
-		this.fixUpTaskRepository.save(fixUpTask);
 	}
 
 	protected void addComplaint(final FixUpTask fixUpTask, final Complaint complaint) {

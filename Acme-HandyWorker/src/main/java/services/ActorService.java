@@ -93,14 +93,16 @@ public class ActorService {
 		return result;
 	}
 
-	public void isBanner(final UserAccount userAccount) {
-		Assert.notNull(userAccount);
+	public void isBanner(final Actor actor) {
+		Assert.notNull(actor);
+		final UserAccount userAccount = actor.getUserAccount();
 		userAccount.setIsBanned(true);
 		this.userAccountService.save(userAccount);
 	}
 
-	public void notBanner(final UserAccount userAccount) {
-		Assert.notNull(userAccount);
+	public void notBanner(final Actor actor) {
+		Assert.notNull(actor);
+		final UserAccount userAccount = actor.getUserAccount();
 		userAccount.setIsBanned(false);
 		this.userAccountService.save(userAccount);
 	}
