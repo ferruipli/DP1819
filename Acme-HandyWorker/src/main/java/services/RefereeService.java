@@ -90,6 +90,10 @@ public class RefereeService {
 
 	// Other business methods -------------------------------------------------
 
+	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
+		referee.getComplaints().add(complaint);
+	}
+
 	public Referee findByPrincipal() {
 		Referee result;
 		UserAccount userAccount;
@@ -101,17 +105,13 @@ public class RefereeService {
 		return result;
 	}
 
-	public Referee findByReportId(final int reportId) {
+	protected Referee findByReportId(final int reportId) {
 		Referee result;
 
 		result = this.refereeRepository.findByReportId(reportId);
 		Assert.notNull(result);
 
 		return result;
-	}
-
-	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
-		referee.getComplaints().add(complaint);
 	}
 
 	protected Referee findByUserAccount(final int userAccountId) {

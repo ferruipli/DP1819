@@ -124,7 +124,7 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public FixUpTask findByPhaseId(final int phaseId) {
+	protected FixUpTask findByPhaseId(final int phaseId) {
 		FixUpTask result;
 
 		result = this.fixUpTaskRepository.findByPhaseId(phaseId);

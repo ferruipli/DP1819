@@ -108,7 +108,7 @@ public class ReportService {
 
 	// Other business methods -------------------------------------------------
 
-	public Report findByNoteId(final int noteId) {
+	protected Report findByNoteId(final int noteId) {
 		Report result;
 
 		result = this.reportRepository.findByNoteId(noteId);

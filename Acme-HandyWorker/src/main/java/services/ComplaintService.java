@@ -134,7 +134,7 @@ public class ComplaintService {
 		return result;
 	}
 
-	public Complaint findByReportId(final int reportId) {
+	protected Complaint findByReportId(final int reportId) {
 		Complaint result;
 
 		result = this.complaintRepository.findByReportId(reportId);
