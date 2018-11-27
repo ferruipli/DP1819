@@ -52,6 +52,7 @@ public class WarrantyService {
 	public Warranty save(final Warranty warranty) {
 		Warranty result;
 
+		Assert.notNull(warranty);
 		Assert.isTrue(!warranty.getFinalMode());
 		result = this.warrantyRepository.save(warranty);
 

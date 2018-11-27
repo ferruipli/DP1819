@@ -64,7 +64,9 @@ public class RefereeService {
 	}
 
 	public Referee save(final Referee referee) {
+		Assert.notNull(referee);
 		this.utilityService.checkEmailActors(referee);
+		this.checkOwnerAccount(referee);
 
 		Referee result;
 
@@ -88,6 +90,10 @@ public class RefereeService {
 
 	// Other business methods -------------------------------------------------
 
+	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
+		referee.getComplaints().add(complaint);
+	}
+
 	public Referee findByPrincipal() {
 		Referee result;
 		UserAccount userAccount;
@@ -99,7 +105,7 @@ public class RefereeService {
 		return result;
 	}
 
-	public Referee findByReportId(final int reportId) {
+	protected Referee findByReportId(final int reportId) {
 		Referee result;
 
 		result = this.refereeRepository.findByReportId(reportId);
@@ -108,15 +114,18 @@ public class RefereeService {
 		return result;
 	}
 
-	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
-		referee.getComplaints().add(complaint);
-	}
-
 	protected Referee findByUserAccount(final int userAccountId) {
 		Referee result;
 
 		result = this.refereeRepository.findByUserAccount(userAccountId);
 
 		return result;
+	}
+
+	private void checkOwnerAccount(final Referee referee) {
+		int principalId;
+
+		principalId = LoginService.getPrincipal().getId();
+		Assert.isTrue(!this.refereeRepository.exists(referee.getId()) || principalId == referee.getUserAccount().getId());
 	}
 }

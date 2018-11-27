@@ -48,42 +48,32 @@ public class PhaseService {
 		return result;
 	}
 
-	public Phase saveNewPhase(final int fixUpTaskId, final Phase phase) {
-		Assert.isTrue(!this.phaseRepository.exists(phase.getId()));
-		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
-
-		FixUpTask fixUpTask;
-		Phase saved;
-		HandyWorker principal;
-		Collection<FixUpTask> workableFixUpTasks;
-
-		principal = this.handyWorkerService.findByPrincipal();
-		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
-
-		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
-
-		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
-		Assert.isTrue(phase.getStartMoment().after(fixUpTask.getStartDate()) && phase.getStartMoment().before(fixUpTask.getEndDate()));
-		Assert.isTrue(phase.getEndMoment().after(fixUpTask.getStartDate()) && phase.getEndMoment().before(fixUpTask.getEndDate()));
-
-		saved = this.phaseRepository.save(phase);
-		this.fixUpTaskService.addNewPhase(fixUpTask, saved);
-
-		return saved;
+	public Phase save(final Phase phase) { // Updating
+		return this.save(null, phase);
 	}
 
-	public Phase update(final Phase phase) {
-		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
+	public Phase save(FixUpTask fixUpTask, final Phase phase) { // Creating
+		Assert.notNull(phase);
 		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
-		this.checkCreator(phase);
-
-		// Phase dates must be between FixUpTask::startDate and FixUpTask::endDate
-		Assert.isTrue(this.checkPhaseDate(phase.getId()));
 
 		Phase result;
+		boolean isUpdating;
+
+		isUpdating = this.phaseRepository.exists(phase.getId());
+
+		if (isUpdating) {
+			this.checkOwner(phase);
+			fixUpTask = this.fixUpTaskService.findByPhaseId(phase.getId());
+		} else
+			this.checkHandyWorkerAccess(fixUpTask, phase);
+
+		Assert.notNull(fixUpTask);
+		this.checkPhaseDate(fixUpTask, phase);
 
 		result = this.phaseRepository.save(phase);
+
+		if (!isUpdating)
+			this.fixUpTaskService.addNewPhase(fixUpTask, result);
 
 		return result;
 	}
@@ -91,11 +81,11 @@ public class PhaseService {
 	public void delete(final Phase phase) {
 		Assert.notNull(phase);
 		Assert.isTrue(this.phaseRepository.exists(phase.getId()));
-		this.checkCreator(phase);
+		this.checkOwner(phase);
 
 		FixUpTask fixUpTask;
 
-		fixUpTask = this.fixUpTaskService.findByPhase(phase);
+		fixUpTask = this.fixUpTaskService.findByPhaseId(phase.getId());
 		this.fixUpTaskService.removePhase(fixUpTask, phase);
 
 		this.phaseRepository.delete(phase);
@@ -121,7 +111,7 @@ public class PhaseService {
 		return result;
 	}
 
-	private void checkCreator(final Phase phase) {
+	private void checkOwner(final Phase phase) {
 		HandyWorker principal;
 		int principalId, ownerId;
 
@@ -132,11 +122,18 @@ public class PhaseService {
 		Assert.isTrue(principalId == ownerId);
 	}
 
-	private boolean checkPhaseDate(final int phaseId) {
-		boolean result;
+	private void checkHandyWorkerAccess(final FixUpTask fixUpTask, final Phase phase) {
+		HandyWorker principal;
+		Collection<FixUpTask> workableFixUpTasks;
 
-		result = this.phaseRepository.checkPhaseDate(phaseId);
+		principal = this.handyWorkerService.findByPrincipal();
+		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
 
-		return result;
+		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+	}
+
+	private void checkPhaseDate(final FixUpTask fixUpTask, final Phase phase) {
+		Assert.isTrue(phase.getStartMoment().after(fixUpTask.getStartDate()) && phase.getStartMoment().before(fixUpTask.getEndDate()));
+		Assert.isTrue(phase.getEndMoment().after(fixUpTask.getStartDate()) && phase.getEndMoment().before(fixUpTask.getEndDate()));
 	}
 }

@@ -41,13 +41,14 @@ public class ReportServiceTest extends AbstractTest {
 		Complaint complaint;
 
 		complaintId = super.getEntityId("complaint1");
+		complaint = this.complaintService.findOne(complaintId);
 
 		super.authenticate("referee1");
 
 		report = this.reportService.create();
 		report.setDescription("Esto es una descripción de prueba");
 
-		saved = this.reportService.writeNewReport(complaintId, report);
+		saved = this.reportService.save(complaint, report);
 		complaint = this.complaintService.findOne(complaintId);
 		Assert.isTrue(complaint.getReport().equals(saved));
 
@@ -71,7 +72,7 @@ public class ReportServiceTest extends AbstractTest {
 
 		report.setDescription(description);
 
-		saved = this.reportService.update(report);
+		saved = this.reportService.save(report);
 		complaint = this.complaintService.findByReportId(saved.getId());
 		Assert.isTrue(complaint.getReport().getDescription().equals(description));
 
@@ -91,7 +92,7 @@ public class ReportServiceTest extends AbstractTest {
 
 		report.setDescription(description);
 
-		saved = this.reportService.update(report);
+		saved = this.reportService.save(report);
 		complaint = this.complaintService.findByReportId(saved.getId());
 		Assert.isTrue(complaint.getReport().getDescription().equals(description));
 
@@ -130,7 +131,7 @@ public class ReportServiceTest extends AbstractTest {
 		report.setDescription(description);
 		report.setMoment(LocalDate.parse("1997-10-10").toDate());
 
-		saved = this.reportService.update(report);
+		saved = this.reportService.save(report);
 		complaint = this.complaintService.findByReportId(saved.getId());
 		Assert.isTrue(complaint.getReport().getDescription().equals(description));
 
