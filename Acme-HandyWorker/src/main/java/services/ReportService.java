@@ -51,38 +51,34 @@ public class ReportService {
 		return result;
 	}
 
-	public Report writeNewReport(final int complaintId, final Report report) {
-		Assert.isTrue(!this.reportRepository.exists(report.getId()));
-
-		Report result;
-		Complaint complaint;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
-		complaint = this.complaintService.findOne(complaintId);
-		Assert.isTrue(moment.after(complaint.getMoment()));
-		this.checkRefPrincipalHandles(complaint);
-
-		report.setMoment(moment);
-		result = this.reportRepository.save(report);
-
-		this.complaintService.addReport(complaint, result);
-
-		return result;
+	public Report save(final Report report) { // Updating
+		return this.save(null, report);
 	}
 
-	public Report update(final Report report) {
-		Assert.isTrue(this.reportRepository.exists(report.getId()));
-		Assert.isTrue(!report.getFinalMode());
+	public Report save(Complaint complaint, final Report report) { // Creating
+		Assert.notNull(report);
 
+		boolean isUpdating;
 		Report result;
-		Complaint complaintInvolved;
+		Date moment;
 
-		complaintInvolved = this.complaintService.findByReportId(report.getId());
-		Assert.isTrue(report.getMoment().after(complaintInvolved.getMoment()));
-		this.checkRefPrincipalHandles(complaintInvolved);
+		isUpdating = this.reportRepository.exists(report.getId());
 
+		if (isUpdating) {
+			Assert.isTrue(!report.getFinalMode());
+			complaint = this.complaintService.findByReportId(report.getId());
+		} else {
+			moment = new Date(System.currentTimeMillis() - 1);
+			report.setMoment(moment);
+		}
+
+		Assert.notNull(complaint);
+		Assert.isTrue(report.getMoment().after(complaint.getMoment()));
+		this.checkManagerReferee(complaint);
 		result = this.reportRepository.save(report);
+
+		if (!isUpdating)
+			this.complaintService.addReport(complaint, result);
 
 		return result;
 	}
@@ -95,7 +91,7 @@ public class ReportService {
 		Complaint complaintInvolved;
 
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
-		this.checkRefPrincipalHandles(complaintInvolved);
+		this.checkManagerReferee(complaintInvolved);
 
 		this.complaintService.removeReport(complaintInvolved);
 		this.reportRepository.delete(report);
@@ -116,7 +112,6 @@ public class ReportService {
 		Report result;
 
 		result = this.reportRepository.findByNoteId(noteId);
-		Assert.notNull(result);
 
 		return result;
 	}
@@ -125,7 +120,7 @@ public class ReportService {
 		report.getNotes().add(note);
 	}
 
-	private void checkRefPrincipalHandles(final Complaint complaintInvolved) {
+	private void checkManagerReferee(final Complaint complaintInvolved) {
 		Referee principal;
 
 		principal = this.refereeService.findByPrincipal();

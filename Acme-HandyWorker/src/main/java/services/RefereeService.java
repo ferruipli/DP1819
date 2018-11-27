@@ -64,7 +64,9 @@ public class RefereeService {
 	}
 
 	public Referee save(final Referee referee) {
+		Assert.notNull(referee);
 		this.utilityService.checkEmailActors(referee);
+		this.checkOwnerAccount(referee);
 
 		Referee result;
 
@@ -118,5 +120,12 @@ public class RefereeService {
 		result = this.refereeRepository.findByUserAccount(userAccountId);
 
 		return result;
+	}
+
+	private void checkOwnerAccount(final Referee referee) {
+		int principalId;
+
+		principalId = LoginService.getPrincipal().getId();
+		Assert.isTrue(!this.refereeRepository.exists(referee.getId()) || principalId == referee.getUserAccount().getId());
 	}
 }

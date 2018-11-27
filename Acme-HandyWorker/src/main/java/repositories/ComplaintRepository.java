@@ -18,7 +18,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c where c not in (select c2 from Referee r join r.complaints c2)")
 	Collection<Complaint> findNotSelfAssigned();
 
-	@Query("select c from HandyWorker hw join hw.applications a join a.fixUpTask.complaints c where hw.id = 9039 and a.status = 'ACCEPTED'")
+	@Query("select c from HandyWorker hw join hw.applications a join a.fixUpTask.complaints c where hw.id = ?1 and a.status = 'ACCEPTED'")
 	Collection<Complaint> findInvolvedByHandyWorkerId(int handyWorkerId);
 
 	@Query("select c from Complaint c where c.report.id = ?1")

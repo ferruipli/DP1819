@@ -124,12 +124,10 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public FixUpTask findByPhase(final Phase phase) {
+	public FixUpTask findByPhaseId(final int phaseId) {
 		FixUpTask result;
 
-		Assert.isTrue(phase.getId() != 0);
-		result = this.fixUpTaskRepository.findByPhase(phase);
-		Assert.notNull(result);
+		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
 
 		return result;
 	}

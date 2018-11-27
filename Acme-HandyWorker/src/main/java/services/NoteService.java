@@ -59,38 +59,35 @@ public class NoteService {
 		return result;
 	}
 
-	public void writeComment(final Note note) {
-		Assert.isTrue(this.noteRepository.exists(note.getId()));
-
-		Report report;
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
-		report = this.reportService.findByNoteId(note.getId());
-		Assert.isTrue(moment.after(report.getMoment()));
-		this.checkUsersAndComments(report, note);
-
-		note.setMoment(moment);
-		this.noteRepository.save(note);
+	public Note save(final Note note) { // Updating
+		return this.save(null, note);
 	}
 
-	public Note save(final int reportId, final Note note) {
-		Assert.isTrue(!this.noteRepository.exists(note.getId()));
+	public Note save(Report report, final Note note) { // Creating
+		Assert.notNull(note);
 
 		Note result;
-		Report report;
 		Date moment;
+		boolean isUpdating;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		isUpdating = this.noteRepository.exists(note.getId());
 
-		report = this.reportService.findOne(reportId);
+		if (isUpdating)
+			report = this.reportService.findByNoteId(note.getId());
+		else {
+			moment = new Date(System.currentTimeMillis() - 1);
+			note.setMoment(moment);
+		}
+
+		Assert.notNull(report);
 		Assert.isTrue(report.getFinalMode());
-		Assert.isTrue(moment.after(report.getMoment()));
+		Assert.isTrue(note.getMoment().after(report.getMoment()));
 		this.checkUsersAndComments(report, note);
 
-		note.setMoment(moment);
 		result = this.noteRepository.save(note);
-		this.reportService.addNote(report, result);
+
+		if (!isUpdating)
+			this.reportService.addNote(report, result);
 
 		return result;
 	}
