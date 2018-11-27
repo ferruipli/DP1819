@@ -74,7 +74,7 @@ public class ActorServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void isSuspicious() {
+	public void testIsSuspicious() {
 		super.authenticate("customer1");
 		Actor sender;
 		Actor recipient;
@@ -84,6 +84,27 @@ public class ActorServiceTest extends AbstractTest {
 		Message message;
 		message = this.messageService.create();
 		message.setBody("Hola éste es el cuerpo del mensaje, viagra");
+		message.getRecipients().add(recipient);
+		message.setSender(sender);
+		message.setSubject("buenas tardes");
+		message.setPriority("NEUTRAL");
+
+		message = this.messageService.save(message);
+		Assert.isTrue(sender.getIsSuspicious());
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsSuspiciousError() {
+		super.authenticate("customer1");
+		Actor sender;
+		Actor recipient;
+		sender = this.actorService.findPrincipal();
+		recipient = this.actorService.findOne(super.getEntityId("customer2"));
+		Assert.isTrue(!(sender.getIsSuspicious()));
+		Message message;
+		message = this.messageService.create();
+		message.setBody("Hola éste es el cuerpo del mensaje");
 		message.getRecipients().add(recipient);
 		message.setSender(sender);
 		message.setSubject("buenas tardes");
