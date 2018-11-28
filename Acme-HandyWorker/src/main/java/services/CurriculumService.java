@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -50,10 +49,10 @@ public class CurriculumService {
 		result = new Curriculum();
 
 		result.setTicker(this.utilityService.generateValidTicker());
-		result.setEducationRecords(Collections.<EducationRecord> emptySet());
-		result.setProfessionalRecords(Collections.<ProfessionalRecord> emptySet());
-		result.setEndorserRecords(Collections.<EndorserRecord> emptySet());
-		result.setMiscellaneousRecords(Collections.<MiscellaneousRecord> emptySet());
+		result.setEducationRecords(new HashSet<EducationRecord>());
+		result.setProfessionalRecords(new HashSet<ProfessionalRecord>());
+		result.setEndorserRecords(new HashSet<EndorserRecord>());
+		result.setMiscellaneousRecords(new HashSet<MiscellaneousRecord>());
 
 		return result;
 	}
@@ -132,51 +131,27 @@ public class CurriculumService {
 	}
 
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
-		Collection<EducationRecord> aux;
-
-		aux = new HashSet<>(curriculum.getEducationRecords());
-		aux.add(educationRecord);
-		curriculum.setEducationRecords(aux);
+		curriculum.getEducationRecords().add(educationRecord);
 	}
 
 	protected void removeEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
-		Collection<EducationRecord> aux;
-
-		aux = new HashSet<>(curriculum.getEducationRecords());
-		aux.remove(educationRecord);
-		curriculum.setEducationRecords(aux);
+		curriculum.getEducationRecords().remove(educationRecord);
 	}
 
 	protected void addEndorserRecord(final Curriculum curriculum, final EndorserRecord endorserRecord) {
-		Collection<EndorserRecord> aux;
-
-		aux = new HashSet<>(curriculum.getEndorserRecords());
-		aux.add(endorserRecord);
-		curriculum.setEndorserRecords(aux);
+		curriculum.getEndorserRecords().add(endorserRecord);
 	}
 
 	protected void removeEndorserRecord(final Curriculum curriculum, final EndorserRecord endorserRecord) {
-		Collection<EndorserRecord> aux;
-
-		aux = new HashSet<>(curriculum.getEndorserRecords());
-		aux.remove(endorserRecord);
-		curriculum.setEndorserRecords(aux);
+		curriculum.getEndorserRecords().remove(endorserRecord);
 	}
 
 	protected void addMiscellaneousRecord(final Curriculum curriculum, final MiscellaneousRecord miscellaneousRecord) {
-		Collection<MiscellaneousRecord> aux;
-
-		aux = new HashSet<>(curriculum.getMiscellaneousRecords());
-		aux.add(miscellaneousRecord);
-		curriculum.setMiscellaneousRecords(aux);
+		curriculum.getMiscellaneousRecords().add(miscellaneousRecord);
 	}
 
 	protected void removeMiscellaneousRecord(final Curriculum curriculum, final MiscellaneousRecord miscellaneousRecord) {
-		Collection<MiscellaneousRecord> aux;
-
-		aux = new HashSet<>(curriculum.getMiscellaneousRecords());
-		aux.remove(miscellaneousRecord);
-		curriculum.setMiscellaneousRecords(aux);
+		curriculum.getMiscellaneousRecords().remove(miscellaneousRecord);
 	}
 
 	protected void addPersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
@@ -184,19 +159,11 @@ public class CurriculumService {
 	}
 
 	protected void addProfessionalRecord(final Curriculum curriculum, final ProfessionalRecord professionalRecord) {
-		Collection<ProfessionalRecord> aux;
-
-		aux = new HashSet<>(curriculum.getProfessionalRecords());
-		aux.add(professionalRecord);
-		curriculum.setProfessionalRecords(aux);
+		curriculum.getProfessionalRecords().add(professionalRecord);
 	}
 
 	protected void removeProfessionalRecord(final Curriculum curriculum, final ProfessionalRecord professionalRecord) {
-		Collection<ProfessionalRecord> aux;
-
-		aux = new HashSet<>(curriculum.getProfessionalRecords());
-		aux.remove(professionalRecord);
-		curriculum.setProfessionalRecords(aux);
+		curriculum.getProfessionalRecords().remove(professionalRecord);
 	}
 
 }
