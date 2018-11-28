@@ -106,7 +106,6 @@ public class BoxServiceTest extends AbstractTest {
 		Actor actor;
 		actor = this.actorService.findPrincipal();
 		boxs = this.boxService.findAllBoxByActor(actor);
-		//System.out.println(boxs);
 		Assert.notNull(boxs);
 		super.unauthenticate();
 	}
@@ -118,7 +117,6 @@ public class BoxServiceTest extends AbstractTest {
 		Message message;
 		message = this.messageService.findOne(super.getEntityId("message2"));
 		boxs = this.boxService.boxWithMessage(message);
-		//System.out.println(boxs);
 		Assert.notNull(boxs);
 		super.unauthenticate();
 	}

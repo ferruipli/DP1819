@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -41,12 +40,14 @@ public class BoxService {
 
 	public Box create() {
 		Box result;
-		List<Message> messages;
-		final Actor actor = this.actorService.findPrincipal();
-		Assert.notNull(actor);
+		Collection<Message> messages;
+		final Actor actor;
 
 		result = new Box();
 		messages = new ArrayList<Message>();
+		actor = this.actorService.findPrincipal();
+
+		Assert.notNull(actor);
 
 		result.setMessages(messages);
 		result.setActor(actor);
@@ -80,7 +81,9 @@ public class BoxService {
 		Assert.notNull(box);
 
 		Box result;
-		final Actor actor = this.actorService.findPrincipal();
+		final Actor actor;
+
+		actor = this.actorService.findPrincipal();
 
 		Assert.notNull(actor);
 
@@ -97,7 +100,8 @@ public class BoxService {
 	public void delete(final Box box) {
 		Assert.notNull(box);
 
-		final Actor actor = this.actorService.findPrincipal();
+		final Actor actor;
+		actor = this.actorService.findPrincipal();
 
 		Assert.isTrue(box.getActor().equals(actor));
 		Assert.isTrue(box.getId() != 0);
@@ -118,17 +122,17 @@ public class BoxService {
 		Collection<Message> messages;
 
 		res = new ArrayList<Box>();
-		messages = new ArrayList<>();
+		messages = new ArrayList<Message>();
 
 		inbox = new Box();
 		outbox = new Box();
 		trashbox = new Box();
 		spambox = new Box();
 
-		inbox.setName("In box");
-		outbox.setName("Out box");
-		trashbox.setName("Trash box");
-		spambox.setName("Spam box");
+		inbox.setName("in box");
+		outbox.setName("out box");
+		trashbox.setName("trash box");
+		spambox.setName("spam box");
 
 		inbox.setIsSystemBox(true);
 		outbox.setIsSystemBox(true);
