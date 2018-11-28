@@ -38,23 +38,8 @@ public class CreditCardServiceTest extends AbstractTest {
 		final CreditCard creditCard;
 		final CreditCard creditCardSaved;
 
-		creditCard = this.creditCardService.findOne(super.getEntityId("creditCard1"));
-
-		creditCard.setCvvCode(256);
+		creditCard = this.creditCardService.create();
 		creditCardSaved = this.creditCardService.save(creditCard);
-
-		Assert.notNull(creditCardSaved);
-	}
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeSave() {
-		final CreditCard creditCard;
-		final CreditCard creditCardSaved;
-
-		creditCard = this.creditCardService.findOne(super.getEntityId("creditCard2"));
-
-		creditCard.setCvvCode(6666666);
-		creditCardSaved = this.creditCardService.save(creditCard);
-
 		Assert.notNull(creditCardSaved);
 	}
 

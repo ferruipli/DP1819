@@ -100,6 +100,7 @@ public class FinderService {
 
 	//Other business methods-------------------------------------------
 	public Collection<FixUpTask> search(final Finder finder) {
+		HandyWorker principal;
 		final int maxFinderResults;
 		final int timeCacheFinderResults;
 		final Pageable pageable;
@@ -113,7 +114,10 @@ public class FinderService {
 		final Page<FixUpTask> pageFixUpTasks;
 		final Collection<FixUpTask> collectionFixUpTask;
 
+		principal = this.handyWorkerService.findByPrincipal();
 		timeCacheFinderResults = this.customisationService.find().getTimeCachedFinderResults();
+
+		Assert.isTrue(principal.getFinder().equals(finder));
 
 		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
 
@@ -126,14 +130,6 @@ public class FinderService {
 			endDate = this.checkEndDate(finder);
 			warranty = this.checkWarranty(finder);
 			category = this.checkCategory(finder);
-
-			System.out.println(keyWord);
-			System.out.println(startPrice);
-			System.out.println(endPrice);
-			System.out.println(endDate);
-			System.out.println(startDate);
-			System.out.println(warranty);
-			System.out.println(category);
 
 			pageFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 

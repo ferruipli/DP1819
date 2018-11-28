@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CreditCardRepository;
+import domain.Application;
 import domain.CreditCard;
+import domain.Sponsorship;
 
 @Service
 @Transactional
@@ -39,8 +41,7 @@ public class CreditCardService {
 	}
 
 	/*
-	 * Se va a poder modificar ya que como sponsorship siempre tiene que tener creditCard no se puede borrar
-	 * En el caso que quiera cambiar de tarjeta de credito se editará
+	 * No se va a poder editaar una creditCard, no lo contempla los requisitos
 	 */
 	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
@@ -71,12 +72,34 @@ public class CreditCardService {
 
 		return result;
 	}
-	/*
-	 * No se puede borrar un creditCard porque esta relacionado con Application y sponsorship
-	 * Sponsorship siempre va a tener un creditcard, por lo tanto no se va a poder borrar
-	 * Y application si tiene creditcard es porque esta aceptada y en ese caso es obligatorio la creditcard
-	 */
+	public void delete(final CreditCard creditCard) {
+		Assert.isTrue(this.creditCardRepository.exists(creditCard.getId()));
+		Collection<Sponsorship> creditCardinSponsorship;
+		Collection<Application> creditCardinApplication;
 
+		creditCardinSponsorship = this.findSponsorshipByCreditCard(creditCard.getId());
+		creditCardinApplication = this.findApplicationByCreditCard(creditCard.getId());
+
+		Assert.isTrue(creditCardinApplication.isEmpty());
+		Assert.isTrue(creditCardinSponsorship.isEmpty());
+
+		this.creditCardRepository.delete(creditCard);
+	}
 	//Other business methods-------------------------------------------
+
+	private Collection<Sponsorship> findSponsorshipByCreditCard(final int id) {
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = this.creditCardRepository.findSponsorshipByCreditCard(id);
+
+		return sponsorships;
+	}
+	private Collection<Application> findApplicationByCreditCard(final int id) {
+		Collection<Application> sponsorships;
+
+		sponsorships = this.creditCardRepository.findApplicationByCreditCard(id);
+
+		return sponsorships;
+	}
 
 }

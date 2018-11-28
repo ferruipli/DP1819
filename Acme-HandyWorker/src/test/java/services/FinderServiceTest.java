@@ -95,14 +95,25 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finder);
 	}
 
-	@Test
-	public void testSearch() {
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeSearch() {
 		super.authenticate("handyworker1");
 		Finder finder;
 		Collection<FixUpTask> fixUpTasks;
-		finder = this.finderService.findOne(super.getEntityId("finder2"));
+		finder = this.finderService.findOne(super.getEntityId("finder6"));
 		fixUpTasks = this.finderService.search(finder);
-		System.out.println(fixUpTasks);
+		Assert.notNull(fixUpTasks);
+		super.unauthenticate();
+
+	}
+
+	@Test
+	public void testSearch() {
+		super.authenticate("handyworker6");
+		Finder finder;
+		Collection<FixUpTask> fixUpTasks;
+		finder = this.finderService.findOne(super.getEntityId("finder6"));
+		fixUpTasks = this.finderService.search(finder);
 		Assert.notNull(fixUpTasks);
 		super.unauthenticate();
 
