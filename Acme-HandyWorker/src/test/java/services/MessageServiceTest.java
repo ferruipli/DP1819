@@ -96,17 +96,6 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void deleteMessageFromBoxTest() {
-		super.authenticate("customer1");
-		final Message message;
-		Box box;
-		message = this.messageService.findOne(super.getEntityId("message1"));
-		box = this.boxService.findOne(super.getEntityId("box5"));
-		this.messageService.deleteMessageFromBox(box, message);
-		super.unauthenticate();
-	}
-
-	@Test
 	public void moveMessageFromBoxToBoxTest() {
 		super.authenticate("handyworker1");
 		final Message message;

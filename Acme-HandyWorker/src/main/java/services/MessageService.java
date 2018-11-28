@@ -51,7 +51,7 @@ public class MessageService {
 
 	public Message create() {
 		Message result;
-		List<Actor> recipients;
+		Collection<Actor> recipients;
 		final Actor sender = this.actorService.findPrincipal();
 		Date sendMoment;
 		Assert.notNull(sender);
@@ -129,13 +129,14 @@ public class MessageService {
 		Assert.isTrue((message.getSender().equals(actor)) || (message.getRecipients().contains(actor)));
 		final Box trashBoxActor = this.boxService.searchBox(actor, "trash box");
 		final Collection<Message> messagesTrashBox = trashBoxActor.getMessages();
-		if (messagesTrashBox.contains(message))
-			this.deleteTrashBoxMessage(message, actor);
-
-		if (!(messagesTrashBox.contains(message))) {
+		if (messagesTrashBox.contains(message)) {
+			messagesTrashBox.remove(message);
+			this.deleteMessageBD(message, actor);
+		} else {
 			this.deleteMessageAllBoxActor(actor, message);
 			trashBoxActor.getMessages().add(message);
 		}
+
 	}
 
 	// Other business methods -------------------------------------------------
@@ -156,22 +157,9 @@ public class MessageService {
 				b.getMessages().remove(message);
 	}
 
-	private void deleteTrashBoxMessage(final Message message, final Actor actor) {
-		this.deleteMessageAllBoxActor(actor, message);
+	private void deleteMessageBD(final Message message, final Actor actor) {
 		if (this.boxService.boxWithMessage(message).isEmpty())
 			this.messageRepository.delete(message);
-	}
-
-	public void deleteMessageFromBox(final Box box, final Message message) {
-		final Actor actor = this.actorService.findPrincipal();
-
-		Assert.isTrue(box.getActor().equals(actor));
-		Assert.isTrue(!(box.getIsSystemBox()));
-		Assert.isTrue(box.getMessages().contains(message));
-		Assert.notNull(message);
-		Assert.notNull(box);
-
-		box.getMessages().remove(message);
 	}
 
 	public void moveMessageFromBoxToBox(final Box boxInicio, final Box boxFin, final Message message) {
@@ -185,19 +173,6 @@ public class MessageService {
 		Assert.notNull(boxFin);
 
 		boxInicio.getMessages().remove(message);
-		boxFin.getMessages().add(message);
-	}
-
-	public void copyMessageFromBoxToBox(final Box boxInicio, final Box boxFin, final Message message) {
-		final Actor actor = this.actorService.findPrincipal();
-
-		Assert.isTrue((boxInicio.getActor().equals(actor)) && (boxFin.getActor().equals(actor)));
-		Assert.isTrue(boxInicio.getMessages().contains(message));
-		Assert.isTrue(!(boxFin.getMessages().contains(message)));
-		Assert.notNull(message);
-		Assert.notNull(boxInicio);
-		Assert.notNull(boxFin);
-
 		boxFin.getMessages().add(message);
 	}
 
@@ -237,7 +212,8 @@ public class MessageService {
 
 		messageHandyWorker.setSender(systemActor);
 		messageHandyWorker.setSubject("Status changed");
-		messageHandyWorker.setBody("The status for application for " + application.getId() + " is change to " + statusEn + " status. \n El estado de la solicitud " + application.getId() + " ha cambiado a estado" + statusEs);
+		messageHandyWorker.setBody("The status for application  assigned to fix-up task whose ticker is " + application.getFixUpTask().getTicker() + " is change to " + statusEn
+			+ " status.\nEl estado de la solicitud asignada a la tarea de reparación cuyo ticker es " + application.getFixUpTask().getTicker() + " ha cambiado a estado" + statusEs + ".");
 		messageHandyWorker.setPriority("HIGH");
 		Date sendMoment;
 		sendMoment = new Date();
@@ -252,7 +228,8 @@ public class MessageService {
 
 		messageCustomer.setSender(systemActor);
 		messageCustomer.setSubject("Status changed");
-		messageCustomer.setBody("The status for application for " + application.getId() + " is change to " + statusEn + " status. \n El estado de la solicitud " + application.getId() + " ha cambiado a estado" + statusEs);
+		messageCustomer.setBody("The status for application  assigned to fix-up task whose ticker is " + application.getFixUpTask().getTicker() + " is change to " + statusEn
+			+ " status.\nEl estado de la solicitud asignada a la tarea de reparación cuyo ticker es " + application.getFixUpTask().getTicker() + " ha cambiado a estado " + statusEs + ".");
 		messageCustomer.setPriority("HIGH");
 		Date sendMoment2;
 		sendMoment2 = new Date();
