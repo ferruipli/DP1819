@@ -32,7 +32,6 @@ public class ApplicationServiceTest extends AbstractTest {
 
 
 	// Test ------------------------------------------------
-
 	@Test
 	public void testCreate() {
 		super.authenticate("handyWorker1");

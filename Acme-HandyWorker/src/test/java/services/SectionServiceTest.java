@@ -53,7 +53,7 @@ public class SectionServiceTest extends AbstractTest {
 	//Modificar un finder que no el no es el propietario
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeSave() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker3");
 		final Section section;
 		final Section sectionSaved;
 

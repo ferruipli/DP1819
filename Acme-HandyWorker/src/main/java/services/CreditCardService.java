@@ -38,8 +38,13 @@ public class CreditCardService {
 		return result;
 	}
 
+	/*
+	 * Se va a poder modificar ya que como sponsorship siempre tiene que tener creditCard no se puede borrar
+	 * En el caso que quiera cambiar de tarjeta de credito se editará
+	 */
 	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
+		Assert.isTrue(creditCard.getId() == 0);
 
 		CreditCard result;
 
@@ -66,14 +71,12 @@ public class CreditCardService {
 
 		return result;
 	}
+	/*
+	 * No se puede borrar un creditCard porque esta relacionado con Application y sponsorship
+	 * Sponsorship siempre va a tener un creditcard, por lo tanto no se va a poder borrar
+	 * Y application si tiene creditcard es porque esta aceptada y en ese caso es obligatorio la creditcard
+	 */
 
-	public void delete(final CreditCard creditCard) {
-		Assert.isTrue(creditCard.getId() != 0);
-		Assert.notNull(creditCard);
-		Assert.isTrue(this.creditCardRepository.exists(creditCard.getId()));
-
-		this.creditCardRepository.delete(creditCard);
-	}
 	//Other business methods-------------------------------------------
 
 }

@@ -57,14 +57,6 @@ public class CreditCardServiceTest extends AbstractTest {
 
 		Assert.notNull(creditCardSaved);
 	}
-	@Test
-	public void testDelete() {
-
-		final CreditCard creditCard;
-		creditCard = this.creditCardService.findOne(super.getEntityId("creditCard1"));
-		this.creditCardService.delete(creditCard);
-
-	}
 
 	@Test
 	public void testFindAll() {

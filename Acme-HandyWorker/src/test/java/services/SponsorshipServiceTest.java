@@ -68,7 +68,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	//URL NO VALIDA
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void testNegativeSave1() {
 		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
@@ -88,7 +88,6 @@ public class SponsorshipServiceTest extends AbstractTest {
 		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
-		System.out.println(sponsorship);
 		this.sponsorshipService.delete(sponsorship);
 		super.unauthenticate();
 

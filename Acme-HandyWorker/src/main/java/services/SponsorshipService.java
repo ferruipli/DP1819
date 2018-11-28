@@ -125,15 +125,21 @@ public class SponsorshipService {
 
 	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
 		Tutorial tutorial;
+		Collection<Sponsorship> sponsorships;
+
 		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
-		tutorial.getSponsorShips().remove(sponsorship);
-		this.tutorialService.save(tutorial);
+		sponsorships = tutorial.getSponsorShips();
+		sponsorships.remove(sponsorship);
+		tutorial.setSponsorShips(sponsorships);
 	}
 	public void addSponsorShipToTutorial(final Sponsorship sponsorship) {
 		Tutorial tutorial;
+		Collection<Sponsorship> sponsorships;
+
 		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
-		tutorial.getSponsorShips().add(sponsorship);
-		this.tutorialService.save(tutorial);
+		sponsorships = tutorial.getSponsorShips();
+		sponsorships.add(sponsorship);
+		tutorial.setSponsorShips(sponsorships);
 	}
 
 }

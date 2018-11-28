@@ -21,7 +21,7 @@ public interface ApplicationRepository extends JpaRepository<domain.Application,
 	@Query("select (sum(case when a.status='REJECTED' then 1.0 else 0 end)/count(*)) from Application a")
 	Double findRatioRejectedApplications();
 	//Req 12.5.8
-	@Query("select a from Application a where a.status='PENDING' and a.registerMoment <CURRENT_TIMESTAMP")
+	@Query("select (sum(case when ((a.status='PENDING') and (a.registerMoment<CURRENT_TIMESTAMP))then 1.0 else 0 end)/count(*))from Application a")
 	Double findRatioPendingApplicationsNotChangeStatus();
 
 }

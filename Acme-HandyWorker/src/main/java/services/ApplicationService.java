@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
 import domain.Application;
-import domain.CreditCard;
 import domain.FixUpTask;
 import domain.HandyWorker;
 
@@ -138,9 +137,7 @@ public class ApplicationService {
 		fixUpTask.getApplications().remove(application);
 		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
 	}
-	public void enterCreditCard(final Application application, final CreditCard creditCard) {
-		application.setCreditCard(creditCard);
-	}
+
 	//Req 12.5.4
 	public Double[] findDataOfApplicationPrice() {
 		Double[] result;
