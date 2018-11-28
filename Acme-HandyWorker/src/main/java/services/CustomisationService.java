@@ -49,6 +49,7 @@ public class CustomisationService {
 		Customisation[] all;
 
 		all = this.customisationRepository.find();
+		Assert.isTrue(all.length == 1);
 
 		result = all[0];
 

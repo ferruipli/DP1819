@@ -94,7 +94,7 @@ public class CategoryTranslationService {
 		return languages.contains(categoryTranslation.getLanguage());
 	}
 
-	private Collection<String> findLanguages() {
+	public Collection<String> findLanguages() {
 		Collection<String> languages;
 		int n;
 

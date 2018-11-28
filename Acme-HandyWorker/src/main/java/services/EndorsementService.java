@@ -72,11 +72,12 @@ public class EndorsementService {
 		boolean is_role;
 		Date moment;
 		Endorsement result;
-		Endorsable sender;
+		Endorsable sender, recipient;
 		final Collection<Customer> customers;
 		final Collection<HandyWorker> handyWorkers;
 
 		sender = endorsement.getSender();
+		recipient = endorsement.getRecipient();
 
 		is_role = this.playedRole(sender, "CUSTOMER");
 
@@ -84,18 +85,23 @@ public class EndorsementService {
 			handyWorkers = this.handyWorkerService.findEndorsableHandyWorkers(sender.getId());
 
 			Assert.isTrue(handyWorkers != null && handyWorkers.size() > 0);
-			Assert.isTrue(handyWorkers.contains(endorsement.getRecipient()));
+			Assert.isTrue(handyWorkers.contains(recipient));
 		} else {
 			customers = this.customerService.findEndorsableCustomers(sender.getId());
 
 			Assert.isTrue(customers != null && customers.size() > 0);
-			Assert.isTrue(customers.contains(endorsement.getRecipient()));
+			Assert.isTrue(customers.contains(recipient));
 		}
 
 		moment = new Date(System.currentTimeMillis() - 1);
-
 		endorsement.setMoment(moment);
+
 		result = this.endorsementRepository.save(endorsement);
+
+		if (endorsement.getId() != 0 && recipient.getScore() != null)
+			// Si un endorsable modifica el atributo endorsement::comments, entonces
+			// volver a recalcular el atributo Endorsable::score del recipient
+			this.endorsableService.computeScore(recipient);
 
 		return result;
 	}

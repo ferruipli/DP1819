@@ -58,7 +58,6 @@ public class EndorsementServiceTest extends AbstractTest {
 		super.authenticate("customer1");
 
 		Collection<Endorsement> all;
-		final int id = super.getEntityId("customer1");
 
 		all = this.endorsementService.findSentEndorsements();
 
@@ -71,7 +70,6 @@ public class EndorsementServiceTest extends AbstractTest {
 	@Test
 	public void testFindReceivedEndorsements() {
 		super.authenticate("customer1");
-		final int id = super.getEntityId("customer1");
 
 		Collection<Endorsement> all;
 

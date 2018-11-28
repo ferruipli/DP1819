@@ -64,7 +64,7 @@ public class EndorsableService {
 
 		score = (p - n) / this.max(p, n);
 
-		Assert.isTrue(score >= -1.0 && score <= 1.0);
+		Assert.isTrue(score >= -1.00 && score <= 1.00);
 
 		endorsable.setScore(score);
 	}
@@ -118,7 +118,7 @@ public class EndorsableService {
 			for (final String word : words)
 				if (positive_ls.contains(word.toLowerCase()))
 					positive++;
-				else if (negative_ls.contains(word))
+				else if (negative_ls.contains(word.toLowerCase()))
 					negative++;
 
 		}

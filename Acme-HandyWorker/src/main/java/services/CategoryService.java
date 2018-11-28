@@ -20,7 +20,7 @@ import domain.CategoryTranslation;
 @Transactional
 public class CategoryService {
 
-	final int							IDIOMAS_SOPORTADOS	= 2;
+	//final int							IDIOMAS_SOPORTADOS	= 2;
 
 	// Managed repository ------------------------------
 	@Autowired
@@ -66,11 +66,14 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
-		Assert.notNull(category.getParent());
-		Assert.isTrue(category.getCategoriesTranslations().size() == this.IDIOMAS_SOPORTADOS);
+		Assert.isTrue(category.getCategoriesTranslations().size() == this.categoryTranslationService.findLanguages().size());
 		Assert.isTrue(this.validLanguages(category));
 
-		final Category result, parent_category, old_category, old_parent_category;
+		Category root, result, parent_category, old_category, old_parent_category;
+
+		root = this.findRootCategory();
+
+		Assert.isTrue(category.getParent() != null || category.equals(root));
 
 		result = this.categoryRepository.save(category);
 
@@ -156,15 +159,15 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
-	/*
-	 * private Category findRootCategory() {
-	 * Category result;
-	 * 
-	 * result = this.categoryRepository.findRootCategory();
-	 * 
-	 * return result;
-	 * }
-	 */
+
+	private Category findRootCategory() {
+		Category result;
+
+		result = this.categoryRepository.findRootCategory();
+
+		return result;
+	}
+
 	private Category findOneToEdit(final int categoryId) {
 		Category result;
 
@@ -172,24 +175,22 @@ public class CategoryService {
 
 		return result;
 	}
-	//TODO: No se abstrae de los idiomas soportados pero funciona correctamente.
+
 	private boolean validLanguages(final Category category) {
 		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;
 		boolean result;
-		final String[] languages;
+		final Collection<String> languages;
 		Integer valor;
-		final int n;
 
 		map = new HashMap<String, Integer>();
-		languages = CategoryTranslationService.LANGUAGES;
+		languages = this.categoryTranslationService.findLanguages();
 		categoriesTranslations = category.getCategoriesTranslations();
 		result = true;
 		valor = 0;
-		n = languages.length;
 
-		for (int i = 0; i < n; i++)
-			map.put(languages[i], 0);
+		for (final String s : languages)
+			map.put(s, 0);
 
 		for (final CategoryTranslation ct : categoriesTranslations) {
 			valor = map.get(ct.getLanguage());
