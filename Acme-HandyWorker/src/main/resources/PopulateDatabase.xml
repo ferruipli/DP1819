@@ -2324,34 +2324,37 @@
 	</bean>
 
 	<!-- Finder -->
-
+	
+	
+	
 	<bean id="finder1" class="domain.Finder">
-		<property name="keyword" value="keyword 1" />
-		<property name="startPrice" value="45.50" />
-		<property name="endPrice" value="220.12" />
-		<property name="startDate" value="2018/10/05" />
-		<property name="endDate" value="2012/10/05" />
+		<property name="keyword" value="Address" />
+		<property name="startPrice" value="0.50" />
+		<property name="endPrice" value="100000.12" />
+		<property name="startDate" value="2000/10/05" />
+		<property name="endDate" value="2020/10/05" />
 		<property name="category" value="category" />
 		<property name="warranty" value="warranty" />
+		<property name="lastUpdate" value="2018/11/21 21:21" />
 		<property name="fixUpTasks">
 			<list>
 				<null></null>
 			</list>
 		</property>
 	</bean>
-
+	
+	
+	
 	<bean id="finder2" class="domain.Finder">
-		<property name="category" value="Limpieza" />
+		<property name="startDate" value="2000/10/05" />
+		<property name="endDate" value="2020/10/05" />
 		<property name="lastUpdate" value="2018/11/21 21:21" />
 		<property name="fixUpTasks">
 			<list>
-				<ref bean="fixUpTask2" />
-				<ref bean="fixUpTask7" />
-				<ref bean="fixUpTask8" />
+				<null></null>
 			</list>
 		</property>
 	</bean>
-
 	<bean id="finder3" class="domain.Finder">
 		<property name="warranty" value="title y" />
 		<property name="lastUpdate" value="2018/11/21 15:31" />
@@ -2975,21 +2978,17 @@
 	<bean id="note1" class="domain.Note">
 		<property name="moment" value="2017/03/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 1" />
-		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="2012/03/010 11:11" />
 		<property name="commentCustomer" value="commentCustomer 2" />
 		<property name="commentReferee" value="commentReferee 2" />
-		<property name="isCommentedByCustomer" value="true" />
-		<property name="isCommentedByReferee" value="true" />
 	</bean>
 
 	<bean id="note3" class="domain.Note">
 		<property name="moment" value="2018/07/10 13:30" />
 		<property name="commentHandyWorker" value="commentHandyWorker 3" />
-		<property name="isCommentedByHandyWorker" value="true" />
 	</bean>
 
 	<bean id="note4" class="domain.Note">
@@ -2997,15 +2996,11 @@
 		<property name="commentCustomer" value="commentCustomer 4" />
 		<property name="commentHandyWorker" value="commentHandyWorker 4" />
 		<property name="commentReferee" value="commentReferee 4" />
-		<property name="isCommentedByCustomer" value="true" />
-		<property name="isCommentedByHandyWorker" value="true" />
-		<property name="isCommentedByReferee" value="true" />
 	</bean>
 
 	<bean id="note5" class="domain.Note">
 		<property name="moment" value="2017/07/08 10:00" />
 		<property name="commentCustomer" value="commentCustomer 5" />
-		<property name="isCommentedByCustomer" value="true" />
 	</bean>
 
 	<!-- PersonalRecords -->

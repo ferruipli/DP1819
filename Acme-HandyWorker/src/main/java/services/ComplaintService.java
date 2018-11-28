@@ -61,6 +61,7 @@ public class ComplaintService {
 	}
 
 	public Complaint save(final Complaint complaint) {
+		Assert.notNull(complaint);
 		Assert.isTrue(!this.complaintRepository.exists(complaint.getId()));
 
 		Complaint result;
@@ -96,7 +97,6 @@ public class ComplaintService {
 		Customer principal;
 
 		principal = this.customerService.findByPrincipal();
-		Assert.notNull(principal);
 		result = this.complaintRepository.findByCustomerPrincipal(principal.getId());
 		Assert.notNull(result);
 
@@ -134,7 +134,7 @@ public class ComplaintService {
 		return result;
 	}
 
-	public Complaint findByReportId(final int reportId) {
+	protected Complaint findByReportId(final int reportId) {
 		Complaint result;
 
 		result = this.complaintRepository.findByReportId(reportId);

@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -25,6 +26,9 @@ public class ActorServiceTest extends AbstractTest {
 	// Service under test ---------------------------------
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private MessageService	messageService;
 
 
 	// Tests ----------------------------------------------
@@ -43,7 +47,72 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor;
 		actor = this.actorService.findOne(super.getEntityId("customer2"));
 		Assert.notNull(actor);
-		System.out.println(actor);
+	}
+
+	@Test
+	public void testIsBanner() {
+		super.authenticate("system");
+		Actor actor;
+		actor = this.actorService.findOne(super.getEntityId("customer2"));
+		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
+		this.actorService.isBanner(actor);
+		Assert.isTrue(actor.getUserAccount().getIsBanned());
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testNotBanner() {
+		super.authenticate("system");
+		Actor actor;
+		actor = this.actorService.findOne(super.getEntityId("customer2"));
+		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
+		this.actorService.isBanner(actor);
+		Assert.isTrue(actor.getUserAccount().getIsBanned());
+		this.actorService.notBanner(actor);
+		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testIsSuspicious() {
+		super.authenticate("customer1");
+		Actor sender;
+		Actor recipient;
+		sender = this.actorService.findPrincipal();
+		recipient = this.actorService.findOne(super.getEntityId("customer2"));
+		Assert.isTrue(!(sender.getIsSuspicious()));
+		Message message;
+		message = this.messageService.create();
+		message.setBody("Hola éste es el cuerpo del mensaje, viagra");
+		message.getRecipients().add(recipient);
+		message.setSender(sender);
+		message.setSubject("buenas tardes");
+		message.setPriority("NEUTRAL");
+
+		message = this.messageService.save(message);
+		Assert.isTrue(sender.getIsSuspicious());
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsSuspiciousError() {
+		super.authenticate("customer1");
+		Actor sender;
+		Actor recipient;
+		sender = this.actorService.findPrincipal();
+		recipient = this.actorService.findOne(super.getEntityId("customer2"));
+		Assert.isTrue(!(sender.getIsSuspicious()));
+		Message message;
+		message = this.messageService.create();
+		message.setBody("Hola éste es el cuerpo del mensaje");
+		message.getRecipients().add(recipient);
+		message.setSender(sender);
+		message.setSubject("buenas tardes");
+		message.setPriority("NEUTRAL");
+
+		message = this.messageService.save(message);
+		Assert.isTrue(sender.getIsSuspicious());
+		super.unauthenticate();
 	}
 
 }

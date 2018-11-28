@@ -44,7 +44,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 		phase.setTitle("Título modificado");
 		phase.setDescription("Esta fase ha sido modificada para un test");
-		this.phaseService.update(phase);
+		this.phaseService.save(phase);
 
 		super.unauthenticate();
 	}
@@ -59,7 +59,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 		phase.setTitle("Título modificado");
 		phase.setDescription("Esta fase ha sido modificada para un test");
-		this.phaseService.update(phase);
+		this.phaseService.save(phase);
 
 		super.unauthenticate();
 	}
@@ -112,6 +112,8 @@ public class PhaseServiceTest extends AbstractTest {
 		LocalDate localDate;
 
 		fixUpTaskId = super.getEntityId("fixUpTask6");
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+
 		localDate = LocalDate.parse("2017-07-29");
 
 		super.authenticate("handyworker3");
@@ -122,7 +124,7 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setEndMoment(localDate.plusDays(10).toDate());
 		phase.setTitle("Título TEST");
 
-		saved = this.phaseService.saveNewPhase(fixUpTaskId, phase);
+		saved = this.phaseService.save(fixUpTask, phase);
 
 		super.unauthenticate();
 
@@ -138,6 +140,7 @@ public class PhaseServiceTest extends AbstractTest {
 		LocalDate localDate;
 
 		fixUpTaskId = super.getEntityId("fixUpTask6");
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 		localDate = LocalDate.parse("2017-07-29");
 
 		super.authenticate("handyworker2");
@@ -148,7 +151,7 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setEndMoment(localDate.plusDays(10).toDate());
 		phase.setTitle("Título TEST");
 
-		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+		this.phaseService.save(fixUpTask, phase);
 
 		super.unauthenticate();
 
@@ -168,7 +171,7 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setTitle("Título modificado");
 		phase.setDescription("Esta fase ha sido modificada para un test");
 		phase.setStartMoment(LocalDate.parse("2017-07-27").toDate());
-		this.phaseService.update(phase);
+		this.phaseService.save(phase);
 
 		super.unauthenticate();
 	}
@@ -182,6 +185,7 @@ public class PhaseServiceTest extends AbstractTest {
 		LocalDate localDate;
 
 		fixUpTaskId = super.getEntityId("fixUpTask6");
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 		localDate = LocalDate.parse("2017-07-29");
 
 		super.authenticate("handyworker3");
@@ -192,7 +196,7 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setEndMoment(localDate.plusMonths(5).toDate());
 		phase.setTitle("Título TEST");
 
-		this.phaseService.saveNewPhase(fixUpTaskId, phase);
+		this.phaseService.save(fixUpTask, phase);
 
 		super.unauthenticate();
 
@@ -213,7 +217,7 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setDescription("Esta fase ha sido modificada para un test");
 		phase.setStartMoment(LocalDate.parse("2017-08-02").toDate());
 		phase.setEndMoment(LocalDate.parse("2017-07-31").toDate());
-		this.phaseService.update(phase);
+		this.phaseService.save(phase);
 
 		super.unauthenticate();
 	}

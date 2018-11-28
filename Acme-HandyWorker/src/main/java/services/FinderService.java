@@ -1,11 +1,14 @@
 
 package services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -96,118 +99,141 @@ public class FinderService {
 	}
 
 	//Other business methods-------------------------------------------
-	//TODO
 	public Collection<FixUpTask> search(final Finder finder) {
-		String keyWord;
-		Double startPrice;
-		Double endPrice;
-		Date startDate;
-		Date endDate;
-		String warranty;
-		String category;
-		Page<FixUpTask> collectionFixUpTasks;
-
 		final int maxFinderResults;
 		final int timeCacheFinderResults;
-		maxFinderResults = 10;
-		final Pageable pageable = new PageRequest(0, maxFinderResults);
+		final Pageable pageable;
+		final String keyWord;
+		final Double startPrice;
+		final Double endPrice;
+		final Date startDate;
+		final Date endDate;
+		final String warranty;
+		final String category;
+		final Page<FixUpTask> pageFixUpTasks;
+		final Collection<FixUpTask> collectionFixUpTask;
 
-		keyWord = finder.getKeyword();
-		startPrice = finder.getStartPrice();
-		endPrice = finder.getEndPrice();
-		startDate = finder.getStartDate();
-		endDate = finder.getEndDate();
-		warranty = finder.getWarranty();
-		category = finder.getCategory();
+		timeCacheFinderResults = this.customisationService.find().getTimeCachedFinderResults();
 
-		collectionFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
-		return collectionFixUpTasks.getContent();
+		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
+
+			maxFinderResults = this.customisationService.find().getMaxFinderResults();
+			pageable = new PageRequest(0, maxFinderResults);
+			keyWord = this.checkKeyWord(finder);
+			startPrice = this.checkStartPrice(finder);
+			endPrice = this.checkEndPrice(finder);
+			startDate = this.checkStartDate(finder);
+			endDate = this.checkEndDate(finder);
+			warranty = this.checkWarranty(finder);
+			category = this.checkCategory(finder);
+
+			System.out.println(keyWord);
+			System.out.println(startPrice);
+			System.out.println(endPrice);
+			System.out.println(endDate);
+			System.out.println(startDate);
+			System.out.println(warranty);
+			System.out.println(category);
+
+			pageFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+
+			collectionFixUpTask = pageFixUpTasks.getContent();
+			finder.setLastUpdate(LocalDate.now().toDate());
+		} else
+			collectionFixUpTask = finder.getFixUpTasks();
+		return collectionFixUpTask;
+	}
+	private String checkKeyWord(final Finder finder) {
+		String result;
+		result = finder.getKeyword();
+		if (result == null)
+			finder.setKeyword("");
+		return finder.getKeyword();
+	}
+	private Double checkStartPrice(final Finder finder) {
+		Double result;
+		result = finder.getStartPrice();
+		if (result == null)
+			finder.setStartPrice(0.0);
+		return finder.getStartPrice();
+	}
+	private Double checkEndPrice(final Finder finder) {
+		Double result;
+		result = finder.getEndPrice();
+		if (result == null)
+			finder.setEndPrice(1000000000.0);
+		return finder.getEndPrice();
+	}
+	private Date checkStartDate(final Finder finder) {
+		if (finder.getStartDate() == null) {
+			finder.setStartDate(LocalDate.parse("0000-01-01").toDate());
+			return finder.getStartDate();
+		} else {
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+			final String stringStartDate = dateFormat.format(finder.getStartDate());
+
+			Date dateStartDate = LocalDate.now().toDate();
+			try {
+				dateStartDate = dateFormat.parse(stringStartDate);
+			} catch (final ParseException e) {
+				e.printStackTrace();
+			}
+			return dateStartDate;
+		}
 	}
 
-	//	public Collection<FixUpTask> search(final Finder finder) {
-	//		Collection<FixUpTask> tasksresult;
-	//		final Page<FixUpTask> collectionFixUpTasks;
-	//		final int maxFinderResults;
-	//		final int timeCacheFinderResults;
-	//
-	//		//TODO
-	//		//	maxFinderResults = customisationService.getmaxFinderResults();
-	//		//timeCacheFinderResults = customisationService.gettimeFinderREsults();
-	//		//este valor de maxFInder result es temporal
-	//		tasksresult = new ArrayList<FixUpTask>();
-	//		maxFinderResults = 10;
-	//		timeCacheFinderResults = 1;
-	//		final Pageable pageable = new PageRequest(0, maxFinderResults);
-	//		//si el tiempo de la cache ya ha pasado
-	//		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
-	//
-	//			collectionFixUpTasks = this.finderRepository.findFixUpTaskFinder(, finder.getStartPrice(), finder.getEndPrice(), finder.getStartDate(), finder.getEndDate(), finder.getWarranty(), finder.getCategory(), pageable);
-	//			System.out.println(finder.getKeyword() + finder.getStartPrice() + finder.getEndPrice() + finder.getStartDate() + finder.getEndDate() + finder.getWarranty() + finder.getCategory());
-	//			tasksresult = collectionFixUpTasks.getContent();
-	//
-	//		}
-	//		return tasksresult;
-	//	}
-	//TODO: HACER PRIVADO
-	//	public boolean compareTime(final Date lastUpdate, final Integer cache) {
-	//		final Boolean result;
-	//		Long time;
-	//		Long hours;
-	//		Date date;
-	//
-	//		date = new Date();
-	//
-	//		//time me lo da en milesegundos
-	//		//*1000 paso a seg
-	//		//*60 a minutos
-	//		time = date.getTime() - lastUpdate.getTime();
-	//		hours = time / (1000 * 60 * 60);
-	//
-	//		if (hours > cache)
-	//			result = true;
-	//		else
-	//			result = false;
-	//		return result;
-	//
-	//	}
-	//
-	//	public Collection<FixUpTask> search(final Finder finder) {
-	//		Collection<FixUpTask> fixUpTasks;
-	//		Collection<FixUpTask> tasks;
-	//		final Page<FixUpTask> collectionFixUpTasks;
-	//		final int maxFinderResults;
-	//		final int timeCacheFinderResults;
-	//		final String keyWord;
-	//		final Double startPrice;
-	//		final Double endPrice;
-	//		final Date startDate;
-	//		final Date endDate;
-	//		final String category;
-	//		final String warranty;
-	//
-	//		fixUpTasks = this.fixUpTaskService.findAll();
-	//		tasks = new ArrayList<FixUpTask>();
-	//
-	//		//TODO
-	//		//	maxFinderResults = customisationService.getmaxFinderResults();
-	//		//timeCacheFinderResults = customisationService.gettimeFinderREsults();
-	//		//este valor de maxFInder result es temporal
-	//		maxFinderResults = 10;
-	//		timeCacheFinderResults = 1;
-	//		final Pageable pageable = new PageRequest(0, maxFinderResults);
-	//		//si el tiempo de la cache ya ha pasado
-	//		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
-	//			keyWord = finder.getKeyword();
-	//			startPrice = finder.getStartPrice();
-	//			endPrice = finder.getEndPrice();
-	//			startDate = finder.getStartDate();
-	//			endDate = finder.getEndDate();
-	//			category = finder.getCategory();
-	//			warranty = finder.getWarranty();
-	//
-	//		}
-	//
-	//		return tasks;
-	//	}
+	private Date checkEndDate(final Finder finder) {
+		if (finder.getEndDate() == null) {
+			finder.setEndDate(LocalDate.parse("9999-01-01").toDate());
+			return finder.getEndDate();
+		} else {
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss z Z");
+			final String stringEndDate = dateFormat.format(finder.getEndDate());
+
+			Date dateEndDate = LocalDate.now().toDate();
+			try {
+				dateEndDate = dateFormat.parse(stringEndDate);
+			} catch (final ParseException e) {
+				e.printStackTrace();
+			}
+			return dateEndDate;
+		}
+	}
+	private String checkWarranty(final Finder finder) {
+		String result;
+		result = finder.getWarranty();
+		if (result == null)
+			finder.setWarranty("");
+		return finder.getWarranty();
+	}
+	private String checkCategory(final Finder finder) {
+		String result;
+		result = finder.getCategory();
+		if (result == null)
+			finder.setCategory("");
+		return finder.getCategory();
+	}
+
+	private boolean compareTime(final Date lastUpdate, final Integer cache) {
+		final Boolean result;
+		Long time;
+		Long hours;
+		Date date;
+
+		date = new Date();
+
+		//time me lo da en milesegundos
+		//*1000 paso a seg
+		//*60 a minutos
+		time = date.getTime() - lastUpdate.getTime();
+		hours = time / (1000 * 60 * 60);
+
+		if (hours > cache)
+			result = true;
+		else
+			result = false;
+		return result;
+
+	}
 
 }

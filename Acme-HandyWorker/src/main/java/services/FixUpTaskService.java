@@ -115,6 +115,30 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
+	public double[] findDataNumberFixUpTaskPerUser() {
+		double[] result;
+
+		result = this.fixUpTaskRepository.findDataNumberFixUpTaskPerUser();
+
+		return result;
+	}
+
+	public double[] findDataMaximumPrice() {
+		double[] result;
+
+		result = this.fixUpTaskRepository.findDataMaximumPrice();
+
+		return result;
+	}
+
+	public double findRatioFixUpTaskWithComplaint() {
+		double result;
+
+		result = this.fixUpTaskRepository.findRatioFixUpTaskWithComplaint();
+
+		return result;
+	}
+
 	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
 		Collection<FixUpTask> result;
 
@@ -124,12 +148,10 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public FixUpTask findByPhase(final Phase phase) {
+	protected FixUpTask findByPhaseId(final int phaseId) {
 		FixUpTask result;
 
-		Assert.isTrue(phase.getId() != 0);
-		result = this.fixUpTaskRepository.findByPhase(phase);
-		Assert.notNull(result);
+		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
 
 		return result;
 	}

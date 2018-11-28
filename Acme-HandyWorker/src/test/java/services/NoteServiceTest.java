@@ -40,24 +40,25 @@ public class NoteServiceTest extends AbstractTest {
 		Report report;
 
 		reportId = super.getEntityId("report3");
+		report = this.reportService.findOne(reportId);
 
 		super.authenticate("referee2");
 		note = this.noteService.create();
 		note.setCommentReferee("Esto es el comentario de test el creador de la nota");
 
-		saved = this.noteService.save(reportId, note);
+		saved = this.noteService.save(report, note);
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
 		super.authenticate("customer5");
 		saved.setCommentCustomer("Customer añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 
 		super.authenticate("handyworker5");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 	}
 
@@ -68,24 +69,25 @@ public class NoteServiceTest extends AbstractTest {
 		Report report;
 
 		reportId = super.getEntityId("report3");
+		report = this.reportService.findOne(reportId);
 
 		super.authenticate("customer5");
 		note = this.noteService.create();
 		note.setCommentCustomer("Esto es el comentario de test el creador de la nota");
 
-		saved = this.noteService.save(reportId, note);
+		saved = this.noteService.save(report, note);
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
 		super.authenticate("referee2");
 		saved.setCommentReferee("Referee añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 
 		super.authenticate("handyworker5");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 	}
 
@@ -97,24 +99,25 @@ public class NoteServiceTest extends AbstractTest {
 		Report report;
 
 		reportId = super.getEntityId("report3");
+		report = this.reportService.findOne(reportId);
 
 		super.authenticate("handyworker5");
 		note = this.noteService.create();
 		note.setCommentHandyWorker("Esto es el comentario de test el creador de la nota");
 
-		saved = this.noteService.save(reportId, note);
+		saved = this.noteService.save(report, note);
 		report = this.reportService.findOne(reportId);
 		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
 		super.authenticate("referee2");
 		saved.setCommentReferee("Referee añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 
 		super.authenticate("customer1");
 		saved.setCommentCustomer("Customer añadiendo un comentario en los tests");
-		this.noteService.writeComment(saved);
+		this.noteService.save(saved);
 		super.unauthenticate();
 	}
 
@@ -128,7 +131,7 @@ public class NoteServiceTest extends AbstractTest {
 		super.authenticate("handyworker1");
 
 		note.setCommentHandyWorker("Handy Worker añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
+		this.noteService.save(note);
 
 		super.unauthenticate();
 	}
@@ -143,52 +146,7 @@ public class NoteServiceTest extends AbstractTest {
 		super.authenticate("referee3");
 
 		note.setCommentReferee("Referee añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
-
-		super.unauthenticate();
-	}
-
-	// Customer comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect3() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("customer5");
-
-		note.setCommentReferee("Customer añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
-
-		super.unauthenticate();
-	}
-
-	// Handy Worker comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect4() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("handyworker5");
-
-		note.setCommentCustomer("Handy Worker añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
-
-		super.unauthenticate();
-	}
-
-	// Referee comment in the incorrect field
-	@Test(expected = IllegalArgumentException.class)
-	public void testCommentIncorrect5() {
-		Note note;
-
-		note = this.noteService.findOne(super.getEntityId("note5"));
-
-		super.authenticate("referee2");
-
-		note.setCommentHandyWorker("Referee añadiendo un comentario en los tests");
-		this.noteService.writeComment(note);
+		this.noteService.save(note);
 
 		super.unauthenticate();
 	}
