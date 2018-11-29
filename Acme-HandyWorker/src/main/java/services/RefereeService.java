@@ -66,15 +66,19 @@ public class RefereeService {
 	public Referee save(final Referee referee) {
 		Assert.notNull(referee);
 		this.utilityService.checkEmailActors(referee);
-		this.checkOwnerAccount(referee);
-
 		Referee result;
-
 		this.actorService.definePassword(referee);
-		result = this.refereeRepository.save(referee);
 
-		if (!this.refereeRepository.exists(referee.getId()))
+		if (!this.refereeRepository.exists(referee.getId())) {
+
+			result = this.refereeRepository.save(referee);
 			this.boxService.createDefaultBox(result);
+
+		} else {
+			this.checkOwnerAccount(referee);
+			result = this.refereeRepository.save(referee);
+
+		}
 
 		return result;
 	}
