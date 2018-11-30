@@ -125,6 +125,8 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateMiscellaneousRecord() {
+		super.authenticate("handyworker1");
+
 		MiscellaneousRecord miscellaneousRecord;
 		int id;
 		String newTitle, lastTitle;
@@ -141,6 +143,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 		Assert.isTrue(!lastTitle.equals(miscellaneousRecord.getTitle()));
 
+		super.unauthenticate();
 	}
 
 	@Test

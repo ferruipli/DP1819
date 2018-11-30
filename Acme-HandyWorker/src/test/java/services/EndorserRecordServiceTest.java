@@ -167,6 +167,8 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateEndorserRecord() {
+		super.authenticate("handyworker1");
+
 		EndorserRecord endorserRecord;
 		int id;
 		String newFullName, lastFullName;
@@ -183,6 +185,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 		Assert.isTrue(!lastFullName.equals(endorserRecord.getFullName()));
 
+		super.unauthenticate();
 	}
 
 	@Test
@@ -208,7 +211,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 	}
 
 	// Eliminar un endorser record sin estar autenticado
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteEndorserRecordNegative() {
 		EndorserRecord endorserRecord;
 		Collection<EndorserRecord> endorserRecords;

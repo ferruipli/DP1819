@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.ProfessionalRecordRepository;
 import domain.Curriculum;
-import domain.HandyWorker;
 import domain.ProfessionalRecord;
 
 @Service
@@ -19,17 +18,15 @@ import domain.ProfessionalRecord;
 public class ProfessionalRecordService {
 
 	// Managed repository ------------------------------
-
 	@Autowired
 	private ProfessionalRecordRepository	professionalRecordRepository;
 
 	// Supporting services -----------------------------
-
-	@Autowired
-	private HandyWorkerService				handyWorkerService;
-
 	@Autowired
 	private CurriculumService				curriculumService;
+
+	@Autowired
+	private UtilityService					utilityService;
 
 
 	// Constructors ------------------------------------
@@ -68,50 +65,51 @@ public class ProfessionalRecordService {
 
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
+		this.utilityService.checkDate(professionalRecord.getStartDate(), professionalRecord.getEndDate());
 
 		ProfessionalRecord result;
 
-		if (this.professionalRecordRepository.exists(professionalRecord.getId()))
+		if (this.professionalRecordRepository.exists(professionalRecord.getId())) {
+			this.checkByPrincipal(professionalRecord);
+
 			result = this.professionalRecordRepository.save(professionalRecord);
-		else {
-			HandyWorker handyWorker;
+		} else {
 			Curriculum curriculum;
 
-			result = this.professionalRecordRepository.save(professionalRecord);
+			curriculum = this.curriculumService.findByPrincipal();
 
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			curriculum = handyWorker.getCurriculum();
-			Assert.notNull(curriculum);
+			result = this.professionalRecordRepository.save(professionalRecord);
 
 			this.curriculumService.addProfessionalRecord(curriculum, result);
 		}
+
 		return result;
 	}
 
 	public void delete(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		Assert.isTrue(professionalRecord.getId() != 0);
-		Assert.isTrue(this.professionalRecordRepository.exists(professionalRecord.getId()));
+		this.checkByPrincipal(professionalRecord);
 
 		// Debemos de eliminar el professionalRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
 		Curriculum curriculum;
 
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getProfessionalRecords().contains(professionalRecord));
+		curriculum = this.curriculumService.findByPrincipal();
 
 		// Eliminamos el ProfessionalRecord del curriculum del handyworker Principal
-
 		this.curriculumService.removeProfessionalRecord(curriculum, professionalRecord);
 
 		// Eliminamos definitivamente el ProfessionalRecord
-
 		this.professionalRecordRepository.delete(professionalRecord);
 	}
 
 	// Other business methods --------------------------
+	public void checkByPrincipal(final ProfessionalRecord professionalRecord) {
+		Curriculum curriculum;
+
+		curriculum = this.curriculumService.findByPrincipal();
+
+		Assert.isTrue(curriculum.getProfessionalRecords().contains(professionalRecord));
+	}
 
 }

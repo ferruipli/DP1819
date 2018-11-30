@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Random;
 
 import org.joda.time.LocalDate;
@@ -70,6 +71,10 @@ public class UtilityService {
 		Assert.isTrue(counter == 650000);
 
 		return result;
+	}
+
+	public void checkDate(final Date start, final Date end) {
+		Assert.isTrue(start.before(end));
 	}
 
 	// Private methods ---------------------------------------------------------

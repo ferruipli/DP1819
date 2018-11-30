@@ -105,6 +105,17 @@ public class CurriculumService {
 	}
 
 	// Other business methods --------------------------
+	public Curriculum findByPrincipal() {
+		HandyWorker handyworker;
+		Curriculum result;
+
+		handyworker = this.handyWorkerService.findByPrincipal();
+		result = handyworker.getCurriculum();
+
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	public Boolean existCurriculumByTicker(final String ticker) {
 		Boolean result;

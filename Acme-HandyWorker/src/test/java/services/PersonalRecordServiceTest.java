@@ -166,6 +166,8 @@ public class PersonalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdatePersonalRecord() {
+		super.authenticate("handyworker1");
+
 		PersonalRecord personalRecord;
 		int id;
 		String newFullName, lastFullName;
@@ -181,8 +183,8 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		this.personalRecordService.save(personalRecord);
 
 		Assert.isTrue(!lastFullName.equals(personalRecord.getFullName()));
-		;
 
+		super.unauthenticate();
 	}
 
 }

@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.MiscellaneousRecordRepository;
 import domain.Curriculum;
-import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 
 @Service
@@ -19,15 +18,10 @@ import domain.MiscellaneousRecord;
 public class MiscellaneousRecordService {
 
 	// Managed repository ------------------------------
-
 	@Autowired
 	private MiscellaneousRecordRepository	miscellaneousRecordRepository;
 
 	// Supporting services -----------------------------
-
-	@Autowired
-	private HandyWorkerService				handyWorkerService;
-
 	@Autowired
 	private CurriculumService				curriculumService;
 
@@ -72,19 +66,16 @@ public class MiscellaneousRecordService {
 
 		MiscellaneousRecord result;
 
-		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()))
-			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
-		else {
-			Assert.isTrue(!(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())));
+		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())) {
+			this.checkByPrincipal(miscellaneousRecord);
 
-			HandyWorker handyWorker;
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		} else {
 			Curriculum curriculum;
 
-			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+			curriculum = this.curriculumService.findByPrincipal();
 
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			curriculum = handyWorker.getCurriculum();
-			Assert.notNull(curriculum);
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 
 			this.curriculumService.addMiscellaneousRecord(curriculum, result);
 		}
@@ -94,27 +85,27 @@ public class MiscellaneousRecordService {
 	public void delete(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
 		Assert.isTrue(miscellaneousRecord.getId() != 0);
-		Assert.isTrue(this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()));
+		this.checkByPrincipal(miscellaneousRecord);
 
 		// Debemos de eliminar el miscellaneousRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
 		Curriculum curriculum;
 
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
+		curriculum = this.curriculumService.findByPrincipal();
 
 		// Eliminamos el MiscellaneousRecord del curriculum del handyworker Principal
-
 		this.curriculumService.removeMiscellaneousRecord(curriculum, miscellaneousRecord);
 
 		// Eliminamos definitivamente el miscellaneousRecord
-
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 
 	// Other business methods --------------------------
+	public void checkByPrincipal(final MiscellaneousRecord miscellaneousRecord) {
+		Curriculum curriculum;
+
+		curriculum = this.curriculumService.findByPrincipal();
+
+		Assert.isTrue(curriculum.getMiscellaneousRecords().contains(miscellaneousRecord));
+	}
 
 }

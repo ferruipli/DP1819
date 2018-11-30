@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import repositories.EducationRecordRepository;
 import domain.Curriculum;
 import domain.EducationRecord;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -24,12 +23,11 @@ public class EducationRecordService {
 	private EducationRecordRepository	educationRecordRepository;
 
 	// Supporting services -----------------------------
-
-	@Autowired
-	private HandyWorkerService			handyWorkerService;
-
 	@Autowired
 	private CurriculumService			curriculumService;
+
+	@Autowired
+	private UtilityService				utilityService;
 
 
 	// Constructors ------------------------------------
@@ -69,53 +67,54 @@ public class EducationRecordService {
 
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
+		this.utilityService.checkDate(educationRecord.getStartDate(), educationRecord.getEndDate());
 
 		EducationRecord result;
 
-		if (this.educationRecordRepository.exists(educationRecord.getId())) //Si existe, actualiza
-			result = this.educationRecordRepository.save(educationRecord);
-		else { // De lo contratio, crea
+		//Si existe, actualiza
+		if (this.educationRecordRepository.exists(educationRecord.getId())) {
+			this.checkByPrincipal(educationRecord);
 
-			HandyWorker handyWorker;
+			result = this.educationRecordRepository.save(educationRecord);
+		} else {
+			// De lo contratio, crea
+
 			Curriculum curriculum;
 
 			result = this.educationRecordRepository.save(educationRecord);
 
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			curriculum = handyWorker.getCurriculum();
-			Assert.notNull(curriculum);
+			curriculum = this.curriculumService.findByPrincipal();
 
 			this.curriculumService.addEducationRecord(curriculum, result);
-
 		}
 
 		return result;
-
 	}
 
 	public void delete(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		Assert.isTrue(educationRecord.getId() != 0);
+		this.checkByPrincipal(educationRecord);
 
 		// Debemos de eliminar el educationRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
 		Curriculum curriculum;
 
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getEducationRecords().contains(educationRecord));
+		curriculum = this.curriculumService.findByPrincipal();
 
 		// Eliminamos el EducationRecord del curriculum del handyworker Principal
-
 		this.curriculumService.removeEducationRecord(curriculum, educationRecord);
 
 		// Eliminamos definitivamente el education record
-
 		this.educationRecordRepository.delete(educationRecord);
 	}
 
 	// Other business methods --------------------------
+	public void checkByPrincipal(final EducationRecord educationRecord) {
+		Curriculum curriculum;
+
+		curriculum = this.curriculumService.findByPrincipal();
+
+		Assert.isTrue(curriculum.getEducationRecords().contains(educationRecord));
+	}
 
 }

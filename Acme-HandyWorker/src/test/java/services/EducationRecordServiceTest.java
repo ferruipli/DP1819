@@ -82,6 +82,8 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateEducationRecord() {
+		super.authenticate("handyworker1");
+
 		EducationRecord educationRecord;
 		int id;
 		String newTitleDiploma, lastTitleDiploma;
@@ -98,6 +100,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 		Assert.isTrue(!lastTitleDiploma.equals(educationRecord.getTitleDiploma()));
 
+		super.unauthenticate();
 	}
 
 	// Usuario sin autenticar

@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import repositories.EndorserRecordRepository;
 import domain.Curriculum;
 import domain.EndorserRecord;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -23,10 +22,6 @@ public class EndorserRecordService {
 	private EndorserRecordRepository	endorserRecordRepository;
 
 	// Supporting services -----------------------------
-
-	@Autowired
-	private HandyWorkerService			handyWorkerService;
-
 	@Autowired
 	private CurriculumService			curriculumService;
 
@@ -75,47 +70,47 @@ public class EndorserRecordService {
 
 		final EndorserRecord result;
 
-		if (this.endorserRecordRepository.exists(endorserRecord.getId()))
-			result = this.endorserRecordRepository.saveAndFlush(endorserRecord);
-		else {
-			HandyWorker handyWorker;
+		if (this.endorserRecordRepository.exists(endorserRecord.getId())) {
+			this.checkByPrincipal(endorserRecord);
 
+			result = this.endorserRecordRepository.save(endorserRecord);
+		} else {
 			Curriculum curriculum;
+
+			curriculum = this.curriculumService.findByPrincipal();
 
 			result = this.endorserRecordRepository.save(endorserRecord);
 
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			curriculum = handyWorker.getCurriculum();
-			Assert.notNull(curriculum);
-
 			this.curriculumService.addEndorserRecord(curriculum, result);
 		}
-		return result;
 
+		return result;
 	}
 
 	public void delete(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(endorserRecord.getId() != 0);
+		this.checkByPrincipal(endorserRecord);
 
 		// Debemos de eliminar el endorserRecord del curriculum del handyworker
-
-		HandyWorker handyworker;
 		Curriculum curriculum;
 
-		handyworker = this.handyWorkerService.findByPrincipal();
-		curriculum = handyworker.getCurriculum();
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getEndorserRecords().contains(endorserRecord));
+		curriculum = this.curriculumService.findByPrincipal();
 
 		// Eliminamos el EndorserRecord del curriculum del handyworker Principal
-
 		this.curriculumService.removeEndorserRecord(curriculum, endorserRecord);
 
 		// Eliminamos definitivamente el education record
-
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
 
 	// Other business methods --------------------------
+	public void checkByPrincipal(final EndorserRecord endorserRecord) {
+		Curriculum curriculum;
+
+		curriculum = this.curriculumService.findByPrincipal();
+
+		Assert.isTrue(curriculum.getEndorserRecords().contains(endorserRecord));
+	}
+
 }

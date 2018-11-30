@@ -149,6 +149,8 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateProfessionalRecord() {
+		super.authenticate("handyworker1");
+
 		ProfessionalRecord professionalRecord;
 		int id;
 		String newNameCompany, lastNameCompany;
@@ -165,6 +167,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 		Assert.isTrue(!lastNameCompany.equals(professionalRecord.getNameCompany()));
 
+		super.unauthenticate();
 	}
 
 	@Test

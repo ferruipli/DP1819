@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.PersonalRecordRepository;
 import domain.Curriculum;
-import domain.HandyWorker;
 import domain.PersonalRecord;
 
 @Service
@@ -24,10 +23,6 @@ public class PersonalRecordService {
 	private PersonalRecordRepository	personalRecordRepository;
 
 	// Supporting services -----------------------------
-
-	@Autowired
-	private HandyWorkerService			handyWorkerService;
-
 	@Autowired
 	private CurriculumService			curriculumService;
 
@@ -76,23 +71,30 @@ public class PersonalRecordService {
 
 		PersonalRecord result;
 
-		if (this.personalRecordRepository.exists(personalRecord.getId()))
-			result = this.personalRecordRepository.save(personalRecord);
-		else {
+		if (this.personalRecordRepository.exists(personalRecord.getId())) {
+			this.checkByPrincipal(personalRecord);
 
-			HandyWorker handyWorker;
+			result = this.personalRecordRepository.save(personalRecord);
+		} else {
 			Curriculum curriculum;
 
-			result = this.personalRecordRepository.save(personalRecord);
+			curriculum = this.curriculumService.findByPrincipal();
 
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			curriculum = handyWorker.getCurriculum();
-			Assert.notNull(curriculum);
+			result = this.personalRecordRepository.save(personalRecord);
 
 			this.curriculumService.addPersonalRecord(curriculum, result);
 		}
+
 		return result;
 	}
+
 	// Other business methods --------------------------
+	public void checkByPrincipal(final PersonalRecord personalRecord) {
+		Curriculum curriculum;
+
+		curriculum = this.curriculumService.findByPrincipal();
+
+		Assert.isTrue(curriculum.getPersonalRecord().equals(personalRecord));
+	}
 
 }
