@@ -42,6 +42,9 @@ public class NoteService {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -81,7 +84,7 @@ public class NoteService {
 
 		Assert.notNull(report);
 		Assert.isTrue(report.getFinalMode());
-		Assert.isTrue(note.getMoment().after(report.getMoment()));
+		this.utilityService.checkDate(report.getMoment(), note.getMoment());
 		this.checkUsersAndComments(report, note);
 
 		result = this.noteRepository.save(note);

@@ -134,7 +134,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 	}
 
 	/* Test positivo en el que se borra un objeto valido */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void positiveTestDelete_uno() {
 		super.authenticate("admin1");
 

@@ -49,6 +49,7 @@ public class EndorsementService {
 		Endorsement result;
 
 		result = this.endorsementRepository.findOne(endorsementId);
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -100,7 +101,8 @@ public class EndorsementService {
 
 		if (endorsement.getId() != 0 && recipient.getScore() != null)
 			// Si un endorsable modifica el atributo endorsement::comments, entonces
-			// volver a recalcular el atributo Endorsable::score del recipient
+			// volver a recalcular el atributo Endorsable::score del recipient si
+			// anteriormente un administrator le calculo su valor
 			this.endorsableService.computeScore(recipient);
 
 		return result;
@@ -115,8 +117,6 @@ public class EndorsementService {
 	}
 
 	// Other business methods --------------------------
-
-	// private methods ---------------------------------
 	public void checkByPrincipal(final Endorsement endorsement) {
 		Endorsable principal;
 
@@ -147,7 +147,8 @@ public class EndorsementService {
 		return results;
 	}
 
-	public boolean playedRole(final Endorsable endorsable, final String role) {
+	// private methods ---------------------------------
+	private boolean playedRole(final Endorsable endorsable, final String role) {
 		UserAccount userAccount;
 		Authority authority;
 		List<Authority> authorities;

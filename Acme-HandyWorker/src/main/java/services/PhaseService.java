@@ -31,6 +31,9 @@ public class PhaseService {
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -54,7 +57,7 @@ public class PhaseService {
 
 	public Phase save(FixUpTask fixUpTask, final Phase phase) { // Creating
 		Assert.notNull(phase);
-		Assert.isTrue(phase.getStartMoment().before(phase.getEndMoment()));
+		this.utilityService.checkDate(phase.getStartMoment(), phase.getEndMoment());
 
 		Phase result;
 		boolean isUpdating;

@@ -20,8 +20,6 @@ import domain.CategoryTranslation;
 @Transactional
 public class CategoryService {
 
-	//final int							IDIOMAS_SOPORTADOS	= 2;
-
 	// Managed repository ------------------------------
 	@Autowired
 	private CategoryRepository			categoryRepository;
@@ -41,6 +39,7 @@ public class CategoryService {
 		Category result;
 
 		result = this.categoryRepository.findOne(categoryId);
+		Assert.notNull(result);
 
 		return result;
 	}

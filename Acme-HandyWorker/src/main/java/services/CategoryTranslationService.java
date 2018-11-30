@@ -38,6 +38,7 @@ public class CategoryTranslationService {
 		CategoryTranslation result;
 
 		result = this.categoryTranslationRepository.findOne(categoryTranslationId);
+		Assert.notNull(result);
 
 		return result;
 	}

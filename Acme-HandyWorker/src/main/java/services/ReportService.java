@@ -33,6 +33,9 @@ public class ReportService {
 	@Autowired
 	private ComplaintService	complaintService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -73,7 +76,7 @@ public class ReportService {
 		}
 
 		Assert.notNull(complaint);
-		Assert.isTrue(report.getMoment().after(complaint.getMoment()));
+		this.utilityService.checkDate(complaint.getMoment(), report.getMoment());
 		this.checkManagerReferee(complaint);
 		result = this.reportRepository.save(report);
 
