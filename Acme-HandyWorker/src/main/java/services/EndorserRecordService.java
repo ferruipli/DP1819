@@ -60,6 +60,7 @@ public class EndorserRecordService {
 		Collection<EndorserRecord> results;
 
 		results = this.endorserRecordRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -70,16 +71,14 @@ public class EndorserRecordService {
 
 		final EndorserRecord result;
 
-		if (this.endorserRecordRepository.exists(endorserRecord.getId())) {
-			this.checkByPrincipal(endorserRecord);
+		result = this.endorserRecordRepository.save(endorserRecord);
 
-			result = this.endorserRecordRepository.save(endorserRecord);
-		} else {
+		if (this.endorserRecordRepository.exists(endorserRecord.getId()))
+			this.checkByPrincipal(endorserRecord);
+		else {
 			Curriculum curriculum;
 
 			curriculum = this.curriculumService.findByPrincipal();
-
-			result = this.endorserRecordRepository.save(endorserRecord);
 
 			this.curriculumService.addEndorserRecord(curriculum, result);
 		}

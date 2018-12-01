@@ -71,6 +71,7 @@ public class CurriculumService {
 		Collection<Curriculum> results;
 
 		results = this.curriculumRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -86,7 +87,7 @@ public class CurriculumService {
 
 		this.curriculumRepository.delete(curriculum);
 
-		this.handyWorkerService.removeCurriculum(handyWorker, null);
+		this.handyWorkerService.removeCurriculum(handyWorker);
 
 	}
 
@@ -115,22 +116,6 @@ public class CurriculumService {
 		Assert.notNull(result);
 
 		return result;
-	}
-
-	public Boolean existCurriculumByTicker(final String ticker) {
-		Boolean result;
-
-		result = this.curriculumRepository.existCurriculumByTicker(ticker);
-
-		return result;
-	}
-
-	public Collection<Curriculum> findAllCurriculums() {
-		Collection<Curriculum> results;
-
-		results = this.curriculumRepository.findAllCurriculums();
-
-		return results;
 	}
 
 	public Collection<String> findAllTickers() {

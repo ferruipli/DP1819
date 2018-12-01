@@ -59,6 +59,7 @@ public class ProfessionalRecordService {
 		Collection<ProfessionalRecord> results;
 
 		results = this.professionalRecordRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -69,16 +70,14 @@ public class ProfessionalRecordService {
 
 		ProfessionalRecord result;
 
-		if (this.professionalRecordRepository.exists(professionalRecord.getId())) {
-			this.checkByPrincipal(professionalRecord);
+		result = this.professionalRecordRepository.save(professionalRecord);
 
-			result = this.professionalRecordRepository.save(professionalRecord);
-		} else {
+		if (this.professionalRecordRepository.exists(professionalRecord.getId()))
+			this.checkByPrincipal(professionalRecord);
+		else {
 			Curriculum curriculum;
 
 			curriculum = this.curriculumService.findByPrincipal();
-
-			result = this.professionalRecordRepository.save(professionalRecord);
 
 			this.curriculumService.addProfessionalRecord(curriculum, result);
 		}

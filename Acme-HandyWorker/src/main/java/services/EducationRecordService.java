@@ -61,6 +61,7 @@ public class EducationRecordService {
 		Collection<EducationRecord> results;
 
 		results = this.educationRecordRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -71,17 +72,15 @@ public class EducationRecordService {
 
 		EducationRecord result;
 
-		//Si existe, actualiza
-		if (this.educationRecordRepository.exists(educationRecord.getId())) {
-			this.checkByPrincipal(educationRecord);
+		result = this.educationRecordRepository.save(educationRecord);
 
-			result = this.educationRecordRepository.save(educationRecord);
-		} else {
-			// De lo contratio, crea
+		// If it exists, updates
+		if (this.educationRecordRepository.exists(educationRecord.getId()))
+			this.checkByPrincipal(educationRecord);
+		else {
+			// else, it creates
 
 			Curriculum curriculum;
-
-			result = this.educationRecordRepository.save(educationRecord);
 
 			curriculum = this.curriculumService.findByPrincipal();
 

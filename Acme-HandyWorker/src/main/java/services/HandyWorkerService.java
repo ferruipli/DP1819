@@ -36,8 +36,6 @@ public class HandyWorkerService {
 	private BoxService				boxService;
 	@Autowired
 	private FinderService			finderService;
-	@Autowired
-	private CurriculumService		curriculumService;
 
 	@Autowired
 	private UtilityService			utilityService;
@@ -164,18 +162,10 @@ public class HandyWorkerService {
 	}
 
 	protected void addCurriculum(final HandyWorker handyWorker, final Curriculum curriculum) {
-		Assert.notNull(handyWorker);
-		Assert.notNull(curriculum);
-		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
-		Assert.notNull(this.curriculumService.findOne(curriculum.getId()));
-
 		handyWorker.setCurriculum(curriculum);
 	}
 
-	protected void removeCurriculum(final HandyWorker handyWorker, final Curriculum curriculum) {
-		Assert.notNull(handyWorker);
-		Assert.isTrue(this.handyWorkerRepository.exists(handyWorker.getId()));
-
+	protected void removeCurriculum(final HandyWorker handyWorker) {
 		handyWorker.setCurriculum(null);
 	}
 	//Req 12.5.10

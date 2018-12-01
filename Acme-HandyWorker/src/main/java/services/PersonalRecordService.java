@@ -61,6 +61,7 @@ public class PersonalRecordService {
 		Collection<PersonalRecord> results;
 
 		results = this.personalRecordRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -71,16 +72,14 @@ public class PersonalRecordService {
 
 		PersonalRecord result;
 
-		if (this.personalRecordRepository.exists(personalRecord.getId())) {
-			this.checkByPrincipal(personalRecord);
+		result = this.personalRecordRepository.save(personalRecord);
 
-			result = this.personalRecordRepository.save(personalRecord);
-		} else {
+		if (this.personalRecordRepository.exists(personalRecord.getId()))
+			this.checkByPrincipal(personalRecord);
+		else {
 			Curriculum curriculum;
 
 			curriculum = this.curriculumService.findByPrincipal();
-
-			result = this.personalRecordRepository.save(personalRecord);
 
 			this.curriculumService.addPersonalRecord(curriculum, result);
 		}

@@ -57,6 +57,7 @@ public class MiscellaneousRecordService {
 		Collection<MiscellaneousRecord> results;
 
 		results = this.miscellaneousRecordRepository.findAll();
+		Assert.notNull(results);
 
 		return results;
 	}
@@ -66,16 +67,14 @@ public class MiscellaneousRecordService {
 
 		MiscellaneousRecord result;
 
-		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId())) {
-			this.checkByPrincipal(miscellaneousRecord);
+		result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 
-			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
-		} else {
+		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()))
+			this.checkByPrincipal(miscellaneousRecord);
+		else {
 			Curriculum curriculum;
 
 			curriculum = this.curriculumService.findByPrincipal();
-
-			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 
 			this.curriculumService.addMiscellaneousRecord(curriculum, result);
 		}
