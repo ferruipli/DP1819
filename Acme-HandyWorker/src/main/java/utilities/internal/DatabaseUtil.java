@@ -44,6 +44,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import utilities.DatabaseConfig;
 import domain.DomainEntity;
 
+@SuppressWarnings("deprecation")
 public class DatabaseUtil {
 
 	// Constructor ------------------------------------------------------------

@@ -66,19 +66,18 @@ public class RefereeService {
 	public Referee save(final Referee referee) {
 		Assert.notNull(referee);
 		this.utilityService.checkEmailActors(referee);
+
 		Referee result;
+		boolean isUpdating;
+
+		isUpdating = this.refereeRepository.exists(referee.getId());
+		Assert.isTrue(!isUpdating || this.isOwnerAccount(referee));
+
 		this.actorService.definePassword(referee);
+		result = this.refereeRepository.save(referee);
 
-		if (!this.refereeRepository.exists(referee.getId())) {
-
-			result = this.refereeRepository.save(referee);
+		if (!isUpdating)
 			this.boxService.createDefaultBox(result);
-
-		} else {
-			this.checkOwnerAccount(referee);
-			result = this.refereeRepository.save(referee);
-
-		}
 
 		return result;
 	}
@@ -126,10 +125,10 @@ public class RefereeService {
 		return result;
 	}
 
-	private void checkOwnerAccount(final Referee referee) {
+	private boolean isOwnerAccount(final Referee referee) {
 		int principalId;
 
 		principalId = LoginService.getPrincipal().getId();
-		Assert.isTrue(!this.refereeRepository.exists(referee.getId()) || principalId == referee.getUserAccount().getId());
+		return principalId == referee.getUserAccount().getId();
 	}
 }
