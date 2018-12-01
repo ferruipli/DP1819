@@ -108,6 +108,7 @@ public class FixUpTaskService {
 	}
 
 	// Other business methods -------------------------------------------------
+
 	public void checkByPrincipal(final FixUpTask fixUpTask) {
 		Customer principal;
 
@@ -167,5 +168,9 @@ public class FixUpTaskService {
 
 	protected void removePhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().remove(phase);
+	}
+
+	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
+		fixUpTask.getApplications().add(application);
 	}
 }
