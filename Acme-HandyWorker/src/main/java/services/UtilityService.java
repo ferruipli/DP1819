@@ -77,6 +77,14 @@ public class UtilityService {
 		Assert.isTrue(start.before(end));
 	}
 
+	public Date current_moment() {
+		Date result;
+
+		result = new Date(System.currentTimeMillis() - 1);
+
+		return result;
+	}
+
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {

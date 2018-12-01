@@ -78,7 +78,7 @@ public class NoteService {
 		if (isUpdating)
 			report = this.reportService.findByNoteId(note.getId());
 		else {
-			moment = new Date(System.currentTimeMillis() - 1);
+			moment = this.utilityService.current_moment();
 			note.setMoment(moment);
 		}
 

@@ -26,6 +26,7 @@ public class SponsorshipService {
 	// Supporting services -------------------------------------------
 	@Autowired
 	public SponsorService			sponsorService;
+
 	@Autowired
 	public ActorService				actorService;
 
@@ -40,24 +41,24 @@ public class SponsorshipService {
 	public SponsorshipService() {
 		super();
 	}
-	//Simple CRUD methods -------------------------------------------
 
+	//Simple CRUD methods -------------------------------------------
 	public Sponsorship create() {
 		Sponsorship result;
 		CreditCard creditCard;
 
-		result = new Sponsorship();
-		creditCard = new CreditCard();
+		creditCard = this.creditCardService.create();
 
+		result = new Sponsorship();
 		result.setCreditCard(creditCard);
-		Assert.notNull(creditCard);
 
 		return result;
 	}
+
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
+
 		Sponsor principal;
-		Sponsor sponsorOwner;
 		Sponsorship result;
 
 		principal = this.sponsorService.findByPrincipal();
@@ -66,23 +67,23 @@ public class SponsorshipService {
 			result = this.sponsorshipRepository.save(sponsorship);
 			this.addSponsorshipToSponsor(principal, result);
 		} else {
-			sponsorOwner = this.sponsorService.findSponsorBySponsorshipId(sponsorship.getId());
-			Assert.isTrue(principal.equals(sponsorOwner));
+			this.checkByPrincipal(sponsorship);
 			result = this.sponsorshipRepository.save(sponsorship);
 		}
 
 		return result;
 	}
 
-	public Sponsorship findOne(final int idSponsorship) {
+	public Sponsorship findOne(final int sponsorshipId) {
+		Assert.isTrue(sponsorshipId != 0);
+
 		Sponsorship result;
 
-		Assert.isTrue(idSponsorship != 0);
-
-		result = this.sponsorshipRepository.findOne(idSponsorship);
+		result = this.sponsorshipRepository.findOne(sponsorshipId);
 
 		return result;
 	}
+
 	public Collection<Sponsorship> findAll() {
 		Collection<Sponsorship> result;
 
@@ -92,19 +93,32 @@ public class SponsorshipService {
 
 		return result;
 	}
+
 	public void delete(final Sponsorship sponsorship) {
-		Assert.isTrue(sponsorship.getId() != 0);
 		Assert.notNull(sponsorship);
-		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
+		Assert.isTrue(sponsorship.getId() != 0);
+		this.checkByPrincipal(sponsorship);
+
 		Sponsor principal;
 		principal = this.sponsorService.findByPrincipal();
 
 		this.removeSponsorshipToSponsor(principal, sponsorship);
 		this.removeSponsorShipToTutorial(sponsorship);
+
 		this.sponsorshipRepository.delete(sponsorship);
 	}
 
 	//Other business methods-------------------------------------------
+	protected void checkByPrincipal(final Sponsorship sponsorship) {
+		final Sponsor principal;
+		Sponsor sponsorOwner;
+
+		principal = this.sponsorService.findByPrincipal();
+		sponsorOwner = this.sponsorService.findSponsorBySponsorshipId(sponsorship.getId());
+
+		Assert.isTrue(principal.equals(sponsorOwner));
+	}
+
 	protected Collection<Sponsorship> findSponsorshipByCreditCard(final int id) {
 		Collection<Sponsorship> sponsorships;
 
@@ -115,21 +129,16 @@ public class SponsorshipService {
 
 	protected void addSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
 		sponsor.getSponsorships().add(sponsorship);
-		Assert.isTrue(sponsor.getSponsorships().contains(sponsorship));
-
 	}
 
 	protected void removeSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
-
-		Assert.isTrue((sponsor.getSponsorships().contains(sponsorship)));
 		sponsor.getSponsorships().remove(sponsorship);
-		Assert.isTrue(!(sponsor.getSponsorships().contains(sponsorship)));
-
 	}
+
 	public void addCreditCardToSponsorship(final Sponsorship sponsorship, final CreditCard creditCard) {
 		Assert.notNull(creditCard);
+
 		sponsorship.setCreditCard(creditCard);
-		Assert.isTrue(sponsorship.getCreditCard().equals(creditCard));
 	}
 
 	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
@@ -139,8 +148,10 @@ public class SponsorshipService {
 		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
 		sponsorships = tutorial.getSponsorShips();
 		sponsorships.remove(sponsorship);
+
 		tutorial.setSponsorShips(sponsorships);
 	}
+
 	public void addSponsorShipToTutorial(final Sponsorship sponsorship) {
 		Tutorial tutorial;
 		Collection<Sponsorship> sponsorships;
@@ -148,6 +159,7 @@ public class SponsorshipService {
 		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
 		sponsorships = tutorial.getSponsorShips();
 		sponsorships.add(sponsorship);
+
 		tutorial.setSponsorShips(sponsorships);
 	}
 

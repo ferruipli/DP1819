@@ -60,9 +60,9 @@ public class CreditCardService {
 	}
 
 	public CreditCard findOne(final int idCreditCard) {
-		CreditCard result;
-
 		Assert.isTrue(idCreditCard != 0);
+
+		CreditCard result;
 
 		result = this.creditCardRepository.findOne(idCreditCard);
 
