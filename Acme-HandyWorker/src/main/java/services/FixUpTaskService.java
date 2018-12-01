@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -145,6 +147,15 @@ public class FixUpTaskService {
 		Collection<FixUpTask> result;
 
 		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	protected Page<FixUpTask> findFixUpTaskFinder(final String keyWord, final Double startPrice, final Double endPrice, final Date startDate, final Date endDate, final String warranty, final String category, final Pageable pageable) {
+		Page<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 		Assert.notNull(result);
 
 		return result;

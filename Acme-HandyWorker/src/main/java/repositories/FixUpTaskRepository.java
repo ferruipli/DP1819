@@ -2,7 +2,10 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,5 +29,8 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 
 	@Query("select count(c)/(select count(f) from FixUpTask f)*1.0 from FixUpTask c where c.complaints.size=1")
 	double findRatioFixUpTaskWithComplaint();
+
+	@Query("select f from FixUpTask f join f.category c join c.categoriesTranslations ct where (((f.address like concat('%', concat(?1, '%'))) or (f.ticker like concat('%', concat(?1, '%'))) or (f.description like concat('%', concat(?1, '%')))) and (f.maxPrice between ?2 and ?3) and (f.startDate between ?4 and ?5)  and (f.endDate between ?4 and ?5) and (f.warranty.title like concat('%', concat(?6, '%'))) and (ct.name like concat('%', concat(?7, '%'))) )")
+	Page<FixUpTask> findFixUpTaskFinder(final String keyWord, final Double startPrice, final Double endPrice, final Date startDate, Date endDate, String warranty, String category, Pageable pageable);
 
 }
