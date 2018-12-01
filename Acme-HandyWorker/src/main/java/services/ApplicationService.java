@@ -98,6 +98,13 @@ public class ApplicationService {
 		this.applicationRepository.delete(application);
 	}
 	//Other business methods-------------------------------------------
+	protected Collection<Application> findApplicationByCreditCard(final int id) {
+		Collection<Application> sponsorships;
+
+		sponsorships = this.applicationRepository.findApplicationByCreditCard(id);
+
+		return sponsorships;
+	}
 
 	public Application changeStatus(final Application application) {
 		//Accedo a la bd y cojo el application que esta guardado para ver cual era su estado anterior

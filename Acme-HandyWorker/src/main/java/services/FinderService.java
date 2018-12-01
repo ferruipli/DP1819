@@ -131,7 +131,8 @@ public class FinderService {
 			warranty = this.checkWarranty(finder);
 			category = this.checkCategory(finder);
 
-			pageFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+			//TODO:pageFixUpTasks = this.fixUpTaskService.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+			pageFixUpTasks = null;
 
 			collectionFixUpTask = pageFixUpTasks.getContent();
 			finder.setLastUpdate(LocalDate.now().toDate());

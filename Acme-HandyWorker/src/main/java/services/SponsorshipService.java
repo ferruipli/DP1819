@@ -103,7 +103,16 @@ public class SponsorshipService {
 		this.removeSponsorShipToTutorial(sponsorship);
 		this.sponsorshipRepository.delete(sponsorship);
 	}
+
 	//Other business methods-------------------------------------------
+	protected Collection<Sponsorship> findSponsorshipByCreditCard(final int id) {
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = this.sponsorshipRepository.findSponsorshipByCreditCard(id);
+
+		return sponsorships;
+	}
+
 	protected void addSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {
 		sponsor.getSponsorships().add(sponsorship);
 		Assert.isTrue(sponsor.getSponsorships().contains(sponsorship));
