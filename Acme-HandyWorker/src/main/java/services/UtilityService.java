@@ -25,6 +25,12 @@ public class UtilityService {
 	@Autowired
 	private CurriculumService	curriculumService;
 
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private ComplaintService	complaintService;
+
 
 	// Constructors ------------------------------------------------------------
 
@@ -52,13 +58,15 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		Collection<String> curriculumsTickers;
+		Collection<String> curriculumsTickers, fixUpTaskTickers, complaintTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
 		month = currentDate.getMonthOfYear();
 		day = currentDate.getDayOfMonth();
 		curriculumsTickers = this.curriculumService.findAllTickers();
+		fixUpTaskTickers = this.fixUpTaskService.findAllTickers();
+		complaintTickers = this.complaintService.findAllTickers();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
@@ -66,15 +74,23 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumsTickers.contains(result) || counter < 650000);
+		} while (curriculumsTickers.contains(result) || fixUpTaskTickers.contains(result) || complaintTickers.contains(result) || counter < 650000);
 
-		Assert.isTrue(counter == 650000);
+		Assert.isTrue(counter == 650000); // Avoid infinite loops in the case of all possible tickers are already taken.
 
 		return result;
 	}
 
 	public void checkDate(final Date start, final Date end) {
 		Assert.isTrue(start.before(end));
+	}
+
+	public Date current_moment() {
+		Date result;
+
+		result = new Date(System.currentTimeMillis() - 1);
+
+		return result;
 	}
 
 	// Private methods ---------------------------------------------------------

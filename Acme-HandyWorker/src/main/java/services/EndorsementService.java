@@ -38,6 +38,9 @@ public class EndorsementService {
 	@Autowired
 	private EndorsableService		endorsableService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors ------------------------------------
 	public EndorsementService() {
@@ -94,7 +97,7 @@ public class EndorsementService {
 			Assert.isTrue(customers.contains(recipient));
 		}
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		moment = this.utilityService.current_moment();
 		endorsement.setMoment(moment);
 
 		result = this.endorsementRepository.save(endorsement);

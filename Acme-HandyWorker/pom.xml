@@ -12,7 +12,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>Design-and-Testing</groupId>
-	<artifactId>Acme-HandyWorker-Project</artifactId>
+	<artifactId>Acme-HandyWorker</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
@@ -22,8 +22,8 @@
 
 	<!-- Indexing information -->
 
-	<name>Acme-HandyWorker Project</name>
-	<url>http://www.Acme-HandyWorker-project.com</url>
+	<name>Acme-HandyWorker</name>
+	<url>http://www.acme-handyWorker.com</url>
 
 	<!-- Build commands -->
 
@@ -315,5 +315,5 @@
 
 	</dependencies>
 
-	<description>This system allows people share their favourite Shouts.</description>
+	<description>This system allows people contract Handy Worker for their Fix-Up Tasks.</description>
 </project> 

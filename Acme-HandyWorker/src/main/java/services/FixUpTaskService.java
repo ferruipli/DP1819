@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -67,7 +69,7 @@ public class FixUpTaskService {
 		FixUpTask result;
 		Date moment;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		moment = this.utilityService.current_moment();
 		fixUpTask.setPublicationMoment(moment);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
@@ -108,13 +110,6 @@ public class FixUpTaskService {
 	}
 
 	// Other business methods -------------------------------------------------
-	public void checkByPrincipal(final FixUpTask fixUpTask) {
-		Customer principal;
-
-		principal = this.customerService.findByPrincipal();
-
-		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
-	}
 
 	public double[] findDataNumberFixUpTaskPerUser() {
 		double[] result;
@@ -140,10 +135,19 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
+	protected Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
 		Collection<FixUpTask> result;
 
 		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	protected Page<FixUpTask> findFixUpTaskFinder(final String keyWord, final Double startPrice, final Double endPrice, final Date startDate, final Date endDate, final String warranty, final String category, final Pageable pageable) {
+		Page<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 		Assert.notNull(result);
 
 		return result;
@@ -153,6 +157,15 @@ public class FixUpTaskService {
 		FixUpTask result;
 
 		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
+
+		return result;
+	}
+
+	protected Collection<String> findAllTickers() {
+		Collection<String> result;
+
+		result = this.fixUpTaskRepository.findAllTickers();
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -167,5 +180,17 @@ public class FixUpTaskService {
 
 	protected void removePhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().remove(phase);
+	}
+
+	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
+		fixUpTask.getApplications().add(application);
+	}
+
+	private void checkByPrincipal(final FixUpTask fixUpTask) {
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+
+		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 	}
 }

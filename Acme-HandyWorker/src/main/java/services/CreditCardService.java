@@ -22,8 +22,13 @@ public class CreditCardService {
 	@Autowired
 	private CreditCardRepository	creditCardRepository;
 
-
 	// Supporting services -------------------------------------------
+	@Autowired
+	private ApplicationService		applicationService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
 
 	//Constructor ----------------------------------------------------
 	public CreditCardService() {
@@ -55,14 +60,15 @@ public class CreditCardService {
 	}
 
 	public CreditCard findOne(final int idCreditCard) {
-		CreditCard result;
-
 		Assert.isTrue(idCreditCard != 0);
+
+		CreditCard result;
 
 		result = this.creditCardRepository.findOne(idCreditCard);
 
 		return result;
 	}
+
 	public Collection<CreditCard> findAll() {
 		Collection<CreditCard> result;
 
@@ -72,34 +78,21 @@ public class CreditCardService {
 
 		return result;
 	}
+
 	public void delete(final CreditCard creditCard) {
 		Assert.isTrue(this.creditCardRepository.exists(creditCard.getId()));
 		Collection<Sponsorship> creditCardinSponsorship;
 		Collection<Application> creditCardinApplication;
 
-		creditCardinSponsorship = this.findSponsorshipByCreditCard(creditCard.getId());
-		creditCardinApplication = this.findApplicationByCreditCard(creditCard.getId());
+		creditCardinSponsorship = this.sponsorshipService.findSponsorshipByCreditCard(creditCard.getId());
+		creditCardinApplication = this.applicationService.findApplicationByCreditCard(creditCard.getId());
 
 		Assert.isTrue(creditCardinApplication.isEmpty());
 		Assert.isTrue(creditCardinSponsorship.isEmpty());
 
 		this.creditCardRepository.delete(creditCard);
 	}
+
 	//Other business methods-------------------------------------------
-
-	private Collection<Sponsorship> findSponsorshipByCreditCard(final int id) {
-		Collection<Sponsorship> sponsorships;
-
-		sponsorships = this.creditCardRepository.findSponsorshipByCreditCard(id);
-
-		return sponsorships;
-	}
-	private Collection<Application> findApplicationByCreditCard(final int id) {
-		Collection<Application> sponsorships;
-
-		sponsorships = this.creditCardRepository.findApplicationByCreditCard(id);
-
-		return sponsorships;
-	}
 
 }

@@ -33,10 +33,15 @@ public class FinderService {
 
 	@Autowired
 	private FixUpTaskService		fixUpTaskService;
+
 	@Autowired
 	private CustomisationService	customisationService;
+
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private UtilityService			utilityService;
 
 
 	//Constructor ----------------------------------------------------
@@ -47,31 +52,22 @@ public class FinderService {
 
 	public Finder create() {
 		Finder result;
-		final Collection<FixUpTask> fixUpTasks;
-		Date date;
 
 		result = new Finder();
-		date = new Date();
-		fixUpTasks = this.fixUpTaskService.findAll();
-
-		result.setFixUpTasks(fixUpTasks);
-		result.setLastUpdate(date);
+		result.setFixUpTasks(this.fixUpTaskService.findAll());
 
 		return result;
 	}
+
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
-		HandyWorker handyWorker;
 		Finder result;
 		Date date;
 
-		date = new Date();
+		date = this.utilityService.current_moment();
 
-		if (finder.getId() != 0) {
-
-			handyWorker = this.handyWorkerService.findByPrincipal();
-			Assert.isTrue(handyWorker.getFinder().getId() == finder.getId());
-		}
+		if (finder.getId() != 0)
+			this.checkByPrincipal(finder);
 
 		finder.setLastUpdate(date);
 		result = this.finderRepository.save(finder);
@@ -79,12 +75,12 @@ public class FinderService {
 		return result;
 	}
 
-	public Finder findOne(final int idFinder) {
+	public Finder findOne(final int finderId) {
 		Finder result;
 
-		Assert.isTrue(idFinder != 0);
+		Assert.isTrue(finderId != 0);
 
-		result = this.finderRepository.findOne(idFinder);
+		result = this.finderRepository.findOne(finderId);
 
 		return result;
 	}
@@ -100,27 +96,19 @@ public class FinderService {
 
 	//Other business methods-------------------------------------------
 	public Collection<FixUpTask> search(final Finder finder) {
-		HandyWorker principal;
-		final int maxFinderResults;
-		final int timeCacheFinderResults;
+		this.checkByPrincipal(finder);
+
 		final Pageable pageable;
-		final String keyWord;
-		final Double startPrice;
-		final Double endPrice;
-		final Date startDate;
-		final Date endDate;
-		final String warranty;
-		final String category;
+		final int maxFinderResults, timeCacheFinderResults;
+		final String keyWord, warranty, category;
+		final Double startPrice, endPrice;
+		final Date startDate, endDate;
 		final Page<FixUpTask> pageFixUpTasks;
 		final Collection<FixUpTask> collectionFixUpTask;
 
-		principal = this.handyWorkerService.findByPrincipal();
 		timeCacheFinderResults = this.customisationService.find().getTimeCachedFinderResults();
 
-		Assert.isTrue(principal.getFinder().equals(finder));
-
 		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
-
 			maxFinderResults = this.customisationService.find().getMaxFinderResults();
 			pageable = new PageRequest(0, maxFinderResults);
 			keyWord = this.checkKeyWord(finder);
@@ -131,14 +119,25 @@ public class FinderService {
 			warranty = this.checkWarranty(finder);
 			category = this.checkCategory(finder);
 
-			pageFixUpTasks = this.finderRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+			pageFixUpTasks = this.fixUpTaskService.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 
 			collectionFixUpTask = pageFixUpTasks.getContent();
 			finder.setLastUpdate(LocalDate.now().toDate());
 		} else
 			collectionFixUpTask = finder.getFixUpTasks();
+
 		return collectionFixUpTask;
 	}
+
+	protected void checkByPrincipal(final Finder finder) {
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+
+		Assert.isTrue(handyWorker.getFinder().equals(finder));
+	}
+
+	// private methods -----------------------------------------------
 	private String checkKeyWord(final Finder finder) {
 		String result;
 		result = finder.getKeyword();
@@ -146,20 +145,27 @@ public class FinderService {
 			finder.setKeyword("");
 		return finder.getKeyword();
 	}
+
 	private Double checkStartPrice(final Finder finder) {
 		Double result;
 		result = finder.getStartPrice();
+
 		if (result == null)
 			finder.setStartPrice(0.0);
+
 		return finder.getStartPrice();
 	}
+
 	private Double checkEndPrice(final Finder finder) {
 		Double result;
 		result = finder.getEndPrice();
+
 		if (result == null)
 			finder.setEndPrice(1000000000.0);
+
 		return finder.getEndPrice();
 	}
+
 	private Date checkStartDate(final Finder finder) {
 		if (finder.getStartDate() == null) {
 			finder.setStartDate(LocalDate.parse("0000-01-01").toDate());
@@ -195,6 +201,7 @@ public class FinderService {
 			return dateEndDate;
 		}
 	}
+
 	private String checkWarranty(final Finder finder) {
 		String result;
 		result = finder.getWarranty();
@@ -202,6 +209,7 @@ public class FinderService {
 			finder.setWarranty("");
 		return finder.getWarranty();
 	}
+
 	private String checkCategory(final Finder finder) {
 		String result;
 		result = finder.getCategory();
@@ -212,8 +220,7 @@ public class FinderService {
 
 	private boolean compareTime(final Date lastUpdate, final Integer cache) {
 		final Boolean result;
-		Long time;
-		Long hours;
+		Long time, hours;
 		Date date;
 
 		date = new Date();
@@ -228,8 +235,8 @@ public class FinderService {
 			result = true;
 		else
 			result = false;
-		return result;
 
+		return result;
 	}
 
 }

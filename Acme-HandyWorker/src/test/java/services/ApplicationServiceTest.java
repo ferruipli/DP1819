@@ -58,6 +58,8 @@ public class ApplicationServiceTest extends AbstractTest {
 
 		applicationSaved = this.applicationService.save(application);
 
+		Assert.isNull(applicationSaved);
+
 		super.unauthenticate();
 	}
 	/*
@@ -73,6 +75,8 @@ public class ApplicationServiceTest extends AbstractTest {
 		application.setStatus("REJECTED");
 
 		applicationSaved = this.applicationService.save(application);
+
+		Assert.isNull(applicationSaved);
 
 		super.unauthenticate();
 	}
