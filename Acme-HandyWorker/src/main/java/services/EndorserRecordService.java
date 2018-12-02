@@ -91,15 +91,15 @@ public class EndorserRecordService {
 		Assert.isTrue(endorserRecord.getId() != 0);
 		this.checkByPrincipal(endorserRecord);
 
-		// Debemos de eliminar el endorserRecord del curriculum del handyworker
+		// We must delete handyworker's endorser record
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
 
-		// Eliminamos el EndorserRecord del curriculum del handyworker Principal
+		// We delete the endorser record of handyworker's logged curriculum
 		this.curriculumService.removeEndorserRecord(curriculum, endorserRecord);
 
-		// Eliminamos definitivamente el education record
+		// We delete the endorser record of the system
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
 

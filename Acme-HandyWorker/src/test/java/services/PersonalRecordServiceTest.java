@@ -104,7 +104,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
-	// Guardar un personal record sin estar autenticado
+	// Save a personal record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testSavePersonalRecordNegative() {
 		PersonalRecord personalRecord, saved;
@@ -133,7 +133,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Guardar un personal record sin ser handyworker
+	// Save a personal record without a handyworker account.
 	@Test(expected = NullPointerException.class)
 	public void testSavePersonalRecordNegative2() {
 		PersonalRecord personalRecord, saved;
