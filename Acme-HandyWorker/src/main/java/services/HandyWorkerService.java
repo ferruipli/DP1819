@@ -119,6 +119,13 @@ public class HandyWorkerService {
 	}
 
 	//Other business methods-------------------------------------------
+	protected HandyWorker findHandyWorkerBySection(final int id) {
+		HandyWorker handyWoker;
+
+		handyWoker = this.handyWorkerRepository.findHandyWorkerBySection(id);
+
+		return handyWoker;
+	}
 
 	public HandyWorker findByPrincipal() {
 		HandyWorker result;

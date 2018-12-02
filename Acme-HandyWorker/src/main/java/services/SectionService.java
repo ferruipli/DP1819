@@ -22,12 +22,12 @@ public class SectionService {
 	@Autowired
 	private SectionRepository	sectionRepository;
 
-	// Supporting services -------------------------------------------
+	// Supporting services -------------------------------------------	
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
 	private TutorialService		tutorialService;
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
 
 
 	//Constructor ----------------------------------------------------
@@ -46,29 +46,27 @@ public class SectionService {
 
 	public Section save(final Section section) {
 		Assert.notNull(section);
-		Section result;
-		HandyWorker handyWorker;
-		HandyWorker principal;
 
-		if (section.getId() != 0) {
-			handyWorker = this.sectionRepository.findHandyWorkerBySection(section.getId());
-			principal = this.handyWorkerService.findByPrincipal();
-			Assert.isTrue(handyWorker.equals(principal));
-		}
+		Section result;
+
+		if (section.getId() != 0)
+			this.checkByPrincipal(section);
 
 		result = this.sectionRepository.save(section);
 
 		return result;
 	}
-	public Section findOne(final int idSection) {
+
+	public Section findOne(final int sectionId) {
+		Assert.isTrue(sectionId != 0);
+
 		Section result;
 
-		Assert.isTrue(idSection != 0);
-
-		result = this.sectionRepository.findOne(idSection);
+		result = this.sectionRepository.findOne(sectionId);
 
 		return result;
 	}
+
 	public Collection<Section> findAll() {
 		Collection<Section> result;
 
@@ -78,55 +76,45 @@ public class SectionService {
 
 		return result;
 	}
+
 	public void delete(final Section section) {
-		Tutorial tutorial;
-		HandyWorker handyWorker;
-		HandyWorker principal;
-
-		Assert.isTrue(section.getId() != 0);
 		Assert.notNull(section);
-		Assert.isTrue(this.sectionRepository.exists(section.getId()));
+		Assert.isTrue(section.getId() != 0);
+		this.checkByPrincipal(section);
 
-		if (section.getId() != 0) {
-			handyWorker = this.sectionRepository.findHandyWorkerBySection(section.getId());
-			principal = this.handyWorkerService.findByPrincipal();
-			Assert.isTrue(handyWorker.equals(principal));
-		}
+		Tutorial tutorial;
 
-		tutorial = this.findTutorialBySection(section);
+		tutorial = this.tutorialService.findTutorialBySection(section);
+
 		this.removeSectionToTutorial(tutorial, section);
 
 		this.sectionRepository.delete(section);
-
-		Assert.isTrue(!(tutorial.getSections().contains(section)));
 	}
+
 	//Other business methods-------------------------------------------
+	protected void checkByPrincipal(final Section section) {
+		HandyWorker handyWorker;
+		HandyWorker principal;
 
-	protected HandyWorker findHandyWorkerBySection(final int id) {
-		HandyWorker handyWoker;
-		handyWoker = this.sectionRepository.findHandyWorkerBySection(id);
-		return handyWoker;
+		handyWorker = this.handyWorkerService.findHandyWorkerBySection(section.getId());
+		principal = this.handyWorkerService.findByPrincipal();
+
+		Assert.isTrue(handyWorker.equals(principal));
 	}
+
 	public void removeSectionToTutorial(final Tutorial tutorial, final Section section) {
-		Assert.isTrue((tutorial.getSections().contains(section)));
 		tutorial.getSections().remove(section);
-		Assert.isTrue(!(tutorial.getSections().contains(section)));
 	}
+
 	//Este metodo se ha creado para cuando en una vista quiera añadirse secciones a una tutoria
 	//si se hace a traves de una list que no haga falta meter uno a uno las section
 	public void addSectionToTutorial(final Tutorial tutorial, final Collection<Section> sec) {
 		Collection<Section> sections;
+
 		sections = tutorial.getSections();
 		sections.addAll(sec);
-		tutorial.setSections(sections);
-		Assert.isTrue(tutorial.getSections().contains(sec));
-	}
 
-	public Tutorial findTutorialBySection(final Section section) {
-		Tutorial tutorial;
-		tutorial = this.sectionRepository.findTutorialBySection(section.getId());
-		Assert.isTrue((tutorial.getSections().contains(section)));
-		return tutorial;
+		tutorial.setSections(sections);
 	}
 
 }

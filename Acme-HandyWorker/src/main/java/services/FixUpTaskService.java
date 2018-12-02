@@ -69,7 +69,7 @@ public class FixUpTaskService {
 		FixUpTask result;
 		Date moment;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		moment = this.utilityService.current_moment();
 		fixUpTask.setPublicationMoment(moment);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
@@ -111,14 +111,6 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
-	public void checkByPrincipal(final FixUpTask fixUpTask) {
-		Customer principal;
-
-		principal = this.customerService.findByPrincipal();
-
-		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
-	}
-
 	public double[] findDataNumberFixUpTaskPerUser() {
 		double[] result;
 
@@ -143,7 +135,7 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
+	protected Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
 		Collection<FixUpTask> result;
 
 		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
@@ -169,6 +161,15 @@ public class FixUpTaskService {
 		return result;
 	}
 
+	protected Collection<String> findAllTickers() {
+		Collection<String> result;
+
+		result = this.fixUpTaskRepository.findAllTickers();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().add(phase);
 	}
@@ -183,5 +184,13 @@ public class FixUpTaskService {
 
 	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
 		fixUpTask.getApplications().add(application);
+	}
+
+	private void checkByPrincipal(final FixUpTask fixUpTask) {
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+
+		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 	}
 }
