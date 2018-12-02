@@ -135,7 +135,7 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
+	protected Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
 		Collection<FixUpTask> result;
 
 		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
@@ -157,6 +157,15 @@ public class FixUpTaskService {
 		FixUpTask result;
 
 		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
+
+		return result;
+	}
+
+	protected Collection<String> findAllTickers() {
+		Collection<String> result;
+
+		result = this.fixUpTaskRepository.findAllTickers();
+		Assert.notNull(result);
 
 		return result;
 	}
