@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -108,6 +110,7 @@ public class FixUpTaskService {
 	}
 
 	// Other business methods -------------------------------------------------
+
 	public void checkByPrincipal(final FixUpTask fixUpTask) {
 		Customer principal;
 
@@ -149,6 +152,15 @@ public class FixUpTaskService {
 		return result;
 	}
 
+	protected Page<FixUpTask> findFixUpTaskFinder(final String keyWord, final Double startPrice, final Double endPrice, final Date startDate, final Date endDate, final String warranty, final String category, final Pageable pageable) {
+		Page<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected FixUpTask findByPhaseId(final int phaseId) {
 		FixUpTask result;
 
@@ -167,5 +179,9 @@ public class FixUpTaskService {
 
 	protected void removePhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().remove(phase);
+	}
+
+	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
+		fixUpTask.getApplications().add(application);
 	}
 }

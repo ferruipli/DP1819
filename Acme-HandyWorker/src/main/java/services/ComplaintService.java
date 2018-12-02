@@ -62,7 +62,7 @@ public class ComplaintService {
 
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
-		Assert.isTrue(!this.complaintRepository.exists(complaint.getId()));
+		Assert.isTrue(!this.complaintRepository.exists(complaint.getId())); // Complaints cannot be updated
 
 		Complaint result;
 		Customer principal;

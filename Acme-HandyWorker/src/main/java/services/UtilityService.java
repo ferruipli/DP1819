@@ -68,7 +68,7 @@ public class UtilityService {
 			counter++;
 		} while (curriculumsTickers.contains(result) || counter < 650000);
 
-		Assert.isTrue(counter == 650000);
+		Assert.isTrue(counter == 650000); // Avoid infinite loops in the case of all possible tickers are already taken.
 
 		return result;
 	}
