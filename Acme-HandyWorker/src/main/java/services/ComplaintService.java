@@ -1,12 +1,13 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -14,6 +15,7 @@ import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.HandyWorker;
+import domain.Referee;
 import domain.Report;
 
 @Service
@@ -92,43 +94,43 @@ public class ComplaintService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Complaint> findByCustomerPrincipal() {
-		Collection<Complaint> result;
+	public Page<Complaint> findByCustomerPrincipal(final Pageable pageable) {
+		Page<Complaint> result;
 		Customer principal;
 
 		principal = this.customerService.findByPrincipal();
-		result = this.complaintRepository.findByCustomerPrincipal(principal.getId());
+		result = this.complaintRepository.findByCustomerPrincipal(principal.getId(), pageable);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Collection<Complaint> findNotSelfAssigned() {
-		Collection<Complaint> result;
+	public Page<Complaint> findNotSelfAssigned(final Pageable pageable) {
+		Page<Complaint> result;
 
-		result = this.complaintRepository.findNotSelfAssigned();
+		result = this.complaintRepository.findNotSelfAssigned(pageable);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	// Every change (such as .add(Object), .remove(Object), ...) in the collection 
-	// returned by this method, is persisted in the database.
-	public Collection<Complaint> findSelfAssignedByPrincipal() {
-		Collection<Complaint> result;
+	public Page<Complaint> findSelfAssignedByPrincipal(final Pageable pageable) {
+		Page<Complaint> result;
+		Referee principal;
 
-		result = this.refereeService.findByPrincipal().getComplaints();
+		principal = this.refereeService.findByPrincipal();
+		result = this.complaintRepository.findSelfAssignedByPrincipal(principal.getId(), pageable);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Collection<Complaint> findInvolvedByHandyWorkerId(final int handyWorkerId) {
-		Collection<Complaint> result;
+	public Page<Complaint> findInvolvedByHandyWorkerId(final int handyWorkerId, final Pageable pageable) {
+		Page<Complaint> result;
 		HandyWorker principal;
 
 		principal = this.handyWorkerService.findByPrincipal();
-		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId());
+		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId(), pageable);
 		Assert.notNull(result);
 
 		return result;

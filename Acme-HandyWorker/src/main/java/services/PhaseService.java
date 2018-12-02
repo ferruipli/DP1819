@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -105,10 +107,10 @@ public class PhaseService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId) {
-		Collection<Phase> result;
+	public Page<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId, final Pageable pageable) {
+		Page<Phase> result;
 
-		result = this.phaseRepository.findByFixUpTaskIdOrdered(fixUpTaskId);
+		result = this.phaseRepository.findByFixUpTaskIdOrdered(fixUpTaskId, pageable);
 		Assert.notNull(result);
 
 		return result;

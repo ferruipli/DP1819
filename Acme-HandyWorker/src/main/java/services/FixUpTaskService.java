@@ -111,14 +111,6 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
-	public void checkByPrincipal(final FixUpTask fixUpTask) {
-		Customer principal;
-
-		principal = this.customerService.findByPrincipal();
-
-		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
-	}
-
 	public double[] findDataNumberFixUpTaskPerUser() {
 		double[] result;
 
@@ -183,5 +175,13 @@ public class FixUpTaskService {
 
 	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
 		fixUpTask.getApplications().add(application);
+	}
+
+	private void checkByPrincipal(final FixUpTask fixUpTask) {
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+
+		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 	}
 }
