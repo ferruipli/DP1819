@@ -71,7 +71,7 @@ public class ReportService {
 			Assert.isTrue(!report.getFinalMode());
 			complaint = this.complaintService.findByReportId(report.getId());
 		} else {
-			moment = new Date(System.currentTimeMillis() - 1);
+			moment = this.utilityService.current_moment();
 			report.setMoment(moment);
 		}
 

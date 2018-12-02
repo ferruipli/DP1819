@@ -69,7 +69,7 @@ public class FixUpTaskService {
 		FixUpTask result;
 		Date moment;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		moment = this.utilityService.current_moment();
 		fixUpTask.setPublicationMoment(moment);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);

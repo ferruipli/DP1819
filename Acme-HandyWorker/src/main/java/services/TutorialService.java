@@ -30,6 +30,9 @@ public class TutorialService {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	//Constructor ----------------------------------------------------
 	public TutorialService() {
@@ -39,53 +42,43 @@ public class TutorialService {
 
 	public Tutorial create() {
 		Tutorial result;
-		Date date;
 		final HandyWorker principal;
-		Collection<Sponsorship> sponsorships;
-		final Collection<Section> sections;
+
 		principal = this.handyWorkerService.findByPrincipal();
-		Assert.notNull(principal);
 
 		result = new Tutorial();
-		date = new Date(System.currentTimeMillis() - 1);
-		sponsorships = new ArrayList<Sponsorship>();
-		sections = new ArrayList<Section>();
-
-		result.setMoment(date);
 		result.setHandyWorker(principal);
-		result.setSponsorShips(sponsorships);
-
-		result.setSections(sections);
+		result.setSponsorShips(new ArrayList<Sponsorship>());
+		result.setSections(new ArrayList<Section>());
 
 		return result;
 	}
+
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
+		this.checkByPrincipal(tutorial);
 
-		final HandyWorker principal;
 		Tutorial result;
+		Date moment;
 
-		principal = this.handyWorkerService.findByPrincipal();
-		Assert.isTrue(principal.equals(tutorial.getHandyWorker()));
-		if (tutorial.getId() != 0) {
-			Date dateNow;
-			dateNow = new Date();
-			Assert.isTrue(tutorial.getMoment().before(dateNow));
-		}
+		moment = this.utilityService.current_moment();
+		tutorial.setMoment(moment);
 
 		result = this.tutorialRepository.save(tutorial);
 
 		return result;
 	}
-	public Tutorial findOne(final int idTutorial) {
-		Tutorial result;
 
+	public Tutorial findOne(final int idTutorial) {
 		Assert.isTrue(idTutorial != 0);
+
+		Tutorial result;
 
 		result = this.tutorialRepository.findOne(idTutorial);
 
 		return result;
 	}
+
 	public Collection<Tutorial> findAll() {
 		Collection<Tutorial> result;
 
@@ -97,23 +90,36 @@ public class TutorialService {
 	}
 
 	public void delete(final Tutorial tutorial) {
-		HandyWorker handyWorker;
-		HandyWorker principal;
-		Assert.isTrue(tutorial.getId() != 0);
 		Assert.notNull(tutorial);
-		Assert.isTrue(this.tutorialRepository.exists(tutorial.getId()));
-
-		handyWorker = tutorial.getHandyWorker();
-		principal = this.handyWorkerService.findByPrincipal();
-		Assert.isTrue(handyWorker.equals(principal));
+		Assert.isTrue(tutorial.getId() != 0);
+		this.checkByPrincipal(tutorial);
 
 		this.tutorialRepository.delete(tutorial);
 	}
+
+	protected void checkByPrincipal(final Tutorial tutorial) {
+		HandyWorker principal;
+
+		principal = this.handyWorkerService.findByPrincipal();
+
+		Assert.isTrue(principal.equals(tutorial.getHandyWorker()));
+	}
+
 	//Other business methods-------------------------------------------
-	protected Tutorial findTutorialBySponsorship(final Sponsorship sponsorship) {
+	public Tutorial findTutorialBySection(final Section section) {
 		Tutorial tutorial;
-		tutorial = this.tutorialRepository.findTutorialBySponsorship(sponsorship.getId());
+
+		tutorial = this.tutorialRepository.findTutorialBySection(section.getId());
+
 		return tutorial;
+	}
+
+	protected Tutorial findTutorialBySponsorship(final Sponsorship sponsorship) {
+		Tutorial result;
+
+		result = this.tutorialRepository.findTutorialBySponsorship(sponsorship.getId());
+
+		return result;
 	}
 
 }

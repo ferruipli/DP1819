@@ -71,7 +71,7 @@ public class ComplaintService {
 		Customer principal;
 		Date moment;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		moment = this.utilityService.current_moment();
 		principal = this.customerService.findByPrincipal();
 
 		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));

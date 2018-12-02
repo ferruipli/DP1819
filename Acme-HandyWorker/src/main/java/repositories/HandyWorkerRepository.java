@@ -34,4 +34,7 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	//Req 38.5.5 
 	@Query("select h from HandyWorker h join h.applications a join a.fixUpTask f group by a.handyWorker order by f.complaints.size DESC")
 	Page<HandyWorker> topThreeCustomer(Pageable page);
+
+	@Query("select t.handyWorker from Tutorial t join t.sections s where s.id=?1")
+	HandyWorker findHandyWorkerBySection(int id);
 }
