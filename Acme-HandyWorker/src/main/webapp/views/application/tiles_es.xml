@@ -18,8 +18,18 @@
 
 
 	<definition name="application/list" extends="master.page">	
-		<put-attribute name="title" value="Lista de solicitudes />
+		<put-attribute name="title" value="Lista de solicitudes" />
 		<put-attribute name="body" value="/views/application/list.jsp" />
+	</definition>
+	
+	<definition name="application/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar solicitud" />
+		<put-attribute name="body" value="/views/application/edit.jsp" />
+	</definition>
+	
+	<definition name="application/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar solicitud" />
+		<put-attribute name="body" value="/views/application/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

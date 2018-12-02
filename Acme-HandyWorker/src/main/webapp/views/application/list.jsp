@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table id="row" name="application"  requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table id="row" name="applications"  requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 
 	<jsp:useBean id="now" class="java.util.Date" />
@@ -68,13 +68,19 @@
 	<spring:message code="application.handyWorkerComments" var="handyWorkerCommentsHeader" />
 	<display:column property="handyWorkerComments" title="${handyWorkerCommentsHeader}" class="${appColor}"/>
 	
-	<spring:message code="application.comments" var="commentsHeader" />
-	<display:column property="handyWorkerComments" title="${commentsHeader}"class="${appColor}"/>
+	<spring:message code="application.customerComments" var="customerCommentsHeader" />
+	<display:column property="customerComments" title="${customerCommentsHeader}"class="${appColor}"/>
 	
 	<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column class="${appColor}" >
 		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
+		</a>
+	</display:column>
+	
+	<display:column class="${appColor}" >
+		<a href="application/handyWorker/display.do?applicationId=${row.id}">
+					<spring:message	code="application.display" />
 		</a>
 	</display:column>
 	</security:authorize>	
