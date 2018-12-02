@@ -93,6 +93,10 @@ public class UtilityService {
 		return result;
 	}
 
+	public void checkName(final Actor actor) {
+		Assert.isTrue(!actor.getName().equals("System"));
+	}
+
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {

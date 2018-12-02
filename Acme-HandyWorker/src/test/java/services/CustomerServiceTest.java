@@ -111,6 +111,7 @@ public class CustomerServiceTest extends AbstractTest {
 		showed = this.customerService.findOne(saved.getId());
 
 		Assert.notNull(showed);
+
 	}
 
 	/* Formato de correo: "identifier@domain" */

@@ -40,6 +40,9 @@ public class MessageService {
 	@Autowired
 	private CustomisationService	customisationService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -51,107 +54,129 @@ public class MessageService {
 
 	public Message create() {
 		Message result;
-		Collection<Actor> recipients;
+
 		final Actor sender = this.actorService.findPrincipal();
-		Date sendMoment;
 		Assert.notNull(sender);
 
 		result = new Message();
-		recipients = new ArrayList<Actor>();
-		sendMoment = new Date();
-
 		result.setSender(sender);
-		result.setRecipients(recipients);
-		result.setSendMoment(sendMoment);
-		result.setIsSpam(false);
+		result.setRecipients(new ArrayList<Actor>());
 
 		return result;
 	}
 
-	public Message findOne(final int IdMessage) {
-		Assert.isTrue(IdMessage != 0);
+	public Message findOne(final int messageId) {
+		Assert.isTrue(messageId != 0);
+
 		Message result;
-		result = this.messageRepository.findOne(IdMessage);
+
+		result = this.messageRepository.findOne(messageId);
 		Assert.notNull(result);
+
 		return result;
 	}
 
 	public Collection<Message> findAll() {
 		Collection<Message> result;
+
 		result = this.messageRepository.findAll();
+
 		return result;
 	}
 
 	public Message save(final Message message) {
-		Assert.notNull(message.getSender());
-		Assert.notNull(message.getRecipients());
 		Assert.notNull(message);
 		Assert.isTrue(message.getId() == 0);
+		Assert.notNull(message.getSender());
+		Assert.notEmpty(message.getRecipients());
+		this.checkByPrincipal(message);
 
 		Date sendMoment;
-		sendMoment = new Date();
-		message.setSendMoment(sendMoment);
 
 		final Message result;
-		final Actor sender = this.actorService.findPrincipal();
-		final Collection<Actor> recipients = message.getRecipients();
-		final Box outBoxSender = this.boxService.searchBox(sender, "out box");
+		final Actor sender;
+		final Collection<Actor> recipients;
+		final Box outBoxSender;
 
-		Assert.isTrue(message.getSender().equals(sender));
+		sender = this.actorService.findPrincipal();
+		recipients = message.getRecipients();
+		outBoxSender = this.boxService.searchBox(sender, "out box");
 
 		if (this.isSpamMessage(message))
 			message.setIsSpam(true);
 		else
 			message.setIsSpam(false);
 
+		sendMoment = this.utilityService.current_moment();
+		message.setSendMoment(sendMoment);
+
 		result = this.messageRepository.save(message);
 
 		if (message.getIsSpam()) {
 			this.actorService.isSuspicious(sender);
+
 			for (final Actor r : recipients) {
-				final Box spamBoxRecipiens = this.boxService.searchBox(r, "spam box");
-				spamBoxRecipiens.getMessages().add(result);
+				final Box spamBoxRecipients = this.boxService.searchBox(r, "spam box");
+				spamBoxRecipients.getMessages().add(result);
 			}
 		} else
 			for (final Actor r : recipients) {
-				final Box inBoxRecipiens = this.boxService.searchBox(r, "in box");
-				inBoxRecipiens.getMessages().add(result);
+				final Box inBoxRecipients = this.boxService.searchBox(r, "in box");
+				inBoxRecipients.getMessages().add(result);
 			}
+
 		outBoxSender.getMessages().add(result);
 
-		Assert.notNull(result);
 		return result;
 	}
+
 	public void delete(final Message message) {
 		Assert.notNull(message);
-		Assert.notNull(this.messageRepository.findOne(message.getId()));
-		final Actor actor = this.actorService.findPrincipal();
-		Assert.isTrue((message.getSender().equals(actor)) || (message.getRecipients().contains(actor)));
-		final Box trashBoxActor = this.boxService.searchBox(actor, "trash box");
-		final Collection<Message> messagesTrashBox = trashBoxActor.getMessages();
+		Assert.notNull(message.getId() != 0);
+
+		final Box trashBoxActor;
+		final Collection<Message> messagesTrashBox;
+		final Actor principal;
+
+		principal = this.actorService.findPrincipal();
+		Assert.isTrue((message.getSender().equals(principal)) || (message.getRecipients().contains(principal)));
+
+		trashBoxActor = this.boxService.searchBox(principal, "trash box");
+		messagesTrashBox = trashBoxActor.getMessages();
+
 		if (messagesTrashBox.contains(message)) {
 			messagesTrashBox.remove(message);
-			this.deleteMessageBD(message, actor);
+			this.deleteMessageBD(message, principal);
 		} else {
-			this.deleteMessageAllBoxActor(actor, message);
+			this.deleteMessageAllBoxActor(principal, message);
 			trashBoxActor.getMessages().add(message);
 		}
 
 	}
 
 	// Other business methods -------------------------------------------------
+	protected void checkByPrincipal(final Message message) {
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+
+		Assert.isTrue(message.getSender().equals(principal));
+	}
 
 	public boolean isSpamMessage(final Message message) {
 		boolean res = false;
 		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
+
 		for (final String sw : spamWords)
 			if (message.getSubject().contains(sw) || message.getBody().contains(sw))
 				res = true;
+
 		return res;
 	}
 
 	private void deleteMessageAllBoxActor(final Actor actor, final Message message) {
 		final Collection<Box> findAllBoxByActor = this.boxService.findAllBoxByActor(actor);
+
 		for (final Box b : findAllBoxByActor)
 			if (b.getMessages().contains(message))
 				b.getMessages().remove(message);
@@ -177,72 +202,58 @@ public class MessageService {
 	}
 
 	public void messageToStatus(final Application application, final String status) {
-		final Actor systemActor = this.actorService.findPrincipal();
-		final Message messageHandyWorker;
-		final Message messageCustomer;
-		final Message messageSaveHandyWorker;
-		final Message messageSaveCustomer;
-
+		final Actor system;
+		final Message message, message_saved;
 		HandyWorker handyWorkerApplication;
 		Customer customerApplication;
+		Box inBoxHandyWorker, inBoxCustomer, outBoxSystemActor;
+		String statusEn, statusEs;
+		Date sendMoment;
+		final List<Actor> recipients;
 
+		system = this.actorService.findSystem();
 		handyWorkerApplication = application.getHandyWorker();
 		customerApplication = application.getFixUpTask().getCustomer();
 
-		Box inBoxHandyWorker;
-		Box inBoxCustomer;
-		Box outBoxSystemActor;
-
-		outBoxSystemActor = this.boxService.searchBox(systemActor, "out box");
+		outBoxSystemActor = this.boxService.searchBox(system, "out box");
 		inBoxHandyWorker = this.boxService.searchBox(handyWorkerApplication, "in box");
 		inBoxCustomer = this.boxService.searchBox(customerApplication, "in box");
 
-		messageHandyWorker = new Message();
-		messageCustomer = new Message();
-		String statusEn = null;
-		String statusEs = null;
+		message = new Message();
+
+		statusEn = null;
+		statusEs = null;
+
 		if (status.equals("REJECTED")) {
 			statusEn = "reject";
 			statusEs = "rechazado";
 		}
+
 		if (status.equals("ACCEPTED")) {
 			statusEn = "acepted";
 			statusEs = "aceptado";
 		}
 
-		messageHandyWorker.setSender(systemActor);
-		messageHandyWorker.setSubject("Status changed");
-		messageHandyWorker.setBody("The status for application  assigned to fix-up task whose ticker is " + application.getFixUpTask().getTicker() + " is change to " + statusEn
-			+ " status.\nEl estado de la solicitud asignada a la tarea de reparación cuyo ticker es " + application.getFixUpTask().getTicker() + " ha cambiado a estado" + statusEs + ".");
-		messageHandyWorker.setPriority("HIGH");
-		Date sendMoment;
-		sendMoment = new Date();
-		messageHandyWorker.setSendMoment(sendMoment);
-		final List<Actor> recipients = new ArrayList<Actor>();
+		message.setSender(system);
+		message.setSubject("Status changed / Estado cambiado");
+		message.setBody("The status for application  assigned to fix-up task whose ticker is " + application.getFixUpTask().getTicker() + " is change to " + statusEn + " status.\nEl estado de la solicitud asignada a la tarea de reparación cuyo ticker es "
+			+ application.getFixUpTask().getTicker() + " ha cambiado a estado" + statusEs + ".");
+		message.setPriority("HIGH");
+
+		recipients = new ArrayList<Actor>();
 		recipients.add(handyWorkerApplication);
-		messageHandyWorker.setRecipients(recipients);
+		recipients.add(customerApplication);
 
-		messageSaveHandyWorker = this.messageRepository.save(messageHandyWorker);
-		inBoxHandyWorker.getMessages().add(messageSaveHandyWorker);
-		outBoxSystemActor.getMessages().add(messageSaveHandyWorker);
+		message.setRecipients(recipients);
 
-		messageCustomer.setSender(systemActor);
-		messageCustomer.setSubject("Status changed");
-		messageCustomer.setBody("The status for application  assigned to fix-up task whose ticker is " + application.getFixUpTask().getTicker() + " is change to " + statusEn
-			+ " status.\nEl estado de la solicitud asignada a la tarea de reparación cuyo ticker es " + application.getFixUpTask().getTicker() + " ha cambiado a estado " + statusEs + ".");
-		messageCustomer.setPriority("HIGH");
-		Date sendMoment2;
-		sendMoment2 = new Date();
-		messageCustomer.setSendMoment(sendMoment2);
-		final List<Actor> recipients2 = new ArrayList<Actor>();
-		recipients2.add(customerApplication);
-		messageCustomer.setRecipients(recipients2);
+		sendMoment = this.utilityService.current_moment();
+		message.setSendMoment(sendMoment);
 
-		messageSaveCustomer = this.messageRepository.save(messageCustomer);
-		inBoxCustomer.getMessages().add(messageSaveCustomer);
-		outBoxSystemActor.getMessages().add(messageSaveCustomer);
+		message_saved = this.messageRepository.save(message);
+		Assert.notNull(message_saved);
 
-		Assert.notNull(messageSaveHandyWorker);
-		Assert.notNull(messageSaveCustomer);
+		inBoxHandyWorker.getMessages().add(message_saved);
+		inBoxCustomer.getMessages().add(message_saved);
+		outBoxSystemActor.getMessages().add(message_saved);
 	}
 }
