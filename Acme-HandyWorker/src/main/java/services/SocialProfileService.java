@@ -37,49 +37,62 @@ public class SocialProfileService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public SocialProfile create() {
-		SocialProfile socialPro;
-		final Actor actor = this.actorService.findPrincipal();
-		socialPro = new SocialProfile();
-		socialPro.setActor(actor);
-		Assert.notNull(actor);
-		return socialPro;
-	}
-
-	public SocialProfile findOne(final int IdSocialProfile) {
-		Assert.isTrue(IdSocialProfile != 0);
 		SocialProfile result;
-		result = this.socialProfileRepository.findOne(IdSocialProfile);
-		Assert.notNull(result);
+		final Actor actor;
+
+		actor = this.actorService.findPrincipal();
+
+		result = new SocialProfile();
+		result.setActor(actor);
+
 		return result;
 	}
+
+	public SocialProfile findOne(final int socialProfileId) {
+		Assert.isTrue(socialProfileId != 0);
+
+		SocialProfile result;
+
+		result = this.socialProfileRepository.findOne(socialProfileId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Collection<SocialProfile> findAll() {
 		Collection<SocialProfile> result;
-		result = this.socialProfileRepository.findAll();
-		return result;
 
+		result = this.socialProfileRepository.findAll();
+
+		return result;
 	}
+
 	public SocialProfile save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
-		SocialProfile result;
-		final Actor actor = this.actorService.findPrincipal();
-		Assert.notNull(actor);
-		if (socialProfile.getId() != 0)
-			Assert.isTrue(socialProfile.getActor().equals(actor));
-		result = this.socialProfileRepository.save(socialProfile);
-		Assert.notNull(result);
-		Assert.isTrue(result.getId() != 0);
-		return result;
+		this.checkByPrincipal(socialProfile);
 
+		SocialProfile result;
+
+		result = this.socialProfileRepository.save(socialProfile);
+
+		return result;
 	}
+
 	public void delete(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
-		Assert.notNull(this.socialProfileRepository.findOne(socialProfile.getId()));
-		final Actor actor = this.actorService.findPrincipal();
-		Assert.isTrue(socialProfile.getActor().equals(actor));
-		this.socialProfileRepository.delete(socialProfile);
+		Assert.isTrue(socialProfile.getId() != 0);
+		this.checkByPrincipal(socialProfile);
 
+		this.socialProfileRepository.delete(socialProfile);
 	}
 
 	// Other business methods -------------------------------------------------
+	protected void checkByPrincipal(final SocialProfile socialProfile) {
+		final Actor actor;
+
+		actor = this.actorService.findPrincipal();
+
+		Assert.isTrue(socialProfile.getActor().equals(actor));
+	}
 
 }

@@ -45,6 +45,7 @@ public class AdministratorService {
 		Administrator result;
 
 		result = this.administratorRepository.findOne(administratorId);
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -72,6 +73,7 @@ public class AdministratorService {
 
 	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
+		this.utilityService.checkName(administrator);
 		this.utilityService.checkEmailAdministrator(administrator);
 
 		final Administrator result, found;

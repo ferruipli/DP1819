@@ -38,9 +38,14 @@ public class BoxServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 		super.authenticate("HandyWorker1");
+
 		final Box box;
+
 		box = this.boxService.create();
+
 		Assert.notNull(box);
+		Assert.isTrue(!box.getIsSystemBox());
+
 		super.unauthenticate();
 	}
 

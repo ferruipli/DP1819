@@ -73,7 +73,9 @@ public class ActorService {
 	public Actor findPrincipal() {
 		Actor result;
 		int userAccountId;
+
 		userAccountId = LoginService.getPrincipal().getId();
+
 		result = this.actorRepository.findActorByUseraccount(userAccountId);
 		Assert.notNull(result);
 
@@ -82,28 +84,32 @@ public class ActorService {
 
 	public Actor findActorByUseraccount(final int id) {
 		Actor res;
+
 		res = this.findActorByUseraccount(id);
+
 		return res;
 	}
 
-	public Actor findActorByName(final String nameActor) {
+	public Actor findSystem() {
 		Actor result;
-		result = this.actorRepository.findActorByName(nameActor);
+
+		result = this.actorRepository.findSystem();
 		Assert.notNull(result);
+
 		return result;
 	}
 
-	public void isBanner(final Actor actor) {
+	public void changeBanner(final Actor actor) {
 		Assert.notNull(actor);
-		final UserAccount userAccount = actor.getUserAccount();
-		userAccount.setIsBanned(true);
-		this.userAccountService.save(userAccount);
-	}
 
-	public void notBanner(final Actor actor) {
-		Assert.notNull(actor);
-		final UserAccount userAccount = actor.getUserAccount();
-		userAccount.setIsBanned(false);
+		final UserAccount userAccount;
+		boolean isBanned;
+
+		userAccount = actor.getUserAccount();
+		isBanned = userAccount.getIsBanned();
+
+		userAccount.setIsBanned(!isBanned);
+
 		this.userAccountService.save(userAccount);
 	}
 
@@ -114,6 +120,7 @@ public class ActorService {
 		encoder = new Md5PasswordEncoder();
 		password = actor.getUserAccount().getPassword();
 		hash = encoder.encodePassword(password, null);
+
 		actor.getUserAccount().setPassword(hash);
 	}
 
