@@ -90,15 +90,15 @@ public class ProfessionalRecordService {
 		Assert.isTrue(professionalRecord.getId() != 0);
 		this.checkByPrincipal(professionalRecord);
 
-		// Debemos de eliminar el professionalRecord del curriculum del handyworker
+		// We must delete handyworker's professional record
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
 
-		// Eliminamos el ProfessionalRecord del curriculum del handyworker Principal
+		// We delete the professional record of handyworker's logged curriculum
 		this.curriculumService.removeProfessionalRecord(curriculum, professionalRecord);
 
-		// Eliminamos definitivamente el ProfessionalRecord
+		// We delete the professional record of the system
 		this.professionalRecordRepository.delete(professionalRecord);
 	}
 

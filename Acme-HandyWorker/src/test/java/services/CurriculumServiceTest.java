@@ -70,7 +70,6 @@ public class CurriculumServiceTest extends AbstractTest {
 	@Test
 	public void testSaveCurriculum() {
 		final Curriculum curriculum, saved;
-		//final Collection<Curriculum> curriculums;
 		final Collection<EducationRecord> educationRecords;
 		final Collection<ProfessionalRecord> professionalRecords;
 		final Collection<EndorserRecord> endorserRecords;
@@ -114,21 +113,16 @@ public class CurriculumServiceTest extends AbstractTest {
 
 		saved = this.curriculumService.save(curriculum);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(curriculums.contains(saved));
-
 		Assert.notNull(this.curriculumService.findOne(saved.getId()));
 
 		super.authenticate(null);
 
 	}
 
-	// Guardar curriculum sin estar autenticado
+	// Save a curriculum without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveCurriculumNegative1() {
 		final Curriculum curriculum, saved;
-		//final Collection<Curriculum> curriculums;
 		final Collection<EducationRecord> educationRecords;
 		final Collection<ProfessionalRecord> professionalRecords;
 		final Collection<EndorserRecord> endorserRecords;
@@ -170,19 +164,14 @@ public class CurriculumServiceTest extends AbstractTest {
 
 		saved = this.curriculumService.save(curriculum);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(curriculums.contains(saved));
-
 		Assert.notNull(this.curriculumService.findOne(saved.getId()));
 
 	}
 
-	// Customer guarda un curriculum
+	// Customer saves a curriculum
 	@Test(expected = NullPointerException.class)
 	public void testSaveCurriculumNegative2() {
 		final Curriculum curriculum, saved;
-		//final Collection<Curriculum> curriculums;
 		final Collection<EducationRecord> educationRecords;
 		final Collection<ProfessionalRecord> professionalRecords;
 		final Collection<EndorserRecord> endorserRecords;
@@ -226,10 +215,6 @@ public class CurriculumServiceTest extends AbstractTest {
 
 		saved = this.curriculumService.save(curriculum);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(curriculums.contains(saved));
-
 		Assert.notNull(this.curriculumService.findOne(saved.getId()));
 
 		super.authenticate(null);
@@ -240,8 +225,6 @@ public class CurriculumServiceTest extends AbstractTest {
 	public void testDeleteCurriculum() {
 		Curriculum curriculum, deleted;
 		int id;
-		//final Curriculum deletedCurriculum;
-		//Collection<Curriculum> curriculums;
 
 		super.authenticate("handyworker1");
 
@@ -249,52 +232,32 @@ public class CurriculumServiceTest extends AbstractTest {
 
 		curriculum = this.curriculumService.findOne(id);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(curriculums.contains(curriculum));
-
 		this.curriculumService.delete(curriculum);
 
 		deleted = this.curriculumService.findOne(id);
 
 		Assert.isNull(deleted);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(!(curriculums.contains(curriculum)));
-		//Assert.isTrue(!this.curriculumRepository.exists(curriculum.getId()));
-
 		super.authenticate(null);
 
 	}
 
-	// El curriculum que se borra no pertenece al handyworker logeado
+	// The curriculum we delete not belongs to the handyworker logged
 	@Test(expected = NullPointerException.class)
 	public void testDeleteNegative() {
 		Curriculum curriculum, deleted;
 		int id;
-		//final Curriculum deletedCurriculum;
-		//Collection<Curriculum> curriculums;
 
 		super.authenticate("handyworker2");
 
 		id = super.getEntityId("curriculum1");
 		curriculum = this.curriculumService.findOne(id);
 
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(curriculums.contains(curriculum));
-
 		this.curriculumService.delete(curriculum);
 
 		deleted = this.curriculumService.findOne(id);
 
 		Assert.isNull(deleted);
-
-		//curriculums = this.curriculumService.findAll();
-
-		//Assert.isTrue(!(curriculums.contains(curriculum)));
-		//Assert.isTrue(!this.curriculumRepository.exists(curriculum.getId()));
 
 		super.authenticate(null);
 

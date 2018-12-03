@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.transaction.Transactional;
 
@@ -40,18 +41,14 @@ public class BoxService {
 
 	public Box create() {
 		Box result;
-		Collection<Message> messages;
 		final Actor actor;
 
-		result = new Box();
-		messages = new ArrayList<Message>();
 		actor = this.actorService.findPrincipal();
-
 		Assert.notNull(actor);
 
-		result.setMessages(messages);
+		result = new Box();
+		result.setMessages(new ArrayList<Message>());
 		result.setActor(actor);
-		result.setIsSystemBox(false);
 
 		return result;
 	}
@@ -77,20 +74,12 @@ public class BoxService {
 	}
 
 	public Box save(final Box box) {
-		Assert.isTrue(!(box.getIsSystemBox()));
 		Assert.notNull(box);
+		Assert.isTrue(!(box.getIsSystemBox()));
+		this.checkByPrincipal(box);
+		this.checkName(box);
 
 		Box result;
-		final Actor actor;
-
-		actor = this.actorService.findPrincipal();
-
-		Assert.notNull(actor);
-
-		if (box.getId() != 0)
-			Assert.isTrue(box.getActor().equals(actor));
-
-		Assert.isTrue((!(box.getName().equals("in box"))) && (!(box.getName().equals("out box"))) && (!(box.getName().equals("trash box"))) && (!(box.getName().equals("spam box"))));
 
 		result = this.boxRepository.save(box);
 
@@ -99,35 +88,44 @@ public class BoxService {
 
 	public void delete(final Box box) {
 		Assert.notNull(box);
-
-		final Actor actor;
-		actor = this.actorService.findPrincipal();
-
-		Assert.isTrue(box.getActor().equals(actor));
 		Assert.isTrue(box.getId() != 0);
 		Assert.isTrue(!(box.getIsSystemBox()));
+		this.checkByPrincipal(box);
 
 		this.boxRepository.delete(box);
 	}
 
 	// Other business methods -------------------------------------------------
+	protected void checkByPrincipal(final Box box) {
+		final Actor actor;
 
-	public Collection<Box> createDefaultBox(final Actor actor) {
-		Box inbox;
-		Box outbox;
-		Box trashbox;
-		Box spambox;
+		actor = this.actorService.findPrincipal();
 
-		Collection<Box> res;
-		Collection<Message> messages;
+		Assert.notNull(actor);
+		Assert.isTrue(box.getActor().equals(actor));
+	}
 
-		res = new ArrayList<Box>();
-		messages = new ArrayList<Message>();
+	private void checkName(final Box box) {
+		Assert.isTrue((!(box.getName().equals("in box"))) && (!(box.getName().equals("out box"))) && (!(box.getName().equals("trash box"))) && (!(box.getName().equals("spam box"))));
+	}
+
+	public void createDefaultBox(final Actor actor) {
+		Box inbox, outbox, trashbox, spambox;
 
 		inbox = new Box();
 		outbox = new Box();
 		trashbox = new Box();
 		spambox = new Box();
+
+		inbox.setMessages(Collections.<Message> emptySet());
+		outbox.setMessages(Collections.<Message> emptySet());
+		trashbox.setMessages(Collections.<Message> emptySet());
+		spambox.setMessages(Collections.<Message> emptySet());
+
+		inbox.setActor(actor);
+		outbox.setActor(actor);
+		trashbox.setActor(actor);
+		spambox.setActor(actor);
 
 		inbox.setName("in box");
 		outbox.setName("out box");
@@ -139,49 +137,36 @@ public class BoxService {
 		trashbox.setIsSystemBox(true);
 		spambox.setIsSystemBox(true);
 
-		inbox.setMessages(messages);
-		outbox.setMessages(messages);
-		trashbox.setMessages(messages);
-		spambox.setMessages(messages);
-
-		inbox.setActor(actor);
-		outbox.setActor(actor);
-		trashbox.setActor(actor);
-		spambox.setActor(actor);
-
 		inbox = this.boxRepository.save(inbox);
 		outbox = this.boxRepository.save(outbox);
 		trashbox = this.boxRepository.save(trashbox);
 		spambox = this.boxRepository.save(spambox);
-
-		res.add(inbox);
-		res.add(outbox);
-		res.add(trashbox);
-		res.add(spambox);
-
-		return res;
 	}
 
 	public Box searchBox(final Actor actor, final String nameBox) {
 		Box searchBox;
-		searchBox = this.boxRepository.searchBox(actor.getId(), nameBox);
-		Assert.notNull(searchBox);
-		return searchBox;
 
+		searchBox = this.boxRepository.searchBox(actor.getId(), nameBox);
+
+		Assert.notNull(searchBox);
+
+		return searchBox;
 	}
 
 	public Collection<Box> findAllBoxByActor(final Actor actor) {
-		Collection<Box> res = null;
-		res = this.boxRepository.findAllBoxByActor(actor.getId());
-		return res;
+		Collection<Box> res;
 
+		res = this.boxRepository.findAllBoxByActor(actor.getId());
+
+		return res;
 	}
 
 	public Collection<Box> boxWithMessage(final Message message) {
 		Collection<Box> res = null;
-		res = this.boxRepository.boxWithMessage(message.getId());
-		return res;
 
+		res = this.boxRepository.boxWithMessage(message.getId());
+
+		return res;
 	}
 
 }

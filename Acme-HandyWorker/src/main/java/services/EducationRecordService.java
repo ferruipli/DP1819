@@ -95,15 +95,15 @@ public class EducationRecordService {
 		Assert.isTrue(educationRecord.getId() != 0);
 		this.checkByPrincipal(educationRecord);
 
-		// Debemos de eliminar el educationRecord del curriculum del handyworker
+		// We must delete handyworker's education record
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
 
-		// Eliminamos el EducationRecord del curriculum del handyworker Principal
+		// We delete the education record of handyworker's logged curriculum
 		this.curriculumService.removeEducationRecord(curriculum, educationRecord);
 
-		// Eliminamos definitivamente el education record
+		// We delete the education record of the system
 		this.educationRecordRepository.delete(educationRecord);
 	}
 

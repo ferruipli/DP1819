@@ -86,15 +86,15 @@ public class MiscellaneousRecordService {
 		Assert.isTrue(miscellaneousRecord.getId() != 0);
 		this.checkByPrincipal(miscellaneousRecord);
 
-		// Debemos de eliminar el miscellaneousRecord del curriculum del handyworker
+		// We must delete handyworker's miscellaneous record
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
 
-		// Eliminamos el MiscellaneousRecord del curriculum del handyworker Principal
+		// We delete the miscellaneous record of handyworker's logged curriculum
 		this.curriculumService.removeMiscellaneousRecord(curriculum, miscellaneousRecord);
 
-		// Eliminamos definitivamente el miscellaneousRecord
+		// We delete the miscellaneous record of the system
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 

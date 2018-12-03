@@ -103,7 +103,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	// Usuario sin autenticar
+	// User without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveEducationRecordNegative() {
 		final EducationRecord educationRecord, saved;
@@ -135,7 +135,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	}
 
-	// El usuario que guarda el education record es un customer
+	// The user that saves the education record is a customer
 	@Test(expected = NullPointerException.class)
 	public void testSaveEducationRecordNegative2() {
 		final EducationRecord educationRecord, saved;
@@ -191,7 +191,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Eliminar un education record sin autenticarse
+	// Delete an education record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteEducationRecordNegative() {
 		EducationRecord educationRecord;

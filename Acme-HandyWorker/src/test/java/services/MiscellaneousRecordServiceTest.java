@@ -69,7 +69,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
-	// Guardar un miscellaneous record sin estar autenticado
+	// Save a miscellaneous record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveMiscellaneousRecordNegative() {
 		MiscellaneousRecord miscellaneousRecord, saved;
@@ -94,7 +94,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Guardar un miscellaneous record sin ser un handyworker
+	// Save a miscellaneous record without login
 	@Test(expected = NullPointerException.class)
 	public void testSaveMiscellaneousRecordNegative2() {
 		MiscellaneousRecord miscellaneousRecord, saved;
@@ -167,7 +167,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		super.authenticate(null);
 	}
 
-	//Eliminar un miscellaneous record sin estar autenticado
+	// Delete a miscellaneous record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteMiscellaneousRecordNegative() {
 		MiscellaneousRecord miscellaneousRecord;
@@ -186,7 +186,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Eliminar un miscellaneous record sin ser un handyworker
+	// Delete a miscellaneous record without a handyworker account.
 	@Test(expected = NullPointerException.class)
 	public void testDeleteMiscellaneousRecordNegative2() {
 		MiscellaneousRecord miscellaneousRecord;

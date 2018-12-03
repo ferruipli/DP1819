@@ -51,6 +51,7 @@ public class CustomerService {
 		Customer result;
 
 		result = this.customerRepository.findOne(customerId);
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -79,6 +80,7 @@ public class CustomerService {
 
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
+		this.utilityService.checkName(customer);
 		this.utilityService.checkEmailActors(customer);
 
 		Customer result;
@@ -88,6 +90,7 @@ public class CustomerService {
 			this.actorService.definePassword(customer);
 
 			result = this.customerRepository.save(customer);
+
 			this.boxService.createDefaultBox(result);
 		} else {
 			this.checkByPrincipal(customer);
@@ -141,7 +144,7 @@ public class CustomerService {
 		return results;
 	}
 
-	public void checkByPrincipal(final Customer customer) {
+	protected void checkByPrincipal(final Customer customer) {
 		Customer principal;
 
 		principal = this.findByPrincipal();

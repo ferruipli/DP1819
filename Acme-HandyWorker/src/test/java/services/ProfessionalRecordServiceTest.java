@@ -80,7 +80,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	}
 
-	//Guardar un professional record sin estar autenticado
+	//Save a professional record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveProfessionalRecordNegative() {
 		final ProfessionalRecord professionalRecord, saved;
@@ -112,7 +112,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	}
 
-	//Guardar un professional record sin ser handyworker
+	//Save a professional record without a handyworker account.
 	@Test(expected = NullPointerException.class)
 	public void testSaveProfessionalRecordNegative2() {
 		final ProfessionalRecord professionalRecord, saved;
@@ -191,7 +191,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	}
 
-	//Eliminar un professional record sin autenticarse
+	//Delete a professional record without login.
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteProfessionalRecordNegative() {
 		ProfessionalRecord professionalRecord;
@@ -210,7 +210,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Eliminar un professional record sin ser handyworker
+	// Delete a professional record without a handyworker account.
 	@Test(expected = NullPointerException.class)
 	public void testDeleteProfessionalRecordNegative2() {
 		ProfessionalRecord professionalRecord;

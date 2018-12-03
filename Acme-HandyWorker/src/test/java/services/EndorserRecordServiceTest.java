@@ -74,7 +74,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Guardar un endorser record sin autenticarse
+	// Save an endorser record without login
 	@Test(expected = NullPointerException.class)
 	public void testSaveEndorserRecordNegative() {
 		EndorserRecord endorserRecord, saved;
@@ -102,7 +102,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		Assert.isTrue(endorserRecords.contains(saved));
 
 	}
-	// Customer guarda un endorser record
+	// Customer saves an endorser record
 	@Test(expected = NullPointerException.class)
 	public void testSaveEndorserRecordNegative2() {
 		EndorserRecord endorserRecord, saved;
@@ -210,7 +210,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Eliminar un endorser record sin estar autenticado
+	// Delete an endorser record without login
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteEndorserRecordNegative() {
 		EndorserRecord endorserRecord;
@@ -229,7 +229,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	}
 
-	// Customer elimina un endorser record 
+	// Customer deletes an endorser record 
 	@Test(expected = NullPointerException.class)
 	public void testDeleteEndorserRecordNegative2() {
 		EndorserRecord endorserRecord;
