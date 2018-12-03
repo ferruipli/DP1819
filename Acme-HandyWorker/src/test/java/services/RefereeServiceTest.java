@@ -55,6 +55,27 @@ public class RefereeServiceTest extends AbstractTest {
 	}
 
 	@Test
+	public void testUpdateReferee() {
+		Referee referee, saved;
+		int numberOfComplaints;
+		String nameChanged;
+
+		nameChanged = "Test name";
+		referee = this.refereeService.findOne(super.getEntityId("referee1"));
+		numberOfComplaints = referee.getComplaints().size();
+
+		super.authenticate("referee1");
+
+		referee.setName(nameChanged);
+		saved = this.refereeService.save(referee);
+
+		Assert.isTrue(numberOfComplaints == saved.getComplaints().size());
+		Assert.isTrue(referee.getName().equals(nameChanged));
+
+		super.unauthenticate();
+	}
+
+	@Test
 	public void selfAssignComplaint() {
 		int refereeId, complaintsSelfAssigned1, complaintsSelfAssigned2;
 		Referee referee1, referee2;
