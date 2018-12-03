@@ -55,6 +55,7 @@ public class SponsorService {
 
 	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
+		this.utilityService.checkUsername(sponsor);
 		Sponsor result;
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;

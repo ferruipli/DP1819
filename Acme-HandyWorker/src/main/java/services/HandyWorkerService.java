@@ -68,6 +68,7 @@ public class HandyWorkerService {
 
 	public HandyWorker save(final HandyWorker handyWorker) {
 		Assert.notNull(handyWorker);
+		this.utilityService.checkUsername(handyWorker);
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
 		HandyWorker result;

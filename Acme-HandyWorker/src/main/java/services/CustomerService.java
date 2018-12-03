@@ -80,7 +80,7 @@ public class CustomerService {
 
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
-		this.utilityService.checkName(customer);
+		this.utilityService.checkUsername(customer);
 		this.utilityService.checkEmailActors(customer);
 
 		Customer result;
