@@ -93,8 +93,8 @@ public class UtilityService {
 		return result;
 	}
 
-	public void checkName(final Actor actor) {
-		Assert.isTrue(!actor.getName().equals("System"));
+	public void checkUsername(final Actor actor) {
+		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
 	}
 
 	// Private methods ---------------------------------------------------------
