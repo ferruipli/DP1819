@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Application;
 import domain.FixUpTask;
-import domain.HandyWorker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -111,39 +110,7 @@ public class ApplicationServiceTest extends AbstractTest {
 		Assert.notNull(application);
 
 	}
-	@Test
-	public void testDelete() {
-		super.authenticate("handyworker1");
 
-		final Application application;
-		FixUpTask fixUpTask;
-		HandyWorker handyWorker;
-		application = this.applicationService.findOne(super.getEntityId("application2"));
-		fixUpTask = application.getFixUpTask();
-		handyWorker = application.getHandyWorker();
-		this.applicationService.delete(application);
-		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
-		Assert.isTrue(!(handyWorker.getApplications().contains(application)));
-		super.unauthenticate();
-
-	}
-	//No puedo borrar un application que no es suya
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativaDelete() {
-		super.authenticate("handyworker");
-
-		final Application application;
-		FixUpTask fixUpTask;
-		HandyWorker handyWorker;
-		application = this.applicationService.findOne(super.getEntityId("application2"));
-		fixUpTask = application.getFixUpTask();
-		handyWorker = application.getHandyWorker();
-		this.applicationService.delete(application);
-		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
-		Assert.isTrue(!(handyWorker.getApplications().contains(application)));
-		super.unauthenticate();
-
-	}
 	@Test
 	public void testfindDataOfApplicationPrice() {
 		Double[] result;

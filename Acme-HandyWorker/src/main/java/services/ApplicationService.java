@@ -29,6 +29,9 @@ public class ApplicationService {
 	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
+	private FixUpTaskService		fixUpTaskService;
+
+	@Autowired
 	private MessageService			messageService;
 
 	@Autowired
@@ -47,6 +50,8 @@ public class ApplicationService {
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
+		Assert.isTrue(!(handyWorker.getCurriculum().equals(null)));
+
 		result = new Application();
 		result.setStatus("PENDING");
 		result.setHandyWorker(handyWorker);
@@ -55,9 +60,6 @@ public class ApplicationService {
 		return result;
 	}
 
-	// Accedo a la bd y cojo el application que esta guardado para ver cual era su
-	// estado anterior en caso que haya cambiado de pending a rejected pido
-	// credit card, ademas si ha cambiado envio mensaje
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Assert.isTrue(application.getStatus().equals("PENDING"));
@@ -68,6 +70,7 @@ public class ApplicationService {
 		if (application.getId() == 0) {
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
+			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else
 			this.checkByPrincipal(application);
 
@@ -94,17 +97,6 @@ public class ApplicationService {
 		return result;
 	}
 
-	public void delete(final Application application) {
-		Assert.notNull(application);
-		Assert.isTrue(application.getId() != 0);
-		this.checkByPrincipal(application);
-
-		this.removeApplicationToHandyWorker(application);
-		this.removeApplicationToFixUpTask(application);
-
-		this.applicationRepository.delete(application);
-	}
-
 	//Other business methods-------------------------------------------
 	protected void checkByPrincipal(final Application application) {
 		HandyWorker handyWorker;
@@ -122,9 +114,6 @@ public class ApplicationService {
 		return sponsorships;
 	}
 
-	// Accedo a la bd y cojo el application que esta guardado para ver cual era su
-	// estado anterior en caso que haya cambiado de pending a accepted pido credit card,
-	// ademas si ha cambiado envio mensaje
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
 
@@ -133,7 +122,7 @@ public class ApplicationService {
 		final Collection<Application> applications;
 
 		applicationBd = this.findOne(application.getId());
-		// Me aseguro de que ha cambiado el estado
+
 		Assert.isTrue(!(applicationBd.getStatus().equals(application.getStatus())));
 
 		this.messageService.messageToStatus(application, application.getStatus());
