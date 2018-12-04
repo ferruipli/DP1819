@@ -10,21 +10,63 @@
 
 package controllers;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.TutorialService;
+import domain.Section;
+import domain.Sponsorship;
+import domain.Tutorial;
+
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/tutorial")
 public class ProfileController extends AbstractController {
 
-	// Action-1 ---------------------------------------------------------------		
+	@Autowired
+	private TutorialService	tutorialService;
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+
+	// Constructors -----------------------------------------------------------
+	public ProfileController() {
+
+	}
+
+	// Tutorial display ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView tutorialDisplay() {
 		ModelAndView result;
+		Tutorial tutorial;
+		final int tutorialId = 9860;
+		Collection<Section> sections;
+		Collection<Sponsorship> sponsorships;
 
-		result = new ModelAndView("profile/action-1");
+		result = new ModelAndView("tutorial/display");
+		tutorial = this.tutorialService.findOne(tutorialId);
+		sections = tutorial.getSections();
+		sponsorships = tutorial.getSponsorShips();
+		result.addObject("tutorial", tutorial);
+		result.addObject("sections", sections);
+		result.addObject("sponsorships", sponsorships);
+
+		return result;
+	}
+
+	// Tutorial list ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView tutorialList() {
+		ModelAndView result;
+		Collection<Tutorial> tutorials;
+
+		result = new ModelAndView("tutorial/list");
+		tutorials = this.tutorialService.findAll();
+		result.addObject("tutorials", tutorials);
 
 		return result;
 	}

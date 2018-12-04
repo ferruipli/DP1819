@@ -31,15 +31,5 @@
 	
 	<spring:message code="tutorial.pictures" var="picturesHeader" />
 	<display:column property="pictures" title="${picturesHeader}" />
-<!-- TODO poner un enlace a display handyWorker -->
-	<spring:message code="tutorial.handyWorker" var="handyWorkerHeader" />
-	<display:column  property="handyWorker" title="${handyWorkerHeader.name}" />
 
-	<security:authorize access="hasRole('HANDYWORKER')">
-	<display:column >
-		<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
-			<spring:message	code="tutorial.edit" />
-		</a>
-	</display:column>
-	</security:authorize>
 </display:table>

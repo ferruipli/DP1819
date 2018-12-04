@@ -22,16 +22,23 @@
 	<jstl:out value="${tutorial.title}" />
 </p>
 
-<p>
-	<strong> <spring:message code="tutorial.moment" />: </strong>
-	<jstl:out value="${tutorial.moment}" />
-</p>
+
 
 <p>
 	<strong> <spring:message code="tutorial.summary" />: </strong>
 	<jstl:out value="${tutorial.summary}" />
 </p>
 
+<p>
+	<strong> <spring:message code="tutorial.moment" />: </strong>
+	<jstl:out value="${tutorial.moment}" />
+</p>
+	   
+	
+<p>
+<strong> <spring:message code="tutorial.pictures" />: </strong>
+	<jstl:out value="${tutorial.pictures}" />
+</p> 
 <strong> <spring:message code="tutorial.sections" />: </strong>
 		
 
@@ -43,27 +50,29 @@
 	<spring:message code="tutorial.section.title" var="sectionTitle" />
 	<display:column property="title" title="${sectionTitle}" sortable="true" />
 	
-	<spring:message code="tutorial.section.text" var="sectionText" />
-	<display:column property="sectionText" title="${sectionText}"/>
-	
 	<spring:message code="tutorial.section.pictures" var="sectionPictures" />
 	<display:column property="pictures" title="${sectionPictures}" />
 	
-	</display:table>
+	<spring:message code="tutorial.section.text" var="sectionText" />
+	<display:column property="text" title="${sectionText}"/>
+
+	</display:table>  
+	
 	
 	
 	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
 		
 
-	<display:table name="tutorial.sponsorships" id="sponsorships">
+	<display:table name="tutorial.sponsorShips" id="sponsorShips">
 	
-	<spring:message code="tutorial.sponsorships.banner" var="sponsorshipBanner" />
-	<display:column property="banner" title="${banner}" sortable="true" />	
+	<spring:message code="tutorial.sponsorShips.banner" var="sponsorShipBanner" />
+	<display:column property="banner" title="${sponsorShipBanner}"  />	
 		
-	<spring:message code="tutorial.sponsorships.targetPage" var="sponsorshipTargetPage" />
-	<display:column property="targetPage" title="${targetPage}" sortable="true" />
+	<spring:message code="tutorial.sponsorShips.targetPage" var="sponsorShipTargetPage" />
+	<display:column property="targetPage" title="${sponsorShipTargetPage}"/>
 	
 	</display:table>
+	   
 	   
 <input type="button" 
 	   name="return"
