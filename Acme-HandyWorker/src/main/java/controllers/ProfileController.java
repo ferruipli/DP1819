@@ -18,17 +18,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ApplicationService;
 import services.TutorialService;
+import domain.Application;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
-@RequestMapping("/tutorial")
 public class ProfileController extends AbstractController {
 
 	@Autowired
-	private TutorialService	tutorialService;
+	private TutorialService		tutorialService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -38,7 +42,7 @@ public class ProfileController extends AbstractController {
 
 	// Tutorial display ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	@RequestMapping(value = "/tutorial/display", method = RequestMethod.GET)
 	public ModelAndView tutorialDisplay() {
 		ModelAndView result;
 		Tutorial tutorial;
@@ -59,7 +63,7 @@ public class ProfileController extends AbstractController {
 
 	// Tutorial list ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/tutorial/list", method = RequestMethod.GET)
 	public ModelAndView tutorialList() {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
@@ -71,22 +75,45 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	// Create ---------------------------------------------------------------		
+	@RequestMapping(value = "/tutorial/create", method = RequestMethod.GET)
+	public ModelAndView tutorialCreate() {
 		ModelAndView result;
+		Tutorial tutorial;
 
-		result = new ModelAndView("profile/action-2");
+		result = new ModelAndView("tutorial/edit");
+		tutorial = this.tutorialService.create();
+		result.addObject("tutorial", tutorial);
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	//Edit ---------------------------------------------------------------		
+	@RequestMapping(value = "/tutorial/edit", method = RequestMethod.GET)
+	public ModelAndView tutorialEdit() {
+		ModelAndView result;
+		Tutorial tutorial;
+		final int id = 9860;
+		Collection<Section> sections;
 
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
+		result = new ModelAndView("tutorial/edit");
+		tutorial = this.tutorialService.findOne(id);
+		sections = tutorial.getSections();
+		result.addObject("tutorial", tutorial);
+		result.addObject("sections", sections);
+
+		return result;
 	}
+	//  APPLICATION LIST---------------------------------------------------------------		
+	@RequestMapping(value = "/application/list", method = RequestMethod.GET)
+	public ModelAndView applicationList() {
+		ModelAndView result;
+		Collection<Application> applications;
 
+		result = new ModelAndView("application/list");
+		applications = this.applicationService.findAll();
+		result.addObject("applications", applications);
+
+		return result;
+	}
 }

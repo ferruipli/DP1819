@@ -27,51 +27,40 @@
 		<jstl:set var="appColor" value="colorOrange" />
 	</jstl:if>
 	<jstl:if test="${row.status=='ACCEPTED'}">
-		<jstl:set var="colorClass" value="colorGreen" />
+		<jstl:set var="appColor" value="colorGreen" />
 	</jstl:if>
 	
 
 	<spring:message code="application.registerMoment" var="registerMomentHeader" />
 	<spring:message code="application.formatMoment" var="formatMomentHeader" />
-	<display:column  property="registerDate" title="${registerDateHeader}" sortable="true" format="${formatDateHeader}" class="${appColor}" />
+	<display:column  property="registerMoment" title="${registerMomentHeader}" sortable="true" format="${formatDateHeader}" class="${appColor}" />
 		 
 	<spring:message code="application.offeredPrice" var="offeredPriceHeader" />
-	<display:column property="registerDate" title="${registerDateHeader}" sortable="true" class="${appColor}" />
+	<display:column property="offeredPrice" title="${offeredPriceHeader}" sortable="true" class="${appColor}" />
 		 
 	<spring:message code="application.fixUpTask" var="fixUpTaskHeader" />
-	<display:column property="fixUpTask" title="${fixUpTaskHeader}"  class="${appColor}"/>
+	<display:column property="fixUpTask.ticker" title="${fixUpTaskHeader}"  class="${appColor}"/>
 	
 	<spring:message code="application.status" var="statusHeader" />
 	<display:column property="status" title="${statusHeader}"  sortable="true"  />
 
-	<security:authorize access="hasRole('CUSTOMER')">
-	<spring:message code="application.handyWorker" var="handyWorkerHeader" />
-	<display:column  property="handyWorker" title="${handyWorkerHeader.name}"  class="${appColor}"/>
-	
-	<display:column class="${appColor}">
-			<jstl:if test="${row.status=='PENDING'}">
-				<a href="application/customer/edit.do?applicationId=${row.id}">
-					<spring:message	code="application.edit" />
-				</a>
-			</jstl:if>
-	</display:column>
 
-	<display:column class="${appColor}">
-			<jstl:if test="${row.status=='PENDING'}">
-				<a href="application/customer/cancel.do?applicationId=${row.id}">
-					<spring:message	code="application.cancel" />
-				</a>
-			</jstl:if>
-	</display:column>
-	</security:authorize>
 	
 	<spring:message code="application.handyWorkerComments" var="handyWorkerCommentsHeader" />
 	<display:column property="handyWorkerComments" title="${handyWorkerCommentsHeader}" class="${appColor}"/>
 	
 	<spring:message code="application.customerComments" var="customerCommentsHeader" />
-	<display:column property="customerComments" title="${customerCommentsHeader}"class="${appColor}"/>
+	<display:column property="customerComments" title="${customerCommentsHeader}" class="${appColor}"/>
 	
-	<security:authorize access="hasRole('HANDYWORKER')">
+	<security:authorize access="hasRole('CUSTOMER')">	
+	<display:column class="${appColor}" >
+		<a href="application/customer/edit.do?applicationId=${row.id}">
+					<spring:message	code="application.addComment" />
+		</a>
+	</display:column>
+	</security:authorize>
+	
+<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column class="${appColor}" >
 		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
@@ -83,5 +72,27 @@
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>
-	</security:authorize>	
+</security:authorize>
+
+<security:authorize access="hasRole('CUSTOMER')">
+	<spring:message code="application.handyWorker" var="handyWorkerHeader" />
+	<display:column  property="handyWorker.name" title="${handyWorkerHeader}"  class="${appColor}"/>
+	
+	<display:column class="${appColor}">
+			<jstl:if test="${row.status=='PENDING'}">
+				<a href="creditCard/customer/create.do?applicationId=${row.id}">
+					<spring:message	code="application.accept" />
+				</a>
+			</jstl:if>
+	</display:column>
+
+	<display:column class="${appColor}">
+			<jstl:if test="${row.status=='PENDING'}">
+				<a href="application/customer/cancel.do?applicationId=${row.id}">
+					<spring:message	code="application.cancel" />
+				</a>
+			</jstl:if>
+	</display:column>
+</security:authorize>
+	
 </display:table>

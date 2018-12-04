@@ -23,13 +23,39 @@
 	<display:column property="title" title="${titleHeader}" sortable="true" />
 
 	<spring:message code="tutorial.moment" var="momentHeader" />
-	<spring:message code="tutorial.formatMoment" var="formatMomentHeader" />
-	<display:column  property="moment" title="${momentHeader}" sortable="true" format="${formatMomentHeader}"  />
+	<display:column  property="moment" title="${momentHeader}" sortable="true"  />
 		 
 	<spring:message code="tutorial.summary" var="summaryHeader" />
 	<display:column property="summary" title="${summaryHeader}" />
 	
 	<spring:message code="tutorial.pictures" var="picturesHeader" />
 	<display:column property="pictures" title="${picturesHeader}" />
-
+	
+	<spring:message code="tutorial.sections" var="sectionsHeader" />
+	<display:column property="sections" title="${sectionsHeader}" />
+	
+	<spring:message code="tutorial.handyWorker" var="handyWorkerHeader" />
+	<display:column property="handyWorker.name" title="${handyWorkerHeader}" >
+	</display:column>
+	
+	<display:column>
+	<a href="handyWorker/display.do?handyWorkerId=${row.handyWorker.id}">
+		<spring:message	code="tutorial.handyWorker.display" />			
+	</a>	
+	</display:column>
+		
+		
+	<security:authorize access="hasRole('HANDYWORKER')">
+	<display:column >
+		<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
+			<spring:message	code="tutorial.edit" />
+		</a>
+	</display:column>
+	</security:authorize>
 </display:table>
+
+<security:authorize access="hasRole('HANDYWORKER')">
+		<a href="tutorial/handyWorker/create.do?">
+			<spring:message	code="tutorial.create" />
+		</a>
+	</security:authorize>
