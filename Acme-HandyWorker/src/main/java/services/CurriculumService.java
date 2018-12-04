@@ -126,6 +126,26 @@ public class CurriculumService {
 		return results;
 	}
 
+	public String existTicker(final String ticker) {
+		String result;
+
+		result = this.curriculumRepository.existTicker(ticker);
+
+		return result;
+	}
+
+	public boolean existTickerBd(final String ticker) {
+		boolean result;
+
+		result = false;
+
+		if (this.curriculumRepository.existTickerBd(ticker))
+			result = true;
+
+		return result;
+
+	}
+
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
 		curriculum.getEducationRecords().add(educationRecord);
 	}

@@ -74,7 +74,10 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumsTickers.contains(result) || fixUpTaskTickers.contains(result) || complaintTickers.contains(result) || counter < 650000);
+		}
+		//while (this.curriculumService.existTickerBd(result) || counter < 650000);
+		while (!(this.curriculumService.existTicker(result) == null) || counter < 650000);
+		//while (curriculumsTickers.contains(result) || fixUpTaskTickers.contains(result) || complaintTickers.contains(result) || counter < 650000);
 
 		Assert.isTrue(counter == 650000); // Avoid infinite loops in the case of all possible tickers are already taken.
 
