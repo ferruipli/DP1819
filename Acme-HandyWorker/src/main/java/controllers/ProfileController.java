@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import services.FinderService;
+import services.FixUpTaskService;
 import services.TutorialService;
 import domain.Application;
+import domain.Finder;
+import domain.FixUpTask;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -33,6 +37,11 @@ public class ProfileController extends AbstractController {
 
 	@Autowired
 	private ApplicationService	applicationService;
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private FinderService		finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -75,7 +84,7 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 
-	// Create ---------------------------------------------------------------		
+	// Tutorial Create ---------------------------------------------------------------		
 	@RequestMapping(value = "/tutorial/create", method = RequestMethod.GET)
 	public ModelAndView tutorialCreate() {
 		ModelAndView result;
@@ -88,7 +97,7 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 
-	//Edit ---------------------------------------------------------------		
+	//Tutorial Edit ---------------------------------------------------------------		
 	@RequestMapping(value = "/tutorial/edit", method = RequestMethod.GET)
 	public ModelAndView tutorialEdit() {
 		ModelAndView result;
@@ -113,6 +122,57 @@ public class ProfileController extends AbstractController {
 		result = new ModelAndView("application/list");
 		applications = this.applicationService.findAll();
 		result.addObject("applications", applications);
+
+		return result;
+	}
+	//  APPLICATION EDIT---------------------------------------------------------------		
+	@RequestMapping(value = "/application/edit", method = RequestMethod.GET)
+	public ModelAndView applicationEdit() {
+		ModelAndView result;
+		Application application;
+
+		result = new ModelAndView("application/edit");
+		application = this.applicationService.findOne(9959);
+		result.addObject("application", application);
+
+		return result;
+	}
+
+	//  APPLICATION CREATE---------------------------------------------------------------		
+	@RequestMapping(value = "/application/create", method = RequestMethod.GET)
+	public ModelAndView applicationCreate() {
+		ModelAndView result;
+		Application application;
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(9942);
+
+		result = new ModelAndView("application/edit");
+		application = this.applicationService.create(fixUpTask);
+		result.addObject("application", application);
+
+		return result;
+	}
+	//  APPLICATION DISPLAY---------------------------------------------------------------		
+	@RequestMapping(value = "/application/display", method = RequestMethod.GET)
+	public ModelAndView applicationDisplay() {
+		ModelAndView result;
+		Application application;
+
+		result = new ModelAndView("application/display");
+		application = this.applicationService.findOne(9959);
+		result.addObject("application", application);
+
+		return result;
+	}
+
+	//  FINDER EDIT---------------------------------------------------------------		
+	@RequestMapping(value = "/finder/edit", method = RequestMethod.GET)
+	public ModelAndView finderEdit() {
+		ModelAndView result;
+		Finder finder;
+
+		result = new ModelAndView("finder/edit");
+		finder = this.finderService.findOne(9799);
+		result.addObject("finder", finder);
 
 		return result;
 	}

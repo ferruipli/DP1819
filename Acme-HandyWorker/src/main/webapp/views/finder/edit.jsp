@@ -24,47 +24,47 @@
 	<form:hidden path="lastUpdate" />
 	<form:hidden path="fixUpTasks" />	
 
-	<form:label path="keyWord">
-		<spring:message code="finder.keyWord" />:
+	<form:label path="Keyword">
+		<spring:message code="finder.Keyword" />:
 	</form:label>
-	<form:input path="keyWord" />
-	<form:errors cssClass="error" path="keyWord" />
-	<br />
+	<form:input path="Keyword" />
+	<form:errors cssClass="error" path="Keyword" />
+<p/>
 	
 	<form:label path="startPrice">
 		<spring:message code="finder.startPrice" />:
 	</form:label>
 	<form:input path="startPrice" />
 	<form:errors cssClass="error" path="startPrice" />
-	<br />
+	<p/>
 
 	<form:label path="endPrice">
 		<spring:message code="finder.endPrice" />:
 	</form:label>
 	<form:input path="endPrice" />
 	<form:errors cssClass="error" path="endPrice" />
-	<br />
+	<p/>
 	
 	<form:label path="startDate">
 		<spring:message code="finder.startDate" />:
 	</form:label>
 	<form:input path="startDate" />
 	<form:errors cssClass="error" path="startDate" />
-	<br />
+	<p/>
 	
 	<form:label path="endDate">
 		<spring:message code="finder.endDate" />:
 	</form:label>
 	<form:input path="endDate" />
 	<form:errors cssClass="error" path="endDate" />
-	<br />
+	<p/>
 
 	<form:label path="warranty">
 		<spring:message code="finder.warranty" />:
 	</form:label>
 	<form:input path="warranty" />
 	<form:errors cssClass="error" path="warranty" />
-	<br />
+	<p/>
 	
 	<form:label path="category">
 		<spring:message code="finder.category" />:
@@ -72,11 +72,10 @@
 	<form:input path="category" />
 	<form:errors cssClass="error" path="category" />
 	<br />
-
+<p/>
 	
 	<input type="submit" name="search" value="<spring:message code="finder.search" />" />
-	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />
-		"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
 	<br />
 
 </form:form>

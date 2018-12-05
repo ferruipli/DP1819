@@ -27,7 +27,7 @@
 	<form:hidden path="handyWorker" />	
 	<form:hidden path="fixUpTask" />
 	
-	<security:authorize access="hasRole('CUSTOMER')">
+	<security:authorize access="hasRole('HANDYWORKER')">
 	<form:label path="offeredPrice">
 		<spring:message code="application.offeredPrice" />:
 	</form:label>
@@ -53,8 +53,7 @@
 	</security:authorize>
 	
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />
-		"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
 	<br />
 
 </form:form>

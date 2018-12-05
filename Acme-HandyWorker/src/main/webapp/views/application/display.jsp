@@ -22,7 +22,10 @@
 	<jstl:out value="${application.fixUpTask.ticker}" />
 </p>
 
-	
+	<p>
+	<strong> <spring:message code="application.registerMoment" />: </strong>
+	<jstl:out value="${application.registerMoment}" />
+</p>
 
 <p>
 	<strong> <spring:message code="application.offeredPrice" />: </strong>
