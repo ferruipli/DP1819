@@ -37,7 +37,7 @@
 	<display:column  property="registerMoment" title="${registerMomentHeader}" sortable="true" format="${formatMomentHeader}" class="${appColor}" />
 		 
 	<spring:message code="application.offeredPrice" var="offeredPriceHeader" />
-	<display:column property="offeredPrice" title="${offeredPriceHeader}" sortable="true" class="${appColor}" />
+	<display:column property="offeredPrice" title="${offeredPriceHeader}" sortable="true" class="${appColor}"  />
 		 
 	<spring:message code="application.fixUpTask" var="fixUpTaskHeader" />
 	<display:column property="fixUpTask.ticker" title="${fixUpTaskHeader}"  class="${appColor}"/>

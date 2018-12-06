@@ -31,7 +31,7 @@
 	<form:label path="offeredPrice">
 		<spring:message code="application.offeredPrice" />:
 	</form:label>
-	<form:input path="offeredPrice" />
+	<form:input path="offeredPrice" />&#8364;
 	<form:errors cssClass="error" path="offeredPrice" />
 	<br />
 	
