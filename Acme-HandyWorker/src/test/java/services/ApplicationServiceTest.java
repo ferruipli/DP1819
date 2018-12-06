@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Application;
+import domain.CreditCard;
 import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,7 +45,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * No se puede editar application en esatado acceptado
+	 * Can not edit application which status is accepted
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative() {
@@ -62,7 +63,7 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * No se puede editar application en esatado rechazado
+	 * Can not edit application which status is rejected
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative1() {
@@ -149,5 +150,47 @@ public class ApplicationServiceTest extends AbstractTest {
 		result = this.applicationService.findRatioPendingApplicationsNotChangeStatus();
 
 		Assert.notNull(result);
+	}
+
+	@Test
+	public void testCreckCreditCard() {
+		super.authenticate("handyWorker1");
+		final Application application;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("6702386065238009");
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		this.applicationService.addCreditCard(application, creditCard);
+		Assert.isTrue(application.getCreditCard().equals(creditCard));
+		super.unauthenticate();
+	}
+	/*
+	 * Credit card which number is not correct
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeCreckCreditCard() {
+		super.authenticate("handyWorker1");
+		final Application application;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("670209");
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		this.applicationService.addCreditCard(application, creditCard);
+		Assert.isTrue(application.getCreditCard().equals(creditCard));
+		super.unauthenticate();
 	}
 }

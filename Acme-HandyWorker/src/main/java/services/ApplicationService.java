@@ -67,7 +67,6 @@ public class ApplicationService {
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Assert.isTrue(application.getStatus().equals("PENDING"));
-		Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()));
 
 		Application result;
 		Date moment;
@@ -103,6 +102,11 @@ public class ApplicationService {
 	}
 
 	//Other business methods-------------------------------------------
+	public void addCreditCard(final Application application, final CreditCard creditCard) {
+		Assert.isTrue(this.utilityService.checkCreditCard(creditCard));
+		application.setCreditCard(creditCard);
+	}
+
 	protected void checkByPrincipal(final Application application) {
 		HandyWorker handyWorker;
 

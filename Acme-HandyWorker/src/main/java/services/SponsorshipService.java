@@ -111,6 +111,11 @@ public class SponsorshipService {
 	}
 
 	//Other business methods-------------------------------------------
+
+	public void addCreditCard(final Sponsorship sponsorship, final CreditCard creditCard) {
+		Assert.isTrue(this.utilityService.checkCreditCard(creditCard));
+		sponsorship.setCreditCard(creditCard);
+	}
 	protected void checkByPrincipal(final Sponsorship sponsorship) {
 		final Sponsor principal;
 		Sponsor sponsorOwner;

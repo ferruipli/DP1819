@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.CreditCard;
 import domain.Sponsorship;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,15 +29,6 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	// Test ------------------------------------------------
 
-	@Test
-	public void testCreate() {
-		this.authenticate("sponsor1");
-		final Sponsorship sponsorship;
-		sponsorship = this.sponsorshipService.create();
-
-		Assert.notNull(sponsorship);
-		super.unauthenticate();
-	}
 	@Test
 	public void testSave() {
 		this.authenticate("sponsor1");
@@ -109,5 +101,48 @@ public class SponsorshipServiceTest extends AbstractTest {
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
 		Assert.notNull(sponsorship);
 
+	}
+
+	/*
+	 * Credit card which number is not correct
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeCreckCreditCard() {
+		super.authenticate("sponsor1");
+		final Sponsorship sponsorship;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("670209");
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship3"));
+		this.sponsorshipService.addCreditCard(sponsorship, creditCard);
+		Assert.isTrue(sponsorship.getCreditCard().equals(creditCard));
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testCreckCreditCard() {
+		super.authenticate("sponsor1");
+		final Sponsorship sponsorship;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("3073930266269350");
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship3"));
+		this.sponsorshipService.addCreditCard(sponsorship, creditCard);
+		Assert.isTrue(sponsorship.getCreditCard().equals(creditCard));
+		super.unauthenticate();
 	}
 }
