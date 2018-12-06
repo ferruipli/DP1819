@@ -49,5 +49,5 @@
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="application.return" />"
-	   onclick="javascript: relativeRedir('application/list.do');" />	
+	   onclick="javascript: relativeRedir('application/handyWorker/list.do');" />	
 	
