@@ -34,7 +34,7 @@ public class SponsorshipService {
 	public TutorialService			tutorialService;
 
 	@Autowired
-	public CreditCardService		creditCardService;
+	public UtilityService			utilityService;
 
 
 	//Constructor ----------------------------------------------------
@@ -47,7 +47,7 @@ public class SponsorshipService {
 		Sponsorship result;
 		CreditCard creditCard;
 
-		creditCard = this.creditCardService.create();
+		creditCard = this.utilityService.createnewCreditCard();
 
 		result = new Sponsorship();
 		result.setCreditCard(creditCard);
@@ -117,14 +117,6 @@ public class SponsorshipService {
 		sponsorOwner = this.sponsorService.findSponsorBySponsorshipId(sponsorship.getId());
 
 		Assert.isTrue(principal.equals(sponsorOwner));
-	}
-
-	protected Collection<Sponsorship> findSponsorshipByCreditCard(final int id) {
-		Collection<Sponsorship> sponsorships;
-
-		sponsorships = this.sponsorshipRepository.findSponsorshipByCreditCard(id);
-
-		return sponsorships;
 	}
 
 	protected void addSponsorshipToSponsor(final Sponsor sponsor, final Sponsorship sponsorship) {

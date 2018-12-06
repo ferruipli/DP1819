@@ -1,13 +1,9 @@
 
 package repositories;
 
-import java.util.Collection;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import domain.Application;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<domain.Application, Integer> {
@@ -28,6 +24,4 @@ public interface ApplicationRepository extends JpaRepository<domain.Application,
 	@Query("select (sum(case when ((a.status='PENDING') and (a.registerMoment<CURRENT_TIMESTAMP))then 1.0 else 0 end)/count(*))from Application a")
 	Double findRatioPendingApplicationsNotChangeStatus();
 
-	@Query("select a from Application a where a.creditCard.id = ?1")
-	Collection<Application> findApplicationByCreditCard(int id);
 }

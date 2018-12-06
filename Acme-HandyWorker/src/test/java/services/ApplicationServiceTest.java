@@ -84,7 +84,6 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.authenticate("handyworker1");
 		final Application application;
 		final Application applicationSaved;
-
 		application = this.applicationService.findOne(super.getEntityId("application1"));
 		application.setOfferedPrice(22.3);
 

@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
 import domain.Application;
+import domain.CreditCard;
 import domain.FixUpTask;
 import domain.HandyWorker;
 
@@ -47,8 +48,10 @@ public class ApplicationService {
 	public Application create(final FixUpTask fixUpTask) {
 		Application result;
 		HandyWorker handyWorker;
+		CreditCard creditCard;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
+		creditCard = this.utilityService.createnewCreditCard();
 
 		Assert.isTrue(!(handyWorker.getCurriculum().equals(null)));
 
@@ -56,6 +59,7 @@ public class ApplicationService {
 		result.setStatus("PENDING");
 		result.setHandyWorker(handyWorker);
 		result.setFixUpTask(fixUpTask);
+		result.setCreditCard(creditCard);
 
 		return result;
 	}
@@ -106,14 +110,6 @@ public class ApplicationService {
 		Assert.isTrue(handyWorker.equals(application.getHandyWorker()));
 	}
 
-	protected Collection<Application> findApplicationByCreditCard(final int id) {
-		Collection<Application> sponsorships;
-
-		sponsorships = this.applicationRepository.findApplicationByCreditCard(id);
-
-		return sponsorships;
-	}
-
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
 
@@ -136,6 +132,7 @@ public class ApplicationService {
 				a.setStatus("REJECTED");
 				this.changeStatus(a);
 			}
+			Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()), "Tarjeta de credito no valida");
 		}
 
 		return result;

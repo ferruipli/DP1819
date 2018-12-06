@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.CreditCard;
 
 @Service
 @Transactional
@@ -97,6 +98,25 @@ public class UtilityService {
 		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
 	}
 
+	public CreditCard createnewCreditCard() {
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("XXX");
+		creditCard.setcvvCode("XXX");
+		creditCard.setExpirationMonth("XXX");
+		creditCard.setExpirationYear("XXX");
+		creditCard.setHolderName("XXX");
+		creditCard.setNumber("XXX");
+
+		return creditCard;
+	}
+
+	public boolean checkCreditCard(final CreditCard creditCard) {
+		final boolean res = true;
+
+		return res;
+	}
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {
