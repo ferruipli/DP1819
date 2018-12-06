@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <p>
@@ -24,7 +25,9 @@
 
 	<p>
 	<strong> <spring:message code="application.registerMoment" />: </strong>
-	<jstl:out value="${application.registerMoment}" />
+	
+	<spring:message code="application.formatMoment1" var="formatMoment"/>
+		<fmt:formatDate value="${application.registerMoment}" pattern="${formatMoment}"/>
 </p>
 
 <p>
