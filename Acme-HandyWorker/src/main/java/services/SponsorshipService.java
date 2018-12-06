@@ -62,11 +62,13 @@ public class SponsorshipService {
 		Sponsorship result;
 
 		principal = this.sponsorService.findByPrincipal();
+		Assert.isTrue(this.utilityService.checkCreditCard(sponsorship.getCreditCard()));
 
 		if (sponsorship.getId() == 0) {
 			result = this.sponsorshipRepository.save(sponsorship);
 			this.addSponsorshipToSponsor(principal, result);
 		} else {
+
 			this.checkByPrincipal(sponsorship);
 			result = this.sponsorshipRepository.save(sponsorship);
 		}

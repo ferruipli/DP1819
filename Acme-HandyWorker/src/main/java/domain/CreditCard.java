@@ -16,7 +16,7 @@ public class CreditCard {
 	private String	number;
 	private String	expirationMonth;
 	private String	expirationYear;
-	private String	cvvCode;
+	private int		cvvCode;
 
 
 	public String getHolderName() {
@@ -59,11 +59,11 @@ public class CreditCard {
 		this.expirationYear = expirationYear;
 	}
 
-	public String getcvvCode() {
+	public int getcvvCode() {
 		return this.cvvCode;
 	}
 
-	public void setcvvCode(final String cvvCode) {
+	public void setcvvCode(final int cvvCode) {
 		this.cvvCode = cvvCode;
 	}
 

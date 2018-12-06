@@ -67,6 +67,7 @@ public class ApplicationService {
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Assert.isTrue(application.getStatus().equals("PENDING"));
+		Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()));
 
 		Application result;
 		Date moment;

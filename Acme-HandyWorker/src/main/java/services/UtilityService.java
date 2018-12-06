@@ -103,19 +103,37 @@ public class UtilityService {
 
 		creditCard = new CreditCard();
 		creditCard.setBrandName("XXX");
-		creditCard.setcvvCode("XXX");
+		creditCard.setcvvCode(999);
 		creditCard.setExpirationMonth("XXX");
 		creditCard.setExpirationYear("XXX");
 		creditCard.setHolderName("XXX");
-		creditCard.setNumber("XXX");
+		creditCard.setNumber("XXXXXXXXXXXXXXX");
 
 		return creditCard;
 	}
 
 	public boolean checkCreditCard(final CreditCard creditCard) {
-		final boolean res = true;
+		boolean res;
+		res = true;
 
+		String brandName;
+		int cvvCode;
+		String expirationMonth;
+		String expirationYear;
+		String holderName;
+		String number;
+
+		brandName = creditCard.getBrandName();
+		cvvCode = creditCard.getcvvCode();
+		expirationMonth = creditCard.getExpirationMonth();
+		expirationYear = creditCard.getExpirationYear();
+		holderName = creditCard.getHolderName();
+		number = creditCard.getNumber();
+
+		if (brandName.equals("") || expirationMonth.equals("") || expirationYear.equals("") || holderName.equals("") || cvvCode > 999 || cvvCode < 100 || number.length() == 15)
+			res = false;
 		return res;
+
 	}
 	// Private methods ---------------------------------------------------------
 
