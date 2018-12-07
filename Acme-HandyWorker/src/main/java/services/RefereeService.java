@@ -30,12 +30,6 @@ public class RefereeService {
 	@Autowired
 	private ActorService		actorService;
 
-	@Autowired
-	private BoxService			boxService;
-
-	@Autowired
-	private UtilityService		utilityService;
-
 
 	// Constructor ------------------------------------------------------------
 
@@ -47,37 +41,18 @@ public class RefereeService {
 
 	public Referee create() {
 		Referee result;
-		UserAccount userAccount;
-		Authority authority;
-
-		authority = new Authority();
-		authority.setAuthority(Authority.REFEREE);
-
-		userAccount = new UserAccount();
-		userAccount.addAuthority(authority);
 
 		result = new Referee();
+		result.setUserAccount(this.actorService.createUserAccount(Authority.REFEREE));
 		result.setComplaints(Collections.<Complaint> emptySet());
-		result.setUserAccount(userAccount);
 
 		return result;
 	}
 
 	public Referee save(final Referee referee) {
-		Assert.notNull(referee);
-		this.utilityService.checkEmailActors(referee);
-
 		Referee result;
-		boolean isUpdating;
 
-		isUpdating = this.refereeRepository.exists(referee.getId());
-		Assert.isTrue(!isUpdating || this.isOwnerAccount(referee));
-
-		this.actorService.definePassword(referee);
-		result = this.refereeRepository.save(referee);
-
-		if (!isUpdating)
-			this.boxService.createDefaultBox(result);
+		result = (Referee) this.actorService.save(referee);
 
 		return result;
 	}
@@ -123,12 +98,5 @@ public class RefereeService {
 		result = this.refereeRepository.findByUserAccount(userAccountId);
 
 		return result;
-	}
-
-	private boolean isOwnerAccount(final Referee referee) {
-		int principalId;
-
-		principalId = LoginService.getPrincipal().getId();
-		return principalId == referee.getUserAccount().getId();
 	}
 }
