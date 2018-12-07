@@ -116,7 +116,13 @@ public class EndorsementService {
 		Assert.isTrue(endorsement.getId() != 0);
 		this.checkByPrincipal(endorsement);
 
+		Endorsable recipient;
+		recipient = endorsement.getRecipient();
+
 		this.endorsementRepository.delete(endorsement);
+
+		if (recipient.getScore() != null)
+			this.endorsableService.computeScore(recipient);
 	}
 
 	// Other business methods --------------------------
