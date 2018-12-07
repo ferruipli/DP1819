@@ -14,4 +14,5 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>
 
 	@Query("select c.ticker from Curriculum c")
 	Collection<String> findAllTickers();
+
 }
