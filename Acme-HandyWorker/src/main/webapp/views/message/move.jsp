@@ -10,29 +10,29 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <fieldset>
-	<legend><spring:message code="message.fieldset.messageToMove" /></legend>
+	<legend><spring:message code="message.fieldset.message" /></legend>
 	
 	<form action="message/${role}/move.do" method="post">
-		<input type="hidden" name="messageToMoveId" value="${message.id}">
-		<input type="hidden" name="sourceFolderId" value="${sourceBox.id}">
+		<input type="hidden" name="messageId" value="${message.id}">
+		<input type="hidden" name="sourceBoxId" value="${sourceBox.id}">
 	
 		<ul>
 			<li>
-				<spring:message code="message.move.subject"/>${messageToMove.subject}
+				<spring:message code="message.move.subject"/>${message.subject}
 			</li>
 			
 			<li>
-				<spring:message code="message.move.sourceFolder"/>${sourceFolder.name}
+				<spring:message code="message.move.sourceBox"/>${sourceBox.name}
 			</li>
 		
 			<li>
-				<label for="targetFolderSelectId">
-					<spring:message code="message.move.targetFolder" />
+				<label for="targetBoxSelectId">
+					<spring:message code="message.move.targetBox" />
 				</label>
-				<select name="targetFolderId" id="targetFolderSelectId" form="formId">
-					<jstl:if test="${not empty allFolders}">
-						<jstl:forEach var="rowFolder" items="${allFolders}">
-							<option value="${rowFolder.id}">${rowFolder.name}</option>
+				<select name="targetBoxId" id="targetBoxSelectId" form="formId">
+					<jstl:if test="${not empty boxes}">
+						<jstl:forEach var="rowBox" items="${boxes}">
+							<option value="${rowBox.id}">${rowBox.name}</option>
 						</jstl:forEach>
 					</jstl:if>
 				</select>
@@ -41,6 +41,6 @@
 		
 		<input type="submit" name="move" value="<spring:message code="message.button.move"/>" />
 		<input type="button" name="cancel" value="<spring:message code="message.button.cancel"/>" 
-				onclick="javascript: relativeRedir('folder/display.do?folderId=${sourceFolder.id}')" />
+				onclick="javascript: relativeRedir('message/${role }/display.do?messageId=${message.id}')" />
 	</form>
 </fieldset>

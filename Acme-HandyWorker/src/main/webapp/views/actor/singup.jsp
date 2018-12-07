@@ -111,6 +111,20 @@
 		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
+		<form:label path="authority">
+		<spring:message code="actor.authority"/>
+	</form:label>
+	<form:select path="authority">
+		<form:option label="-----" value="0"/>
+		<form:option label="CUSTOMER" value="CUSTOMER"/>
+		<form:option label="HANDYWORKER" value="HANDYWORKER"/>
+		<form:option label="SPONSOR" value="SPONSOR"/>
+		<jstl:if test="${role == 'administrator' }">
+			<form:option label="ADMINISTRATOR" value="ADMINISTRATOR"/>
+			<form:option label="REFEREE" value="REFEREE"/>
+		</jstl:if>
+	</form:select>
+		
 		<input type="hidden" name="role" value="${role}"/>
 	</fieldset>
 	
