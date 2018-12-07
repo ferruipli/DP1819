@@ -74,5 +74,5 @@
 	</jstl:choose>
 </fieldset>
 
-<input type="button" name="return" value="<spring:message code="box.return" />" 
+<input type="button" name="return" value="<spring:message code="actor.return" />" 
 				onclick="javascript: relativeRedir('welcome/index.do');" />

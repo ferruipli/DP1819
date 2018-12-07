@@ -31,21 +31,16 @@
 		<a href="message/display.do?messageId=${rowMessage.id}&folderId=${folder.id}"><spring:message code="folder.table.display" /></a>
 	</display:column>
 	
-	<spring:message code="message.sendMoment" var="sendMoment" />
 	<spring:message code="message.date.format" var="dateFormat"/>
-	<display:column property="sendMoment" title="${sendMoment}" sortable="true" format="${dateFormat}" />
+	<display:column property="sendMoment" titleKey="message.sendMoment" format="${dateFormat}"/>
 	
-	<spring:message code="message.subject" var="subject" />
-	<display:column property="subject" title="${subject}" sortable="true"/>
+	<display:column property="subject" titleKey="message.subject"/>
 	
-	<spring:message code="message.priority" var="priority" />
-	<display:column property="priority" title="${priority}" sortable="true"/>
+	<display:column property="priority" titleKey="message.priority"/>
 	
-	<spring:message code="message.sender" var="sender" />
-	<display:column property="sender" title="${sender}" sortable="true"/>
+	<display:column property="sender" titleKey="message.sender"/>
 	
-	<spring:message code="message.tags" var="tags" />
-	<display:column property="tags" title="${tags}" sortable="true"/>
+	<display:column property="tags" titleKey="message.tags"/>
 	
 </display:table>
 

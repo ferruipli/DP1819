@@ -24,7 +24,6 @@
 		<a href="box/display.do?boxId=${row.id}"><spring:message code="box.display" /></a>
 	</display:column>
 	
-	<spring:message code="box.name" var="boxName" />
-	<display:column property="name" title="${boxName}" sortable="true"/>
+	<display:column property="name" titleKey="box.name"/>
 	
 </display:table>

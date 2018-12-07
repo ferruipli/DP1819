@@ -21,21 +21,15 @@
 		</jstl:choose>
 	</display:column>
 	
-	<spring:message code="suspicious.table.name" var="name"/>
-	<display:column property="name" title="${name}" sortable="true"/>
+	<display:column property="name" titleKey="suspicious.table.name"/>
 	
-	<spring:message code="suspicious.table.middlename" var="middleName"/>
-	<display:column property="name" title="${middleName }" sortable="true"/>
+	<display:column property="middleName" titleKey="suspicious.table.middleName"/>
 	
-	<spring:message code="suspicious.table.surname" var="surname"/>
-	<display:column property="surname" title="${surname}" sortable="true"/>
+	<display:column property="surname" titleKey="suspicious.table.surname"/>
 	
-	<spring:message code="suspicious.table.email" var="email"/>
-	<display:column property="email" title="${email}" sortable="true"/>
+	<display:column property="email" titleKey="suspicious.table.email"/>
 	
-	<spring:message code="suspicious.table.username" var="username"/>
-	<display:column property="username" title="${username}" sortable="true"/>
+	<display:column property="username" titleKey="suspicious.table.username"/>
 	
-	<spring:message code="suspicious.table.authority" var="authority"/>
-	<display:column property="authority" title="${authority}" sortable="true"/>
+	<display:column property="authority" titleKey="suspicious.table.authority"/>
 </display:table>
