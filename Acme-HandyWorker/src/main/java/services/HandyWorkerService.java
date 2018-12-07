@@ -73,7 +73,7 @@ public class HandyWorkerService {
 		final Md5PasswordEncoder encoder;
 		final String passwordHash;
 		HandyWorker result;
-		String make;
+		final String make;
 		UserAccount userAccount;
 
 		encoder = new Md5PasswordEncoder();
@@ -81,10 +81,10 @@ public class HandyWorkerService {
 		handyWorker.getUserAccount().setPassword(passwordHash);
 		this.utilityService.checkEmailActors(handyWorker);
 
-		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
+		//To add default make,it's just in case it was created
 		if (handyWorker.getId() == 0) {
-
-			if (handyWorker.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
+			//if middleName is null it is changed by empty so the make is not name+null
+			if (handyWorker.getMiddleName() == null)
 				handyWorker.setMiddleName("");
 			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
 			handyWorker.setMake(make);
