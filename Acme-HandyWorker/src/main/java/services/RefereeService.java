@@ -42,7 +42,8 @@ public class RefereeService {
 	public Referee create() {
 		Referee result;
 
-		result = (Referee) this.actorService.create(Authority.REFEREE);
+		result = new Referee();
+		result.setUserAccount(this.actorService.createUserAccount(Authority.REFEREE));
 		result.setComplaints(Collections.<Complaint> emptySet());
 
 		return result;

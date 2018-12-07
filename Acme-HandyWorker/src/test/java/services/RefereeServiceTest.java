@@ -49,6 +49,7 @@ public class RefereeServiceTest extends AbstractTest {
 		referee.setPhoneNumber("+42 123123123");
 		referee.setPhotoLink("https://imagetest.com/12g5hr45");
 		referee.setSurname("López");
+		referee.getUserAccount().setUsername("noombreusuario");
 
 		saved = this.refereeService.save(referee);
 		Assert.isTrue(this.refereeService.findOne(saved.getId()).equals(saved));

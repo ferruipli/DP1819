@@ -1,9 +1,7 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -13,21 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
-import repositories.AdministratorRepository;
-import repositories.CustomerRepository;
-import repositories.HandyWorkerRepository;
-import repositories.RefereeRepository;
-import repositories.SponsorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
 import domain.Actor;
-import domain.Administrator;
-import domain.Customer;
-import domain.HandyWorker;
-import domain.Referee;
-import domain.Sponsor;
 
 @Service
 @Transactional
@@ -36,33 +24,18 @@ public class ActorService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ActorRepository			actorRepository;
-
-	@Autowired
-	private AdministratorRepository	administratorRepository;
-
-	@Autowired
-	private CustomerRepository		customerRepository;
-
-	@Autowired
-	private HandyWorkerRepository	handyWorkerRepository;
-
-	@Autowired
-	private RefereeRepository		refereeRepository;
-
-	@Autowired
-	private SponsorRepository		sponsorRepository;
+	private ActorRepository		actorRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private UserAccountService		userAccountService;
+	private UserAccountService	userAccountService;
 
 	@Autowired
-	private UtilityService			utilityService;
+	private UtilityService		utilityService;
 
 	@Autowired
-	private BoxService				boxService;
+	private BoxService			boxService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,12 +46,9 @@ public class ActorService {
 
 	// Simple CRUD methods ----------------------------------------------------
 
-	protected Actor create(final String role) {
-		Actor result;
+	protected UserAccount createUserAccount(final String role) {
 		UserAccount userAccount;
 		Authority authority;
-
-		result = null;
 
 		authority = new Authority();
 		authority.setAuthority(role);
@@ -86,64 +56,21 @@ public class ActorService {
 		userAccount = new UserAccount();
 		userAccount.addAuthority(authority);
 
-		switch (role) {
-		case Authority.ADMIN:
-			result = new Administrator();
-			break;
-		case Authority.CUSTOMER:
-			result = new Customer();
-			break;
-		case Authority.HANDYWORKER:
-			result = new HandyWorker();
-			break;
-		case Authority.REFEREE:
-			result = new Referee();
-			break;
-		case Authority.SPONSOR:
-			result = new Sponsor();
-			break;
-		}
-
-		result.setUserAccount(userAccount);
-
-		return result;
+		return userAccount;
 	}
 
 	protected Actor save(final Actor actor) {
 		Assert.notNull(actor);
-		this.utilityService.checkName(actor);
+		this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
 
 		Actor result;
 		boolean isUpdating;
-		String role;
-		List<Authority> authorities;
 
-		result = null;
-		authorities = new ArrayList<>(actor.getUserAccount().getAuthorities());
-		role = authorities.get(0).getAuthority();
 		isUpdating = this.actorRepository.exists(actor.getId());
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
 
-		this.definePassword(actor);
-
-		switch (role) {
-		case Authority.ADMIN:
-			result = this.administratorRepository.save((Administrator) actor);
-			break;
-		case Authority.CUSTOMER:
-			result = this.customerRepository.save((Customer) actor);
-			break;
-		case Authority.HANDYWORKER:
-			result = this.handyWorkerRepository.save((HandyWorker) actor);
-			break;
-		case Authority.REFEREE:
-			result = this.refereeRepository.save((Referee) actor);
-			break;
-		case Authority.SPONSOR:
-			result = this.sponsorRepository.save((Sponsor) actor);
-			break;
-		}
+		result = this.actorRepository.save(actor);
 
 		if (!isUpdating)
 			this.boxService.createDefaultBox(result);

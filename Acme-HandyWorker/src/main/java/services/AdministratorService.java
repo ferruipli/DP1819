@@ -1,9 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +22,9 @@ public class AdministratorService {
 	private AdministratorRepository	administratorRepository;
 
 	// Supporting repositories -----------------------------
-	@Autowired
-	private BoxService				boxService;
 
 	@Autowired
 	private ActorService			actorService;
-
-	@Autowired
-	private UtilityService			utilityService;
 
 
 	// Constructors ----------------------------------------
@@ -52,59 +44,22 @@ public class AdministratorService {
 
 	public Administrator create() {
 		Administrator result;
-		Authority role;
-		List<Authority> authorities;
-		UserAccount userAccount;
-
-		role = new Authority();
-		role.setAuthority(Authority.ADMIN);
-
-		authorities = new ArrayList<Authority>();
-		authorities.add(role);
-
-		userAccount = new UserAccount();
-		userAccount.setAuthorities(authorities);
 
 		result = new Administrator();
-		result.setUserAccount(userAccount);
+		result.setUserAccount(this.actorService.createUserAccount(Authority.ADMIN));
 
 		return result;
 	}
 
 	public Administrator save(final Administrator administrator) {
-		Assert.notNull(administrator);
-		this.utilityService.checkUsername(administrator);
-		this.utilityService.checkEmailAdministrator(administrator);
+		Administrator result;
 
-		final Administrator result, found;
-
-		if (administrator.getId() == 0) {
-			this.actorService.definePassword(administrator);
-
-			result = this.administratorRepository.save(administrator);
-			this.boxService.createDefaultBox(result);
-		} else {
-			this.checkByPrincipal(administrator);
-
-			found = this.findOne(administrator.getId());
-
-			// Si son distintas las password, quiere decir que el user ha actualizado su contraseña
-			if (!found.getUserAccount().getPassword().equals(administrator.getUserAccount().getPassword()))
-				this.actorService.definePassword(administrator);
-
-			result = this.administratorRepository.save(administrator);
-		}
+		result = (Administrator) this.actorService.save(administrator);
 
 		return result;
 	}
+
 	// Other business methods ------------------------------
-	public void checkByPrincipal(final Administrator administrator) {
-		Administrator principal;
-
-		principal = this.findByPrincipal();
-
-		Assert.isTrue(administrator.equals(principal));
-	}
 
 	public Administrator findByPrincipal() {
 		UserAccount userAccount;
