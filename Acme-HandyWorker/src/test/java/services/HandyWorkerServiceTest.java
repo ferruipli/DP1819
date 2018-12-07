@@ -39,12 +39,12 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		final HandyWorker handyWorker;
 		final HandyWorker handyWorkerSaved;
 
-		handyWorker = this.handyWorkerService.findOne(super.getEntityId("handyworker2"));
+		handyWorker = this.handyWorkerService.create();
 
-		handyWorker.setId(0);
 		handyWorker.setAddress("Francisco de Quevedo 12");
 		handyWorker.setEmail("maria@gmail.com");
 		handyWorker.setSurname("Jiménez");
+		handyWorker.getUserAccount().setUsername("handyworker10");
 
 		handyWorkerSaved = this.handyWorkerService.save(handyWorker);
 
