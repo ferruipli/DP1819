@@ -221,45 +221,4 @@ public class CurriculumServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testDeleteCurriculum() {
-		Curriculum curriculum, deleted;
-		int id;
-
-		super.authenticate("handyworker1");
-
-		id = super.getEntityId("curriculum1");
-
-		curriculum = this.curriculumService.findOne(id);
-
-		this.curriculumService.delete(curriculum);
-
-		deleted = this.curriculumService.findOne(id);
-
-		Assert.isNull(deleted);
-
-		super.authenticate(null);
-
-	}
-
-	// The curriculum we delete not belongs to the handyworker logged
-	@Test(expected = NullPointerException.class)
-	public void testDeleteNegative() {
-		Curriculum curriculum, deleted;
-		int id;
-
-		super.authenticate("handyworker2");
-
-		id = super.getEntityId("curriculum1");
-		curriculum = this.curriculumService.findOne(id);
-
-		this.curriculumService.delete(curriculum);
-
-		deleted = this.curriculumService.findOne(id);
-
-		Assert.isNull(deleted);
-
-		super.authenticate(null);
-
-	}
 }
