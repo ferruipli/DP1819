@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -138,7 +137,7 @@ public class ActorService {
 		return result;
 	}
 
-	public void changeBanner(final Actor actor) {
+	public void changeBan(final Actor actor) {
 		Assert.notNull(actor);
 
 		final UserAccount userAccount;
@@ -148,24 +147,19 @@ public class ActorService {
 		isBanned = userAccount.getIsBanned();
 
 		userAccount.setIsBanned(!isBanned);
-
-		this.userAccountService.save(userAccount);
 	}
 
-	public void definePassword(final Actor actor) {
-		Md5PasswordEncoder encoder;
-		String password, hash;
-
-		encoder = new Md5PasswordEncoder();
-		password = actor.getUserAccount().getPassword();
-		hash = encoder.encodePassword(password, null);
-
-		actor.getUserAccount().setPassword(hash);
-	}
-
-	public void isSuspicious(final Actor actor) {
+	public void markAsSuspicious(final Actor actor) {
 		actor.setIsSuspicious(true);
-		this.actorRepository.save(actor);
+	}
+
+	public Collection<Actor> findAllSuspicious() {
+		Collection<Actor> result;
+
+		result = this.actorRepository.findAllSuspicious();
+		Assert.notNull(result);
+
+		return result;
 	}
 
 	private boolean isOwnerAccount(final Actor actor) {
