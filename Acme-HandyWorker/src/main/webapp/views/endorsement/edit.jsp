@@ -9,7 +9,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="endorsement/customer/edit.do" modelAtribute="endorsement">
+<form:form action="endorsement/handyWorker,customer/edit.do" modelAttribute="endorsement">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
@@ -18,7 +18,7 @@
 	<form:label path="comments">
 		<spring:message code="endorsement.comments" />:
 	</form:label>
-	<form:textarea path="comments" />
+	<form:input path="comments" />
 	<form:errors cssClass="error" path="comments" />
 	<br/>
 	
@@ -38,8 +38,6 @@
 			value="<spring:message code="endorsement.delete" />"
 			onclick="return confirm('<spring:message code="endorsement.confirm.delete" />')" />&nbsp;
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="endorsement.cancel" />
-		"onclick="javascript: relativeRedir('endorsement/customer/list.do');" />
-	<br />
-	
+	<input type="button" name="cancel"	value="<spring:message code="endorsement.cancel"/>" onclick="javascript: relativeRedir('endorsement/handyWorker,customer/list.do');" />
+	<br />	
 </form:form>

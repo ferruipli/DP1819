@@ -10,37 +10,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="sentEndorsements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
-	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<a href="endorsement/customer/display.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.display" />
-			</a>
-		</display:column>
-	</security:authorize>
+	<display:column>
+		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
+			<spring:message code="endorsement.display" />
+		</a>
+	</display:column>
 	
-	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<a href="endorsement/handyworker/display.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.display" />
-			</a>
-		</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<a href="endorsement/customer/edit.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.edit" />
-			</a>
-		</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<a href="endorsement/handyworker/edit.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.edit" />
-			</a>
-		</display:column>
-	</security:authorize>
+	<display:column>
+		<a href="endorsement/handyWorker,customer/edit.do?endorsementId=${row.id}">
+			<spring:message code="endorsement.edit" />
+		</a>
+	</display:column>
 	
 	<spring:message code="endorsement.comments" var="commentsHeader" />
 	<display:column property="comments" title="${commentsHeader}" sortable="true" />
@@ -56,26 +36,16 @@
 	<display:column property="recipient.name" title="${recipientHeader}" sortable="true" />
 </display:table>
 
-<a href="endorsement/endorsable/create.do">
+<a href="endorsement/handyWorker,customer/create.do">
 	<spring:message code="endorsement.create" />
 </a>
 
 <display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
-	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<a href="endorsement/customer/display.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.display" />
-			</a>
-		</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<a href="endorsement/handyworker/display.do?endorsementId=${row.id}">
-				<spring:message code="endorsement.display" />
-			</a>
-		</display:column>
-	</security:authorize>
+	<display:column>
+		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
+			<spring:message code="endorsement.display" />
+		</a>
+	</display:column>
 	
 	<spring:message code="endorsement.comments" var="commentsHeader" />
 	<display:column property="comments" title="${commentsHeader}" sortable="true" />
