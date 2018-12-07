@@ -18,7 +18,7 @@
 	<form:label path="comments">
 		<spring:message code="endorsement.comments" />:
 	</form:label>
-	<form:input path="comments" />
+	<form:textarea path="comments" />
 	<form:errors cssClass="error" path="comments" />
 	<br/>
 	
