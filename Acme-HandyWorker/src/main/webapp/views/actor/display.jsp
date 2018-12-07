@@ -52,5 +52,27 @@
 
 </fieldset>
 
+<fieldset>
+	<legend><spring:message code="actor.other.legend"/></legend>
+	<p> <strong> <spring:message code="actor.socialProfile" />: </strong> </p> 
+	<jstl:choose>
+		<jstl:when test="${role == 'customer'}">
+			<a href="socialProfile/customer/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+		</jstl:when>
+		<jstl:when test="${role == 'handyworker'}">
+			<a href="socialProfile/handyworker/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+		</jstl:when>
+		<jstl:when test="${role == 'sponsor'}">
+			<a href="socialProfile/sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+		</jstl:when>
+		<jstl:when test="${role == 'administrator'}">
+			<a href="socialProfile/administrator/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+		</jstl:when>
+		<jstl:when test="${role == 'referee'}">
+			<a href="socialProfile/referee/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+		</jstl:when>
+	</jstl:choose>
+</fieldset>
+
 <input type="button" name="return" value="<spring:message code="box.return" />" 
 				onclick="javascript: relativeRedir('welcome/index.do');" />
