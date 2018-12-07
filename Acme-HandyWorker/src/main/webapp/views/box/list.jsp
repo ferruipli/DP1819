@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="boxes" id="row" requestURI="box/list.do" pagesize="5" class="displaytag">
+<display:table name="boxes" id="row" requestURI="${requestUri }" pagesize="5" class="displaytag">
 	<display:column>
 		<a href="box/display.do?boxId=${row.id}"><spring:message code="box.display" /></a>
 	</display:column>
