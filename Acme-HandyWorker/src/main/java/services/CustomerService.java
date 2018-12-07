@@ -1,10 +1,8 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -31,14 +29,9 @@ public class CustomerService {
 	private CustomerRepository	customerRepository;
 
 	// Supporting services -------------------------
-	@Autowired
-	private BoxService			boxService;
 
 	@Autowired
 	private ActorService		actorService;
-
-	@Autowired
-	private UtilityService		utilityService;
 
 
 	// Constructors ----------------------------------
@@ -58,50 +51,18 @@ public class CustomerService {
 
 	public Customer create() {
 		Customer result;
-		UserAccount userAccount;
-		Authority role;
-		List<Authority> authorities;
-
-		role = new Authority();
-		role.setAuthority(Authority.CUSTOMER);
-
-		authorities = new ArrayList<Authority>();
-		authorities.add(role);
-
-		userAccount = new UserAccount();
-		userAccount.setAuthorities(authorities);
 
 		result = new Customer();
 		result.setFixUpTasks(Collections.<FixUpTask> emptySet());
-		result.setUserAccount(userAccount);
+		result.setUserAccount(this.actorService.createUserAccount(Authority.CUSTOMER));
 
 		return result;
 	}
 
 	public Customer save(final Customer customer) {
-		Assert.notNull(customer);
-		this.utilityService.checkUsername(customer);
-		this.utilityService.checkEmailActors(customer);
-
 		Customer result;
-		final Customer found;
 
-		if (customer.getId() == 0) {
-			this.actorService.definePassword(customer);
-
-			result = this.customerRepository.save(customer);
-
-			this.boxService.createDefaultBox(result);
-		} else {
-			this.checkByPrincipal(customer);
-
-			found = this.findOne(customer.getId());
-
-			if (!found.getUserAccount().getPassword().equals(customer.getUserAccount().getPassword()))
-				this.actorService.definePassword(customer);
-
-			result = this.customerRepository.save(customer);
-		}
+		result = (Customer) this.actorService.save(customer);
 
 		return result;
 	}
@@ -142,14 +103,6 @@ public class CustomerService {
 		results = this.customerRepository.findEndorsableCustomers(handyWorkerId);
 
 		return results;
-	}
-
-	protected void checkByPrincipal(final Customer customer) {
-		Customer principal;
-
-		principal = this.findByPrincipal();
-
-		Assert.isTrue(customer.equals(principal));
 	}
 
 	public Customer findByPrincipal() {

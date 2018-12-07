@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
@@ -30,6 +31,12 @@ public class ActorService {
 	@Autowired
 	private UserAccountService	userAccountService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
+	@Autowired
+	private BoxService			boxService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -38,6 +45,38 @@ public class ActorService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
+
+	protected UserAccount createUserAccount(final String role) {
+		UserAccount userAccount;
+		Authority authority;
+
+		authority = new Authority();
+		authority.setAuthority(role);
+
+		userAccount = new UserAccount();
+		userAccount.addAuthority(authority);
+
+		return userAccount;
+	}
+
+	protected Actor save(final Actor actor) {
+		Assert.notNull(actor);
+		this.utilityService.checkUsername(actor);
+		this.utilityService.checkEmailActors(actor);
+
+		Actor result;
+		boolean isUpdating;
+
+		isUpdating = this.actorRepository.exists(actor.getId());
+		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
+
+		result = this.actorRepository.save(actor);
+
+		if (!isUpdating)
+			this.boxService.createDefaultBox(result);
+
+		return result;
+	}
 
 	public Collection<Actor> findAll() {
 		Collection<Actor> result;
@@ -127,5 +166,12 @@ public class ActorService {
 	public void isSuspicious(final Actor actor) {
 		actor.setIsSuspicious(true);
 		this.actorRepository.save(actor);
+	}
+
+	private boolean isOwnerAccount(final Actor actor) {
+		int principalId;
+
+		principalId = LoginService.getPrincipal().getId();
+		return principalId == actor.getUserAccount().getId();
 	}
 }
