@@ -2652,7 +2652,7 @@
 		<property name="make" value="Make 1" />
 		<!-- <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder1" />
-		<property name="curriculum" ref="curriculum1" />
+		<!--<property name="curriculum" ref="curriculum1" />-->
 		<property name="applications">
 			<list>
 				<ref bean="application1" />
@@ -2674,7 +2674,7 @@
 		<property name="make" value="Make 2" />
 		<!-- <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder2" />
-		<!-- <property name="curriculum" ref="curriculum1"/> -->
+		<property name="curriculum" ref="curriculum1"/>
 		<property name="applications">
 			<list>
 				<ref bean="application3" />
@@ -2697,7 +2697,7 @@
 		<property name="make" value="Make 3" />
 		<!-- <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder3" />
-		<!-- <property name="curriculum" ref="curriculum1"/> -->
+		<property name="curriculum" ref="curriculum2"/> 
 		<property name="applications">
 			<list>
 				<ref bean="application6" />
@@ -2719,7 +2719,7 @@
 		<property name="make" value="Make 4" />
 		<!-- <property name="score" value="0.5"/> -->
 		<property name="finder" ref="finder4" />
-		<!-- <property name="curriculum" ref="curriculum1"/> -->
+		<property name="curriculum" ref="curriculum3"/> 
 		<property name="applications">
 			<list>
 				<ref bean="application8" />

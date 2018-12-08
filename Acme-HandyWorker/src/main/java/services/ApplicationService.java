@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
+import security.Authority;
+import security.LoginService;
 import domain.Application;
 import domain.CreditCard;
 import domain.FixUpTask;
@@ -37,6 +39,9 @@ public class ApplicationService {
 
 	@Autowired
 	private UtilityService			utilityService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Constructor ----------------------------------------------------
@@ -71,6 +76,9 @@ public class ApplicationService {
 		Application result;
 		Date moment;
 
+		if (LoginService.getPrincipal().getAuthorities().contains(Authority.HANDYWORKER))
+			Assert.notNull(application.getHandyWorker().getCurriculum());
+
 		if (application.getId() == 0) {
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
@@ -79,6 +87,7 @@ public class ApplicationService {
 			this.checkByPrincipal(application);
 
 		result = this.applicationRepository.save(application);
+		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
 	}
@@ -203,4 +212,5 @@ public class ApplicationService {
 
 		return result;
 	}
+
 }

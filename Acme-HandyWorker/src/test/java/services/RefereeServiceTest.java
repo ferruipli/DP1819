@@ -49,9 +49,31 @@ public class RefereeServiceTest extends AbstractTest {
 		referee.setPhoneNumber("+42 123123123");
 		referee.setPhotoLink("https://imagetest.com/12g5hr45");
 		referee.setSurname("López");
+		referee.getUserAccount().setUsername("noombreusuario");
 
 		saved = this.refereeService.save(referee);
 		Assert.isTrue(this.refereeService.findOne(saved.getId()).equals(saved));
+	}
+
+	@Test
+	public void testUpdateReferee() {
+		Referee referee, saved;
+		int numberOfComplaints;
+		String nameChanged;
+
+		nameChanged = "Test name";
+		referee = this.refereeService.findOne(super.getEntityId("referee1"));
+		numberOfComplaints = referee.getComplaints().size();
+
+		super.authenticate("referee1");
+
+		referee.setName(nameChanged);
+		saved = this.refereeService.save(referee);
+
+		Assert.isTrue(numberOfComplaints == saved.getComplaints().size());
+		Assert.isTrue(referee.getName().equals(nameChanged));
+
+		super.unauthenticate();
 	}
 
 	@Test

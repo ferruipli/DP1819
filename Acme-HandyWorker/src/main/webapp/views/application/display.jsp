@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <p>
@@ -24,12 +25,14 @@
 
 	<p>
 	<strong> <spring:message code="application.registerMoment" />: </strong>
-	<jstl:out value="${application.registerMoment}" />
+	
+	<spring:message code="application.formatMoment1" var="formatMoment"/>
+		<fmt:formatDate value="${application.registerMoment}" pattern="${formatMoment}"/>
 </p>
 
 <p>
 	<strong> <spring:message code="application.offeredPrice" />: </strong>
-	<jstl:out value="${application.offeredPrice}" />
+	<jstl:out value="${application.offeredPrice}" />&#8364;
 </p>
 
 <p>
@@ -49,5 +52,5 @@
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="application.return" />"
-	   onclick="javascript: relativeRedir('application/handyWorker/list.do');" />	
+	   onclick="javascript: relativeRedir('application/handyWorker,customer/list.do');" />	
 	

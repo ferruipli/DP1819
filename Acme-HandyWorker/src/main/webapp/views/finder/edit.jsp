@@ -34,28 +34,28 @@
 	<form:label path="startPrice">
 		<spring:message code="finder.startPrice" />:
 	</form:label>
-	<form:input path="startPrice" />
+	<form:input path="startPrice" />&#8364;
 	<form:errors cssClass="error" path="startPrice" />
 	<p/>
 
 	<form:label path="endPrice">
 		<spring:message code="finder.endPrice" />:
 	</form:label>
-	<form:input path="endPrice" />
+	<form:input path="endPrice" />&#8364;
 	<form:errors cssClass="error" path="endPrice" />
 	<p/>
 	
-	<form:label path="startDate">
+	<form:label path="startDate" >
 		<spring:message code="finder.startDate" />:
 	</form:label>
-	<form:input path="startDate" />
+	<form:input path="startDate"  placeholder="dd/MM/yyyy"/>
 	<form:errors cssClass="error" path="startDate" />
 	<p/>
 	
 	<form:label path="endDate">
 		<spring:message code="finder.endDate" />:
 	</form:label>
-	<form:input path="endDate" />
+	<form:input path="endDate" placeholder="dd/MM/yyyy" />
 	<form:errors cssClass="error" path="endDate" />
 	<p/>
 

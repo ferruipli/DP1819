@@ -80,6 +80,24 @@ public class ApplicationServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+	/*
+	 * Can not change application which handyWorker has not curriculum
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveNegative3() {
+		super.authenticate("handyworker2");
+		final Application application;
+		final Application applicationSaved;
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		application.setStatus("REJECTED");
+
+		applicationSaved = this.applicationService.save(application);
+
+		Assert.isNull(applicationSaved);
+
+		super.unauthenticate();
+	}
 	@Test
 	public void testSave() {
 		super.authenticate("handyworker1");

@@ -225,9 +225,9 @@ public class FinderService {
 
 		date = new Date();
 
-		//time me lo da en milesegundos
-		//*1000 paso a seg
-		//*60 a minutos
+		//time is milliseconds
+		//*1000 to seconds
+		//*60 to minutes
 		time = date.getTime() - lastUpdate.getTime();
 		hours = time / (1000 * 60 * 60);
 

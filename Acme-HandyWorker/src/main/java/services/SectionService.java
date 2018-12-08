@@ -106,13 +106,11 @@ public class SectionService {
 		tutorial.getSections().remove(section);
 	}
 
-	//Este metodo se ha creado para cuando en una vista quiera añadirse secciones a una tutoria
-	//si se hace a traves de una list que no haga falta meter uno a uno las section
-	public void addSectionToTutorial(final Tutorial tutorial, final Collection<Section> sec) {
+	public void addSectionToTutorial(final Tutorial tutorial, final Section sec) {
 		Collection<Section> sections;
 
 		sections = tutorial.getSections();
-		sections.addAll(sec);
+		sections.add(sec);
 
 		tutorial.setSections(sections);
 	}

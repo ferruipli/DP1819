@@ -15,14 +15,12 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <p>
 	<strong> <spring:message code="tutorial.title" />: </strong>
 	<jstl:out value="${tutorial.title}" />
 </p>
-
-
 
 <p>
 	<strong> <spring:message code="tutorial.summary" />: </strong>
@@ -31,7 +29,8 @@
 
 <p>
 	<strong> <spring:message code="tutorial.moment" />: </strong>
-	<jstl:out value="${tutorial.moment}" />
+	<spring:message code="tutorial.formatMoment1" var="formatMoment"/>
+	<fmt:formatDate value="${tutorial.moment}" pattern="${formatMoment}"/>
 </p>
 	   
 	

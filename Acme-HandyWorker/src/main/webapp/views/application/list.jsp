@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <display:table id="row" name="applications"  requestURI="${requestURI}" pagesize="5" class="displaytag">
 
@@ -33,10 +34,10 @@
 
 	<spring:message code="application.registerMoment" var="registerMomentHeader" />
 	<spring:message code="application.formatMoment" var="formatMomentHeader" />
-	<display:column  property="registerMoment" title="${registerMomentHeader}" sortable="true" format="${formatDateHeader}" class="${appColor}" />
+	<display:column  property="registerMoment" title="${registerMomentHeader}" sortable="true" format="${formatMomentHeader}" class="${appColor}" />
 		 
 	<spring:message code="application.offeredPrice" var="offeredPriceHeader" />
-	<display:column property="offeredPrice" title="${offeredPriceHeader}" sortable="true" class="${appColor}" />
+	<display:column property="offeredPrice" title="${offeredPriceHeader}" sortable="true" class="${appColor}"  />
 		 
 	<spring:message code="application.fixUpTask" var="fixUpTaskHeader" />
 	<display:column property="fixUpTask.ticker" title="${fixUpTaskHeader}"  class="${appColor}"/>
