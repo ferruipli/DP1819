@@ -22,8 +22,6 @@
 	<jstl:out value="${tutorial.title}" />
 </p>
 
-
-
 <p>
 	<strong> <spring:message code="tutorial.summary" />: </strong>
 	<jstl:out value="${tutorial.summary}" />

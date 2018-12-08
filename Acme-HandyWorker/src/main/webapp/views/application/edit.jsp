@@ -53,7 +53,7 @@
 	</security:authorize>
 	
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('application/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('application/handyWorker,customer/list.do');" />
 	<br />
 
 </form:form>

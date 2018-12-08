@@ -44,7 +44,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * No se puede editar application en esatado acceptado
+	 * Can not change application which status is accepted
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative() {
@@ -62,10 +62,28 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * No se puede editar application en esatado rechazado
+	 * Can not change application which status is rejected
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative1() {
+		super.authenticate("handyworker2");
+		final Application application;
+		final Application applicationSaved;
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		application.setStatus("REJECTED");
+
+		applicationSaved = this.applicationService.save(application);
+
+		Assert.isNull(applicationSaved);
+
+		super.unauthenticate();
+	}
+	/*
+	 * Can not change application which handyWorker has not curriculum
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveNegative3() {
 		super.authenticate("handyworker2");
 		final Application application;
 		final Application applicationSaved;

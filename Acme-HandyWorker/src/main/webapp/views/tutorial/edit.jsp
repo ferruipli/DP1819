@@ -35,7 +35,7 @@
 	<form:label path="summary">
 		<spring:message code="tutorial.summary" />:
 	</form:label>
-	<form:input path="summary" />
+	<form:input path="summary" ./>
 	<form:errors cssClass="error" path="summary" />
 	<br />
 
