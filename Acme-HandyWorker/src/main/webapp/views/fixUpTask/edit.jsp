@@ -37,7 +37,7 @@
 	<br/>
 	
 	<form:label path="maxPrice">
-		<spring:message code="fixUpTask.maxPrice"/> (&#8364;):
+		<spring:message code="fixUpTask.maxPrice"/> (<spring:message code="fixUpTask.vat.info"/>):
 	</form:label>
 	<form:input path="maxPrice"/>
 	<form:errors cssClass="error" path="maxPrice"/>
