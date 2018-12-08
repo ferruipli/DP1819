@@ -55,7 +55,7 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor;
 		actor = this.actorService.findOne(super.getEntityId("customer2"));
 		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
-		this.actorService.changeBanner(actor);
+		this.actorService.changeBan(actor);
 		Assert.isTrue(actor.getUserAccount().getIsBanned());
 		super.unauthenticate();
 	}
@@ -66,9 +66,9 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor;
 		actor = this.actorService.findOne(super.getEntityId("customer2"));
 		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
-		this.actorService.changeBanner(actor);
+		this.actorService.changeBan(actor);
 		Assert.isTrue(actor.getUserAccount().getIsBanned());
-		this.actorService.changeBanner(actor);
+		this.actorService.changeBan(actor);
 		Assert.isTrue(!(actor.getUserAccount().getIsBanned()));
 		super.unauthenticate();
 	}

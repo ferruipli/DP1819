@@ -7,11 +7,11 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Sponsor;
@@ -26,10 +26,9 @@ public class SponsorService {
 	private SponsorRepository	sponsorRepository;
 
 	// Supporting services -------------------------------------------
+
 	@Autowired
-	private BoxService			boxService;
-	@Autowired
-	private UtilityService		utilityService;
+	private ActorService		actorService;
 
 
 	//Constructor ----------------------------------------------------
@@ -40,44 +39,25 @@ public class SponsorService {
 
 	public Sponsor create() {
 		Sponsor result;
-		UserAccount userAccount;
 		Collection<Sponsorship> sponsorships;
 
 		sponsorships = new ArrayList<Sponsorship>();
-		userAccount = new UserAccount();
 
 		result = new Sponsor();
-		result.setUserAccount(userAccount);
+		result.setUserAccount(this.actorService.createUserAccount(Authority.REFEREE));
 		result.setSponsorships(sponsorships);
 
 		return result;
 	}
 
 	public Sponsor save(final Sponsor sponsor) {
-		Assert.notNull(sponsor);
-		this.utilityService.checkUsername(sponsor);
-
 		Sponsor result;
-		final Md5PasswordEncoder encoder;
-		final String passwordHash;
-		UserAccount userAccount;
 
-		encoder = new Md5PasswordEncoder();
-		passwordHash = encoder.encodePassword(sponsor.getUserAccount().getPassword(), null);
-		sponsor.getUserAccount().setPassword(passwordHash);
-		this.utilityService.checkEmailActors(sponsor);
-
-		if (sponsor.getId() == 0) {
-			result = this.sponsorRepository.save(sponsor);
-			this.boxService.createDefaultBox(sponsor);
-		} else {
-			userAccount = LoginService.getPrincipal();
-			Assert.isTrue(userAccount.equals(sponsor.getUserAccount()));
-			result = this.sponsorRepository.save(sponsor);
-		}
+		result = (Sponsor) this.actorService.save(sponsor);
 
 		return result;
 	}
+
 	public Sponsor findOne(final int idSponsor) {
 		Sponsor result;
 

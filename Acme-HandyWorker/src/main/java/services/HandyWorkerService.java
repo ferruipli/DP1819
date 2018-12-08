@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Application;
@@ -32,13 +32,12 @@ public class HandyWorkerService {
 	private HandyWorkerRepository	handyWorkerRepository;
 
 	// Supporting services -------------------------------------------
-	@Autowired
-	private BoxService				boxService;
+
 	@Autowired
 	private FinderService			finderService;
 
 	@Autowired
-	private UtilityService			utilityService;
+	private ActorService			actorService;
 
 
 	//Constructor ----------------------------------------------------
@@ -51,51 +50,30 @@ public class HandyWorkerService {
 		HandyWorker result;
 		Finder finder;
 		Collection<Application> applications;
-		UserAccount userAccount;
 
 		result = new HandyWorker();
 		finder = this.finderService.create();
 		finder = this.finderService.save(finder);
 		applications = new ArrayList<Application>();
-		userAccount = new UserAccount();
 
 		result.setApplications(applications);
 		result.setFinder(finder);
-		result.setUserAccount(userAccount);
+		result.setUserAccount(this.actorService.createUserAccount(Authority.HANDYWORKER));
 
 		return result;
 	}
 
 	public HandyWorker save(final HandyWorker handyWorker) {
-		Assert.notNull(handyWorker);
-		this.utilityService.checkUsername(handyWorker);
-
-		final Md5PasswordEncoder encoder;
-		final String passwordHash;
-		HandyWorker result;
-		final String make;
-		UserAccount userAccount;
-
-		encoder = new Md5PasswordEncoder();
-		passwordHash = encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null);
-		handyWorker.getUserAccount().setPassword(passwordHash);
-		this.utilityService.checkEmailActors(handyWorker);
+		final HandyWorker result;
+		String make;
+		result = (HandyWorker) this.actorService.save(handyWorker);
 
 		//To add default make,it's just in case it was created
 		if (handyWorker.getId() == 0) {
-			//if middleName is null it is changed by empty so the make is not name+null
-			if (handyWorker.getMiddleName() == null)
-				handyWorker.setMiddleName("");
-			make = handyWorker.getName() + " " + handyWorker.getMiddleName();
-			handyWorker.setMake(make);
-			result = this.handyWorkerRepository.save(handyWorker);
-			this.boxService.createDefaultBox(handyWorker);
-		} else {
-			userAccount = LoginService.getPrincipal();
-			Assert.notNull(userAccount);
-			Assert.isTrue(userAccount.equals(handyWorker.getUserAccount()));
-			result = this.handyWorkerRepository.save(handyWorker);
-
+			if (result.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
+				result.setMiddleName("");
+			make = result.getName() + " " + result.getMiddleName();
+			result.setMake(make);
 		}
 
 		return result;
