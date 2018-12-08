@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="application/edit.do" modelAttribute="application">
+<form:form action="application/handyWorker,customer/edit.do" modelAttribute="application">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />

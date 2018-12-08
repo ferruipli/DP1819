@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="finder/edit.do" modelAttribute="finder">
+<form:form action="finder/handyWorker/edit.do" modelAttribute="finder">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -29,7 +29,7 @@
 	</form:label>
 	<form:input path="Keyword" />
 	<form:errors cssClass="error" path="Keyword" />
-<p/>
+	<p/>
 	
 	<form:label path="startPrice">
 		<spring:message code="finder.startPrice" />:
@@ -74,7 +74,7 @@
 	<br />
 <p/>
 	
-	<input type="submit" name="search" value="<spring:message code="finder.search" />" />
+	<input type="submit" name="save" value="<spring:message code="finder.search" />" />
 	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
 	<br />
 

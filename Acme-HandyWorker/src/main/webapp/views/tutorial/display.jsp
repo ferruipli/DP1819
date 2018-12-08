@@ -32,11 +32,14 @@
 	<spring:message code="tutorial.formatMoment1" var="formatMoment"/>
 	<fmt:formatDate value="${tutorial.moment}" pattern="${formatMoment}"/>
 </p>
-	   
+<p>
+<strong> <spring:message code="tutorial.handyWorker" />: </strong>
+	<a href = "handyWorker/display.do?handyorkerId=${tutorial.handyWorker.id}"><jstl:out value="${tutorial.handyWorker.name}" /></a>
+</p> 	
 	
 <p>
 <strong> <spring:message code="tutorial.pictures" />: </strong>
-	<jstl:out value="${tutorial.pictures}" />
+	<a href = "${tutorial.pictures}"><jstl:out value="${tutorial.pictures}"></jstl:out></a>
 </p> 
 <strong> <spring:message code="tutorial.sections" />: </strong>
 		
@@ -58,7 +61,7 @@
 	</display:table>  
 	
 	
-	
+	<security:authorize access="hasRole('HANDYWORKER', 'SPONSOR')">
 	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
 		
 
@@ -71,6 +74,8 @@
 	<display:column property="targetPage" title="${sponsorShipTargetPage}"/>
 	
 	</display:table>
+	
+	</security:authorize>
 	   
 	   
 <input type="button" 

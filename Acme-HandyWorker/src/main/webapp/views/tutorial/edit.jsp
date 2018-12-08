@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="tutorial/edit.do" modelAttribute="tutorial">
+<form:form action="tutorial/handyWorker/edit.do" modelAttribute="tutorial">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -35,7 +35,7 @@
 	<form:label path="summary">
 		<spring:message code="tutorial.summary" />:
 	</form:label>
-	<form:input path="summary" ./>
+	<form:input path="summary"/>
 	<form:errors cssClass="error" path="summary" />
 	<br />
 

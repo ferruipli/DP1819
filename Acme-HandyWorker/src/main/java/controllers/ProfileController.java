@@ -55,7 +55,7 @@ public class ProfileController extends AbstractController {
 	public ModelAndView tutorialDisplay() {
 		ModelAndView result;
 		Tutorial tutorial;
-		final int tutorialId = 9860;
+		final int tutorialId = 9594;
 		Collection<Section> sections;
 		Collection<Sponsorship> sponsorships;
 
@@ -132,7 +132,7 @@ public class ProfileController extends AbstractController {
 		Application application;
 
 		result = new ModelAndView("application/edit");
-		application = this.applicationService.findOne(9959);
+		application = this.applicationService.findOne(9691);
 		result.addObject("application", application);
 
 		return result;
@@ -143,7 +143,7 @@ public class ProfileController extends AbstractController {
 	public ModelAndView applicationCreate() {
 		ModelAndView result;
 		Application application;
-		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(9942);
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(9691);
 
 		result = new ModelAndView("application/edit");
 		application = this.applicationService.create(fixUpTask);
@@ -158,7 +158,7 @@ public class ProfileController extends AbstractController {
 		Application application;
 
 		result = new ModelAndView("application/display");
-		application = this.applicationService.findOne(9959);
+		application = this.applicationService.findOne(9691);
 		result.addObject("application", application);
 
 		return result;

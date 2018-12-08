@@ -20,33 +20,21 @@
 
 <display:table id="row" name="tutorials"  requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<spring:message code="tutorial.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
+	<display:column property="title" titleKey="tutorial.title" sortable="true" />
 
 
 	<spring:message code="tutorial.formatMoment" var="formatMoment"/>
-	<spring:message code="tutorial.moment" var="momentHeader" />
-	<display:column  property="moment" title="${momentHeader}" sortable="true"  format="${formatMoment}"  />
-		 
-	<spring:message code="tutorial.summary" var="summaryHeader" />
-	<display:column property="summary" title="${summaryHeader}" />
+	<display:column  property="moment" titleKey="tutorial.moment" sortable="true"  format="${formatMoment}"  />
+
+	<display:column property="summary" titleKey="tutorial.summary" />
 	
-	<spring:message code="tutorial.pictures" var="picturesHeader" />
-	<display:column property="pictures" title="${picturesHeader}" />
-	
-	<spring:message code="tutorial.sections" var="sectionsHeader" />
-	<display:column property="sections" title="${sectionsHeader}" />
-	
-	<spring:message code="tutorial.handyWorker" var="handyWorkerHeader" />
-	<display:column property="handyWorker.name" title="${handyWorkerHeader}" >
-	</display:column>
 	
 	<display:column>
-	<a href="handyWorker/display.do?handyWorkerId=${row.handyWorker.id}">
-		<spring:message	code="tutorial.handyWorker.display" />			
-	</a>	
+	<a href="tutorial/display.do?tutorialId=${row.id}">
+		<spring:message	code="tutorial.display" />			
+	</a>
 	</display:column>
-		
+
 		
 	<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column >
