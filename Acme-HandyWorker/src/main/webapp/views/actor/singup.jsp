@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}">
+<form:form action="actor/register${role }.do" modelAttribute="actor">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -78,7 +78,7 @@
 		<form:label path="phoneNumber">
 			<spring:message code="actor.phoneNumber" />
 		</form:label>
-		<form:input path="telephoneNumber"/>
+		<form:input path="phoneNumber"/>
 		<form:errors cssClass="error" path="phoneNumber" />
 		<br />
 		
@@ -111,10 +111,10 @@
 		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
-		<form:label path="authority">
+		<form:label path="userAccount.authorities">
 		<spring:message code="actor.authority"/>
 	</form:label>
-	<form:select path="authority">
+	<form:select path="userAccount.authorities">
 		<form:option label="-----" value="0"/>
 		<form:option label="CUSTOMER" value="CUSTOMER"/>
 		<form:option label="HANDYWORKER" value="HANDYWORKER"/>

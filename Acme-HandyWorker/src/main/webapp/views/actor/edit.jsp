@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="actor/${role}/edit.do" modelAttribute="${role}">
+<form:form action="actor/${role}/edit.do" modelAttribute="actor">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -122,7 +122,7 @@
 	
 	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do')" />
+		onclick="javascript: relativeRedir('actor/${role}/display.do?actorId=${actor.id }')" />
 	
 	<hr>
 	

@@ -21,40 +21,41 @@
 
 <fieldset>
 	<legend><spring:message code="actor.legend"/></legend>
-	<p> <strong> <spring:message code="actor.name" />: </strong> </p> <jstl:out value="${actor.name}" />
+	<p> <strong> <spring:message code="actor.name" /> </strong> <jstl:out value="${actor.name}" /></p>
 	<br />
 	
-	<p> <strong> <spring:message code="actor.middleName" />: </strong> </p> <jstl:out value="${actor.middleName}" />
+	<p> <strong> <spring:message code="actor.middleName" /> </strong> <jstl:out value="${actor.middleName}" /></p>
 	<br />
 
-	<p> <strong> <spring:message code="actor.surname" />: </strong> </p> <jstl:out value="${actor.surname}" />
+	<p> <strong> <spring:message code="actor.surname" /> </strong>  <jstl:out value="${actor.surname}" /></p>
 	<br />
 
-	<p> <strong> <spring:message code="actor.photoLink" />: </strong> </p> <jstl:out value="${actor.photoLink}" />
+	<p> <strong> <spring:message code="actor.photoLink" /> </strong> <jstl:out value="${actor.photoLink}" /></p>
 	<br />
 	
-	<p> <strong> <spring:message code="actor.email" />: </strong> </p> <jstl:out value="${actor.email}" />
+	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
 	<br />
 	
-	<p> <strong> <spring:message code="actor.phoneNumber" />: </strong> </p> <jstl:out value="${actor.phoneNumber}" />
+	<p> <strong> <spring:message code="actor.phoneNumber" /> </strong>  <jstl:out value="${actor.phoneNumber}" /></p>
 	<br />
 
-	<p> <strong> <spring:message code="actor.address" />: </strong> </p> <jstl:out value="${actor.address}" />
-
+	<p> <strong> <spring:message code="actor.address" /> </strong>  <jstl:out value="${actor.address}" /></p>
+	
+	<a href="actor/${role }/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
 </fieldset>
 
 <fieldset>
 	<legend><spring:message code="userAccount.legend"/></legend>
-	<p> <strong> <spring:message code="actor.username" />: </strong> </p> <jstl:out value="${actor.userAccount.username}" />
+	<p> <strong> <spring:message code="actor.username" />: </strong>  <jstl:out value="${actor.userAccount.username}" /></p>
 	<br />
 	
-	<p> <strong> <spring:message code="actor.authority" />: </strong> </p> <jstl:out value="${actor.userAccount.authorities}" />
+	<p> <strong> <spring:message code="actor.authority" />: </strong>  <jstl:out value="${actor.userAccount.authorities}" /></p>
 
 </fieldset>
 
 <fieldset>
 	<legend><spring:message code="actor.other.legend"/></legend>
-	<p> <strong> <spring:message code="actor.socialProfile" />: </strong> </p> 
+	<p> <strong> <spring:message code="actor.socialProfile" />: </strong>  
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<a href="socialProfile/customer/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
@@ -71,7 +72,7 @@
 		<jstl:when test="${role == 'referee'}">
 			<a href="socialProfile/referee/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
 		</jstl:when>
-	</jstl:choose>
+	</jstl:choose></p>
 </fieldset>
 
 <input type="button" name="return" value="<spring:message code="actor.return" />" 
