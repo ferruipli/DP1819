@@ -21,26 +21,26 @@
 
 
 	<jsp:useBean id="now" class="java.util.Date" />
-	<jstl:if test="${row.status=='PENDING' && (row.registerMoment.time<now.time)}">
-		<jstl:set var="appColor" value="colorGrey" />
+	<jstl:if test="${row.status=='PENDING' && (row.fixUpTask.endDate.time<now.time)}">
+		<jstl:set var="colorValue" value="grey" />
 	</jstl:if>
 	<jstl:if test="${row.status=='REJECTED'}">
-		<jstl:set var="appColor" value="colorOrange" />
+		<jstl:set var="colorValue" value="orange" />
 	</jstl:if>
 	<jstl:if test="${row.status=='ACCEPTED'}">
-		<jstl:set var="appColor" value="colorGreen" />
+		<jstl:set var="colorValue" value="green" />
 	</jstl:if>
 	
 
 	<spring:message code="application.formatMoment" var="formatMomentHeader" />
-	<display:column  property="registerMoment" titleKey="application.registerMoment" sortable="true" format="${formatMomentHeader}" class="${appColor}" />
+	<display:column  property="registerMoment" titleKey="application.registerMoment" sortable="true" format="${formatMomentHeader}" style="background-color:${colorValue }" />
 
-	<display:column property="fixUpTask.ticker" titleKey="application.fixUpTask"  class="${appColor}"/>
+	<display:column property="fixUpTask.ticker" titleKey="application.fixUpTask"  style="background-color:${colorValue }"/>
 
-	<display:column property="status" titleKey="application.status"  sortable="true"  />
+	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
 
 	<security:authorize access="hasRole('HANDYWORKER')">
-	<display:column class="${appColor}" >
+	<display:column style="background-color:${colorValue }" >
 		<a href="application/handyWorker,customer/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
 		</a>
@@ -48,7 +48,7 @@
 
 	</security:authorize>
 
-	<display:column class="${appColor}" >
+	<display:column style="background-color:${colorValue }" >
 		<a href="application/handyWorker,customer/display.do?applicationId=${row.id}">
 					<spring:message	code="application.display" />
 		</a>
@@ -56,7 +56,7 @@
 
 <security:authorize access="hasRole('CUSTOMER')">	
 	<jstl:if test="${row.status=='PENDING'}">
-	<display:column class="${appColor}">
+	<display:column style="background-color:${colorValue}">
 		
 				<a href="application/handyWorker,customer/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.status.change" />
