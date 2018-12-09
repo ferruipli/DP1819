@@ -32,7 +32,7 @@
 
 <p>
 	<strong> <spring:message code="application.offeredPrice" />: </strong>
-	<jstl:out value="${application.offeredPrice}" />&#8364;
+	<jstl:out value="${application.offeredPrice}" />&#8364;   (<jstl:out value="${VAT}" /> %<spring:message code = "application.vat.no"></spring:message>)
 </p>
 
 <p>

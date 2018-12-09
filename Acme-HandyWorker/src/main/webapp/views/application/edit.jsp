@@ -29,7 +29,7 @@
 	<form:label path="offeredPrice">
 		<spring:message code="application.offeredPrice" />:
 	</form:label>
-	<form:input path="offeredPrice" />&#8364;
+	<form:input path="offeredPrice" />&#8364; (<jstl:out value="${VAT}" /> % <spring:message code = "application.vat"/>)
 	<form:errors cssClass="error" path="offeredPrice" />
 	<br />
 	

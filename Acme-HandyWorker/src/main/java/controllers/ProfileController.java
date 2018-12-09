@@ -130,10 +130,13 @@ public class ProfileController extends AbstractController {
 	public ModelAndView applicationEdit() {
 		ModelAndView result;
 		Application application;
+		Double VAT;
 
 		result = new ModelAndView("application/edit");
 		application = this.applicationService.findOne(9691);
 		result.addObject("application", application);
+		VAT = 21.;
+		result.addObject("VAT", VAT);
 
 		return result;
 	}
@@ -156,10 +159,13 @@ public class ProfileController extends AbstractController {
 	public ModelAndView applicationDisplay() {
 		ModelAndView result;
 		Application application;
+		Double VAT;
 
 		result = new ModelAndView("application/display");
 		application = this.applicationService.findOne(9691);
+		VAT = 21.;
 		result.addObject("application", application);
+		result.addObject("VAT", VAT);
 
 		return result;
 	}
