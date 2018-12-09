@@ -76,21 +76,6 @@ public class CurriculumService {
 		return results;
 	}
 
-	public void delete(final Curriculum curriculum) {
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getId() != 0);
-		HandyWorker handyWorker;
-
-		handyWorker = this.handyWorkerService.findByPrincipal();
-
-		Assert.isTrue(handyWorker.getCurriculum().equals(curriculum));
-
-		this.curriculumRepository.delete(curriculum);
-
-		this.handyWorkerService.removeCurriculum(handyWorker);
-
-	}
-
 	public Curriculum save(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(!(this.curriculumRepository.exists(curriculum.getId())));

@@ -64,12 +64,11 @@ public class HandyWorkerService {
 	}
 
 	public HandyWorker save(final HandyWorker handyWorker) {
-		HandyWorker result;
+		final HandyWorker result;
 		String make;
-
 		result = (HandyWorker) this.actorService.save(handyWorker);
 
-		//Para añadirle el make por defecto, eso es solo en caso que acabe de crear
+		//To add default make,it's just in case it was created
 		if (handyWorker.getId() == 0) {
 			if (result.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
 				result.setMiddleName("");

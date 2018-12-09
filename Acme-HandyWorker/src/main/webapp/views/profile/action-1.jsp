@@ -17,3 +17,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p><spring:message code="profile.action.1" /></p>
+
+
+<p>
+	<strong> <spring:message code="tutorial.title" />: </strong>
+	<jstl:out value="${tutorial.title}" />
+</p>
+
+<p>
+	<strong> <spring:message code="tutorial.moment" />: </strong>
+	<jstl:out value="${tutorial.moment}" />
+</p>
+

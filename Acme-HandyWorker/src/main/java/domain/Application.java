@@ -32,11 +32,12 @@ public class Application extends DomainEntity {
 
 	// Attributes ----------------------------------------------------------------------
 
-	private Date	registerMoment;
-	private String	status;
-	private double	offeredPrice;
-	private String	handyWorkerComments;
-	private String	customerComments;
+	private Date		registerMoment;
+	private String		status;
+	private double		offeredPrice;
+	private String		handyWorkerComments;
+	private String		customerComments;
+	private CreditCard	creditCard;
 
 
 	@Past
@@ -88,18 +89,7 @@ public class Application extends DomainEntity {
 	public void setCustomerComments(final String customerComments) {
 		this.customerComments = customerComments;
 	}
-
-
-	// Relationships ----------------------------------------------------------
-
-	private CreditCard	creditCard;
-	private HandyWorker	handyWorker;
-
-	private FixUpTask	fixUpTask;
-
-
 	@Valid
-	@ManyToOne(optional = true)
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
@@ -107,6 +97,13 @@ public class Application extends DomainEntity {
 	public void setCreditCard(final CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
+
+
+	// Relationships ----------------------------------------------------------
+
+	private HandyWorker	handyWorker;
+	private FixUpTask	fixUpTask;
+
 
 	@NotNull
 	@Valid

@@ -3,16 +3,15 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-@Entity
+@Embeddable
 @Access(AccessType.PROPERTY)
-public class CreditCard extends DomainEntity {
+public class CreditCard {
 
 	// Attributes ----------------------------------------------------------------------
 
@@ -21,10 +20,9 @@ public class CreditCard extends DomainEntity {
 	private String	number;
 	private String	expirationMonth;
 	private String	expirationYear;
-	private int		cvvCode;
+	private Integer	cvvCode;
 
 
-	@NotBlank
 	public String getHolderName() {
 		return this.holderName;
 	}
@@ -33,7 +31,6 @@ public class CreditCard extends DomainEntity {
 		this.holderName = holderName;
 	}
 
-	@NotBlank
 	public String getBrandName() {
 		return this.brandName;
 	}
@@ -43,7 +40,6 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@CreditCardNumber
-	@NotBlank
 	public String getNumber() {
 		return this.number;
 	}
@@ -52,7 +48,6 @@ public class CreditCard extends DomainEntity {
 		this.number = number;
 	}
 
-	@NotBlank
 	@Range(min = 1, max = 12)
 	public String getExpirationMonth() {
 		return this.expirationMonth;
@@ -62,7 +57,6 @@ public class CreditCard extends DomainEntity {
 		this.expirationMonth = expirationMonth;
 	}
 
-	@NotBlank
 	@Digits(integer = 2, fraction = 0)
 	public String getExpirationYear() {
 		return this.expirationYear;
@@ -73,11 +67,11 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 100, max = 999)
-	public int getCvvCode() {
+	public Integer getCvvCode() {
 		return this.cvvCode;
 	}
 
-	public void setCvvCode(final int cvvCode) {
+	public void setCvvCode(final Integer cvvCode) {
 		this.cvvCode = cvvCode;
 	}
 
