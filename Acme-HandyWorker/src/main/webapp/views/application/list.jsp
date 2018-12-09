@@ -37,7 +37,7 @@
 
 	<display:column property="fixUpTask.ticker" titleKey="application.fixUpTask"  class="${appColor}"/>
 
-	<display:column property="status" title="application.status"  sortable="true"  />
+	<display:column property="status" titleKey="application.status"  sortable="true"  />
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column class="${appColor}" >
@@ -55,21 +55,16 @@
 	</display:column>
 
 <security:authorize access="hasRole('CUSTOMER')">	
+	<jstl:if test="${row.status=='PENDING'}">
 	<display:column class="${appColor}">
-			<jstl:if test="${row.status=='PENDING'}">
+		
 				<a href="application/handyWorker,customer/edit.do?applicationId=${row.id}">
-					<spring:message	code="application.accept" />
+					<spring:message	code="application.status.change" />
 				</a>
-			</jstl:if>
 	</display:column>
+	
+			</jstl:if>
 
-	<display:column class="${appColor}">
-			<jstl:if test="${row.status=='PENDING'}">
-				<a href="application/customer/cancel.do?applicationId=${row.id}">
-					<spring:message	code="application.cancel" />
-				</a>
-			</jstl:if>
-	</display:column>
 </security:authorize>
 	
 </display:table>
