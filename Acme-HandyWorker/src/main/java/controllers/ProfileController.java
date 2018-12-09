@@ -23,13 +23,12 @@ import services.FinderService;
 import services.FixUpTaskService;
 import services.TutorialService;
 import domain.Application;
-import domain.Finder;
-import domain.FixUpTask;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
+@RequestMapping("/profile")
 public class ProfileController extends AbstractController {
 
 	@Autowired
@@ -97,34 +96,6 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 
-	//Tutorial Edit ---------------------------------------------------------------		
-	@RequestMapping(value = "/tutorial/edit", method = RequestMethod.GET)
-	public ModelAndView tutorialEdit() {
-		ModelAndView result;
-		Tutorial tutorial;
-		final int id = 9860;
-		Collection<Section> sections;
-
-		result = new ModelAndView("tutorial/edit");
-		tutorial = this.tutorialService.findOne(id);
-		sections = tutorial.getSections();
-		result.addObject("tutorial", tutorial);
-		result.addObject("sections", sections);
-
-		return result;
-	}
-	//  APPLICATION LIST---------------------------------------------------------------		
-	@RequestMapping(value = "/application/list", method = RequestMethod.GET)
-	public ModelAndView applicationList() {
-		ModelAndView result;
-		Collection<Application> applications;
-
-		result = new ModelAndView("application/list");
-		applications = this.applicationService.findAll();
-		result.addObject("applications", applications);
-
-		return result;
-	}
 	//  APPLICATION EDIT---------------------------------------------------------------		
 	@RequestMapping(value = "/application/edit", method = RequestMethod.GET)
 	public ModelAndView applicationEdit() {
@@ -139,21 +110,9 @@ public class ProfileController extends AbstractController {
 		result.addObject("VAT", VAT);
 
 		return result;
+
 	}
 
-	//  APPLICATION CREATE---------------------------------------------------------------		
-	@RequestMapping(value = "/application/create", method = RequestMethod.GET)
-	public ModelAndView applicationCreate() {
-		ModelAndView result;
-		Application application;
-		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(9691);
-
-		result = new ModelAndView("application/edit");
-		application = this.applicationService.create(fixUpTask);
-		result.addObject("application", application);
-
-		return result;
-	}
 	//  APPLICATION DISPLAY---------------------------------------------------------------		
 	@RequestMapping(value = "/application/display", method = RequestMethod.GET)
 	public ModelAndView applicationDisplay() {
@@ -166,20 +125,7 @@ public class ProfileController extends AbstractController {
 		VAT = 21.;
 		result.addObject("application", application);
 		result.addObject("VAT", VAT);
-
 		return result;
 	}
 
-	//  FINDER EDIT---------------------------------------------------------------		
-	@RequestMapping(value = "/finder/edit", method = RequestMethod.GET)
-	public ModelAndView finderEdit() {
-		ModelAndView result;
-		Finder finder;
-
-		result = new ModelAndView("finder/edit");
-		finder = this.finderService.findOne(9799);
-		result.addObject("finder", finder);
-
-		return result;
-	}
 }
