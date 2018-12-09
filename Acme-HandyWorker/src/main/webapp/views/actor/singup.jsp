@@ -9,8 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-<form:form action="actor/register${role }.do" modelAttribute="actor">
+<spring:message code="confirm.telephone" var="confirmTelephone"/>
+<form:form action="actor/register${role }.do" modelAttribute="actor" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -78,7 +78,7 @@
 		<form:label path="phoneNumber">
 			<spring:message code="actor.phoneNumber" />
 		</form:label>
-		<form:input path="phoneNumber"/>
+		<form:input path="phoneNumber" placeholder="+34 654654654"/>
 		<form:errors cssClass="error" path="phoneNumber" />
 		<br />
 		
@@ -103,12 +103,6 @@
 			<spring:message code="userAccount.password.requested" />
 		</label>
 		<input type="password" name="password" id="passwordId"/>
-		<br />
-		
-		<label for="confirmPasswordId">
-			<spring:message code="userAccount.confirmPassword.requested" />
-		</label>
-		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
 		<form:label path="userAccount.authorities">

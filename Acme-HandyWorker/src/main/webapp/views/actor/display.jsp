@@ -24,7 +24,7 @@
 	<p> <strong> <spring:message code="actor.name" /> </strong> <jstl:out value="${actor.name}" /></p>
 	<br />
 	
-	<p> <strong> <spring:message code="actor.middleName" /> </strong> <jstl:out value="${actor.middleName}" /></p>
+	<p> <strong> <spring:message code="actor.middlename" /> </strong> <jstl:out value="${actor.middleName}" /></p>
 	<br />
 
 	<p> <strong> <spring:message code="actor.surname" /> </strong>  <jstl:out value="${actor.surname}" /></p>
