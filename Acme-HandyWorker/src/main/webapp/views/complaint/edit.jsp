@@ -9,6 +9,7 @@
 <form:form action="complaint/customer/edit.do" modelAttribute="complaint">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<form:hidden path="moment"/>
 	<form:hidden path="report"/>
 	<form:hidden path="fixUpTask"/>
 	
@@ -17,13 +18,6 @@
 	</form:label>
 	<form:input path="ticker" readonly="true"/>
 	<form:errors cssClass="error" path="ticker"/>
-	<br/>
-	
-	<form:label path="moment" placeholder = "dd/mm/yyyy">
-		<spring:message code="complaint.moment"/>:
-	</form:label>
-	<form:input path="moment"/>
-	<form:errors cssClass="error" path="moment"/>
 	<br/>
 	
 	<form:label path="description">
@@ -36,7 +30,7 @@
 	<form:label path="attachments">
 		<spring:message code="complaint.attachments"/>:
 	</form:label>
-	<form:input path="attachments"/>
+	<form:textarea path="attachments"/>
 	<form:errors cssClass="error" path="attachments"/>
 	<br/>
 	

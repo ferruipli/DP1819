@@ -26,8 +26,11 @@
 	<br/>
 	
 	<strong><spring:message code="complaint.attachments"/>:</strong>
+	<br>
 	<jstl:forEach var="attachment" items="${attachments}">
-		<a href="${attachment}"><jstl:out value="${attachment}"/></a>
+		<div>
+			<a href="${attachment}"><jstl:out value="${attachment}"/></a>
+		</div>
 	</jstl:forEach>
 </fieldset>
 
