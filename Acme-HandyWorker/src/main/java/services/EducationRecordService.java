@@ -38,7 +38,7 @@ public class EducationRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	public EducationRecord create() {
+	protected EducationRecord create() {
 		EducationRecord result;
 
 		result = new EducationRecord();
@@ -46,7 +46,7 @@ public class EducationRecordService {
 		return result;
 	}
 
-	public EducationRecord findOne(final int educationRecordId) {
+	protected EducationRecord findOne(final int educationRecordId) {
 		Assert.isTrue(educationRecordId != 0);
 
 		EducationRecord result;
@@ -57,7 +57,7 @@ public class EducationRecordService {
 		return result;
 	}
 
-	public Collection<EducationRecord> findAll() {
+	protected Collection<EducationRecord> findAll() {
 		Collection<EducationRecord> results;
 
 		results = this.educationRecordRepository.findAll();
@@ -66,7 +66,7 @@ public class EducationRecordService {
 		return results;
 	}
 
-	public EducationRecord save(final EducationRecord educationRecord) {
+	protected EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		this.utilityService.checkDate(educationRecord.getStartDate(), educationRecord.getEndDate());
 
@@ -90,7 +90,7 @@ public class EducationRecordService {
 		return result;
 	}
 
-	public void delete(final EducationRecord educationRecord) {
+	protected void delete(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		Assert.isTrue(educationRecord.getId() != 0);
 		this.checkByPrincipal(educationRecord);
@@ -108,7 +108,7 @@ public class EducationRecordService {
 	}
 
 	// Other business methods --------------------------
-	public void checkByPrincipal(final EducationRecord educationRecord) {
+	private void checkByPrincipal(final EducationRecord educationRecord) {
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();

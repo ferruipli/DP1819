@@ -43,7 +43,7 @@ public class CurriculumService {
 
 	// Simple CRUD methods -----------------------------
 
-	public Curriculum create() {
+	protected Curriculum create() {
 		Curriculum result;
 
 		result = new Curriculum();
@@ -57,7 +57,7 @@ public class CurriculumService {
 		return result;
 	}
 
-	public Curriculum findOne(final int curriculumId) {
+	protected Curriculum findOne(final int curriculumId) {
 		Assert.isTrue(curriculumId != 0);
 
 		Curriculum result;
@@ -67,16 +67,8 @@ public class CurriculumService {
 		return result;
 
 	}
-	public Collection<Curriculum> findAll() {
-		Collection<Curriculum> results;
 
-		results = this.curriculumRepository.findAll();
-		Assert.notNull(results);
-
-		return results;
-	}
-
-	public Curriculum save(final Curriculum curriculum) {
+	protected Curriculum save(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(!(this.curriculumRepository.exists(curriculum.getId())));
 
@@ -91,7 +83,7 @@ public class CurriculumService {
 	}
 
 	// Other business methods --------------------------
-	public Curriculum findByPrincipal() {
+	protected Curriculum findByPrincipal() {
 		HandyWorker handyworker;
 		Curriculum result;
 
@@ -103,7 +95,7 @@ public class CurriculumService {
 		return result;
 	}
 
-	public Collection<String> findAllTickers() {
+	protected Collection<String> findAllTickers() {
 		Collection<String> results;
 
 		results = this.curriculumRepository.findAllTickers();

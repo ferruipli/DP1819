@@ -36,7 +36,7 @@ public class ProfessionalRecordService {
 	}
 	// Simple CRUD methods -----------------------------
 
-	public ProfessionalRecord create() {
+	protected ProfessionalRecord create() {
 		ProfessionalRecord result;
 
 		result = new ProfessionalRecord();
@@ -44,7 +44,7 @@ public class ProfessionalRecordService {
 		return result;
 	}
 
-	public ProfessionalRecord findOne(final int professionalRecordId) {
+	protected ProfessionalRecord findOne(final int professionalRecordId) {
 		Assert.isTrue(professionalRecordId != 0);
 		ProfessionalRecord result;
 
@@ -55,7 +55,7 @@ public class ProfessionalRecordService {
 
 	}
 
-	public Collection<ProfessionalRecord> findAll() {
+	protected Collection<ProfessionalRecord> findAll() {
 		Collection<ProfessionalRecord> results;
 
 		results = this.professionalRecordRepository.findAll();
@@ -64,7 +64,7 @@ public class ProfessionalRecordService {
 		return results;
 	}
 
-	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
+	protected ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		this.utilityService.checkDate(professionalRecord.getStartDate(), professionalRecord.getEndDate());
 
@@ -85,7 +85,7 @@ public class ProfessionalRecordService {
 		return result;
 	}
 
-	public void delete(final ProfessionalRecord professionalRecord) {
+	protected void delete(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		Assert.isTrue(professionalRecord.getId() != 0);
 		this.checkByPrincipal(professionalRecord);
@@ -103,7 +103,7 @@ public class ProfessionalRecordService {
 	}
 
 	// Other business methods --------------------------
-	public void checkByPrincipal(final ProfessionalRecord professionalRecord) {
+	private void checkByPrincipal(final ProfessionalRecord professionalRecord) {
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
