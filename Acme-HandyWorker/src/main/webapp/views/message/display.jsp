@@ -19,29 +19,29 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-	<p> <strong> <spring:message code="message.display.sendMoment" />: </strong> </p> <jstl:out value="${message.sendMoment}" />
+	<spring:message code="message.format.date" var="formatDate" />
+	<p> <strong> <spring:message code="message.display.sendMoment" />: </strong>  <fmt:formatDate value="${messageToDisplay.sendMoment}" pattern="${formatDate}"/> </p>
 	<br />
 	
-	<p> <strong> <spring:message code="message.display.subject" />: </strong> </p> <jstl:out value="${message.subject}" />
+	<p> <strong> <spring:message code="message.display.subject" />: </strong> <jstl:out value="${messageToDisplay.subject}" /> </p>
 	<br />
 
-	<p> <strong> <spring:message code="message.display.body" />: </strong> </p> <jstl:out value="${message.body}" />
+	<p> <strong> <spring:message code="message.display.body" />: </strong> <jstl:out value="${messageToDisplay.body}" /> </p>
 	<br />
 
-	<p> <strong> <spring:message code="message.display.priority" />: </strong> </p> <jstl:out value="${message.priority}" />
+	<p> <strong> <spring:message code="message.display.priority" />: </strong>  <jstl:out value="${messageToDisplay.priority}" /> </p>
 	<br />
 	
-	<p> <strong> <spring:message code="message.display.tags" />: </strong> </p> <jstl:out value="${message.tags}" />
+	<p> <strong> <spring:message code="message.display.tags" />: </strong> <jstl:out value="${messageToDisplay.tags}" /> </p>
 	<br />
 	
-	<p> <strong> <spring:message code="message.display.sender" />: </strong> </p> <jstl:out value="${message.sender.name}" />
+	<p> <strong> <spring:message code="message.display.sender" />: </strong>  <jstl:out value="${messageToDisplay.sender.name} ${messageToDisplay.sender.middleName} ${messageToDisplay.sender.surname} ${messageToDisplay.sender.email}" /> </p>
 	<br />
 
-<fieldset>
+ <fieldset>
 	<legend><spring:message code="message.display.recipients"/></legend>
 	
-	<display:table>
+	<display:table name="${messageToDisplay.recipients }" id="row" requestURI="message/${role }/display.do?messageId=${messageToDisplay.id }" pagesize="5" class="displaytag">
 		
 		<display:column property="name" titleKey="message.recipient.name"/>
 		
@@ -50,11 +50,11 @@
 		<display:column property="email" titleKey="message.recipient.email"/>
 	
 	</display:table>
-</fieldset>
+</fieldset> 
 
 
 <input type="button" name="return" value="<spring:message code="message.button.return" />" 
-				onclick="javascript: relativeRedir('box/${role}/display.do?boxId=${boxId}');" />
+				onclick="history.back()" />
 				
 <input type="submit" name="delete" value="<spring:message code="message.button.delete"/>" 
 				onclick="return confirm('<spring:message code="message.confirm.delete" />')"/>

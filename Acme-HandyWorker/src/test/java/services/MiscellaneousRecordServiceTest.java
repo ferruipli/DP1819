@@ -48,7 +48,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		Collection<MiscellaneousRecord> miscellaneousRecords;
 		String title, attachment, comments;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		miscellaneousRecord = this.miscellaneousRecordService.create();
 
@@ -125,7 +125,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateMiscellaneousRecord() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		MiscellaneousRecord miscellaneousRecord;
 		int id;
@@ -151,7 +151,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		MiscellaneousRecord miscellaneousRecord;
 		Collection<MiscellaneousRecord> miscellaneousRecords;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
 		miscellaneousRecords = this.miscellaneousRecordService.findAll();

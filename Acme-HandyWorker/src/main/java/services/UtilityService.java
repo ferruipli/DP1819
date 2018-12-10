@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Complaint;
 import domain.CreditCard;
 
 @Service
@@ -133,6 +135,15 @@ public class UtilityService {
 		return res;
 
 	}
+
+	public Collection<String> getSplittedAttachments(final Complaint complaint) {
+		Collection<String> result;
+
+		result = Arrays.asList(complaint.getAttachments().split("\r"));
+
+		return result;
+	}
+
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {
