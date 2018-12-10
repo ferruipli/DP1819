@@ -72,6 +72,16 @@ public class RefereeService {
 		referee.getComplaints().add(complaint);
 	}
 
+	public boolean principalHasSelfAssigned(final Complaint complaint) {
+		boolean result;
+		Referee principal;
+
+		principal = this.findByPrincipal();
+		result = principal.getComplaints().contains(complaint);
+
+		return result;
+	}
+
 	public Referee findByPrincipal() {
 		Referee result;
 		UserAccount userAccount;

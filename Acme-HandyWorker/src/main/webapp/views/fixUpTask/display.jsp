@@ -63,9 +63,11 @@
 	<a href="application/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.application.list"/></a>
 	<br/>
 	
-	<strong><spring:message code="fixUpTask.complaints"/>:</strong>
-	<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.complaint.list"/></a>
-	<br/>
+	<jstl:if test="${isWorkable}">
+		<strong><spring:message code="fixUpTask.complaints"/>:</strong>
+		<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.complaint.list"/></a>
+		<br/>
+	</jstl:if>
 	
 	<jstl:if test="${isWorkable}">
 		<strong><spring:message code="fixUpTask.phases"/>:</strong>
