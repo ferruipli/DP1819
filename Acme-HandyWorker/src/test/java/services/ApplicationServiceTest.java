@@ -13,8 +13,8 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Application;
+import domain.CreditCard;
 import domain.FixUpTask;
-import domain.HandyWorker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -45,7 +45,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * No se puede editar application en esatado acceptado
+	 * Can not edit application which status is accepted
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative() {
@@ -63,10 +63,28 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * No se puede editar application en esatado rechazado
+	 * Can not edit application which status is rejected
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNegative1() {
+		super.authenticate("handyworker2");
+		final Application application;
+		final Application applicationSaved;
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		application.setStatus("REJECTED");
+
+		applicationSaved = this.applicationService.save(application);
+
+		Assert.isNull(applicationSaved);
+
+		super.unauthenticate();
+	}
+	/*
+	 * Can not change application which handyWorker has not curriculum
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveNegative3() {
 		super.authenticate("handyworker2");
 		final Application application;
 		final Application applicationSaved;
@@ -85,7 +103,6 @@ public class ApplicationServiceTest extends AbstractTest {
 		super.authenticate("handyworker1");
 		final Application application;
 		final Application applicationSaved;
-
 		application = this.applicationService.findOne(super.getEntityId("application1"));
 		application.setOfferedPrice(22.3);
 
@@ -111,39 +128,7 @@ public class ApplicationServiceTest extends AbstractTest {
 		Assert.notNull(application);
 
 	}
-	@Test
-	public void testDelete() {
-		super.authenticate("handyworker1");
 
-		final Application application;
-		FixUpTask fixUpTask;
-		HandyWorker handyWorker;
-		application = this.applicationService.findOne(super.getEntityId("application2"));
-		fixUpTask = application.getFixUpTask();
-		handyWorker = application.getHandyWorker();
-		this.applicationService.delete(application);
-		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
-		Assert.isTrue(!(handyWorker.getApplications().contains(application)));
-		super.unauthenticate();
-
-	}
-	//No puedo borrar un application que no es suya
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativaDelete() {
-		super.authenticate("handyworker");
-
-		final Application application;
-		FixUpTask fixUpTask;
-		HandyWorker handyWorker;
-		application = this.applicationService.findOne(super.getEntityId("application2"));
-		fixUpTask = application.getFixUpTask();
-		handyWorker = application.getHandyWorker();
-		this.applicationService.delete(application);
-		Assert.isTrue(!(fixUpTask.getApplications().contains(application)));
-		Assert.isTrue(!(handyWorker.getApplications().contains(application)));
-		super.unauthenticate();
-
-	}
 	@Test
 	public void testfindDataOfApplicationPrice() {
 		Double[] result;
@@ -183,5 +168,47 @@ public class ApplicationServiceTest extends AbstractTest {
 		result = this.applicationService.findRatioPendingApplicationsNotChangeStatus();
 
 		Assert.notNull(result);
+	}
+
+	@Test
+	public void testCreckCreditCard() {
+		super.authenticate("handyWorker1");
+		final Application application;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("6702386065238009");
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		this.applicationService.addCreditCard(application, creditCard);
+		Assert.isTrue(application.getCreditCard().equals(creditCard));
+		super.unauthenticate();
+	}
+	/*
+	 * Credit card which number is not correct
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeCreckCreditCard() {
+		super.authenticate("handyWorker1");
+		final Application application;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("08");
+		creditCard.setHolderName("maria");
+		creditCard.setExpirationYear("22");
+		creditCard.setNumber("670209");
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		this.applicationService.addCreditCard(application, creditCard);
+		Assert.isTrue(application.getCreditCard().equals(creditCard));
+		super.unauthenticate();
 	}
 }

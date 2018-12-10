@@ -18,7 +18,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	Page<Complaint> findByCustomerPrincipal(int customerId, Pageable pageable);
 
 	@Query("select c from Complaint c where c not in (select c2 from Referee r join r.complaints c2)")
-	Page<Complaint> findNotSelfAssigned(Pageable pageable);
+	Page<Complaint> findNotAssigned(Pageable pageable);
 
 	@Query("select c from HandyWorker hw join hw.applications a join a.fixUpTask.complaints c where hw.id = ?1 and a.status = 'ACCEPTED'")
 	Page<Complaint> findInvolvedByHandyWorkerId(int handyWorkerId, Pageable pageable);

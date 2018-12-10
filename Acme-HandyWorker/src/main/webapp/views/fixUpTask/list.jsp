@@ -20,15 +20,12 @@
 		<a href="fixUpTask/referee,customer,handyWorker/display.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.display"/></a>
 	</display:column>
 	
-	<spring:message code="fixUpTask.ticker" var="tableTicker"/>
-	<display:column property="ticker" title="${tableTicker}"/>
+	<display:column property="ticker" titleKey="fixUpTask.ticker"/>
 	
-	<spring:message code="fixUpTask.publicationMoment" var="tablePublicationMoment"/>
 	<spring:message code="fixUpTask.date.format" var="tableDateFormat"/>
-	<display:column property="publicationMoment" title="${tablePublicationMoment}" sortable="true"  format="${tableDateFormat}"/>
+	<display:column property="publicationMoment" titleKey="fixUpTask.publicationMoment" sortable="true"  format="${tableDateFormat}"/>
 	
-	<spring:message code="fixUpTask.description" var="tableDescription"/>
-	<display:column property="description" title="${tableDescription}"/>
+	<display:column property="description" titleKey="fixUpTask.description"/>
 	
 </display:table>
 
@@ -37,5 +34,5 @@
 </security:authorize>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<input type="button" name="back_finder"	value="<spring:message code="fixUpTask.back.finder"/>" onclick="javascript: relativeRedir('finder/handyWorker/search.do');"/>
+	<a href="finder/handyWorker/search.do"><spring:message code="fixUpTask.back.finder"/></a>
 </security:authorize>

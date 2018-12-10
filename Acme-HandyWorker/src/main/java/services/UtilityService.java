@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -13,6 +14,8 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Complaint;
+import domain.CreditCard;
 
 @Service
 @Transactional
@@ -94,6 +97,51 @@ public class UtilityService {
 
 	public void checkUsername(final Actor actor) {
 		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
+	}
+
+	public CreditCard createnewCreditCard() {
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("XXX");
+		creditCard.setCvvCode(123);
+		creditCard.setExpirationMonth("XXX");
+		creditCard.setExpirationYear("XXX");
+		creditCard.setHolderName("XXX");
+		creditCard.setNumber("XXXXXXXXXXXXXXX");
+
+		return creditCard;
+	}
+	public boolean checkCreditCard(final CreditCard creditCard) {
+		boolean res;
+		res = true;
+
+		String brandName;
+		Integer cvvCode;
+		String expirationMonth;
+		String expirationYear;
+		String holderName;
+		String number;
+
+		brandName = creditCard.getBrandName();
+		cvvCode = creditCard.getCvvCode();
+		expirationMonth = creditCard.getExpirationMonth();
+		expirationYear = creditCard.getExpirationYear();
+		holderName = creditCard.getHolderName();
+		number = creditCard.getNumber();
+
+		if (brandName.equals("") || expirationMonth.equals("") || expirationYear.equals("") || holderName.equals("") || cvvCode > 999 || cvvCode < 100 || number.length() > 18 || number.length() < 13)
+			res = false;
+		return res;
+
+	}
+
+	public Collection<String> getSplittedAttachments(final Complaint complaint) {
+		Collection<String> result;
+
+		result = Arrays.asList(complaint.getAttachments().split("\r"));
+
+		return result;
 	}
 
 	// Private methods ---------------------------------------------------------
