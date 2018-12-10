@@ -50,7 +50,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		Collection<PersonalRecord> personalRecords;
 		String fullName, photoLink, email, phoneNumber, linkedInProfile;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		personalRecord = this.personalRecordService.create();
 
 		fullName = "Jesús";
@@ -166,7 +166,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdatePersonalRecord() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		PersonalRecord personalRecord;
 		int id;
