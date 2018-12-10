@@ -281,7 +281,7 @@
 
 	<bean id="application4" class="domain.Application">
 		<property name="registerMoment" value="2018/11/06 11:15" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="600.00" />
 		<property name="handyWorkerComments" value="Comment 4 - x" />
 		<property name="customerComments" value="Comment 4 - y" />
