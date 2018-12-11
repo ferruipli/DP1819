@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -136,15 +135,6 @@ public class ComplaintService {
 
 		principal = this.handyWorkerService.findByPrincipal();
 		result = this.complaintRepository.findInvolvedByHandyWorkerId(principal.getId(), pageable);
-		Assert.notNull(result);
-
-		return result;
-	}
-
-	protected Collection<String> findAllTickers() {
-		Collection<String> result;
-
-		result = this.complaintRepository.findAllTickers();
 		Assert.notNull(result);
 
 		return result;

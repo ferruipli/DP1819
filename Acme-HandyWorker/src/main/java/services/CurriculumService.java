@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -93,14 +92,6 @@ public class CurriculumService {
 		Assert.notNull(result);
 
 		return result;
-	}
-
-	protected Collection<String> findAllTickers() {
-		Collection<String> results;
-
-		results = this.curriculumRepository.findAllTickers();
-
-		return results;
 	}
 
 	protected String existTicker(final String ticker) {
