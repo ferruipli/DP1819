@@ -1,5 +1,32 @@
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<ul>
-  <h1>El titulo es: <span th:text="$(fixUpTask.ticker)">no encuentro</span></h1>
-</ul>
+	<p>
+		Ticker: <input type="text" th:field="*{id}" />
+	</p>
+	<p>
+		Descripcion: <input type="text" th:field="*{content}" />
+	</p>
+	<p>
+		Address: <input type="text" th:field="*{id}" />
+	</p>
+	<p>
+		Maximum price: <input type="text" th:field="*{content}" />
+	</p>
+		<p>
+		Start date: <input type="text" th:field="*{id}" />
+	</p>
+	<p>
+		End date: <input type="text" th:field="*{content}" />
+	</p>
+	<p>
+		Warranty: <input type="text" th:field="*{id}" />
+	</p>
+	<p>
+		Category: <input type="text" th:field="*{content}" />
+	</p>
+	<p>
+		<input type="submit" value="Save" /> <input type="reset"
+			value="Delete" /> <input type="reset"
+			value="cancel" />
+	</p>
 </html>

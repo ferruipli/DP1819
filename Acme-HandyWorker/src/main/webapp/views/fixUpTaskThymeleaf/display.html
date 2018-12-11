@@ -1,0 +1,7 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<tr th:each="fixUpTask : *{fixUpTasks}">
+	<td><input th:field="*{fixUpTask.ticker}" /></td>
+	<td><input th:field="*{fixUpTask.description}" /></td>
+</tr>
+</html>
