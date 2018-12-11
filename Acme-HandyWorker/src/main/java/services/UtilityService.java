@@ -93,6 +93,31 @@ public class UtilityService {
 		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
 	}
 
+	public Collection<String> getSplittedAttachments(final Complaint complaint) {
+		Collection<String> result;
+
+		result = Arrays.asList(complaint.getAttachments().split("\r"));
+
+		return result;
+	}
+
+	// Private methods ---------------------------------------------------------
+
+	private String createRandomLetters() {
+		String result, characters;
+		Random randomNumber;
+
+		result = "";
+		randomNumber = new Random();
+		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+		for (int i = 0; i <= 5; i++)
+			result += characters.charAt(randomNumber.nextInt(characters.length()));
+
+		return result;
+	}
+
+	//------------------CREDIT CARD------------------------------------
 	public CreditCard createnewCreditCard() {
 		CreditCard creditCard;
 
@@ -130,28 +155,25 @@ public class UtilityService {
 
 	}
 
-	public Collection<String> getSplittedAttachments(final Complaint complaint) {
-		Collection<String> result;
+	public void checkIfCreditCardChanged(final CreditCard creditCard) {
+		String brandName;
+		String expirationMonth;
+		String expirationYear;
+		String holderName;
+		String number;
+		Integer cvvCode;
 
-		result = Arrays.asList(complaint.getAttachments().split("\r"));
+		brandName = creditCard.getBrandName();
+		expirationMonth = creditCard.getExpirationMonth();
+		expirationYear = creditCard.getExpirationYear();
+		holderName = creditCard.getHolderName();
+		number = creditCard.getNumber();
+		cvvCode = creditCard.getCvvCode();
 
-		return result;
-	}
+		//If creditCard is changed
+		if (!(brandName.equals("XXX") && expirationMonth.equals("XXX") && expirationYear.equals("XXX") && holderName.equals("XXX") && number.equals("XXXXXXXXXXXXXXX") && cvvCode.equals(123)))
+			Assert.isTrue(this.checkCreditCard(creditCard));
 
-	// Private methods ---------------------------------------------------------
-
-	private String createRandomLetters() {
-		String result, characters;
-		Random randomNumber;
-
-		result = "";
-		randomNumber = new Random();
-		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-		for (int i = 0; i <= 5; i++)
-			result += characters.charAt(randomNumber.nextInt(characters.length()));
-
-		return result;
 	}
 
 }
