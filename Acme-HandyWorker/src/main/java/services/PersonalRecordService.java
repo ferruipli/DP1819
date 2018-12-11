@@ -38,7 +38,7 @@ public class PersonalRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	public PersonalRecord create() {
+	protected PersonalRecord create() {
 		PersonalRecord result;
 
 		result = new PersonalRecord();
@@ -46,7 +46,7 @@ public class PersonalRecordService {
 		return result;
 	}
 
-	public PersonalRecord findOne(final int personalRecordId) {
+	protected PersonalRecord findOne(final int personalRecordId) {
 		Assert.isTrue(personalRecordId != 0);
 		PersonalRecord result;
 
@@ -57,7 +57,7 @@ public class PersonalRecordService {
 
 	}
 
-	public Collection<PersonalRecord> findAll() {
+	protected Collection<PersonalRecord> findAll() {
 		Collection<PersonalRecord> results;
 
 		results = this.personalRecordRepository.findAll();
@@ -66,7 +66,7 @@ public class PersonalRecordService {
 		return results;
 	}
 
-	public PersonalRecord save(final PersonalRecord personalRecord) {
+	protected PersonalRecord save(final PersonalRecord personalRecord) {
 		Assert.notNull(personalRecord);
 		this.utilityService.checkEmailRecords(personalRecord.getEmail());
 
@@ -88,7 +88,7 @@ public class PersonalRecordService {
 	}
 
 	// Other business methods --------------------------
-	public void checkByPrincipal(final PersonalRecord personalRecord) {
+	private void checkByPrincipal(final PersonalRecord personalRecord) {
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();

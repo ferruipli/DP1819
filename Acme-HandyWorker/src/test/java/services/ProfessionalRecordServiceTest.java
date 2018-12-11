@@ -53,7 +53,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		final String nameCompany, role, attachment, comments;
 		final Date startDate, endDate;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		professionalRecord = this.professionalRecordService.create();
 
 		nameCompany = "Telefonica";
@@ -149,7 +149,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateProfessionalRecord() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		ProfessionalRecord professionalRecord;
 		int id;
@@ -175,7 +175,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		ProfessionalRecord professionalRecord;
 		Collection<ProfessionalRecord> professionalRecords;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		professionalRecord = this.professionalRecordService.findOne(super.getEntityId("professionalRecord1"));
 		professionalRecords = this.professionalRecordService.findAll();
 

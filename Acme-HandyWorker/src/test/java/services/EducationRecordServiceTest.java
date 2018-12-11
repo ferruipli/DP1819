@@ -53,7 +53,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		final String titleDiploma, institution, attachment, comments;
 		final Date startDate, endDate;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		educationRecord = this.educationRecordService.create();
 
 		titleDiploma = "English B1";
@@ -82,7 +82,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateEducationRecord() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		EducationRecord educationRecord;
 		int id;
@@ -175,7 +175,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		EducationRecord educationRecord;
 		Collection<EducationRecord> educationRecords;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		educationRecord = this.educationRecordService.findOne(super.getEntityId("educationRecord1"));
 		educationRecords = this.educationRecordService.findAll();
 

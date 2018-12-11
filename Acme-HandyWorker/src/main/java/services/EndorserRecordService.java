@@ -37,7 +37,7 @@ public class EndorserRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	public EndorserRecord create() {
+	protected EndorserRecord create() {
 		EndorserRecord result;
 
 		result = new EndorserRecord();
@@ -45,7 +45,7 @@ public class EndorserRecordService {
 		return result;
 	}
 
-	public EndorserRecord findOne(final int endorserRecordId) {
+	protected EndorserRecord findOne(final int endorserRecordId) {
 		Assert.isTrue(endorserRecordId != 0);
 
 		EndorserRecord result;
@@ -56,7 +56,7 @@ public class EndorserRecordService {
 		return result;
 	}
 
-	public Collection<EndorserRecord> findAll() {
+	protected Collection<EndorserRecord> findAll() {
 		Collection<EndorserRecord> results;
 
 		results = this.endorserRecordRepository.findAll();
@@ -65,7 +65,7 @@ public class EndorserRecordService {
 		return results;
 	}
 
-	public EndorserRecord save(final EndorserRecord endorserRecord) {
+	protected EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		this.utilityService.checkEmailRecords(endorserRecord.getEmail());
 
@@ -86,7 +86,7 @@ public class EndorserRecordService {
 		return result;
 	}
 
-	public void delete(final EndorserRecord endorserRecord) {
+	protected void delete(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(endorserRecord.getId() != 0);
 		this.checkByPrincipal(endorserRecord);
@@ -104,7 +104,7 @@ public class EndorserRecordService {
 	}
 
 	// Other business methods --------------------------
-	public void checkByPrincipal(final EndorserRecord endorserRecord) {
+	private void checkByPrincipal(final EndorserRecord endorserRecord) {
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();

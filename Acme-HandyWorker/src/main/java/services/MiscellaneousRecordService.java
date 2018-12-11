@@ -34,7 +34,7 @@ public class MiscellaneousRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	public MiscellaneousRecord create() {
+	protected MiscellaneousRecord create() {
 		MiscellaneousRecord result;
 
 		result = new MiscellaneousRecord();
@@ -42,7 +42,7 @@ public class MiscellaneousRecordService {
 		return result;
 	}
 
-	public MiscellaneousRecord findOne(final int miscellaneousRecordId) {
+	protected MiscellaneousRecord findOne(final int miscellaneousRecordId) {
 		Assert.isTrue(miscellaneousRecordId != 0);
 
 		MiscellaneousRecord result;
@@ -53,7 +53,7 @@ public class MiscellaneousRecordService {
 		return result;
 	}
 
-	public Collection<MiscellaneousRecord> findAll() {
+	protected Collection<MiscellaneousRecord> findAll() {
 		Collection<MiscellaneousRecord> results;
 
 		results = this.miscellaneousRecordRepository.findAll();
@@ -62,7 +62,7 @@ public class MiscellaneousRecordService {
 		return results;
 	}
 
-	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
+	protected MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
 
 		MiscellaneousRecord result;
@@ -81,7 +81,7 @@ public class MiscellaneousRecordService {
 		return result;
 
 	}
-	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+	protected void delete(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
 		Assert.isTrue(miscellaneousRecord.getId() != 0);
 		this.checkByPrincipal(miscellaneousRecord);
@@ -99,7 +99,7 @@ public class MiscellaneousRecordService {
 	}
 
 	// Other business methods --------------------------
-	public void checkByPrincipal(final MiscellaneousRecord miscellaneousRecord) {
+	private void checkByPrincipal(final MiscellaneousRecord miscellaneousRecord) {
 		Curriculum curriculum;
 
 		curriculum = this.curriculumService.findByPrincipal();
