@@ -9,7 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="actors" id="row" requestURI="${requestUri }" pagesize="5" class="displaytag">
+<display:table name="actors" id="row" requestURI="actor/administrator/list.do" pagesize="5" class="displaytag">
 	<display:column>
 		<jstl:choose>
 			<jstl:when test="${row.userAccount.isBanned}">
@@ -23,13 +23,13 @@
 	
 	<display:column property="name" titleKey="suspicious.table.name"/>
 	
-	<display:column property="middleName" titleKey="suspicious.table.middleName"/>
+	<display:column property="middleName" titleKey="suspicious.table.middlename"/>
 	
 	<display:column property="surname" titleKey="suspicious.table.surname"/>
 	
 	<display:column property="email" titleKey="suspicious.table.email"/>
 	
-	<display:column property="username" titleKey="suspicious.table.username"/>
+	<display:column property="userAccount.username" titleKey="suspicious.table.username"/>
 	
-	<display:column property="authority" titleKey="suspicious.table.authority"/>
+	<display:column property="userAccount.authorities" titleKey="suspicious.table.authority"/>
 </display:table>

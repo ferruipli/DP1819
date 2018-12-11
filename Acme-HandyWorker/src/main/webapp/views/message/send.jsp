@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="message/${role }/send.do" modelAttribute="message" >
+<form:form action="message/${role }/send.do" modelAttribute="messageToSend" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="sendMoment"/>

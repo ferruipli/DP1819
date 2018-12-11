@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -43,7 +42,7 @@ public class CurriculumService {
 
 	// Simple CRUD methods -----------------------------
 
-	public Curriculum create() {
+	protected Curriculum create() {
 		Curriculum result;
 
 		result = new Curriculum();
@@ -57,7 +56,7 @@ public class CurriculumService {
 		return result;
 	}
 
-	public Curriculum findOne(final int curriculumId) {
+	protected Curriculum findOne(final int curriculumId) {
 		Assert.isTrue(curriculumId != 0);
 
 		Curriculum result;
@@ -67,16 +66,8 @@ public class CurriculumService {
 		return result;
 
 	}
-	public Collection<Curriculum> findAll() {
-		Collection<Curriculum> results;
 
-		results = this.curriculumRepository.findAll();
-		Assert.notNull(results);
-
-		return results;
-	}
-
-	public Curriculum save(final Curriculum curriculum) {
+	protected Curriculum save(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(!(this.curriculumRepository.exists(curriculum.getId())));
 
@@ -91,7 +82,7 @@ public class CurriculumService {
 	}
 
 	// Other business methods --------------------------
-	public Curriculum findByPrincipal() {
+	protected Curriculum findByPrincipal() {
 		HandyWorker handyworker;
 		Curriculum result;
 
@@ -103,12 +94,12 @@ public class CurriculumService {
 		return result;
 	}
 
-	public Collection<String> findAllTickers() {
-		Collection<String> results;
+	protected String existTicker(final String ticker) {
+		String result;
 
-		results = this.curriculumRepository.findAllTickers();
+		result = this.curriculumRepository.existTicker(ticker);
 
-		return results;
+		return result;
 	}
 
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {

@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -141,11 +140,10 @@ public class ComplaintService {
 		return result;
 	}
 
-	protected Collection<String> findAllTickers() {
-		Collection<String> result;
+	protected String existTicker(final String ticker) {
+		String result;
 
-		result = this.complaintRepository.findAllTickers();
-		Assert.notNull(result);
+		result = this.complaintRepository.existTicker(ticker);
 
 		return result;
 	}
