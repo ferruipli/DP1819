@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -36,7 +35,6 @@ public class MiscellaneousRecord extends DomainEntity {
 		this.title = title;
 	}
 
-	@URL
 	public String getAttachment() {
 		return this.attachment;
 	}
