@@ -150,6 +150,14 @@ public class ComplaintService {
 		return result;
 	}
 
+	protected String existTicker(final String ticker) {
+		String result;
+
+		result = this.complaintRepository.existTicker(ticker);
+
+		return result;
+	}
+
 	protected Complaint findByReportId(final int reportId) {
 		Complaint result;
 

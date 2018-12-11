@@ -103,6 +103,14 @@ public class CurriculumService {
 		return results;
 	}
 
+	protected String existTicker(final String ticker) {
+		String result;
+
+		result = this.curriculumRepository.existTicker(ticker);
+
+		return result;
+	}
+
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {
 		curriculum.getEducationRecords().add(educationRecord);
 	}

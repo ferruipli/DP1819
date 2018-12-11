@@ -170,6 +170,14 @@ public class FixUpTaskService {
 		return result;
 	}
 
+	protected String existTicker(final String ticker) {
+		String result;
+
+		result = this.fixUpTaskRepository.existTicker(ticker);
+
+		return result;
+	}
+
 	protected void addNewPhase(final FixUpTask fixUpTask, final Phase phase) {
 		fixUpTask.getPhases().add(phase);
 	}

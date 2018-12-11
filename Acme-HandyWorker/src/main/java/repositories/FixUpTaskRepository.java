@@ -35,4 +35,7 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 
 	@Query("select f.ticker from FixUpTask f")
 	Collection<String> findAllTickers();
+
+	@Query("select f.ticker from FixUpTask f where f.ticker = ?1")
+	String existTicker(String ticker);
 }
