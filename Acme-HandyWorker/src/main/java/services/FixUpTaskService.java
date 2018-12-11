@@ -161,11 +161,10 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	protected Collection<String> findAllTickers() {
-		Collection<String> result;
+	protected String existTicker(final String ticker) {
+		String result;
 
-		result = this.fixUpTaskRepository.findAllTickers();
-		Assert.notNull(result);
+		result = this.fixUpTaskRepository.existTicker(ticker);
 
 		return result;
 	}

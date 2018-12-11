@@ -9,8 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-<form:form action="actor/${role}/edit.do" modelAttribute="${role}">
+<spring:message code="confirm.telephone" var="confirmTelephone"/>
+<form:form action="actor/${role}/edit.do" modelAttribute="actor" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -54,7 +54,7 @@
 		<br />
 		
 		<form:label path="middleName">
-			<spring:message code="actor.middleName" />
+			<spring:message code="actor.middlename" />
 		</form:label>
 		<form:input path="middleName"/>
 		<form:errors cssClass="error" path="middleName" />
@@ -84,7 +84,7 @@
 		<form:label path="phoneNumber">
 			<spring:message code="actor.phoneNumber" />
 		</form:label>
-		<form:input path="phoneNumber"/>
+		<form:input path="phoneNumber" placeholder="+34 654654654"/>
 		<form:errors cssClass="error" path="phoneNumber" />
 		<br />
 		
@@ -111,18 +111,11 @@
 		<input type="password" name="newPassword" id="newPasswordId"/>
 		<br />
 		
-		<label for="confirmPasswordId">
-			<spring:message code="userAccount.confirmPassword" />
-		</label>
-		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
-		<br />
-		
-		<input type="hidden" name="role" value="${role}"/>
 	</fieldset>
 	
 	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do')" />
+		onclick="javascript: relativeRedir('actor/${role}/display.do?actorId=${actor.id }')" />
 	
 	<hr>
 	

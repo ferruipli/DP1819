@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Complaint;
 import domain.CreditCard;
 
 @Service
@@ -58,15 +60,11 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		Collection<String> curriculumsTickers, fixUpTaskTickers, complaintTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
 		month = currentDate.getMonthOfYear();
 		day = currentDate.getDayOfMonth();
-		curriculumsTickers = this.curriculumService.findAllTickers();
-		fixUpTaskTickers = this.fixUpTaskService.findAllTickers();
-		complaintTickers = this.complaintService.findAllTickers();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
@@ -74,9 +72,7 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumsTickers.contains(result) || fixUpTaskTickers.contains(result) || complaintTickers.contains(result) || counter < 650000);
-
-		Assert.isTrue(counter == 650000); // Avoid infinite loops in the case of all possible tickers are already taken.
+		} while (!(this.curriculumService.existTicker(result) == null) && !(this.fixUpTaskService.existTicker(result) == null) && !(this.complaintService.existTicker(result) == null) && counter < 650000);
 
 		return result;
 	}
@@ -133,6 +129,15 @@ public class UtilityService {
 		return res;
 
 	}
+
+	public Collection<String> getSplittedAttachments(final Complaint complaint) {
+		Collection<String> result;
+
+		result = Arrays.asList(complaint.getAttachments().split("\r"));
+
+		return result;
+	}
+
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {

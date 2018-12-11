@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -45,6 +44,9 @@ public class ComplaintService {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private ApplicationService	applicationService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -66,6 +68,7 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		Assert.isTrue(!this.complaintRepository.exists(complaint.getId())); // Complaints cannot be updated
+		Assert.notNull(this.applicationService.findAcceptedApplication(complaint.getFixUpTask().getId()));
 
 		Complaint result;
 		Customer principal;
@@ -109,7 +112,7 @@ public class ComplaintService {
 	public Page<Complaint> findNotSelfAssigned(final Pageable pageable) {
 		Page<Complaint> result;
 
-		result = this.complaintRepository.findNotSelfAssigned(pageable);
+		result = this.complaintRepository.findNotAssigned(pageable);
 		Assert.notNull(result);
 
 		return result;
@@ -137,11 +140,10 @@ public class ComplaintService {
 		return result;
 	}
 
-	protected Collection<String> findAllTickers() {
-		Collection<String> result;
+	protected String existTicker(final String ticker) {
+		String result;
 
-		result = this.complaintRepository.findAllTickers();
-		Assert.notNull(result);
+		result = this.complaintRepository.existTicker(ticker);
 
 		return result;
 	}

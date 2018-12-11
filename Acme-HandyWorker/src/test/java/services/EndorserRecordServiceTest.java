@@ -49,7 +49,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		Collection<EndorserRecord> endorserRecords;
 		String fullName, email, phoneNumber, linkedInProfile, comments;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 		endorserRecord = this.endorserRecordService.create();
 
 		fullName = "Evaristo";
@@ -167,7 +167,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateEndorserRecord() {
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		EndorserRecord endorserRecord;
 		int id;
@@ -193,7 +193,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		EndorserRecord endorserRecord;
 		Collection<EndorserRecord> endorserRecords;
 
-		super.authenticate("handyworker1");
+		super.authenticate("handyworker2");
 
 		endorserRecord = this.endorserRecordService.findOne(super.getEntityId("endorserRecord1"));
 		endorserRecords = this.endorserRecordService.findAll();

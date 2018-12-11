@@ -34,7 +34,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	// Test ------------------------------------------------
 	@Test
 	public void testCreate() {
-		super.authenticate("handyWorker1");
+		super.authenticate("handyWorker2");
 		final Application application;
 		FixUpTask fixUpTask;
 		fixUpTask = this.fixUpTaskService.findOne(super.getEntityId("fixUpTask4"));
@@ -91,24 +91,10 @@ public class ApplicationServiceTest extends AbstractTest {
 
 		application = this.applicationService.findOne(super.getEntityId("application3"));
 		application.setStatus("REJECTED");
-
 		applicationSaved = this.applicationService.save(application);
 
 		Assert.isNull(applicationSaved);
 
-		super.unauthenticate();
-	}
-	@Test
-	public void testSave() {
-		super.authenticate("handyworker1");
-		final Application application;
-		final Application applicationSaved;
-		application = this.applicationService.findOne(super.getEntityId("application1"));
-		application.setOfferedPrice(22.3);
-
-		applicationSaved = this.applicationService.save(application);
-
-		Assert.notNull(applicationSaved);
 		super.unauthenticate();
 	}
 	@Test
@@ -134,7 +120,6 @@ public class ApplicationServiceTest extends AbstractTest {
 		Double[] result;
 
 		result = this.applicationService.findDataOfApplicationPrice();
-
 		Assert.notNull(result);
 	}
 	@Test

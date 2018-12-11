@@ -13,16 +13,25 @@
 	<legend><spring:message code="message.fieldset.message" /></legend>
 	
 	<form action="message/${role}/move.do" method="post">
-		<input type="hidden" name="messageId" value="${message.id}">
+		<input type="hidden" name="messageId" value="${messageToMove.id}">
 		<input type="hidden" name="sourceBoxId" value="${sourceBox.id}">
 	
 		<ul>
 			<li>
-				<spring:message code="message.move.subject"/>${message.subject}
+				<spring:message code="message.move.subject"/>${messageToMove.subject}
 			</li>
-			
+				
 			<li>
-				<spring:message code="message.move.sourceBox"/>${sourceBox.name}
+				<label for="sourceBoxSelectId">
+					<spring:message code="message.move.sourceBox" />
+				</label>
+				<select name="sourceBoxId" id="sourceBoxSelectId" form="formId">
+					<jstl:if test="${not empty sourceBoxes}">
+						<jstl:forEach var="rowBox" items="${boxes}">
+							<option value="${rowBox.id}">${rowBox.name}</option>
+						</jstl:forEach>
+					</jstl:if>
+				</select>
 			</li>
 		
 			<li>
@@ -41,6 +50,6 @@
 		
 		<input type="submit" name="move" value="<spring:message code="message.button.move"/>" />
 		<input type="button" name="cancel" value="<spring:message code="message.button.cancel"/>" 
-				onclick="javascript: relativeRedir('message/${role }/display.do?messageId=${message.id}')" />
+				onclick="javascript: relativeRedir('message/${role }/display.do?messageId=${messageToMove.id}')" />
 	</form>
 </fieldset>

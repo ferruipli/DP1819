@@ -281,7 +281,7 @@
 
 	<bean id="application4" class="domain.Application">
 		<property name="registerMoment" value="2018/11/06 11:15" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="600.00" />
 		<property name="handyWorkerComments" value="Comment 4 - x" />
 		<property name="customerComments" value="Comment 4 - y" />
@@ -1899,7 +1899,7 @@
 		<property name="ticker" value="180703-SSSSS1" />
 		<property name="moment" value="2018/07/03 12:22" />
 		<property name="description" value="Description 5" />
-		<property name="attachments" value="http://www.attachment5.es" />
+		<property name="attachments" value="http://www.attachment5.es&#xD;http://www.attachment6.es&#xD;http://www.attachment7.es" />
 		<property name="report" ref="report4" />
 		<property name="fixUpTask" ref="fixUpTask8" />
 	</bean>

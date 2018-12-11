@@ -58,7 +58,7 @@ public class ApplicationService {
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		creditCard = this.utilityService.createnewCreditCard();
 
-		Assert.isTrue(!(handyWorker.getCurriculum().equals(null)));
+		Assert.notNull(handyWorker.getCurriculum());
 
 		result = new Application();
 		result.setStatus("PENDING");
@@ -72,7 +72,6 @@ public class ApplicationService {
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Assert.isTrue(application.getStatus().equals("PENDING"));
-
 		Application result;
 		Date moment;
 
@@ -86,10 +85,19 @@ public class ApplicationService {
 		} else
 			this.checkByPrincipal(application);
 
+		//Check that number of accepted application is 0
+		this.checkAcceptedApplication(application);
 		result = this.applicationRepository.save(application);
+
 		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
+	}
+
+	private void checkAcceptedApplication(final Application application) {
+		Application app;
+		app = this.findAcceptedApplication(application.getFixUpTask().getId());
+		Assert.isTrue(app == null);
 	}
 
 	public Application findOne(final int applicationId) {
@@ -127,7 +135,7 @@ public class ApplicationService {
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
 
-		Application applicationBd, result;
+		Application applicationBd;
 		FixUpTask fixUpTask;
 		final Collection<Application> applications;
 
@@ -137,11 +145,10 @@ public class ApplicationService {
 
 		this.messageService.messageToStatus(application, application.getStatus());
 
-		result = this.applicationRepository.save(application);
-
 		if (application.getStatus().equals("ACCEPTED")) {
 			fixUpTask = application.getFixUpTask();
 			applications = fixUpTask.getApplications();
+			applications.remove(application);
 			for (final Application a : applications) {
 				a.setStatus("REJECTED");
 				this.changeStatus(a);
@@ -149,7 +156,7 @@ public class ApplicationService {
 			Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()), "Tarjeta de credito no valida");
 		}
 
-		return result;
+		return application;
 	}
 
 	public void removeApplicationToHandyWorker(final Application application) {
@@ -209,6 +216,14 @@ public class ApplicationService {
 		Double result;
 
 		result = this.applicationRepository.findRatioPendingApplicationsNotChangeStatus();
+
+		return result;
+	}
+
+	protected Application findAcceptedApplication(final int fixUpTaskId) {
+		Application result;
+
+		result = this.applicationRepository.findAcceptedApplication(fixUpTaskId);
 
 		return result;
 	}
