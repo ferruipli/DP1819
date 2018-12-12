@@ -27,6 +27,7 @@
 		<value>/views/customer/messages</value>
 		<!--<value>/views/profile/messages</value> -->
 		<value>/views/endorsement/messages</value>
+		<value>/views/customisation/messages</value>
 		<value>/views/profile/messages</value>	
 	</util:list>
 

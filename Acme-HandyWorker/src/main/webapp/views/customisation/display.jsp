@@ -76,9 +76,13 @@
 </a>
 <br />
 
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="endorsement.return" />"
-	   onclick="javascript: relativeRedir('welcome/index.do');" />
+
+<p>
+	<a href="welcome/index.do">
+		<spring:message code="endorsement.return" />
+	</a>
+</p>
+
+
 	   
 	   

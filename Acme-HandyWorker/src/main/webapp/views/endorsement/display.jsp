@@ -34,8 +34,9 @@
 </p>
 <br />
 
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="endorsement.return" />"
-	   onclick="javascript: relativeRedir('endorsement/handyWorker,customer/list.do');" />	   
+<p>
+	<a href="endorsement/handyWorker,customer/list.do">
+		 <spring:message code="endorsement.return" />
+	</a>
+</p>	   
 	   

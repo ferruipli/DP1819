@@ -22,18 +22,12 @@
 		</a>
 	</display:column>
 	
-	<spring:message code="endorsement.comments" var="commentsHeader" />
-	<display:column property="comments" title="${commentsHeader}" sortable="true" />
+	<display:column property="comments" titleKey="endorsement.comments" />
 	
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
-	<spring:message code="endorsement.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" sortable="true" format="${w_format}" />
+	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<spring:message code="endorsement.sender" var="senderHeader" />
-	<display:column property="sender.name" title="${senderHeader}" sortable="true" />
-	
-	<spring:message code="endorsement.recipient" var="recipientHeader" />
-	<display:column property="recipient.name" title="${recipientHeader}" sortable="true" />
+	<display:column property="recipient.name" titleKey="endorsement.recipient" />
 </display:table>
 
 <a href="endorsement/handyWorker,customer/create.do">
@@ -47,16 +41,10 @@
 		</a>
 	</display:column>
 	
-	<spring:message code="endorsement.comments" var="commentsHeader" />
-	<display:column property="comments" title="${commentsHeader}" sortable="true" />
+	<display:column property="comments" titleKey="endorsement.comments" />
 	
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
-	<spring:message code="endorsement.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" sortable="true" format="${w_format}" />
+	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<spring:message code="endorsement.sender" var="senderHeader" />
-	<display:column property="sender.name" title="${senderHeader}" sortable="true" />
-	
-	<spring:message code="endorsement.recipient" var="recipientHeader" />
-	<display:column property="recipient.name" title="${recipientHeader}" sortable="true" />
+	<display:column property="sender.name" titleKey="endorsement.sender" />
 </display:table>
