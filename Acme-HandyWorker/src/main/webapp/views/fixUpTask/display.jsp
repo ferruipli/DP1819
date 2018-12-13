@@ -18,7 +18,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.customer"/>:</strong>
-	<a href="customer/referee,customer,handyWorker,administrator/display.do?customerId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
+	<a href="actor/referee,customer,handyWorker,administrator/display.do?actorId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.publicationMoment"/>:</strong>
