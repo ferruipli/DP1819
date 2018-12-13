@@ -1,8 +1,6 @@
 
 package repositories;
 
-import java.util.Collection;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,7 +27,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select r.complaints from Referee r where r.id = ?1")
 	Page<Complaint> findSelfAssignedByPrincipal(int principalId, Pageable pageable);
 
-	@Query("select c.ticker from Complaint c")
-	Collection<String> findAllTickers();
+	@Query("select c.ticker from Complaint c where c.ticker = ?1")
+	String existTicker(String ticker);
 
 }

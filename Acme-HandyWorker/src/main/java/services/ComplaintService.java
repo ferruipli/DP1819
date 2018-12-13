@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -15,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
+import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Report;
@@ -141,11 +141,14 @@ public class ComplaintService {
 		return result;
 	}
 
-	protected Collection<String> findAllTickers() {
-		Collection<String> result;
+	public void addFixUpTask(final Complaint complaint, final FixUpTask fixUpTask) {
+		complaint.setFixUpTask(fixUpTask);
+	}
 
-		result = this.complaintRepository.findAllTickers();
-		Assert.notNull(result);
+	protected String existTicker(final String ticker) {
+		String result;
+
+		result = this.complaintRepository.existTicker(ticker);
 
 		return result;
 	}

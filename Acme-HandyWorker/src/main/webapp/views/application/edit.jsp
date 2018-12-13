@@ -26,85 +26,88 @@
 	<form:hidden path="fixUpTask" />
 	
 	<security:authorize access="hasRole('HANDYWORKER')">
-	<form:label path="offeredPrice">
-		<spring:message code="application.offeredPrice" />:
-	</form:label>
-	<form:input path="offeredPrice" />&#8364; (<jstl:out value="${VAT}" /> % <spring:message code = "application.vat"/>)
-	<form:errors cssClass="error" path="offeredPrice" />
+		<form:label path="offeredPrice">
+			<spring:message code="application.offeredPrice" />:
+		</form:label>
+		<form:input path="offeredPrice" />&#8364; (<spring:message code = "application.vat"/>)
+		<form:errors cssClass="error" path="offeredPrice" />
 	<br />
 	
-	<form:label path="handyWorkerComments">
-		<spring:message code="application.handyWorkerComments" />:
-	</form:label>
-	<form:input path="handyWorkerComments" />
-	<form:errors cssClass="error" path="handyWorkerComments" />
-	<br />
+		<form:label path="handyWorkerComments">
+			<spring:message code="application.handyWorkerComments" />:
+		</form:label>
+		<form:input path="handyWorkerComments" />
+		<form:errors cssClass="error" path="handyWorkerComments" />
+		<br />
 	</security:authorize>
 	
 	<security:authorize access="hasRole('CUSTOMER')">
-	<form:label path="customerComments">
-		<spring:message code="application.customerComments" />:
-	</form:label>
-	<form:input path="customerComments" />
-	<form:errors cssClass="error" path="customerComments" />
-	<br /><br/>
+		<form:label path="customerComments">
+			<spring:message code="application.customerComments" />:
+		</form:label>
+		<form:input path="customerComments" />
+		<form:errors cssClass="error" path="customerComments" />
+		<br /><br/>
 	
-	<jstl:if test="${application.status=='PENDING'}">
-	<form:label path="status">
-		<spring:message code="application.status"/>:
-	</form:label>
-	<form:select path="status" multiple="false" size="2">
-		<spring:message code="application.status.rejected" var = "rejected"/>
-		<form:option label="${rejected}" value="REJECTED"/>
-		<spring:message code="application.status.accepted" var = "accepted"/>
-		<form:option label="${accepted}" value="ACCEPTED"/>
-	</form:select>
-	<form:errors cssClass="error" path="status"/>
-	<br /><br/>
-	 <p>
- </p>	
- <strong> <spring:message code="application.warning" /> </strong>
+		<jstl:if test="${application.status=='PENDING'}">
+		<form:label path="status">
+			<spring:message code="application.status"/>:
+		</form:label>
+		<form:select path="status" multiple="false" size="2">
+			<spring:message code="application.status.rejected" var = "rejected"/>
+			<form:option label="${rejected}" value="REJECTED"/>
+			<spring:message code="application.status.accepted" var = "accepted"/>
+			<form:option label="${accepted}" value="ACCEPTED"/>
+			</form:select>
+			<form:errors cssClass="error" path="status"/>
+			<br /><br/>
+		 <p>
+	 	</p>	
+ 		<strong> <spring:message code="application.warning" /> </strong>
  
-	</jstl:if>
- <fieldset>
-<h2><strong> <spring:message code="application.creditCard" /> </strong></h2>
+		</jstl:if>
+	 <fieldset>
+	<h2><strong> <spring:message code="application.creditCard" /> </strong></h2>
 
- 	<form:label path="creditCard.holderName">
-		<spring:message code="application.creditCard.holderName" />:
-	</form:label>
-	<form:input path="creditCard.holderName" />
-	<form:errors cssClass="error" path="creditCard.holderName" />
-<br /><br/>
-	<form:label path="creditCard.brandName">
-		<spring:message code="application.creditCard.brandName" />:
-	</form:label>
-	<form:input path="creditCard.brandName" />
-	<form:errors cssClass="error" path="creditCard.brandName" />
-<br /><br/>
-	<form:label path="creditCard.number">
-		<spring:message code="application.creditCard.number" />:
-	</form:label>
-	<form:input path="creditCard.number" />
-	<form:errors cssClass="error" path="creditCard.number" />
-<br /><br/>
-	<form:label path="creditCard.expirationMonth">
-		<spring:message code="application.creditCard.expirationMonth" />:
-	</form:label>
-	<form:input path="creditCard.expirationMonth" />
-	<form:errors cssClass="error" path="creditCard.expirationMonth" />
-<br /><br/>
-	<form:label path="creditCard.expirationYear">
-		<spring:message code="application.creditCard.expirationYear" />:
-	</form:label>
-	<form:input path="creditCard.expirationYear" />
-	<form:errors cssClass="error" path="creditCard.expirationYear" />
-<br /><br/>
-	<form:label path="creditCard.cvvCode">
-		<spring:message code="application.creditCard.cvvCode" />:
-	</form:label>
-	<form:input path="creditCard.cvvCode" />
-	<form:errors cssClass="error" path="creditCard.cvvCode" />
- </fieldset>	
+ 		<form:label path="creditCard.holderName">
+			<spring:message code="application.creditCard.holderName" />:
+		</form:label>
+		<form:input path="creditCard.holderName" />
+		<form:errors cssClass="error" path="creditCard.holderName" />
+	<br /><br/>
+		<form:label path="creditCard.brandName">
+			<form:select path="brandName">
+				<form:options item="${brandName}" itemLabel="brandName" itemValue="id" />
+				<form:option label="----" value="0" />
+			</form:select>
+		</form:label>
+		<form:input path="creditCard.brandName" />
+		<form:errors cssClass="error" path="creditCard.brandName" />
+	<br /><br/>
+		<form:label path="creditCard.number">
+			<spring:message code="application.creditCard.number" />:
+		</form:label>
+		<form:input path="creditCard.number" />
+		<form:errors cssClass="error" path="creditCard.number" />
+	<br /><br/>
+		<form:label path="creditCard.expirationMonth">
+			<spring:message code="application.creditCard.expirationMonth" />:
+		</form:label>
+		<form:input path="creditCard.expirationMonth" />
+		<form:errors cssClass="error" path="creditCard.expirationMonth" />
+	<br /><br/>
+		<form:label path="creditCard.expirationYear">
+			<spring:message code="application.creditCard.expirationYear" />:
+		</form:label>
+		<form:input path="creditCard.expirationYear" />
+		<form:errors cssClass="error" path="creditCard.expirationYear" />
+	<br /><br/>
+		<form:label path="creditCard.cvvCode">
+			<spring:message code="application.creditCard.cvvCode" />:
+		</form:label>
+		<form:input path="creditCard.cvvCode" />
+		<form:errors cssClass="error" path="creditCard.cvvCode" />
+ 	</fieldset>	
 	</security:authorize>
 	
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />

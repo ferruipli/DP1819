@@ -70,6 +70,7 @@ public class SponsorshipService {
 		} else {
 
 			this.checkByPrincipal(sponsorship);
+			this.utilityService.checkIfCreditCardChanged(sponsorship.getCreditCard());
 			result = this.sponsorshipRepository.save(sponsorship);
 		}
 

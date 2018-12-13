@@ -60,15 +60,11 @@ public class UtilityService {
 		Integer day, month, year;
 		LocalDate currentDate;
 		Integer counter;
-		Collection<String> curriculumsTickers, fixUpTaskTickers, complaintTickers;
 
 		currentDate = LocalDate.now();
 		year = currentDate.getYear() % 100;
 		month = currentDate.getMonthOfYear();
 		day = currentDate.getDayOfMonth();
-		curriculumsTickers = this.curriculumService.findAllTickers();
-		fixUpTaskTickers = this.fixUpTaskService.findAllTickers();
-		complaintTickers = this.complaintService.findAllTickers();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
@@ -76,9 +72,7 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (curriculumsTickers.contains(result) || fixUpTaskTickers.contains(result) || complaintTickers.contains(result) || counter < 650000);
-
-		Assert.isTrue(counter == 650000); // Avoid infinite loops in the case of all possible tickers are already taken.
+		} while (!(this.curriculumService.existTicker(result) == null) && !(this.fixUpTaskService.existTicker(result) == null) && !(this.complaintService.existTicker(result) == null) && counter < 650000);
 
 		return result;
 	}
@@ -99,6 +93,31 @@ public class UtilityService {
 		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
 	}
 
+	public Collection<String> getSplittedAttachments(final Complaint complaint) {
+		Collection<String> result;
+
+		result = Arrays.asList(complaint.getAttachments().split("\r"));
+
+		return result;
+	}
+
+	// Private methods ---------------------------------------------------------
+
+	private String createRandomLetters() {
+		String result, characters;
+		Random randomNumber;
+
+		result = "";
+		randomNumber = new Random();
+		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+		for (int i = 0; i <= 5; i++)
+			result += characters.charAt(randomNumber.nextInt(characters.length()));
+
+		return result;
+	}
+
+	//------------------CREDIT CARD------------------------------------
 	public CreditCard createnewCreditCard() {
 		CreditCard creditCard;
 
@@ -136,28 +155,25 @@ public class UtilityService {
 
 	}
 
-	public Collection<String> getSplittedAttachments(final Complaint complaint) {
-		Collection<String> result;
+	public void checkIfCreditCardChanged(final CreditCard creditCard) {
+		String brandName;
+		String expirationMonth;
+		String expirationYear;
+		String holderName;
+		String number;
+		Integer cvvCode;
 
-		result = Arrays.asList(complaint.getAttachments().split("\r"));
+		brandName = creditCard.getBrandName();
+		expirationMonth = creditCard.getExpirationMonth();
+		expirationYear = creditCard.getExpirationYear();
+		holderName = creditCard.getHolderName();
+		number = creditCard.getNumber();
+		cvvCode = creditCard.getCvvCode();
 
-		return result;
-	}
+		//If creditCard is changed
+		if (!(brandName.equals("XXX") && expirationMonth.equals("XXX") && expirationYear.equals("XXX") && holderName.equals("XXX") && number.equals("XXXXXXXXXXXXXXX") && cvvCode.equals(123)))
+			Assert.isTrue(this.checkCreditCard(creditCard));
 
-	// Private methods ---------------------------------------------------------
-
-	private String createRandomLetters() {
-		String result, characters;
-		Random randomNumber;
-
-		result = "";
-		randomNumber = new Random();
-		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-		for (int i = 0; i <= 5; i++)
-			result += characters.charAt(randomNumber.nextInt(characters.length()));
-
-		return result;
 	}
 
 }

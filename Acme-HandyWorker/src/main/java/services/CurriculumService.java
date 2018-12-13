@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -95,12 +94,12 @@ public class CurriculumService {
 		return result;
 	}
 
-	protected Collection<String> findAllTickers() {
-		Collection<String> results;
+	protected String existTicker(final String ticker) {
+		String result;
 
-		results = this.curriculumRepository.findAllTickers();
+		result = this.curriculumRepository.existTicker(ticker);
 
-		return results;
+		return result;
 	}
 
 	protected void addEducationRecord(final Curriculum curriculum, final EducationRecord educationRecord) {

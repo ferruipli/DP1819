@@ -82,8 +82,10 @@ public class ApplicationService {
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
-		} else
+		} else {
 			this.checkByPrincipal(application);
+			this.utilityService.checkIfCreditCardChanged(application.getCreditCard());
+		}
 
 		//Check that number of accepted application is 0
 		this.checkAcceptedApplication(application);
