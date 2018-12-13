@@ -16,7 +16,9 @@
 
 <p>
 	<strong> <spring:message code="customisation.banner" />: </strong>
-	<jstl:out value="${customisation.banner}" />
+	<a href="<jstl:out value="${customisation.banner}" />">
+		<spring:message code="customisation.banner" />
+	</a>
 </p>
 
 <p>
