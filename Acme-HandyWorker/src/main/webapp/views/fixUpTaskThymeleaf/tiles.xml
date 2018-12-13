@@ -3,12 +3,19 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-       
+
 <tiles-definitions>
 
-	<definition name="fixUpTaskThymeleaf/create" extends="master.page">	
+	<definition name="fixUpTaskThymeleaf/create" extends="master.page">
 		<put-attribute name="title" value="Create FixUpTask" />
-		<put-attribute name="body" value="/views/fixUpTaskThymeleaf/create.html" />
+		<put-attribute name="body"
+			value="/views/fixUpTaskThymeleaf/create.html" />
 	</definition>
-	
+
+	<definition name="fixUpTaskThymeleaf/display" extends="master.page">
+		<put-attribute name="title" value="Lists FixUpTasks" />
+		<put-attribute name="body"
+			value="/views/fixUpTaskThymeleaf/display.html" />
+	</definition>
+
 </tiles-definitions>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<tr th:each="fixUpTask : *{fixUpTasks}">
-	<td><input th:field="*{fixUpTask.ticker}" /></td>
-	<td><input th:field="*{fixUpTask.description}" /></td>
-</tr>
+<tr th:each="f : ${fixUpTasks}">
+    <td th:text="${f.ticker}">Código del producto</td>
+    <td th:text="${f.description}">Nombre del producto</td>
+  </tr>
 </html>
