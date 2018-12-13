@@ -18,5 +18,5 @@
 </display:table>
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<a href="complaint/customer/create.do"><spring:message code="complaint.create"/></a>
+	<a href="complaint/customer/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="complaint.create"/></a>
 </security:authorize>
