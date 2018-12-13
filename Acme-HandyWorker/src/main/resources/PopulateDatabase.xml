@@ -2087,6 +2087,12 @@
 				<value>desastre</value>
 			</list>
 		</property>
+		<property name="languages">
+			<list>
+				<value>Español</value>
+				<value>Ingles</value>
+			</list>
+		</property>		
 	</bean>
 
 	<!-- CreditCards -->

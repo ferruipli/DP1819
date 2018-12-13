@@ -41,6 +41,7 @@ public class Customisation extends DomainEntity {
 	private Collection<String>	spamWords;
 	private Collection<String>	positiveWords;
 	private Collection<String>	negativeWords;
+	private Collection<String>	languages;
 
 
 	@NotBlank
@@ -157,6 +158,16 @@ public class Customisation extends DomainEntity {
 
 	public void setNegativeWords(final Collection<String> negativeWords) {
 		this.negativeWords = negativeWords;
+	}
+
+	@NotEmpty
+	@ElementCollection
+	public Collection<String> getLanguages() {
+		return this.languages;
+	}
+
+	public void setLanguages(final Collection<String> languages) {
+		this.languages = languages;
 	}
 
 }

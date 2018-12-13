@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -17,16 +16,14 @@ import domain.CategoryTranslation;
 @Transactional
 public class CategoryTranslationService {
 
-	final static String[]					LANGUAGES	= {
-		"Español", "Ingles"
-														};
-
 	// Managed repository ------------------------------
 	@Autowired
 	private CategoryTranslationRepository	categoryTranslationRepository;
 
-
 	// Supporting services -----------------------------
+	@Autowired
+	private CustomisationService			customisationService;
+
 
 	// Constructors ------------------------------------
 	public CategoryTranslationService() {
@@ -90,21 +87,9 @@ public class CategoryTranslationService {
 	private boolean validLanguage(final CategoryTranslation categoryTranslation) {
 		Collection<String> languages;
 
-		languages = this.findLanguages();
+		languages = this.customisationService.find().getLanguages();
 
 		return languages.contains(categoryTranslation.getLanguage());
 	}
 
-	public Collection<String> findLanguages() {
-		Collection<String> languages;
-		int n;
-
-		n = CategoryTranslationService.LANGUAGES.length;
-		languages = new ArrayList<>();
-
-		for (int i = 0; i < n; i++)
-			languages.add(CategoryTranslationService.LANGUAGES[i]);
-
-		return languages;
-	}
 }

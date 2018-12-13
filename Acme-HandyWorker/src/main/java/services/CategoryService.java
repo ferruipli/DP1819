@@ -28,6 +28,9 @@ public class CategoryService {
 	@Autowired
 	private CategoryTranslationService	categoryTranslationService;
 
+	@Autowired
+	private CustomisationService		customisatinoService;
+
 
 	// Constructors ------------------------------------
 	public CategoryService() {
@@ -65,7 +68,7 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
-		Assert.isTrue(category.getCategoriesTranslations().size() == this.categoryTranslationService.findLanguages().size());
+		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size());
 		Assert.isTrue(this.validLanguages(category));
 
 		Category root, result, parent_category, old_category, old_parent_category;
@@ -183,7 +186,7 @@ public class CategoryService {
 		Integer valor;
 
 		map = new HashMap<String, Integer>();
-		languages = this.categoryTranslationService.findLanguages();
+		languages = this.customisatinoService.find().getLanguages();
 		categoriesTranslations = category.getCategoriesTranslations();
 		result = true;
 		valor = 0;
