@@ -9,7 +9,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="customisation/administrator/edit.do" modelAtribute="customisation">
+<form:form action="customisation/administrator/edit.do" modelAttribute="customisation">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
@@ -97,9 +97,14 @@
 	<form:errors cssClass="error" path="spamWords" />
 	<br/>
 	
-	<input type="submit" name="save" value="<spring:message code="customisation.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="customisation.cancel" />
-		"onclick="javascript: relativeRedir('customisation/administrator/display.do');" />
-	<br />
+	<form:label path="languages">
+		<spring:message code="customisation.languages" />:
+	</form:label>
+	<form:input path="languages" />
+	<form:errors cssClass="error" path="languages" />
+	<br/>
 	
+	<input type="submit" name="save" value="<spring:message code="customisation.save" />" />
+	<input type="button" name="cancel"	value="<spring:message code="customisation.cancel" /> "onclick="javascript: relativeRedir('customisation/administrator/display.do');" />
+	<br />
 </form:form>

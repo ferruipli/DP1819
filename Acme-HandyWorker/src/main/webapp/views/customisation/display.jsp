@@ -50,26 +50,25 @@
 	<jstl:out value="${customisation.maxFinderResults}" />
 </p>
 
-<strong> <spring:message code="customisation.creditCardMakes" />: </strong>
-<jstl:forEach var="row" items="${creditCardMakes}">
-	<p> <jstl:out value="${row}" /> </p>
-</jstl:forEach>
+<display:table name="customisation.creditCardMakes" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.creditCardMakes" />
+</display:table>
 
-<strong> <spring:message code="customisation.positiveWords" />: </strong>
-<jstl:forEach var="row" items="${positiveWords}">
-	<p> <jstl:out value="${row}" /> </p>
-</jstl:forEach>
+<display:table name="customisation.positiveWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.positiveWords"/>
+</display:table>
 
-<strong> <spring:message code="customisation.negativeWords" />: </strong>
-<jstl:forEach var="row" items="${negativeWords}">
-	<p> <jstl:out value="${row}" /> </p>
-</jstl:forEach>
+<display:table name="customisation.negativeWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.negativeWords"/>
+</display:table>
 
-<strong> <spring:message code="customisation.spamWords" />: </strong>
-<jstl:forEach var="row" items="${spamWords}">
-	<p> <jstl:out value="${row}" /> </p>
-</jstl:forEach>
-<br />
+<display:table name="customisation.spamWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.spamWords"/>
+</display:table>
+
+<display:table name="customisation.languages" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.languages"/>
+</display:table>
 
 <a href="customisation/administrator/edit.do">
 	<spring:message code="customisation.edit" />
