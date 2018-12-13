@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
+import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Report;
@@ -138,6 +139,10 @@ public class ComplaintService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public void addFixUpTask(final Complaint complaint, final FixUpTask fixUpTask) {
+		complaint.setFixUpTask(fixUpTask);
 	}
 
 	protected String existTicker(final String ticker) {
