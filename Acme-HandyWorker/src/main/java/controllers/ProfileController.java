@@ -10,122 +10,41 @@
 
 package controllers;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import services.ApplicationService;
-import services.FinderService;
-import services.FixUpTaskService;
-import services.TutorialService;
-import domain.Application;
-import domain.Section;
-import domain.Sponsorship;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController extends AbstractController {
 
-	@Autowired
-	private TutorialService		tutorialService;
+	// Action-1 ---------------------------------------------------------------		
 
-	@Autowired
-	private ApplicationService	applicationService;
-	@Autowired
-	private FixUpTaskService	fixUpTaskService;
-
-	@Autowired
-	private FinderService		finderService;
-
-
-	// Constructors -----------------------------------------------------------
-	public ProfileController() {
-
-	}
-
-	// Tutorial display ---------------------------------------------------------------		
-
-	@RequestMapping(value = "/tutorial/display", method = RequestMethod.GET)
-	public ModelAndView tutorialDisplay() {
+	@RequestMapping("/action-1")
+	public ModelAndView action1() {
 		ModelAndView result;
-		Tutorial tutorial;
-		final int tutorialId = 9594;
-		Collection<Section> sections;
-		Collection<Sponsorship> sponsorships;
 
-		result = new ModelAndView("tutorial/display");
-		tutorial = this.tutorialService.findOne(tutorialId);
-		sections = tutorial.getSections();
-		sponsorships = tutorial.getSponsorShips();
-		result.addObject("tutorial", tutorial);
-		result.addObject("sections", sections);
-		result.addObject("sponsorships", sponsorships);
+		result = new ModelAndView("profile/action-1");
 
 		return result;
 	}
 
-	// Tutorial list ---------------------------------------------------------------		
+	// Action-2 ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/tutorial/list", method = RequestMethod.GET)
-	public ModelAndView tutorialList() {
+	@RequestMapping("/action-2")
+	public ModelAndView action2() {
 		ModelAndView result;
-		Collection<Tutorial> tutorials;
 
-		result = new ModelAndView("tutorial/list");
-		tutorials = this.tutorialService.findAll();
-		result.addObject("tutorials", tutorials);
+		result = new ModelAndView("profile/action-2");
 
 		return result;
 	}
 
-	// Tutorial Create ---------------------------------------------------------------		
-	@RequestMapping(value = "/tutorial/create", method = RequestMethod.GET)
-	public ModelAndView tutorialCreate() {
-		ModelAndView result;
-		Tutorial tutorial;
+	// Action-2 ---------------------------------------------------------------		
 
-		result = new ModelAndView("tutorial/edit");
-		tutorial = this.tutorialService.create();
-		result.addObject("tutorial", tutorial);
-
-		return result;
-	}
-
-	//  APPLICATION EDIT---------------------------------------------------------------		
-	@RequestMapping(value = "/application/edit", method = RequestMethod.GET)
-	public ModelAndView applicationEdit() {
-		ModelAndView result;
-		Application application;
-		Double VAT;
-
-		result = new ModelAndView("application/edit");
-		application = this.applicationService.findOne(9691);
-		result.addObject("application", application);
-		VAT = 21.;
-		result.addObject("VAT", VAT);
-
-		return result;
-
-	}
-
-	//  APPLICATION DISPLAY---------------------------------------------------------------		
-	@RequestMapping(value = "/application/display", method = RequestMethod.GET)
-	public ModelAndView applicationDisplay() {
-		ModelAndView result;
-		Application application;
-		Double VAT;
-
-		result = new ModelAndView("application/display");
-		application = this.applicationService.findOne(9691);
-		VAT = 21.;
-		result.addObject("application", application);
-		result.addObject("VAT", VAT);
-		return result;
+	@RequestMapping("/action-3")
+	public ModelAndView action3() {
+		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
 	}
 
 }
