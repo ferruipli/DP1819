@@ -56,7 +56,7 @@ public class CurriculumService {
 		return result;
 	}
 
-	protected Curriculum findOne(final int curriculumId) {
+	public Curriculum findOne(final int curriculumId) {
 		Assert.isTrue(curriculumId != 0);
 
 		Curriculum result;

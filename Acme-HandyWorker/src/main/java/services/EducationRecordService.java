@@ -46,7 +46,7 @@ public class EducationRecordService {
 		return result;
 	}
 
-	protected EducationRecord findOne(final int educationRecordId) {
+	public EducationRecord findOne(final int educationRecordId) {
 		Assert.isTrue(educationRecordId != 0);
 
 		EducationRecord result;

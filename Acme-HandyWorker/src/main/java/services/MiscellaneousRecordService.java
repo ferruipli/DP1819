@@ -42,7 +42,7 @@ public class MiscellaneousRecordService {
 		return result;
 	}
 
-	protected MiscellaneousRecord findOne(final int miscellaneousRecordId) {
+	public MiscellaneousRecord findOne(final int miscellaneousRecordId) {
 		Assert.isTrue(miscellaneousRecordId != 0);
 
 		MiscellaneousRecord result;
