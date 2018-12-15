@@ -41,7 +41,7 @@
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
-		<a href="application/handyWorker,customer/edit.do?applicationId=${row.id}">
+		<a href="application/handyworkercustomer/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
 		</a>
 	</display:column>
@@ -49,7 +49,7 @@
 	</security:authorize>
 
 	<display:column style="background-color:${colorValue }" >
-		<a href="application/handyWorker,customer/display.do?applicationId=${row.id}">
+		<a href="application/handyworkercustomer/display.do?applicationId=${row.id}">
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>
@@ -58,7 +58,7 @@
 	<jstl:if test="${row.status=='PENDING'}">
 	<display:column style="background-color:${colorValue}">
 		
-				<a href="application/handyWorker,customer/edit.do?applicationId=${row.id}">
+				<a href="application/handyworkercustomer/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.status.change" />
 				</a>
 	</display:column>
