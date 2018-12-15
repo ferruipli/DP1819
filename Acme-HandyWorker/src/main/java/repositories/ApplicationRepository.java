@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,7 +27,8 @@ public interface ApplicationRepository extends JpaRepository<domain.Application,
 	//Req 12.5.8
 	@Query("select (sum(case when ((a.status='PENDING') and (a.registerMoment<CURRENT_TIMESTAMP))then 1.0 else 0 end)/count(*))from Application a")
 	Double findRatioPendingApplicationsNotChangeStatus();
-
 	@Query("select a from Application a where a.fixUpTask.id = ?1 and a.status = 'ACCEPTED'")
 	Application findAcceptedApplication(int fixUpTaskId);
+	@Query("select a from Application a where a.handyWorker.id = ?1")
+	Collection<Application> findApplicationByHandyWorker(int handyWorkerid);
 }
