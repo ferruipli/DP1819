@@ -18,58 +18,55 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="formatDate" var="formatDate"/>
+<spring:message code="formatDate" var="formatDate" />
 
 <p>
-	<spring:message code="curriculum.ticker" />
+	<strong><spring:message code="curriculum.ticker" /></strong> :
 	<jstl:out value="${curriculum.ticker}"></jstl:out>
 </p>
 
 <fieldset>
-
-	<spring:message code="curriculum.personalRecord.fullName" />
-	:
-	<jstl:out value="${curriculum.personalRecord.fullName}"></jstl:out>
-
+	<p>
+		<strong><spring:message
+				code="curriculum.personalRecord.fullName" /></strong> :
+		<jstl:out value="${curriculum.personalRecord.fullName}"></jstl:out>
+	</p>
+	<p>
+		<strong><spring:message
+				code="curriculum.personalRecord.photoLink" /></strong> :
+		<jstl:out value="${curriculum.personalRecord.photoLink}"></jstl:out>
+	</p>
 	<br>
-
-	<spring:message code="curriculum.personalRecord.photoLink" />
-	:
-	<jstl:out value="${curriculum.personalRecord.photoLink}"></jstl:out>
-
+	<p>
+		<strong><spring:message
+				code="curriculum.personalRecord.email" /></strong> :
+		<jstl:out value="${curriculum.personalRecord.email}"></jstl:out>
+	</p>
 	<br>
-
-
-	<spring:message code="curriculum.personalRecord.email" />
-	:
-	<jstl:out value="${curriculum.personalRecord.email}"></jstl:out>
-
+	<p>
+		<strong><spring:message
+				code="curriculum.personalRecord.phoneNumber" /></strong> :
+		<jstl:out value="${curriculum.personalRecord.phoneNumber}"></jstl:out>
+	</p>
 	<br>
-
-
-	<spring:message code="curriculum.personalRecord.phoneNumber" />
-	:
-	<jstl:out value="${curriculum.personalRecord.phoneNumber}"></jstl:out>
-
-	<br>
-
-
-	<spring:message code="curriculum.personalRecord.linkedInProfile" />
-	:
-	<jstl:out value="${curriculum.personalRecord.linkedInProfile}"></jstl:out>
-
+	<p>
+		<strong><spring:message
+				code="curriculum.personalRecord.linkedInProfile" /></strong> :
+		<jstl:out value="${curriculum.personalRecord.linkedInProfile}"></jstl:out>
+	</p>
 	<br>
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a href="personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}">
+		<a
+			href="personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}">
 			<spring:message code="curriculum.edit" />
 		</a>
 	</security:authorize>
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.educationRecords" id="rowEducationRecord"
-		requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
+	<display:table name="curriculum.educationRecords"
+		id="rowEducationRecord" requestURI="${requestURI}" pagesize="5"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -87,12 +84,12 @@
 		<spring:message code="curriculum.educationRecord.startDate"
 			var="startDateHeader" />
 		<display:column property="startDate" title="${startDateHeader}"
-			sortable="false" format="${formatDate}"/>
+			sortable="false" format="${formatDate}" />
 
 		<spring:message code="curriculum.educationRecord.endDate"
 			var="endDateHeader" />
 		<display:column property="endDate" title="${endDateHeader}"
-			sortable="false" format="${formatDate}"/>
+			sortable="false" format="${formatDate}" />
 
 		<spring:message code="curriculum.educationRecord.institution"
 			var="institutionHeader" />
@@ -118,9 +115,9 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.professionalRecords" id="rowProfessionalRecord"
-		requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
+	<display:table name="curriculum.professionalRecords"
+		id="rowProfessionalRecord" requestURI="${requestURI}" pagesize="5"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -138,12 +135,12 @@
 		<spring:message code="curriculum.professionalRecord.startDate"
 			var="startDateHeader" />
 		<display:column property="startDate" title="${startDateHeader}"
-			sortable="false" format="${formatDate}"/>
+			sortable="false" format="${formatDate}" />
 
 		<spring:message code="curriculum.professionalRecord.endDate"
 			var="endDateHeader" />
 		<display:column property="endDate" title="${endDateHeader}"
-			sortable="false" format="${formatDate}"/>
+			sortable="false" format="${formatDate}" />
 
 		<spring:message code="curriculum.professionalRecord.role"
 			var="roleHeader" />
@@ -169,8 +166,7 @@
 
 <fieldset>
 	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord"
-		requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
+		requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -215,9 +211,9 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.miscellaneousRecords" id="rowMiscellaneousRecord"
-		requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
+	<display:table name="curriculum.miscellaneousRecords"
+		id="rowMiscellaneousRecord" requestURI="${requestURI}" pagesize="5"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>

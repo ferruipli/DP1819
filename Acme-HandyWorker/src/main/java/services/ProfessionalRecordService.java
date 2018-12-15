@@ -44,7 +44,7 @@ public class ProfessionalRecordService {
 		return result;
 	}
 
-	protected ProfessionalRecord findOne(final int professionalRecordId) {
+	public ProfessionalRecord findOne(final int professionalRecordId) {
 		Assert.isTrue(professionalRecordId != 0);
 		ProfessionalRecord result;
 

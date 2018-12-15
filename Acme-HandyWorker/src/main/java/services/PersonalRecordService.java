@@ -46,7 +46,7 @@ public class PersonalRecordService {
 		return result;
 	}
 
-	protected PersonalRecord findOne(final int personalRecordId) {
+	public PersonalRecord findOne(final int personalRecordId) {
 		Assert.isTrue(personalRecordId != 0);
 		PersonalRecord result;
 

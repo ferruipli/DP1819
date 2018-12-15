@@ -45,7 +45,7 @@ public class EndorserRecordService {
 		return result;
 	}
 
-	protected EndorserRecord findOne(final int endorserRecordId) {
+	public EndorserRecord findOne(final int endorserRecordId) {
 		Assert.isTrue(endorserRecordId != 0);
 
 		EndorserRecord result;
