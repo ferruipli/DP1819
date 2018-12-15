@@ -18,23 +18,30 @@
 	">
 
 	<util:list id="tiles">
-		<value>/views/master-page/tiles.xml</value>		
-		<value>/views/misc/tiles.xml</value>		
-		<value>/views/security/tiles.xml</value>
-		<value>/views/welcome/tiles.xml</value>
-		
-		<!-- <value>/views/administrator/tiles.xml</value> -->
-		<value>/views/customer/tiles.xml</value>
-		<value>/views/profile/tiles.xml</value>
-		
+		<value>/views/actor/tiles.xml</value>
+		<value>/views/application/tiles.xml</value>
+		<value>/views/box/tiles.xml</value>
+		<value>/views/category/tiles.xml</value>
+		<value>/views/complaint/tiles.xml</value>
 		<value>/views/curriculum/tiles.xml</value>
+		<value>/views/customer/tiles.xml</value>
+		<value>/views/customisation/tiles.xml</value>
+		<value>/views/educationRecord/tiles.xml</value>
+		<value>/views/endorsement/tiles.xml</value>
+		<value>/views/endorserRecord/tiles.xml</value>
+		<value>/views/finder/tiles.xml</value>
+		<value>/views/fixUpTask/tiles.xml</value>
+		<value>/views/master-page/tiles.xml</value>	
+		<value>/views/message/tiles.xml</value>
+		<value>/views/misc/tiles.xml</value>
+		<value>/views/miscellaneousRecord/tiles.xml</value>
 		<value>/views/personalRecord/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
-		<value>/views/educationRecord/tiles.xml</value>
-		<value>/views/endorserRecord/tiles.xml</value>
-		<value>/views/miscellaneousRecord/tiles.xml</value>
-
-		
+		<value>/views/profile/tiles.xml</value>
+		<value>/views/security/tiles.xml</value>
+		<value>/views/socialProfile/tiles.xml</value>
+		<value>/views/tutorial/tiles.xml</value>
+		<value>/views/welcome/tiles.xml</value>
 	</util:list>
 
 </beans>
