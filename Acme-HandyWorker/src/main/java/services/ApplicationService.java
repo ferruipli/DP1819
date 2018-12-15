@@ -229,16 +229,5 @@ public class ApplicationService {
 
 		return result;
 	}
-	public Collection<Application> findApplicationByHandyWorker() {
-		Collection<Application> applications;
-		HandyWorker handyWorker;
-
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId());
-
-		Assert.isTrue(!(applications.isEmpty()));
-		return applications;
-
-	}
 
 }
