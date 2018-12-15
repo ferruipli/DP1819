@@ -1,5 +1,5 @@
 /*
- * StringToActorConverter.java
+ * StringToAuthorityConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -10,35 +10,23 @@
 
 package converters;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ActorRepository;
-import domain.Actor;
+import security.Authority;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor> {
-
-	@Autowired
-	ActorRepository	actorRepository;
-
+public class StringToAuthorityConverter implements Converter<String, Authority> {
 
 	@Override
-	public Actor convert(final String text) {
-		Actor result;
-		int id;
+	public Authority convert(final String text) {
+		Authority result;
 
 		try {
-			if (StringUtils.isEmpty(text))
-				result = null;
-			else {
-				id = Integer.valueOf(text);
-				result = this.actorRepository.findOne(id);
-			}
+			result = new Authority();
+			result.setAuthority(text);
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}

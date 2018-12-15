@@ -1,5 +1,5 @@
 /*
- * StringToAdministratorConverter.java
+ * StringToApplicationConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,20 +16,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdministratorRepository;
-import domain.Administrator;
+import repositories.ApplicationRepository;
+import domain.Application;
 
 @Component
 @Transactional
-public class StringToAdministratorConverter implements Converter<String, Administrator> {
+public class StringToApplicationConverter implements Converter<String, Application> {
 
 	@Autowired
-	AdministratorRepository	administratorRepository;
+	ApplicationRepository	applicationRepository;
 
 
 	@Override
-	public Administrator convert(final String text) {
-		Administrator result;
+	public Application convert(final String text) {
+		Application result;
 		int id;
 
 		try {
@@ -37,7 +37,7 @@ public class StringToAdministratorConverter implements Converter<String, Adminis
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.administratorRepository.findOne(id);
+				result = this.applicationRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

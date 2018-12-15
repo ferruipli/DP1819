@@ -1,5 +1,5 @@
 /*
- * StringToAdministratorConverter.java
+ * StringToWarrantyConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,20 +16,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdministratorRepository;
-import domain.Administrator;
+import repositories.WarrantyRepository;
+import domain.Warranty;
 
 @Component
 @Transactional
-public class StringToAdministratorConverter implements Converter<String, Administrator> {
+public class StringToWarrantyConverter implements Converter<String, Warranty> {
 
 	@Autowired
-	AdministratorRepository	administratorRepository;
+	WarrantyRepository	warrantyRepository;
 
 
 	@Override
-	public Administrator convert(final String text) {
-		Administrator result;
+	public Warranty convert(final String text) {
+		Warranty result;
 		int id;
 
 		try {
@@ -37,7 +37,7 @@ public class StringToAdministratorConverter implements Converter<String, Adminis
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.administratorRepository.findOne(id);
+				result = this.warrantyRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

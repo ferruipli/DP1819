@@ -1,5 +1,5 @@
 /*
- * StringToAdministratorConverter.java
+ * StringToCurriculumConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,20 +16,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdministratorRepository;
-import domain.Administrator;
+import repositories.CurriculumRepository;
+import domain.Curriculum;
 
 @Component
 @Transactional
-public class StringToAdministratorConverter implements Converter<String, Administrator> {
+public class StringToCurriculumConverter implements Converter<String, Curriculum> {
 
 	@Autowired
-	AdministratorRepository	administratorRepository;
+	CurriculumRepository	curriculumRepository;
 
 
 	@Override
-	public Administrator convert(final String text) {
-		Administrator result;
+	public Curriculum convert(final String text) {
+		Curriculum result;
 		int id;
 
 		try {
@@ -37,7 +37,7 @@ public class StringToAdministratorConverter implements Converter<String, Adminis
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.administratorRepository.findOne(id);
+				result = this.curriculumRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

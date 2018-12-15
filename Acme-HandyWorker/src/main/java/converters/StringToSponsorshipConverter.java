@@ -1,5 +1,5 @@
 /*
- * StringToAdministratorConverter.java
+ * StringToSponsorshipConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,20 +16,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdministratorRepository;
-import domain.Administrator;
+import repositories.SponsorshipRepository;
+import domain.Sponsorship;
 
 @Component
 @Transactional
-public class StringToAdministratorConverter implements Converter<String, Administrator> {
+public class StringToSponsorshipConverter implements Converter<String, Sponsorship> {
 
 	@Autowired
-	AdministratorRepository	administratorRepository;
+	SponsorshipRepository	sponsorshipRepository;
 
 
 	@Override
-	public Administrator convert(final String text) {
-		Administrator result;
+	public Sponsorship convert(final String text) {
+		Sponsorship result;
 		int id;
 
 		try {
@@ -37,7 +37,7 @@ public class StringToAdministratorConverter implements Converter<String, Adminis
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.administratorRepository.findOne(id);
+				result = this.sponsorshipRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
