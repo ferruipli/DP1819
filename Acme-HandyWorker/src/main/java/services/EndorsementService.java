@@ -27,6 +27,8 @@ import domain.HandyWorker;
 @Transactional
 public class EndorsementService {
 
+	private final int				PAGE_SIZE	= 5;
+
 	// Managed repository ------------------------------
 	@Autowired
 	private EndorsementRepository	endorsementRepository;
@@ -143,7 +145,7 @@ public class EndorsementService {
 		Pageable pageable;
 
 		principal = this.endorsableService.findByPrincipal();
-		pageable = new PageRequest(0, 5);
+		pageable = new PageRequest(0, this.PAGE_SIZE);
 
 		results = this.endorsementRepository.findSentEndorsements(principal.getId(), pageable);
 
@@ -157,7 +159,7 @@ public class EndorsementService {
 
 		principal = this.endorsableService.findByPrincipal();
 
-		pageable = new PageRequest(0, 5);
+		pageable = new PageRequest(0, this.PAGE_SIZE);
 
 		results = this.endorsementRepository.findReceivedEndorsement(principal.getId(), pageable);
 

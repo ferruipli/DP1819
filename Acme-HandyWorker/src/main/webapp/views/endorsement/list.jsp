@@ -9,7 +9,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="sentEndorsements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="sentEndorsements" id="row" requestURI="${requestURI}" pagesize="${page_size}" class="displaytag">
 	<display:column>
 		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />
@@ -34,7 +34,7 @@
 	<spring:message code="endorsement.create" />
 </a>
 
-<display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" pagesize="${page_size}" class="displaytag">
 	<display:column>
 		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />

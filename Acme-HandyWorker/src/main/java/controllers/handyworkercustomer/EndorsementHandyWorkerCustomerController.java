@@ -62,16 +62,19 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-
+		int page_size;
 		Page<Endorsement> sentEndorsements, receivedEndorsements;
 
 		sentEndorsements = this.endorsementService.findSentEndorsements();
 		receivedEndorsements = this.endorsementService.findReceivedEndorsements();
 
+		page_size = 5;
+
 		result = new ModelAndView("endorsement/list");
 		result.addObject("sentEndorsements", sentEndorsements);
 		result.addObject("receivedEndorsements", receivedEndorsements);
 		result.addObject("requestURI", "endorsement/handyWorker,customer/list.do");
+		result.addObject("page_size", page_size);
 
 		return result;
 	}

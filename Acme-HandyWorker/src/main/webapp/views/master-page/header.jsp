@@ -41,6 +41,24 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('HANDYWORKER')">
+			<li><a class="fNiv"><spring:message	code="master.page.handyWorker" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="endorsement/handyWorker,customer/list.do"><spring:message code="master.page.endorsable.endorsement" /></a></li>					
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
+			<li><a class="fNiv"><spring:message	code="master.page.endorsable" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="endorsement/handyWorker,customer/list.do"><spring:message code="master.page.endorsable.endorsement" /></a></li>					
+				</ul>
+			</li>
+		</security:authorize>
+				
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
