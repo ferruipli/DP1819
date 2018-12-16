@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -55,10 +56,10 @@ public class EndorsableService {
 
 		final Double score;
 		Integer p, n;
-		final Collection<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements();
+		final Page<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements();
 		List<Integer> ls;
 
-		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements));
+		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements.getContent()));
 		p = ls.get(0);
 		n = ls.get(1);
 

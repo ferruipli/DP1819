@@ -9,6 +9,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -134,24 +137,29 @@ public class EndorsementService {
 		Assert.isTrue(principal.equals(endorsement.getSender()));
 	}
 
-	public Collection<Endorsement> findSentEndorsements() {
-		Collection<Endorsement> results;
+	public Page<Endorsement> findSentEndorsements() {
+		Page<Endorsement> results;
 		Endorsable principal;
+		Pageable pageable;
 
 		principal = this.endorsableService.findByPrincipal();
+		pageable = new PageRequest(0, 5);
 
-		results = this.endorsementRepository.findSentEndorsements(principal.getId());
+		results = this.endorsementRepository.findSentEndorsements(principal.getId(), pageable);
 
 		return results;
 	}
 
-	public Collection<Endorsement> findReceivedEndorsements() {
-		Collection<Endorsement> results;
+	public Page<Endorsement> findReceivedEndorsements() {
+		Page<Endorsement> results;
 		Endorsable principal;
+		Pageable pageable;
 
 		principal = this.endorsableService.findByPrincipal();
 
-		results = this.endorsementRepository.findReceivedEndorsement(principal.getId());
+		pageable = new PageRequest(0, 5);
+
+		results = this.endorsementRepository.findReceivedEndorsement(principal.getId(), pageable);
 
 		return results;
 	}

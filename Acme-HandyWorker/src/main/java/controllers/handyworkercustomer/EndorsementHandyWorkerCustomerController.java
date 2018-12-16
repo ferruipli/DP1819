@@ -1,20 +1,13 @@
-/*
- * EndorsementController.java
- * 
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
- * http://www.tdg-seville.info/License.html
- */
 
-package controllers;
+package controllers.handyworkercustomer;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomerService;
+import services.EndorsableService;
 import services.EndorsementService;
 import services.HandyWorkerService;
+import controllers.AbstractController;
 import domain.Customer;
+import domain.Endorsable;
 import domain.Endorsement;
 import domain.HandyWorker;
 
 @Controller
 @RequestMapping("endorsement/handyWorker,customer")
-public class EndorsementController extends AbstractController {
+public class EndorsementHandyWorkerCustomerController extends AbstractController {
 
-	// Services ---------------------------------------------------
 	@Autowired
 	private EndorsementService	endorsementService;
 
@@ -43,14 +38,13 @@ public class EndorsementController extends AbstractController {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private EndorsableService	endorsableService;
 
-	// Constructors -----------------------------------------------------------
 
-	public EndorsementController() {
+	public EndorsementHandyWorkerCustomerController() {
 		super();
 	}
-
-	// Action-1 ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int endorsementId) {
@@ -69,7 +63,7 @@ public class EndorsementController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 
-		Collection<Endorsement> sentEndorsements, receivedEndorsements;
+		Page<Endorsement> sentEndorsements, receivedEndorsements;
 
 		sentEndorsements = this.endorsementService.findSentEndorsements();
 		receivedEndorsements = this.endorsementService.findReceivedEndorsements();
@@ -90,7 +84,7 @@ public class EndorsementController extends AbstractController {
 		endorsement = this.endorsementService.create();
 
 		result = this.createEditModelAndView(endorsement);
-		System.out.println("Hola 3");
+
 		return result;
 	}
 
@@ -146,18 +140,25 @@ public class EndorsementController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Endorsement endorsement, final String message) {
+	protected ModelAndView createEditModelAndView(final Endorsement endorsement, final String messageCode) {
 		ModelAndView result;
-		Collection<Customer> recipients;
-		HandyWorker h;
+		Endorsable principal;
+		List<Endorsable> recipients;
 
-		h = this.handyWorkerService.findByPrincipal();
-		recipients = this.customerService.findEndorsableCustomers(h.getId());
+		principal = this.endorsableService.findByPrincipal();
+
+		recipients = new ArrayList<Endorsable>();
+		if (principal instanceof Customer)
+			recipients.addAll(this.handyWorkerService.findEndorsableHandyWorkers(principal.getId()));
+		else if (principal instanceof HandyWorker)
+			recipients.addAll(this.customerService.findEndorsableCustomers(principal.getId()));
+		else
+			result = new ModelAndView("redirect:welcome/index.do");
 
 		result = new ModelAndView("endorsement/edit");
 		result.addObject("endorsement", endorsement);
 		result.addObject("recipients", recipients);
-		result.addObject("message", message);
+		result.addObject("message", messageCode);
 
 		return result;
 	}

@@ -1,11 +1,10 @@
 
 package services;
 
-import java.util.Collection;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,12 +56,12 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void testFindSentEndorsements() {
 		super.authenticate("customer1");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 
 		all = this.endorsementService.findSentEndorsements();
 
 		Assert.notNull(all);
-		Assert.isTrue(all.size() > 0);
+		Assert.isTrue(all.getContent().size() > 0);
 
 		super.unauthenticate();
 	}
@@ -71,12 +70,12 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void testFindReceivedEndorsements() {
 		super.authenticate("customer1");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 
 		all = this.endorsementService.findReceivedEndorsements();
 
 		Assert.notNull(all);
-		Assert.isTrue(all.size() > 0);
+		Assert.isTrue(all.getContent().size() > 0);
 
 		super.unauthenticate();
 	}
@@ -104,7 +103,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void positiveTestSave_uno() {
 		super.authenticate("customer6");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -120,7 +119,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(all.contains(saved));
+		Assert.isTrue(all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -129,7 +128,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void positiveTestSave_dos() {
 		super.authenticate("handyworker5");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -145,7 +144,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(all.contains(saved));
+		Assert.isTrue(all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -201,7 +200,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void negativeTestSave_tres() {
 		super.authenticate("customer3");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -217,7 +216,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(!all.contains(saved));
+		Assert.isTrue(!all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -230,7 +229,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void negativeTestSave_cuatro() {
 		super.authenticate("handyworker6");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -246,7 +245,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(!all.contains(saved));
+		Assert.isTrue(!all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -259,7 +258,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void negativeTestSave_cinco() {
 		super.authenticate("handyworker6");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -275,7 +274,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(!all.contains(saved));
+		Assert.isTrue(!all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -289,7 +288,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void negativeTestSave_seis() {
 		super.authenticate("customer2");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
@@ -305,7 +304,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(!all.contains(saved));
+		Assert.isTrue(!all.getContent().contains(saved));
 
 		super.unauthenticate();
 	}
@@ -315,7 +314,7 @@ public class EndorsementServiceTest extends AbstractTest {
 	public void negativeTestDelete_uno() {
 		super.authenticate("customer2");
 
-		Collection<Endorsement> all;
+		Page<Endorsement> all;
 		Endorsement endorsement;
 
 		endorsement = null;
@@ -324,7 +323,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		all = this.endorsementService.findSentEndorsements();
 
-		Assert.isTrue(all.contains(endorsement));
+		Assert.isTrue(all.getContent().contains(endorsement));
 
 		super.unauthenticate();
 	}
