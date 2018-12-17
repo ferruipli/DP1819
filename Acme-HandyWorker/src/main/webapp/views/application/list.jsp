@@ -41,7 +41,7 @@
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
-		<a href="application/handyworkercustomer/edit.do?applicationId=${row.id}">
+		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
 		</a>
 	</display:column>
