@@ -14,7 +14,7 @@ import controllers.AbstractController;
 import domain.Actor;
 
 @Controller
-@RequestMapping("/actor/administrator")
+@RequestMapping(value = "/actor/administrator")
 public class ActorAdministratorController extends AbstractController {
 
 	@Autowired
