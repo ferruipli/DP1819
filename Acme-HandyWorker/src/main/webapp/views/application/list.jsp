@@ -39,17 +39,16 @@
 
 	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
 
-	<security:authorize access="hasRole('HANDYWORKER')">
+<security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
 		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
 		</a>
 	</display:column>
-
-	</security:authorize>
+</security:authorize>
 
 	<display:column style="background-color:${colorValue }" >
-		<a href="application/handyworkercustomer/display.do?applicationId=${row.id}">
+		<a href="application/handyWorker,customer/display.do?applicationId=${row.id}">
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>
@@ -57,14 +56,23 @@
 <security:authorize access="hasRole('CUSTOMER')">	
 	<jstl:if test="${row.status=='PENDING'}">
 	<display:column style="background-color:${colorValue}">
-		
-				<a href="application/handyworkercustomer/edit.do?applicationId=${row.id}">
-					<spring:message	code="application.status.change" />
-				</a>
+			<a href="application/customer/cancel.do?applicationId=${row.id}">
+				<spring:message	code="application.cancel" />
+			</a>
 	</display:column>
 	
-			</jstl:if>
-
+	<display:column style="background-color:${colorValue}">
+			<a href="creditCard/customer/create.do?applicationId=${row.id}">
+				<spring:message	code="application.accept" />
+			</a>
+	</display:column>	
+	</jstl:if>
+	
+	<display:column style="background-color:${colorValue}">
+			<a href="application/customer/edit.do?applicationId=${row.id}">
+				<spring:message	code="application.addComment" />
+			</a>
+	</display:column>
 </security:authorize>
 	
 </display:table>

@@ -78,9 +78,17 @@
  
  </fieldset>
  </security:authorize>
-	   
+ 
+ 
+<security:authorize access="hasRole('CUSTOMER')" >	   
+<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
+					<spring:message	code="application.return" />
+				</a>
+</security:authorize>
+
+<security:authorize access="hasRole('HANDYWORKER')" >	   
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="application.return" />"
-	   onclick="javascript: relativeRedir('application/handyWorker,customer/list.do');" />	
-	
+	   onclick="javascript: relativeRedir('application/handyWorker/list.do');" />	
+</security:authorize>

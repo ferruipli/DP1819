@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
-import security.Authority;
-import security.LoginService;
 import domain.Application;
 import domain.CreditCard;
 import domain.FixUpTask;
@@ -75,15 +73,13 @@ public class ApplicationService {
 		Application result;
 		Date moment;
 
-		if (LoginService.getPrincipal().getAuthorities().contains(Authority.HANDYWORKER))
-			Assert.notNull(application.getHandyWorker().getCurriculum());
-
 		if (application.getId() == 0) {
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
 			this.checkByPrincipal(application);
+			Assert.notNull(application.getHandyWorker().getCurriculum());
 			this.utilityService.checkIfCreditCardChanged(application.getCreditCard());
 		}
 
@@ -126,6 +122,28 @@ public class ApplicationService {
 		application.setCreditCard(creditCard);
 	}
 
+	public void addCommentHandyWorker(final Application application) {
+		Assert.isTrue(this.handyWorkerService.findByPrincipal().equals(application.getHandyWorker()));
+		String comments;
+		Application applicationBd;
+
+		applicationBd = this.findOne(application.getId());
+		comments = applicationBd.getHandyWorkerComments();
+		comments += (application.getHandyWorkerComments());
+
+		applicationBd.setHandyWorkerComments(comments);
+	}
+
+	public void addCommentCustomer(final Application application) {
+		String comments;
+		Application applicationBd;
+
+		applicationBd = this.findOne(application.getId());
+		comments = applicationBd.getCustomerComments();
+		comments += (application.getCustomerComments());
+
+		applicationBd.setCustomerComments(comments);
+	}
 	protected void checkByPrincipal(final Application application) {
 		HandyWorker handyWorker;
 
@@ -137,13 +155,8 @@ public class ApplicationService {
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
 
-		Application applicationBd;
 		FixUpTask fixUpTask;
 		final Collection<Application> applications;
-
-		applicationBd = this.findOne(application.getId());
-
-		Assert.isTrue(!(applicationBd.getStatus().equals(application.getStatus())));
 
 		this.messageService.messageToStatus(application, application.getStatus());
 
@@ -156,7 +169,8 @@ public class ApplicationService {
 				this.changeStatus(a);
 			}
 			Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()), "Tarjeta de credito no valida");
-		}
+		} else
+			application.setStatus("REJECTED");
 
 		return application;
 	}

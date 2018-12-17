@@ -59,4 +59,53 @@ public class ApplicationCustomerController extends AbstractController {
 		return result;
 	}
 
+	// Application Edit -----------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application application;
+
+		application = this.applicationService.findOne(applicationId);
+
+		result = this.createEditModelAndView(application);
+
+		return result;
+	}
+
+	// Application cancel -----------------------------------------------------------
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application application;
+		application = this.applicationService.findOne(applicationId);
+
+		try {
+			this.applicationService.changeStatus(application);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(application, "application.commit.error");
+		}
+
+		return result;
+	}
+	// Arcillary methods-----------------------------------------
+	protected ModelAndView createEditModelAndView(final Application application) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(application, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Application application, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("application/edit");
+		result.addObject("application", application);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
 }

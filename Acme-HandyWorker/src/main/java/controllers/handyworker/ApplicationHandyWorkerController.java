@@ -13,7 +13,6 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,24 +65,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 		return result;
 	}
-	// Application Edit -----------------------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView save(@RequestParam final Application application, final BindingResult binding) {
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(application);
-		else
-			try {
-				this.applicationService.save(application);
-				result = new ModelAndView("application/list");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(application, "application.commit.error");
-			}
-
-		return result;
-	}
 	// Arcillary methods-----------------------------------------
 	protected ModelAndView createEditModelAndView(final Application application) {
 		ModelAndView result;
