@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
+import security.LoginService;
 import domain.Application;
 import domain.CreditCard;
 import domain.FixUpTask;
@@ -37,6 +38,9 @@ public class ApplicationService {
 
 	@Autowired
 	private UtilityService			utilityService;
+
+	@Autowired
+	private LoginService			loginService;
 
 
 	//Constructor ----------------------------------------------------
@@ -66,28 +70,30 @@ public class ApplicationService {
 
 	public Application save(final Application application) {
 		Assert.notNull(application);
-		Assert.isTrue(application.getStatus().equals("PENDING"));
 		Application result;
 		Date moment;
 
 		if (application.getId() == 0) {
+			Assert.notNull(application.getHandyWorker().getCurriculum());
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			Assert.notNull(application.getHandyWorker().getCurriculum());
-			this.utilityService.checkIfCreditCardChanged(application.getCreditCard());
+			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))
+				Assert.notNull(application.getHandyWorker().getCurriculum());
+			if (LoginService.getPrincipal().getAuthorities().contains("CUSTOMER"))
+				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
+					//Check that number of accepted application is 0
+					this.checkAcceptedApplication(application);
+					application.setStatus("ACCEPTED");
+				}
 		}
-
-		//Check that number of accepted application is 0
-		this.checkAcceptedApplication(application);
 		result = this.applicationRepository.save(application);
 
 		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
 	}
-
 	private void checkAcceptedApplication(final Application application) {
 		Application app;
 		app = this.findAcceptedApplication(application.getFixUpTask().getId());

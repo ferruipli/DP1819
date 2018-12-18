@@ -255,7 +255,7 @@
 		<property name="offeredPrice" value="200.00" />
 		<property name="handyWorkerComments" value="Comment 1" />	
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker1" />
 		<property name="fixUpTask" ref="fixUpTask1" />
@@ -268,7 +268,7 @@
 		<property name="handyWorkerComments" value="Comment 2 - x" />
 		<property name="customerComments" value="Comment 2 - y" />	
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker1" />
 		<property name="fixUpTask" ref="fixUpTask2" />
@@ -294,7 +294,7 @@
 		<property name="handyWorkerComments" value="Comment 4 - x" />
 		<property name="customerComments" value="Comment 4 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker2" />
 		<property name="fixUpTask" ref="fixUpTask3" />
@@ -307,7 +307,7 @@
 		<property name="handyWorkerComments" value="Comment 5 - x" />
 		<property name="customerComments" value="Comment 5 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCard1" />
 		</property>
 		<property name="handyWorker" ref="handyworker2" />
 		<property name="fixUpTask" ref="fixUpTask4" />
@@ -315,12 +315,12 @@
 
 	<bean id="application6" class="domain.Application">
 		<property name="registerMoment" value="2018/09/24 22:05" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="50.00" />
 		<property name="handyWorkerComments" value="Comment 6 - x" />
 		<property name="customerComments" value="Comment 6 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker3" />
 		<property name="fixUpTask" ref="fixUpTask5" />
@@ -333,7 +333,7 @@
 		<property name="handyWorkerComments" value="Comment 7 - x" />
 		<property name="customerComments" value="Comment 7 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCard2" />
 		</property>
 		<property name="handyWorker" ref="handyworker3" />
 		<property name="fixUpTask" ref="fixUpTask6" />
@@ -345,7 +345,7 @@
 		<property name="offeredPrice" value="975.99" />
 		<property name="handyWorkerComments" value="Comment 8" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="fixUpTask" ref="fixUpTask6" />
 		<property name="handyWorker" ref="handyworker3" />
@@ -353,12 +353,12 @@
 
 	<bean id="application9" class="domain.Application">
 		<property name="registerMoment" value="2018/06/19 14:06" />
-		<property name="status" value="REJECTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="79.80" />
 		<property name="handyWorkerComments" value="Comment 9 - x" />
 		<property name="customerComments" value="Comment 9 - y" />	
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker4" />	
 		<property name="fixUpTask" ref="fixUpTask8" />
@@ -366,12 +366,12 @@
 
 	<bean id="application10" class="domain.Application">
 		<property name="registerMoment" value="2018/06/19 16:55" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="79.80" />
 		<property name="handyWorkerComments" value="Comment 10 - x" />
 		<property name="customerComments" value="Comment 10 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker5" />
 		<property name="fixUpTask" ref="fixUpTask8" />
@@ -383,7 +383,7 @@
 		<property name="offeredPrice" value="200.00" />
 		<property name="handyWorkerComments" value="Comment 11" />	
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCardDefoult" />
 		</property>
 		<property name="handyWorker" ref="handyworker5" />
 		<property name="fixUpTask" ref="fixUpTask7" />
@@ -396,7 +396,7 @@
 		<property name="handyWorkerComments" value="Comment 12 - x" />
 		<property name="customerComments" value="Comment 12 - y" />
 		<property name="creditCard" >
-			<ref bean="creditCard4" />
+			<ref bean="creditCard3" />
 		</property>
 		<property name="handyWorker" ref="handyworker6" />
 		<property name="fixUpTask" ref="fixUpTask7" />
@@ -2125,6 +2125,16 @@
 	</bean>
 
 	<!-- CreditCards -->
+	
+		<bean id="creditCardDefoult" class="domain.CreditCard">
+		<property name="holderName" value="XXX" />
+		<property name="brandName" value="XXX" />
+		<property name="number" value="XXXXXXXXXXXXXXX" />
+		<property name="expirationMonth" value="01" />
+		<property name="expirationYear" value="00" />
+		<property name="cvvCode" value="123" />
+	</bean>
+	
 	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="holder1" />
 		<property name="brandName" value="brand1" />

@@ -67,12 +67,7 @@
 			</a>
 	</display:column>	
 	</jstl:if>
-	
-	<display:column style="background-color:${colorValue}">
-			<a href="application/customer/edit.do?applicationId=${row.id}">
-				<spring:message	code="application.addComment" />
-			</a>
-	</display:column>
+
 </security:authorize>
 	
 </display:table>

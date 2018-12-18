@@ -53,6 +53,7 @@
 </p>
 
 <security:authorize access="hasRole('CUSTOMER')" >
+	<jstl:if test="${application.status=='ACCEPTED'}">
  <fieldset>
 <h2><strong> <spring:message code="application.creditCard" /> </strong></h2>
  <p>
@@ -77,6 +78,7 @@
 	<jstl:out value="${application.creditCard.cvvCode}" />
  
  </fieldset>
+ </jstl:if>
  </security:authorize>
  
  

@@ -25,7 +25,9 @@
 	<form:hidden path="handyWorker" />	
 	<form:hidden path="fixUpTask" />
 	<form:hidden path="status" />
-	<form:hidden path="creditCard" />
+	<form:hidden path="creditCard" />	
+	<form:hidden path="handyWorkerComments" />
+	<form:hidden path="customerComments" />
 
 <security:authorize access="hasRole('HANDYWORKER')">
 	
@@ -53,9 +55,6 @@
 		<form:input path="customerComments" />
 		<form:errors cssClass="error" path="customerComments" />
 		<br /><br/>
-
-</security:authorize>
-
 
 
 	 <fieldset>
@@ -111,7 +110,7 @@
 		<form:errors cssClass="error" path="creditCard.cvvCode" /> 
  	</fieldset>
  	
-	
+	</security:authorize>
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
 
 <security:authorize access="hasRole('HANDYWORKER')">
@@ -119,8 +118,9 @@
 	<br />
 </security:authorize>	
 	
+
 <security:authorize access="hasRole('CUSTOMER')">
-	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('application/customer/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('../../');" />
 	<br />
 </security:authorize>
 	
