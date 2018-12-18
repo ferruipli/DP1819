@@ -35,9 +35,6 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 	@Autowired
 	private CustomisationService	customisationService;
 
-	@Autowired
-	private LoginService			loginService;
-
 
 	// Constructors -----------------------------------------------------------
 	public ApplicationHandyWorkerCustomerController() {
@@ -72,19 +69,14 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 			try {
 
 				//If status is pending and actor is handyworker he/she can edit application
-				if (application.getStatus().equals("PENDING") && LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER")) {
+				if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER")) {
 					this.applicationService.save(application);
-					result = new ModelAndView("redirect:../../index.do");
+					result = new ModelAndView("redirect:../../");
 
-					//If status is not pending and actor is handyworker he/she only can add comment
-				} else if (!(application.getStatus().equals("PENDING")) && LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER")) {
-					this.applicationService.addCommentHandyWorker(application);
-					result = new ModelAndView("redirect:../../index.do");
-
-					//If actor is customer he/she only can add comment
+					//If actor is customer 
 				} else {
-					this.applicationService.addCommentCustomer(application);
-					result = new ModelAndView("redirect:../../index.do");
+					this.applicationService.save(application);
+					result = new ModelAndView("redirect:../../");
 				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(application, "application.commit.error");

@@ -62,7 +62,7 @@
 	</display:column>
 	
 	<display:column style="background-color:${colorValue}">
-			<a href="creditCard/customer/create.do?applicationId=${row.id}">
+			<a href="application/customer/edit.do?applicationId=${row.id}">
 				<spring:message	code="application.accept" />
 			</a>
 	</display:column>	

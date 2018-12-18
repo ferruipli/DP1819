@@ -38,9 +38,6 @@ public class ApplicationService {
 	@Autowired
 	private UtilityService			utilityService;
 
-	@Autowired
-	private CurriculumService		curriculumService;
-
 
 	//Constructor ----------------------------------------------------
 	public ApplicationService() {
@@ -78,7 +75,6 @@ public class ApplicationService {
 			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			this.checkByPrincipal(application);
 			Assert.notNull(application.getHandyWorker().getCurriculum());
 			this.utilityService.checkIfCreditCardChanged(application.getCreditCard());
 		}
@@ -122,28 +118,6 @@ public class ApplicationService {
 		application.setCreditCard(creditCard);
 	}
 
-	public void addCommentHandyWorker(final Application application) {
-		Assert.isTrue(this.handyWorkerService.findByPrincipal().equals(application.getHandyWorker()));
-		String comments;
-		Application applicationBd;
-
-		applicationBd = this.findOne(application.getId());
-		comments = applicationBd.getHandyWorkerComments();
-		comments += (application.getHandyWorkerComments());
-
-		applicationBd.setHandyWorkerComments(comments);
-	}
-
-	public void addCommentCustomer(final Application application) {
-		String comments;
-		Application applicationBd;
-
-		applicationBd = this.findOne(application.getId());
-		comments = applicationBd.getCustomerComments();
-		comments += (application.getCustomerComments());
-
-		applicationBd.setCustomerComments(comments);
-	}
 	protected void checkByPrincipal(final Application application) {
 		HandyWorker handyWorker;
 
