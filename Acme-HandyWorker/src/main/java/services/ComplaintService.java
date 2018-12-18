@@ -70,6 +70,7 @@ public class ComplaintService {
 		Assert.notNull(complaint);
 		Assert.isTrue(!this.complaintRepository.exists(complaint.getId())); // Complaints cannot be updated
 		Assert.notNull(this.applicationService.findAcceptedApplication(complaint.getFixUpTask().getId()));
+		this.utilityService.checkAttachments(complaint.getAttachments());
 
 		Complaint result;
 		Customer principal;
