@@ -3,7 +3,7 @@ package services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -110,8 +110,16 @@ public class UtilityService {
 
 	public List<String> getSplittedAttachments(final String attachments) {
 		List<String> result;
+		String[] attachmentsArray;
 
-		result = Arrays.asList(attachments.split("\r"));
+		result = new ArrayList<>();
+		attachmentsArray = attachments.split("\r");
+
+		for (String at : attachmentsArray) {
+			at = at.trim();
+			if (!at.isEmpty())
+				result.add(at);
+		}
 
 		return result;
 	}
