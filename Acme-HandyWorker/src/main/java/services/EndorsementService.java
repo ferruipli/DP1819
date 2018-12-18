@@ -65,10 +65,13 @@ public class EndorsementService {
 	public Endorsement create() {
 		Endorsement result;
 		Endorsable sender;
+		Date moment;
 
 		sender = this.endorsableService.findByPrincipal();
+		moment = this.utilityService.current_moment();
 
 		result = new Endorsement();
+		result.setMoment(moment);
 		result.setSender(sender);
 
 		return result;
