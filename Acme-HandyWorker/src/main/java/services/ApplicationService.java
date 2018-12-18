@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
-import security.Authority;
 import security.LoginService;
 import domain.Application;
 import domain.CreditCard;
@@ -41,7 +40,7 @@ public class ApplicationService {
 	private UtilityService			utilityService;
 
 	@Autowired
-	private CurriculumService		curriculumService;
+	private LoginService			loginService;
 
 
 	//Constructor ----------------------------------------------------
@@ -71,31 +70,30 @@ public class ApplicationService {
 
 	public Application save(final Application application) {
 		Assert.notNull(application);
-		Assert.isTrue(application.getStatus().equals("PENDING"));
 		Application result;
 		Date moment;
 
-		if (LoginService.getPrincipal().getAuthorities().contains(Authority.HANDYWORKER))
-			Assert.notNull(application.getHandyWorker().getCurriculum());
-
 		if (application.getId() == 0) {
+			Assert.notNull(application.getHandyWorker().getCurriculum());
 			moment = this.utilityService.current_moment();
 			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			this.checkByPrincipal(application);
-			this.utilityService.checkIfCreditCardChanged(application.getCreditCard());
+			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))
+				Assert.notNull(application.getHandyWorker().getCurriculum());
+			if (LoginService.getPrincipal().getAuthorities().contains("CUSTOMER"))
+				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
+					//Check that number of accepted application is 0
+					this.checkAcceptedApplication(application);
+					application.setStatus("ACCEPTED");
+				}
 		}
-
-		//Check that number of accepted application is 0
-		this.checkAcceptedApplication(application);
 		result = this.applicationRepository.save(application);
 
 		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
 	}
-
 	private void checkAcceptedApplication(final Application application) {
 		Application app;
 		app = this.findAcceptedApplication(application.getFixUpTask().getId());
@@ -137,13 +135,8 @@ public class ApplicationService {
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
 
-		Application applicationBd;
 		FixUpTask fixUpTask;
 		final Collection<Application> applications;
-
-		applicationBd = this.findOne(application.getId());
-
-		Assert.isTrue(!(applicationBd.getStatus().equals(application.getStatus())));
 
 		this.messageService.messageToStatus(application, application.getStatus());
 
@@ -156,7 +149,8 @@ public class ApplicationService {
 				this.changeStatus(a);
 			}
 			Assert.isTrue(this.utilityService.checkCreditCard(application.getCreditCard()), "Tarjeta de credito no valida");
-		}
+		} else
+			application.setStatus("REJECTED");
 
 		return application;
 	}

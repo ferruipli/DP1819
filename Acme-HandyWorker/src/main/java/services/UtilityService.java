@@ -147,8 +147,8 @@ public class UtilityService {
 		creditCard = new CreditCard();
 		creditCard.setBrandName("XXX");
 		creditCard.setCvvCode(123);
-		creditCard.setExpirationMonth("XXX");
-		creditCard.setExpirationYear("XXX");
+		creditCard.setExpirationMonth("01");
+		creditCard.setExpirationYear("00");
 		creditCard.setHolderName("XXX");
 		creditCard.setNumber("XXXXXXXXXXXXXXX");
 
@@ -178,14 +178,16 @@ public class UtilityService {
 
 	}
 
-	public void checkIfCreditCardChanged(final CreditCard creditCard) {
+	public Boolean checkIfCreditCardChanged(final CreditCard creditCard) {
 		String brandName;
 		String expirationMonth;
 		String expirationYear;
 		String holderName;
 		String number;
 		Integer cvvCode;
+		Boolean result;
 
+		result = false;
 		brandName = creditCard.getBrandName();
 		expirationMonth = creditCard.getExpirationMonth();
 		expirationYear = creditCard.getExpirationYear();
@@ -196,6 +198,9 @@ public class UtilityService {
 		//If creditCard is changed
 		if (!(brandName.equals("XXX") && expirationMonth.equals("XXX") && expirationYear.equals("XXX") && holderName.equals("XXX") && number.equals("XXXXXXXXXXXXXXX") && cvvCode.equals(123)))
 			Assert.isTrue(this.checkCreditCard(creditCard));
+
+		result = true;
+		return result;
 
 	}
 

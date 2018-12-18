@@ -21,7 +21,7 @@
 		<value>/views/actor/messages</value>
 		<value>/views/application/messages</value>
 		<value>/views/box/messages</value>
-		<value>/views/category/messages</value>
+		<value>/views/category/messages</value>	
 		<value>/views/complaint/messages</value>
 		<value>/views/curriculum/messages</value>
 		<value>/views/customer/messages</value>
