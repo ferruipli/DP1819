@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -24,7 +25,7 @@ public class ActorAdministratorController extends AbstractController {
 	// Constructors -----------------------------------------------------------
 
 	public ActorAdministratorController() {
-
+		super();
 	}
 
 	// List
@@ -42,6 +43,29 @@ public class ActorAdministratorController extends AbstractController {
 
 		return result;
 
+	}
+
+	// Ban
+
+	@RequestMapping(value = "/changeBan", method = RequestMethod.GET)
+	public ModelAndView changeBan(@RequestParam final int actorId) {
+		ModelAndView result;
+		Actor actor;
+		String messageCode;
+
+		messageCode = "actor.commit.error";
+
+		actor = this.actorService.findOne(actorId);
+
+		try {
+			this.actorService.changeBan(actor);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
+			result.addObject("message", messageCode);
+		}
+
+		return result;
 	}
 
 }
