@@ -41,6 +41,9 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
+		<security:intercept-url pattern="/tutorial/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/tutorial/display.do" access="permitAll" /> 
+		
 		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		<security:intercept-url pattern="/application/handyworker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
@@ -49,13 +52,7 @@
 		
 		<security:intercept-url pattern="/endorsement/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		
-		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 
-		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
-	
 		<!-- <security:intercept-url pattern="/**" access="hasRole('NONE')" /> -->
 
 		<security:form-login 

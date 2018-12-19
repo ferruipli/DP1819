@@ -61,8 +61,8 @@
 	</display:table>  
 	
 	
-	<security:authorize access="hasRole('HANDYWORKER', 'SPONSOR')">
-	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
+<%-- 	<security:authorize access="hasRole('HANDYWORKER', 'SPONSOR')">
+ --%>	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
 		
 
 	<display:table name="tutorial.sponsorShips" id="sponsorShips">
@@ -75,7 +75,7 @@
 	
 	</display:table>
 	
-	</security:authorize>
+<%-- 	</security:authorize> --%>
 	   
 	   
 <input type="button" 
