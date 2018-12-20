@@ -42,10 +42,11 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('HANDYWORKER')">
-			<li><a class="fNiv"><spring:message	code="master.page.handyWorker" /></a>
+			<li><a class="fNiv"><spring:message	code="master.page.application" /></a>			
+				
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="endorsement/handyWorker,customer/list.do"><spring:message code="master.page.endorsable.endorsement" /></a></li>					
+					<li><a href="application/handyWorker/list.do"><spring:message code="master.page.handyWorker.application.list" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>

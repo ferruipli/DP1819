@@ -11,29 +11,38 @@
 
 <p>
 	<strong> <spring:message code="categoryTranslation.name" />: </strong>
-	<jstl:out value="${categoryTranslation.name}" />
+	<jstl:out value="${mapa.get(category.id)}" />
 </p>
 
 <p>
 	<strong> <spring:message code="category.parent" />: </strong>
-	<a href="category/administrator/display.do?categoryId=${category.parent.id}">
-		<jstl:out value="${category.parent.name}" />
+	<a href="category/administrator/display.do?categoryId=${parent.id}">
+		<jstl:out value="${mapa.get(category.parent.id)}" />
 	</a>
 </p>
 
-<jstl:if test="${not empty descendantMap}">
+<jstl:if test="${not empty category.descendants}">
 	<strong> <spring:message code="category.descendant" />: </strong>
-	<jstl:forEach items="${descendantMap.keys()}" var="row">
-		<a href="category/administrator/display.do?categoryId=${row}">
-			<jstl:out value="${descendantMap.get(row)}" />
-		</a>
-	</jstl:forEach>
+	<display:table name="category.descendants" id="row" requestURI="category/administrator/display.do" pagesize="5" class="displaytag">
+		<display:column>
+			<a href="category/administrator/display.do?categoryId=${mapa.get(row.id)}">
+				<spring:message code="category.display" />
+			</a>
+		</display:column>
+		<display:column>
+			<a href="category/administrator/edit.do?categoryId=${mapa.get(row.id)}">
+				<spring:message code="category.edit" />
+			</a>
+		</display:column>
+		<display:column value="${mapa.get(row.id)}" titleKey="categoryTranslation.name" />
+	</display:table>
 </jstl:if>
-<br />
 
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="category.return" />"
-	   onclick="javascript: relativeRedir('category/administrator/list.do');" />
+<p>
+	<a href="category/administrator/list.do">
+		 <spring:message code="category.return" />
+	</a>
+</p>
+
 	   
 	   

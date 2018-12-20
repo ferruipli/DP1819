@@ -27,21 +27,18 @@ public class MessageService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private MessageRepository		messageRepository;
+	private MessageRepository	messageRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private BoxService				boxService;
+	private BoxService			boxService;
 
 	@Autowired
-	private CustomisationService	customisationService;
-
-	@Autowired
-	private UtilityService			utilityService;
+	private UtilityService		utilityService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -102,17 +99,12 @@ public class MessageService {
 		recipients = message.getRecipients();
 		outBoxSender = this.boxService.searchBox(sender, "out box");
 
-		if (this.isSpamMessage(message))
-			message.setIsSpam(true);
-		else
-			message.setIsSpam(false);
-
 		sendMoment = this.utilityService.current_moment();
 		message.setSendMoment(sendMoment);
 
 		result = this.messageRepository.save(message);
 
-		if (message.getIsSpam()) {
+		if (this.utilityService.entityIsSpam(message.getBody()) || this.utilityService.entityIsSpam(message.getSubject())) {
 			this.actorService.markAsSuspicious(sender);
 
 			for (final Actor r : recipients) {
@@ -161,17 +153,6 @@ public class MessageService {
 		principal = this.actorService.findPrincipal();
 
 		Assert.isTrue(message.getSender().equals(principal));
-	}
-
-	public boolean isSpamMessage(final Message message) {
-		boolean res = false;
-		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
-
-		for (final String sw : spamWords)
-			if (message.getSubject().contains(sw) || message.getBody().contains(sw))
-				res = true;
-
-		return res;
 	}
 
 	private void deleteMessageAllBoxActor(final Actor actor, final Message message) {
