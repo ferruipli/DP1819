@@ -42,7 +42,7 @@ public class CurriculumService {
 
 	// Simple CRUD methods -----------------------------
 
-	protected Curriculum create() {
+	public Curriculum create() {
 		Curriculum result;
 
 		result = new Curriculum();
@@ -67,7 +67,7 @@ public class CurriculumService {
 
 	}
 
-	protected Curriculum save(final Curriculum curriculum) {
+	public Curriculum save(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		Assert.isTrue(!(this.curriculumRepository.exists(curriculum.getId())));
 

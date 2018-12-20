@@ -40,15 +40,14 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		
 		<security:intercept-url pattern="/curriculum/display.do" access="permitAll" /> 
-		
-		
 		
 		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		<security:intercept-url pattern="/application/handyworker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
 		
-		<security:intercept-url pattern="/educationRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/curriculum/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/endorserRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/miscellaneousRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/personalRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />

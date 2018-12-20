@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="personalRecord/edit.do" modelAttribute="personalRecord">
+<form:form action="${RequestURI}" modelAttribute="personalRecord">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
