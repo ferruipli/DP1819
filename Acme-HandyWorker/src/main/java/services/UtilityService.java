@@ -4,6 +4,7 @@ package services;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -27,13 +28,16 @@ public class UtilityService {
 	// Supporting services -----------------------------------------------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService		curriculumService;
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
-	private ComplaintService	complaintService;
+	private ComplaintService		complaintService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors ------------------------------------------------------------
@@ -202,6 +206,17 @@ public class UtilityService {
 		result = true;
 		return result;
 
+	}
+
+	public boolean entityIsSpam(final String string) {
+		boolean res = false;
+		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
+
+		for (final String sw : spamWords)
+			if (string.contains(sw))
+				res = true;
+
+		return res;
 	}
 
 }
