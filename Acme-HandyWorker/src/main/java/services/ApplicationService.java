@@ -53,9 +53,11 @@ public class ApplicationService {
 		Application result;
 		HandyWorker handyWorker;
 		CreditCard creditCard;
+		Date moment;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		creditCard = this.utilityService.createnewCreditCard();
+		moment = this.utilityService.current_moment();
 
 		Assert.notNull(handyWorker.getCurriculum());
 
@@ -64,6 +66,7 @@ public class ApplicationService {
 		result.setHandyWorker(handyWorker);
 		result.setFixUpTask(fixUpTask);
 		result.setCreditCard(creditCard);
+		result.setRegisterMoment(moment);
 
 		return result;
 	}
@@ -71,12 +74,9 @@ public class ApplicationService {
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Application result;
-		Date moment;
 
 		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
-			moment = this.utilityService.current_moment();
-			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
 			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))

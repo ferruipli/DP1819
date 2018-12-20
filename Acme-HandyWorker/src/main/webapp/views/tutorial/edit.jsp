@@ -24,6 +24,7 @@
 	<form:hidden path="moment" />
 	<form:hidden path="sponsorShips" />
 	<form:hidden path="handyWorker" />
+	<form:hidden path="sections" />
 
 	<form:label path="title">
 		<spring:message code="tutorial.title" />:
@@ -58,7 +59,7 @@
 	<display:column property="title" title="${sectionTitle}" sortable="true" />
 	
 	<spring:message code="tutorial.section.text" var="sectionText" />
-	<display:column property="sectionText" title="${sectionText}"/>
+	<display:column property="text" title="${sectionText}"/>
 	
 	<spring:message code="tutorial.section.pictures" var="sectionPictures" />
 	<display:column property="pictures" title="${sectionPictures}" />
@@ -74,8 +75,7 @@
 	<jstl:if test="${tutorial.id != 0}">
 	<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />" />
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="tutorial.cancel" />
-		"onclick="javascript: relativeRedir('tutorial/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="tutorial.cancel" />"onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
 	<br />
 
 </form:form>

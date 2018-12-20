@@ -121,5 +121,12 @@ public class TutorialService {
 
 		return result;
 	}
+	public Collection<Tutorial> findTutorialByHandyWorker(final HandyWorker handyWorker) {
+		Collection<Tutorial> tutorials;
+
+		tutorials = this.tutorialRepository.findTutorialByHandyWorker(handyWorker.getId());
+
+		return tutorials;
+	}
 
 }

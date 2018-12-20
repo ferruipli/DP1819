@@ -76,11 +76,19 @@
 	</display:table>
 	
 <%-- 	</security:authorize> --%>
-	   
-	   
+
+<security:authorize access="hasRole('HANDYWORKER')">   
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="tutorial.return" />"
-	   onclick="javascript: relativeRedir('tutorial/list.do');" />	
+	   onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />	
+</security:authorize>
+
+<security:authorize access= "isAnonymous()">   
+<input type="button" 
+	   name="return"
+	   value="<spring:message code="tutorial.return" />"
+	   onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />	
+</security:authorize>
 
 	
