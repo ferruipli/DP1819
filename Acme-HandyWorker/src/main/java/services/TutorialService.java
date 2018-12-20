@@ -33,6 +33,9 @@ public class TutorialService {
 	@Autowired
 	private UtilityService		utilityService;
 
+	@Autowired
+	private SectionService		sectionService;
+
 
 	//Constructor ----------------------------------------------------
 	public TutorialService() {
@@ -43,17 +46,22 @@ public class TutorialService {
 	public Tutorial create() {
 		Tutorial result;
 		final HandyWorker principal;
+		Section section;
+		Date moment;
 
 		principal = this.handyWorkerService.findByPrincipal();
+		section = new Section();
+		moment = this.utilityService.current_moment();
 
 		result = new Tutorial();
 		result.setHandyWorker(principal);
 		result.setSponsorShips(new ArrayList<Sponsorship>());
 		result.setSections(new ArrayList<Section>());
+		result.setMoment(moment);
+		this.sectionService.addSectionToTutorial(result, section);
 
 		return result;
 	}
-
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 		this.checkByPrincipal(tutorial);
