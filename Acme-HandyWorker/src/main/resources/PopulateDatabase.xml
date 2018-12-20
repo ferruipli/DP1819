@@ -2824,7 +2824,6 @@
 		<property name="body" value="Prueba de mensaje 1" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="administrator1" />
 		<property name="recipients">
 			<list>
@@ -2839,7 +2838,6 @@
 		<property name="body" value="Prueba de mensaje 2" />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="2" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="customer1" />
 		<property name="recipients">
 			<list>
@@ -2854,7 +2852,6 @@
 		<property name="body" value="Prueba de mensaje 3" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="3" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="handyworker1" />
 		<property name="recipients">
 			<list>
@@ -2869,7 +2866,6 @@
 		<property name="body" value="Prueba de mensaje 4" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="4" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="referee1" />
 		<property name="recipients">
 			<list>
@@ -2884,7 +2880,6 @@
 		<property name="body" value="Prueba de mensaje 5" />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="5" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="sponsor1" />
 		<property name="recipients">
 			<list>
@@ -2899,7 +2894,6 @@
 		<property name="body" value="Prueba de mensaje 6" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="6" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="customer1" />
 		<property name="recipients">
 			<list>
@@ -2914,7 +2908,6 @@
 		<property name="body" value="Prueba de mensaje 7" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="7" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="referee1" />
 		<property name="recipients">
 			<list>
@@ -2929,7 +2922,6 @@
 		<property name="body" value="Prueba de mensaje 8" />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="8" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="administrator1" />
 		<property name="recipients">
 			<list>
@@ -2944,7 +2936,6 @@
 		<property name="body" value="Prueba de mensaje 9" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="9" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="handyworker1" />
 		<property name="recipients">
 			<list>
@@ -2959,7 +2950,6 @@
 		<property name="body" value="Prueba de mensaje 10" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="false" />
 		<property name="sender" ref="sponsor1" />
 		<property name="recipients">
 			<list>
@@ -2974,7 +2964,6 @@
 		<property name="body" value="Este fin de semana quedamos" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="true" />
 		<property name="sender" ref="customer3" />
 		<property name="recipients">
 			<list>
@@ -2990,7 +2979,6 @@
 			value="He secuestrado a tu perro. Quiero un millón de criptomonedas" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="true" />
 		<property name="sender" ref="customer3" />
 		<property name="recipients">
 			<list>
