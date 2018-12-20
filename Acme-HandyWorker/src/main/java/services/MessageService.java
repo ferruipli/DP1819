@@ -106,7 +106,6 @@ public class MessageService {
 
 		if (this.utilityService.entityIsSpam(message.getBody()) || this.utilityService.entityIsSpam(message.getSubject())) {
 			this.actorService.markAsSuspicious(sender);
-
 			for (final Actor r : recipients) {
 				final Box spamBoxRecipients = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipients.getMessages().add(result);

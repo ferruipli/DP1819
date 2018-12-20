@@ -9,38 +9,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ProfessionalRecordService;
+import services.EducationRecordService;
 import controllers.AbstractController;
-import domain.ProfessionalRecord;
+import domain.EducationRecord;
 
 @Controller
-@RequestMapping("/professionalRecord/handyWorker")
-public class ProfessionalRecordController extends AbstractController {
+@RequestMapping("/educationRecord/handyWorker")
+public class EducationRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private ProfessionalRecordService	professionalRecordService;
+	private EducationRecordService	educationRecordService;
 
 
 	// Constructors ---------------------------------------
 
-	public ProfessionalRecordController() {
+	public EducationRecordHandyWorkerController() {
 		super();
 	}
 
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int professionalRecordId) {
+	public ModelAndView action1(@RequestParam final int educationRecordId) {
 		ModelAndView result;
-		ProfessionalRecord professionalRecord;
+		EducationRecord educationRecord;
 
-		professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
-		Assert.notNull(professionalRecord);
-		result = new ModelAndView("professionalRecord/edit");
+		educationRecord = this.educationRecordService.findOne(educationRecordId);
+		Assert.notNull(educationRecord);
+		result = new ModelAndView("educationRecord/edit");
 
-		result.addObject("professionalRecord", professionalRecord);
+		result.addObject("educationRecord", educationRecord);
 
 		return result;
 	}

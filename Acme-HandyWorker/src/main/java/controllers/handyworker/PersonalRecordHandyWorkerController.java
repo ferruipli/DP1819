@@ -9,38 +9,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.MiscellaneousRecordService;
+import services.PersonalRecordService;
 import controllers.AbstractController;
-import domain.MiscellaneousRecord;
+import domain.PersonalRecord;
 
 @Controller
-@RequestMapping("/miscellaneousRecord/handyWorker")
-public class MiscellaneousRecordController extends AbstractController {
+@RequestMapping("/personalRecord/handyWorker")
+public class PersonalRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private MiscellaneousRecordService	miscellaneousRecordService;
+	private PersonalRecordService	personalRecordService;
 
 
 	// Constructors ---------------------------------------
 
-	public MiscellaneousRecordController() {
+	public PersonalRecordHandyWorkerController() {
 		super();
 	}
 
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int miscellaneousRecordId) {
+	public ModelAndView action1(@RequestParam final int personalRecordId) {
 		ModelAndView result;
-		MiscellaneousRecord miscellaneousRecord;
+		PersonalRecord personalRecord;
 
-		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
-		Assert.notNull(miscellaneousRecord);
-		result = new ModelAndView("miscellaneousRecord/edit");
+		personalRecord = this.personalRecordService.findOne(personalRecordId);
+		Assert.notNull(personalRecord);
+		result = new ModelAndView("personalRecord/edit");
 
-		result.addObject("miscellaneousRecord", miscellaneousRecord);
+		result.addObject("personalRecord", personalRecord);
 
 		return result;
 	}

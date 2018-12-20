@@ -9,38 +9,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.EducationRecordService;
+import services.EndorserRecordService;
 import controllers.AbstractController;
-import domain.EducationRecord;
+import domain.EndorserRecord;
 
 @Controller
-@RequestMapping("/educationRecord/handyWorker")
-public class EducationRecordController extends AbstractController {
+@RequestMapping("/endorserRecord/handyWorker")
+public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private EducationRecordService	educationRecordService;
+	private EndorserRecordService	endorserRecordService;
 
 
 	// Constructors ---------------------------------------
 
-	public EducationRecordController() {
+	public EndorserRecordHandyWorkerController() {
 		super();
 	}
 
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int educationRecordId) {
+	public ModelAndView action1(@RequestParam final int endorserRecordId) {
 		ModelAndView result;
-		EducationRecord educationRecord;
+		EndorserRecord endorserRecord;
 
-		educationRecord = this.educationRecordService.findOne(educationRecordId);
-		Assert.notNull(educationRecord);
-		result = new ModelAndView("educationRecord/edit");
+		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
+		Assert.notNull(endorserRecord);
+		result = new ModelAndView("endorserRecord/edit");
 
-		result.addObject("educationRecord", educationRecord);
+		result.addObject("endorserRecord", endorserRecord);
 
 		return result;
 	}

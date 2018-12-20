@@ -9,38 +9,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.EndorserRecordService;
+import services.ProfessionalRecordService;
 import controllers.AbstractController;
-import domain.EndorserRecord;
+import domain.ProfessionalRecord;
 
 @Controller
-@RequestMapping("/endorserRecord/handyWorker")
-public class EndorserRecordController extends AbstractController {
+@RequestMapping("/professionalRecord/handyWorker")
+public class ProfessionalRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private EndorserRecordService	endorserRecordService;
+	private ProfessionalRecordService	professionalRecordService;
 
 
 	// Constructors ---------------------------------------
 
-	public EndorserRecordController() {
+	public ProfessionalRecordHandyWorkerController() {
 		super();
 	}
 
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int endorserRecordId) {
+	public ModelAndView action1(@RequestParam final int professionalRecordId) {
 		ModelAndView result;
-		EndorserRecord endorserRecord;
+		ProfessionalRecord professionalRecord;
 
-		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-		Assert.notNull(endorserRecord);
-		result = new ModelAndView("endorserRecord/edit");
+		professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
+		Assert.notNull(professionalRecord);
+		result = new ModelAndView("professionalRecord/edit");
 
-		result.addObject("endorserRecord", endorserRecord);
+		result.addObject("professionalRecord", professionalRecord);
 
 		return result;
 	}
