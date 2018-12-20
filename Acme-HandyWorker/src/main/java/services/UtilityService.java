@@ -1,9 +1,11 @@
 
 package services;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.joda.time.LocalDate;
@@ -14,7 +16,6 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
-import domain.Complaint;
 import domain.CreditCard;
 
 @Service
@@ -93,10 +94,32 @@ public class UtilityService {
 		Assert.isTrue(!actor.getUserAccount().getUsername().equals("System"));
 	}
 
-	public Collection<String> getSplittedAttachments(final Complaint complaint) {
-		Collection<String> result;
+	public void checkAttachments(final String attachments) {
+		List<String> attachmentList;
 
-		result = Arrays.asList(complaint.getAttachments().split("\r"));
+		Assert.notNull(attachments);
+		attachmentList = this.getSplittedAttachments(attachments);
+
+		for (final String at : attachmentList)
+			try {
+				new URL(at);
+			} catch (final MalformedURLException e) {
+				throw new IllegalArgumentException("Invalid URL");
+			}
+	}
+
+	public List<String> getSplittedAttachments(final String attachments) {
+		List<String> result;
+		String[] attachmentsArray;
+
+		result = new ArrayList<>();
+		attachmentsArray = attachments.split("\r");
+
+		for (String at : attachmentsArray) {
+			at = at.trim();
+			if (!at.isEmpty())
+				result.add(at);
+		}
 
 		return result;
 	}
@@ -124,8 +147,8 @@ public class UtilityService {
 		creditCard = new CreditCard();
 		creditCard.setBrandName("XXX");
 		creditCard.setCvvCode(123);
-		creditCard.setExpirationMonth("XXX");
-		creditCard.setExpirationYear("XXX");
+		creditCard.setExpirationMonth("01");
+		creditCard.setExpirationYear("00");
 		creditCard.setHolderName("XXX");
 		creditCard.setNumber("XXXXXXXXXXXXXXX");
 
@@ -155,14 +178,16 @@ public class UtilityService {
 
 	}
 
-	public void checkIfCreditCardChanged(final CreditCard creditCard) {
+	public Boolean checkIfCreditCardChanged(final CreditCard creditCard) {
 		String brandName;
 		String expirationMonth;
 		String expirationYear;
 		String holderName;
 		String number;
 		Integer cvvCode;
+		Boolean result;
 
+		result = false;
 		brandName = creditCard.getBrandName();
 		expirationMonth = creditCard.getExpirationMonth();
 		expirationYear = creditCard.getExpirationYear();
@@ -173,6 +198,9 @@ public class UtilityService {
 		//If creditCard is changed
 		if (!(brandName.equals("XXX") && expirationMonth.equals("XXX") && expirationYear.equals("XXX") && holderName.equals("XXX") && number.equals("XXXXXXXXXXXXXXX") && cvvCode.equals(123)))
 			Assert.isTrue(this.checkCreditCard(creditCard));
+
+		result = true;
+		return result;
 
 	}
 

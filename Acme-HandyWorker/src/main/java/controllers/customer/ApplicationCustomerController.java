@@ -33,9 +33,10 @@ public class ApplicationCustomerController extends AbstractController {
 	private ApplicationService		applicationService;
 
 	@Autowired
-	private CustomisationService	customisationService;
-	@Autowired
 	private FixUpTaskService		fixUpTasksService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -45,7 +46,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 	// Application List -----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView applicationList(@RequestParam final int fixUpTaskId) {
+	public ModelAndView list(@RequestParam final int fixUpTaskId) {
 		ModelAndView result;
 		Collection<Application> applications;
 		FixUpTask fixUpTask;
@@ -59,4 +60,56 @@ public class ApplicationCustomerController extends AbstractController {
 		return result;
 	}
 
+	// Application Edit -----------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application application;
+		Collection<String> brandName;
+
+		application = this.applicationService.findOne(applicationId);
+		brandName = this.customisationService.find().getCreditCardMakes();
+
+		result = this.createEditModelAndView(application);
+		result.addObject("brandName", brandName);
+
+		return result;
+	}
+
+	// Application cancel -----------------------------------------------------------
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application application;
+		application = this.applicationService.findOne(applicationId);
+
+		try {
+			this.applicationService.changeStatus(application);
+			result = new ModelAndView("redirect:../../fixUpTask/list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(application, "application.commit.error");
+		}
+
+		return result;
+	}
+	// Arcillary methods-----------------------------------------
+	protected ModelAndView createEditModelAndView(final Application application) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(application, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Application application, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("application/edit");
+		result.addObject("application", application);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
 }

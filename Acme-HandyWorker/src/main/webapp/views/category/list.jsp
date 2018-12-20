@@ -21,9 +21,9 @@
 			<spring:message code="category.edit" />
 		</a>
 	</display:column>
-			
-	<spring:message code="category.parent" var="parentHeader" />
-	<display:column property="parent" title="${parentHeader}" sortable="true" />
+	
+	<display:column value="${mapa.get(row.id)}" titleKey="categoryTranslation.name" sortable="true" />		
+	<display:column value="${mapa.get(row.parent.id)}" titleKey="category.parent" />
 </display:table>
 
 <a href="category/administrator/create.do">

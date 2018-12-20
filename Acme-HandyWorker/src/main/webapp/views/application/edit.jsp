@@ -24,14 +24,21 @@
 	<form:hidden path="registerMoment" />
 	<form:hidden path="handyWorker" />	
 	<form:hidden path="fixUpTask" />
+	<form:hidden path="status" />
+	<form:hidden path="creditCard" />	
+	<form:hidden path="handyWorkerComments" />
+	<form:hidden path="customerComments" />
+
+<security:authorize access="hasRole('HANDYWORKER')">
 	
-	<security:authorize access="hasRole('HANDYWORKER')">
+	<jstl:if test="${application.status=='PENDING'}">
 		<form:label path="offeredPrice">
 			<spring:message code="application.offeredPrice" />:
 		</form:label>
 		<form:input path="offeredPrice" />&#8364; (<spring:message code = "application.vat"/>)
 		<form:errors cssClass="error" path="offeredPrice" />
 	<br />
+	</jstl:if>
 	
 		<form:label path="handyWorkerComments">
 			<spring:message code="application.handyWorkerComments" />:
@@ -39,33 +46,17 @@
 		<form:input path="handyWorkerComments" />
 		<form:errors cssClass="error" path="handyWorkerComments" />
 		<br />
-	</security:authorize>
+</security:authorize>
 	
-	<security:authorize access="hasRole('CUSTOMER')">
+<security:authorize access="hasRole('CUSTOMER')">
 		<form:label path="customerComments">
 			<spring:message code="application.customerComments" />:
 		</form:label>
 		<form:input path="customerComments" />
 		<form:errors cssClass="error" path="customerComments" />
 		<br /><br/>
-	
-		<jstl:if test="${application.status=='PENDING'}">
-		<form:label path="status">
-			<spring:message code="application.status"/>:
-		</form:label>
-		<form:select path="status" multiple="false" size="2">
-			<spring:message code="application.status.rejected" var = "rejected"/>
-			<form:option label="${rejected}" value="REJECTED"/>
-			<spring:message code="application.status.accepted" var = "accepted"/>
-			<form:option label="${accepted}" value="ACCEPTED"/>
-			</form:select>
-			<form:errors cssClass="error" path="status"/>
-			<br /><br/>
-		 <p>
-	 	</p>	
- 		<strong> <spring:message code="application.warning" /> </strong>
- 
-		</jstl:if>
+
+
 	 <fieldset>
 	<h2><strong> <spring:message code="application.creditCard" /> </strong></h2>
 
@@ -75,21 +66,29 @@
 		<form:input path="creditCard.holderName" />
 		<form:errors cssClass="error" path="creditCard.holderName" />
 	<br /><br/>
-		<form:label path="creditCard.brandName">
+	
+<%-- 		<form:label id = "brandName" path="brandName">
+		<spring:message code="application.creditCard.brandName" />:
+		</form:label>
 			<form:select path="brandName">
-				<form:options item="${brandName}" itemLabel="brandName" itemValue="id" />
-				<form:option label="----" value="0" />
+				<form:options items="${brandName}" itemLabel="brandName" itemValue="id" />
 			</form:select>
+ --%>
+ 
+ <form:label path="creditCard.brandName">
+			<spring:message code="application.creditCard.brandName" />:
 		</form:label>
 		<form:input path="creditCard.brandName" />
 		<form:errors cssClass="error" path="creditCard.brandName" />
 	<br /><br/>
+
 		<form:label path="creditCard.number">
 			<spring:message code="application.creditCard.number" />:
 		</form:label>
 		<form:input path="creditCard.number" />
 		<form:errors cssClass="error" path="creditCard.number" />
 	<br /><br/>
+	
 		<form:label path="creditCard.expirationMonth">
 			<spring:message code="application.creditCard.expirationMonth" />:
 		</form:label>
@@ -99,19 +98,31 @@
 		<form:label path="creditCard.expirationYear">
 			<spring:message code="application.creditCard.expirationYear" />:
 		</form:label>
+	
 		<form:input path="creditCard.expirationYear" />
 		<form:errors cssClass="error" path="creditCard.expirationYear" />
 	<br /><br/>
 		<form:label path="creditCard.cvvCode">
 			<spring:message code="application.creditCard.cvvCode" />:
 		</form:label>
+			
 		<form:input path="creditCard.cvvCode" />
-		<form:errors cssClass="error" path="creditCard.cvvCode" />
- 	</fieldset>	
+		<form:errors cssClass="error" path="creditCard.cvvCode" /> 
+ 	</fieldset>
+ 	
 	</security:authorize>
-	
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('application/handyWorker,customer/list.do');" />
+
+<security:authorize access="hasRole('HANDYWORKER')">
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
 	<br />
+</security:authorize>	
+	
+
+<security:authorize access="hasRole('CUSTOMER')">
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel" />"onclick="javascript: relativeRedir('../../');" />
+	<br />
+</security:authorize>
+	
 
 </form:form>

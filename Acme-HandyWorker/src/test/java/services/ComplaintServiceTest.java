@@ -45,6 +45,7 @@ public class ComplaintServiceTest extends AbstractTest {
 
 		complaint = this.complaintService.create();
 		complaint.setDescription("Esto es una queja de test");
+		complaint.setAttachments("http://www.test1.com\rhttp://www.test2.com");
 		complaint.setFixUpTask(fixUpTask);
 
 		saved = this.complaintService.save(complaint);
@@ -67,6 +68,7 @@ public class ComplaintServiceTest extends AbstractTest {
 
 		complaint = this.complaintService.create();
 		complaint.setDescription("Esto es una queja de test");
+		complaint.setAttachments("http://www.test1.com\rhttp://www.test2.com");
 		complaint.setFixUpTask(fixUpTask);
 
 		saved = this.complaintService.save(complaint);
@@ -85,25 +87,9 @@ public class ComplaintServiceTest extends AbstractTest {
 
 		complaint = this.complaintService.findOne(super.getEntityId("complaint1"));
 		complaint.setDescription("Esta descripción ha sido modificada en el test");
+		complaint.setAttachments("http://www.test1.com\rhttp://www.test2.com");
 		this.complaintService.save(complaint);
 
 		super.unauthenticate();
 	}
-
-	//	@Test
-	//	public void testSecurityFindSelfAssigned() {
-	//		Collection<Complaint> complaints;
-	//		Complaint c1;
-	//
-	//		c1 = this.complaintService.findOne(super.getEntityId("complaint1"));
-	//
-	//		super.authenticate("referee1");
-	//
-	//		complaints = this.complaintService.findSelfAssignedByPrincipal();
-	//		complaints.remove(c1);
-	//		complaints = this.complaintService.findSelfAssignedByPrincipal();
-	//		Assert.isTrue(complaints.contains(c1));
-	//
-	//		super.unauthenticate();
-	//	}
 }

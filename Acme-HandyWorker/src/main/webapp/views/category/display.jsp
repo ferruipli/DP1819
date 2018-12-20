@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+<p>
+	<strong> <spring:message code="categoryTranslation.name" />: </strong>
+	<jstl:out value="${mapa.get(category.id)}" />
+</p>
+
+<p>
+	<strong> <spring:message code="category.parent" />: </strong>
+	<a href="category/administrator/display.do?categoryId=${parent.id}">
+		<jstl:out value="${mapa.get(category.parent.id)}" />
+	</a>
+</p>
+
+<jstl:if test="${not empty category.descendants}">
+	<strong> <spring:message code="category.descendant" />: </strong>
+	<display:table name="category.descendants" id="row" requestURI="category/administrator/display.do" pagesize="5" class="displaytag">
+		<display:column>
+			<a href="category/administrator/display.do?categoryId=${mapa.get(row.id)}">
+				<spring:message code="category.display" />
+			</a>
+		</display:column>
+		<display:column>
+			<a href="category/administrator/edit.do?categoryId=${mapa.get(row.id)}">
+				<spring:message code="category.edit" />
+			</a>
+		</display:column>
+		<display:column value="${mapa.get(row.id)}" titleKey="categoryTranslation.name" />
+	</display:table>
+</jstl:if>
+
+<p>
+	<a href="category/administrator/list.do">
+		 <spring:message code="category.return" />
+	</a>
+</p>
+
+	   
+	   

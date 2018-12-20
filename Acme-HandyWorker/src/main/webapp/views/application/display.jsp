@@ -32,7 +32,7 @@
 
 <p>
 	<strong> <spring:message code="application.offeredPrice" />: </strong>
-	<jstl:out value="${application.offeredPrice}" />&#8364;   (<jstl:out value="${VAT}" /> %<spring:message code = "application.vat.no"></spring:message>)
+	<jstl:out value="${application.offeredPrice}" />&#8364;   (<spring:message code = "application.vat.no"></spring:message>)
 </p>
 
 <p>
@@ -53,6 +53,7 @@
 </p>
 
 <security:authorize access="hasRole('CUSTOMER')" >
+	<jstl:if test="${application.status=='ACCEPTED'}">
  <fieldset>
 <h2><strong> <spring:message code="application.creditCard" /> </strong></h2>
  <p>
@@ -77,10 +78,19 @@
 	<jstl:out value="${application.creditCard.cvvCode}" />
  
  </fieldset>
+ </jstl:if>
  </security:authorize>
-	   
+ 
+ 
+<security:authorize access="hasRole('CUSTOMER')" >	   
+<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
+					<spring:message	code="application.return" />
+				</a>
+</security:authorize>
+
+<security:authorize access="hasRole('HANDYWORKER')" >	   
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="application.return" />"
-	   onclick="javascript: relativeRedir('application/handyWorker,customer/list.do');" />	
-	
+	   onclick="javascript: relativeRedir('application/handyWorker/list.do');" />	
+</security:authorize>
