@@ -51,9 +51,6 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView changeBan(@RequestParam final int actorId) {
 		ModelAndView result;
 		Actor actor;
-		String messageCode;
-
-		messageCode = "actor.commit.error";
 
 		actor = this.actorService.findOne(actorId);
 
@@ -62,10 +59,8 @@ public class ActorAdministratorController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", messageCode);
 		}
 
 		return result;
 	}
-
 }

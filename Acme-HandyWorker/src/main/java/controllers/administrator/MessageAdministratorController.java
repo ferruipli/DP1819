@@ -1,11 +1,8 @@
 
 package controllers.administrator;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,23 +39,24 @@ public class MessageAdministratorController extends AbstractController {
 	}
 
 	// Edition ----------------------------------------------------------------
-
-	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
-	public ModelAndView broadcast(@Valid final Message messageToBroadcast, final BindingResult binding) {
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			result = this.broadcastModelAndView(messageToBroadcast);
-		else
-			try {
-				this.messageService.broadcastMessage(messageToBroadcast);
-				result = new ModelAndView("redirect:/welcome/index.do");
-			} catch (final Throwable oops) {
-				result = this.broadcastModelAndView(messageToBroadcast, "message.commit.error");
-			}
-
-		return result;
-	}
+	/*
+	 * @RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
+	 * public ModelAndView broadcast(@Valid final Message messageToBroadcast, final BindingResult binding) {
+	 * ModelAndView result;
+	 * 
+	 * if (binding.hasErrors())
+	 * result = this.broadcastModelAndView(messageToBroadcast);
+	 * else
+	 * try {
+	 * this.messageService.broadcastMessage(messageToBroadcast);
+	 * result = new ModelAndView("redirect:/welcome/index.do");
+	 * } catch (final Throwable oops) {
+	 * result = this.broadcastModelAndView(messageToBroadcast, "message.commit.error");
+	 * }
+	 * 
+	 * return result;
+	 * }
+	 */
 
 	// Ancillary methods ------------------------------------------------------
 
