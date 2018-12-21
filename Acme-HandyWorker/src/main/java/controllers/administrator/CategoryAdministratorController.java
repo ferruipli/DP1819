@@ -11,7 +11,6 @@
 package controllers.administrator;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -48,25 +47,23 @@ public class CategoryAdministratorController extends AbstractController {
 	@RequestMapping("/display")
 	public ModelAndView display(@RequestParam final int categoryId, final Locale locale) {
 		ModelAndView result;
-		Category category;
-		String language, name_sibling, name_parent, name_category;
+		Category category, root;
+		String language, name_parent, name_category;
 		Map<Integer, String> category_name;
 
 		category = this.categoryService.findOne(categoryId);
+		root = this.categoryService.findRootCategory();
 
-		language = (locale.getLanguage().equals(new Locale("es").getLanguage())) ? "Español" : "Ingles";
-		//TODO: Cambiar denominacion de los idiomas del sistema: es, en.
+		language = locale.getLanguage();
 
 		name_category = this.categoryTranslationService.findByLanguageCategory(category.getId(), language).getName();
-		name_parent = this.categoryTranslationService.findByLanguageCategory(category.getParent().getId(), language).getName();
 
-		category_name = new HashMap<Integer, String>();
+		category_name = this.categoryService.categoriesByLanguage(category.getDescendants(), language);
 		category_name.put(categoryId, name_category);
-		category_name.put(category.getParent().getId(), name_parent);
 
-		for (final Category c : category.getDescendants()) {
-			name_sibling = this.categoryTranslationService.findByLanguageCategory(c.getId(), language).getName();
-			category_name.put(c.getId(), name_sibling);
+		if (!root.equals(category)) {
+			name_parent = this.categoryTranslationService.findByLanguageCategory(category.getParent().getId(), language).getName();
+			category_name.put(category.getParent().getId(), name_parent);
 		}
 
 		result = new ModelAndView("category/display");
@@ -83,18 +80,13 @@ public class CategoryAdministratorController extends AbstractController {
 		ModelAndView result;
 		Collection<Category> categories;
 		Map<Integer, String> category_name;
-		String language, name_category;
+		String language;
 
 		categories = this.categoryService.findAll();
 
-		language = (locale.getLanguage().equals(new Locale("es").getLanguage())) ? "Español" : "Ingles";
+		language = locale.getLanguage();
 
-		category_name = new HashMap<Integer, String>();
-
-		for (final Category c : categories) {
-			name_category = this.categoryTranslationService.findByLanguageCategory(c.getId(), language).getName();
-			category_name.put(c.getId(), name_category);
-		}
+		category_name = this.categoryService.categoriesByLanguage(categories, language);
 
 		result = new ModelAndView("category/list");
 		result.addObject("requestURI", "category/administrator/list.do");

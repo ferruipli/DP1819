@@ -265,11 +265,11 @@ public class CategoryServiceTest extends AbstractTest {
 		CategoryTranslation ct1, ct2, ct1_saved, ct2_saved;
 
 		ct1 = this.categoryTranslationService.create();
-		ct1.setLanguage("Español");
+		ct1.setLanguage("es");
 		ct1.setName("Arreglar videoconsola");
 
 		ct2 = this.categoryTranslationService.create();
-		ct2.setLanguage("Ingles");
+		ct2.setLanguage("en");
 		ct2.setName("Repair videoconsole");
 
 		ct1_saved = this.categoryTranslationService.save(ct1);
@@ -288,11 +288,11 @@ public class CategoryServiceTest extends AbstractTest {
 		CategoryTranslation ct1, ct2, ct1_saved, ct2_saved;
 
 		ct1 = this.categoryTranslationService.create();
-		ct1.setLanguage("Ingles");
+		ct1.setLanguage("en");
 		ct1.setName("Formatear PC");
 
 		ct2 = this.categoryTranslationService.create();
-		ct2.setLanguage("Ingles");
+		ct2.setLanguage("en");
 		ct2.setName("Format PC");
 
 		ct1_saved = this.categoryTranslationService.save(ct1);
@@ -311,7 +311,7 @@ public class CategoryServiceTest extends AbstractTest {
 		CategoryTranslation ct, saved;
 
 		ct = this.categoryTranslationService.create();
-		ct.setLanguage("Español");
+		ct.setLanguage("es");
 		ct.setName("Instalar programas PC");
 
 		saved = this.categoryTranslationService.save(ct);

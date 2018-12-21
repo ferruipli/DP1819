@@ -53,7 +53,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 		categoryTranslation = this.categoryTranslationService.create();
 		categoryTranslation.setName("Bricomania");
-		categoryTranslation.setLanguage("Español");
+		categoryTranslation.setLanguage("es");
 
 		saved = this.categoryTranslationService.save(categoryTranslation);
 
@@ -79,7 +79,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 		categoryTranslation = this.categoryTranslationService.create();
 		categoryTranslation.setName("Carpinteria");
-		categoryTranslation.setLanguage("Español");
+		categoryTranslation.setLanguage("es");
 
 		saved = this.categoryTranslationService.save(categoryTranslation);
 
@@ -122,7 +122,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 		categoryTranslation = this.categoryTranslationService.create();
 		categoryTranslation.setName("Menuiserie");
-		categoryTranslation.setLanguage("Frances");
+		categoryTranslation.setLanguage("fr");
 
 		saved = this.categoryTranslationService.save(categoryTranslation);
 
@@ -165,7 +165,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 		categoryTranslation = this.categoryTranslationService.create();
 		categoryTranslation.setName("Fibra optica");
-		categoryTranslation.setLanguage("Español");
+		categoryTranslation.setLanguage("es");
 
 		this.categoryTranslationService.delete(categoryTranslation);
 
@@ -206,7 +206,7 @@ public class CategoryTranslationServiceTest extends AbstractTest {
 
 		id = super.getEntityId("category5");
 
-		language = "Español";
+		language = "es";
 
 		categoryTranslation = this.categoryTranslationService.findByLanguageCategory(id, language);
 
