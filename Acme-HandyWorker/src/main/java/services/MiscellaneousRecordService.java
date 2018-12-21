@@ -34,7 +34,7 @@ public class MiscellaneousRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	protected MiscellaneousRecord create() {
+	public MiscellaneousRecord create() {
 		MiscellaneousRecord result;
 
 		result = new MiscellaneousRecord();
@@ -62,7 +62,7 @@ public class MiscellaneousRecordService {
 		return results;
 	}
 
-	protected MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
+	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
 
 		MiscellaneousRecord result;
@@ -81,7 +81,7 @@ public class MiscellaneousRecordService {
 		return result;
 
 	}
-	protected void delete(final MiscellaneousRecord miscellaneousRecord) {
+	public void delete(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
 		Assert.isTrue(miscellaneousRecord.getId() != 0);
 		this.checkByPrincipal(miscellaneousRecord);
