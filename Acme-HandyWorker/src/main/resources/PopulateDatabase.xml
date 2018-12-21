@@ -61,6 +61,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 
 	<bean id="userAccount5" class="security.UserAccount">
@@ -151,6 +152,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="true" />
 	</bean>
 
 	<bean id="userAccount12" class="security.UserAccount">
@@ -163,6 +165,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 
 	<bean id="userAccount13" class="security.UserAccount">
@@ -175,6 +178,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 
 	<bean id="userAccount14" class="security.UserAccount">
@@ -187,6 +191,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 
 	<bean id="userAccount15" class="security.UserAccount">
@@ -199,6 +204,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 
 	<bean id="userAccount16" class="security.UserAccount">

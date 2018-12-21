@@ -95,4 +95,12 @@ public class SocialProfileService {
 		Assert.isTrue(socialProfile.getActor().equals(actor));
 	}
 
+	public Collection<SocialProfile> findSocialProfilesByActor(final int actorId) {
+		Collection<SocialProfile> result;
+
+		result = this.socialProfileRepository.findSocialProfilesByActor(actorId);
+
+		return result;
+	}
+
 }
