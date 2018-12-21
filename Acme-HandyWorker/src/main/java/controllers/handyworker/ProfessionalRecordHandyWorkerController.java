@@ -90,7 +90,7 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 
 		try {
 			this.professionalRecordService.delete(professionalRecord);
-			result = new ModelAndView("redirect:curriculum/display.do");
+			result = new ModelAndView("redirect:../../curriculum/display.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(professionalRecord, "professionalRecord.commit.error");
 		}

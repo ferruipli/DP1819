@@ -67,6 +67,6 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="professionalRecord.cancel"/>"
-		onclick="javascript: relativeRedir('curriculum/handyWorker/display.do');" />
+		onclick="javascript: relativeRedir('curriculum/display.do');" />
 	<br />
 </form:form>
