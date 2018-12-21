@@ -30,7 +30,7 @@
 </display:table>
 
 	
-	<a href="socialProfile/authenticated/edit.do"><spring:message code="socialProfile.new"/></a>
+	<a href="socialProfile/authenticated/create.do"><spring:message code="socialProfile.new"/></a>
 	
 	<br><br>
 		
