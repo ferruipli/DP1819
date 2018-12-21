@@ -6,7 +6,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="complaints" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="complaints" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
 		<a href="complaint/referee,customer,handyWorker/display.do?complaintId=${row.id}"><spring:message code="complaint.display"/></a>
 	</display:column>
@@ -17,6 +17,8 @@
 	<display:column property="moment" titleKey="complaint.moment" sortable="true"  format="${tableDateFormat}"/>
 </display:table>
 
-<security:authorize access="hasRole('CUSTOMER')">
-	<a href="complaint/customer/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="complaint.create"/></a>
-</security:authorize>
+<jstl:if test="${fixUpTaskId ne null}">
+	<security:authorize access="hasRole('CUSTOMER')">
+		<a href="complaint/customer/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="complaint.create"/></a>
+	</security:authorize>
+</jstl:if>

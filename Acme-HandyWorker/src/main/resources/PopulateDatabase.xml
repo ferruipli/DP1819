@@ -1640,257 +1640,257 @@
 	<!-- CategoriesTransaltion raiz -->
 	<bean id="categoryTranslation1" class="domain.CategoryTranslation">
 		<property name="name" value="CATEGORY" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation2" class="domain.CategoryTranslation">
 		<property name="name" value="CATEGORIA" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<!-- CategoriesTranslation de primer nivel -->
 	<bean id="categoryTranslation3" class="domain.CategoryTranslation">
 		<property name="name" value="Repair" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation4" class="domain.CategoryTranslation">
 		<property name="name" value="Reparacion" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation5" class="domain.CategoryTranslation">
 		<property name="name" value="Installation" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation6" class="domain.CategoryTranslation">
 		<property name="name" value="Instalacion" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation7" class="domain.CategoryTranslation">
 		<property name="name" value="Miscellaneous" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation8" class="domain.CategoryTranslation">
 		<property name="name" value="Miscelaneo" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<!-- CategoriesTranslation de segundo nivel -->
 	<!-- Repair -->
 	<bean id="categoryTranslation9" class="domain.CategoryTranslation">
 		<property name="name" value="Ceiling repair" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation10" class="domain.CategoryTranslation">
 		<property name="name" value="Reparaciones de techo" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation11" class="domain.CategoryTranslation">
 		<property name="name" value="Lamp repairs" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation12" class="domain.CategoryTranslation">
 		<property name="name" value="Reparaciones de lampara" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation13" class="domain.CategoryTranslation">
 		<property name="name" value="Plumbing repairs" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation14" class="domain.CategoryTranslation">
 		<property name="name" value="Reparaciones de fontaneria" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation15" class="domain.CategoryTranslation">
 		<property name="name" value="Sprinkler repair" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation16" class="domain.CategoryTranslation">
 		<property name="name" value="Reparacion de sistema de aspersion" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation17" class="domain.CategoryTranslation">
 		<property name="name" value="Window repair" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation18" class="domain.CategoryTranslation">
 		<property name="name" value="Reparacion de ventana" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<!-- Installation -->
 	<bean id="categoryTranslation19" class="domain.CategoryTranslation">
 		<property name="name" value="Electrical wiring" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation20" class="domain.CategoryTranslation">
 		<property name="name" value="Cableado electrico" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation21" class="domain.CategoryTranslation">
 		<property name="name" value="Fan installation" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation22" class="domain.CategoryTranslation">
 		<property name="name" value="Instalacion del ventilador" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation23" class="domain.CategoryTranslation">
 		<property name="name" value="Shelf installation" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation24" class="domain.CategoryTranslation">
 		<property name="name" value="Instalacion de estanteria" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation25" class="domain.CategoryTranslation">
 		<property name="name" value="Home security systems" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation26" class="domain.CategoryTranslation">
 		<property name="name" value="Sistemas de seguridad del hogar" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation27" class="domain.CategoryTranslation">
 		<property name="name" value="Insulation installation" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation28" class="domain.CategoryTranslation">
 		<property name="name" value="Instalacion de aislamiento" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<!-- Miscellaneous -->
 	<bean id="categoryTranslation29" class="domain.CategoryTranslation">
 		<property name="name" value="Carpentry" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation30" class="domain.CategoryTranslation">
 		<property name="name" value="Carpinteria" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation31" class="domain.CategoryTranslation">
 		<property name="name" value="Cleaning" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation32" class="domain.CategoryTranslation">
 		<property name="name" value="Limpieza" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation33" class="domain.CategoryTranslation">
 		<property name="name" value="Concrete work" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation34" class="domain.CategoryTranslation">
 		<property name="name" value="Trabajo concreto" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation35" class="domain.CategoryTranslation">
 		<property name="name" value="Doors" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation36" class="domain.CategoryTranslation">
 		<property name="name" value="Puertas" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation37" class="domain.CategoryTranslation">
 		<property name="name" value="Roofing" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation38" class="domain.CategoryTranslation">
 		<property name="name" value="Techo/Tejado" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation39" class="domain.CategoryTranslation">
 		<property name="name" value="Solar panels" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation40" class="domain.CategoryTranslation">
 		<property name="name" value="Paneles solares" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation41" class="domain.CategoryTranslation">
 		<property name="name" value="Fence fixing" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation42" class="domain.CategoryTranslation">
 		<property name="name" value="Fijar valla" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation43" class="domain.CategoryTranslation">
 		<property name="name" value="Moving" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation44" class="domain.CategoryTranslation">
 		<property name="name" value="Mudanza" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation45" class="domain.CategoryTranslation">
 		<property name="name" value="Painting" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation46" class="domain.CategoryTranslation">
 		<property name="name" value="Pintar" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation47" class="domain.CategoryTranslation">
 		<property name="name" value="Pest control" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation48" class="domain.CategoryTranslation">
 		<property name="name" value="Control de plagas" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<bean id="categoryTranslation49" class="domain.CategoryTranslation">
 		<property name="name" value="Soundproofing" />
-		<property name="language" value="Ingles" />
+		<property name="language" value="en" />
 	</bean>
 
 	<bean id="categoryTranslation50" class="domain.CategoryTranslation">
 		<property name="name" value="Insonorizacion" />
-		<property name="language" value="Español" />
+		<property name="language" value="es" />
 	</bean>
 
 	<!-- Complaint -->
@@ -2124,8 +2124,8 @@
 		</property>
 		<property name="languages">
 			<list>
-				<value>Español</value>
-				<value>Ingles</value>
+				<value>es</value>
+				<value>en</value>
 			</list>
 		</property>		
 	</bean>

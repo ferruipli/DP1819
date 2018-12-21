@@ -25,13 +25,15 @@
 	<jstl:out value="${complaint.description}"/>
 	<br/>
 	
-	<strong><spring:message code="complaint.attachments"/>:</strong>
-	<br>
-	<jstl:forEach var="attachment" items="${attachments}">
-		<div>
-			<a href="${attachment}"><jstl:out value="${attachment}"/></a>
-		</div>
-	</jstl:forEach>
+	<jstl:if test="${not empty attachments}">
+		<strong><spring:message code="complaint.attachments"/>:</strong>
+		<br>
+		<ul>
+			<jstl:forEach var="attachment" items="${attachments}">
+				<li> <a href="${attachment}"><jstl:out value="${attachment}"/></a> </li>
+			</jstl:forEach>
+		</ul>
+	</jstl:if>
 </fieldset>
 
 <fieldset>
@@ -49,23 +51,22 @@
 </fieldset>
 	
 	
-<!-- Buttons -->
+<!-- Links -->
 <br>
 
 <security:authorize access="hasRole('REFEREE')">
 	<a href="complaint/referee/listSelfAssigned.do"><spring:message code="complaint.back"/></a>
+	&nbsp;
 	<jstl:if test="${not isAssigned}">
 		<a href="complaint/referee/selfAssign.do?complaintId=${complaint.id}"><spring:message code="complaint.self.assign"/></a>
+		&nbsp;
 	</jstl:if>
 	<jstl:if test="${reportCreationPerm}">
 		<a href="report/referee/create.do?complaintId=${complaint.id}"><spring:message code="complaint.create.report"/></a>
+		&nbsp;
 	</jstl:if>
 </security:authorize>
 
-<security:authorize access="hasRole('CUSTOMER')">
-	<a href="fixUpTask/customer/list.do"><spring:message code="complaint.back"/></a>
-</security:authorize>
-
-<security:authorize access="hasRole('HANDYWORKER')">
-	<a href="application/handyWorker/list.do"><spring:message code="complaint.back"/></a>
+<security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
+	<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${complaint.fixUpTask.id}"><spring:message code="complaint.back"/></a>
 </security:authorize>

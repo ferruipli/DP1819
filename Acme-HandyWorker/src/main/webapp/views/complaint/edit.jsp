@@ -38,7 +38,7 @@
 	<!-- Buttons -->
 	
 	<input type="submit" name="save" value="<spring:message code="complaint.save"/>" onclick="return confirm('<spring:message code="complaint.confirm.save"/>')"/>
-	<input type="button" name="cancel"	value="<spring:message code="complaint.cancel"/>" onclick="javascript: relativeRedir('fixUpTask/customer/list.do');"/>
+	<input type="button" name="cancel"	value="<spring:message code="complaint.cancel"/>" onclick="javascript: relativeRedir('complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${complaint.fixUpTask.id}');"/>
 	<br />
 
 </form:form>
