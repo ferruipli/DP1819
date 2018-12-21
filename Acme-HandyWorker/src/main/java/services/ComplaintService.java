@@ -1,8 +1,6 @@
 
 package services;
 
-import java.util.Date;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +41,10 @@ public class ComplaintService {
 	private RefereeService		refereeService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private ApplicationService	applicationService;
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor ------------------------------------------------------------
@@ -62,6 +60,7 @@ public class ComplaintService {
 
 		result = new Complaint();
 		result.setTicker(this.utilityService.generateValidTicker());
+		result.setMoment(this.utilityService.current_moment());
 
 		return result;
 	}
@@ -74,16 +73,11 @@ public class ComplaintService {
 
 		Complaint result;
 		Customer principal;
-		Date moment;
 
-		moment = this.utilityService.current_moment();
 		principal = this.customerService.findByPrincipal();
-
 		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));
 
-		complaint.setMoment(moment);
 		result = this.complaintRepository.save(complaint);
-
 		this.fixUpTaskService.addComplaint(complaint.getFixUpTask(), result);
 
 		return result;
@@ -100,18 +94,20 @@ public class ComplaintService {
 
 	// Other business methods -------------------------------------------------
 
-	public Page<Complaint> findByCustomerPrincipal(final Pageable pageable) {
-		Page<Complaint> result;
-		Customer principal;
+	public boolean isAssigned(final int complaintId) {
+		return this.complaintRepository.findAssigned(complaintId) != null;
+	}
 
-		principal = this.customerService.findByPrincipal();
-		result = this.complaintRepository.findByCustomerPrincipal(principal.getId(), pageable);
+	public Page<Complaint> findByFixUpTaskId(final int fixUpTaskId, final Pageable pageable) {
+		Page<Complaint> result;
+
+		result = this.complaintRepository.findByFixUpTaskId(fixUpTaskId, pageable);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Page<Complaint> findNotSelfAssigned(final Pageable pageable) {
+	public Page<Complaint> findNotAssigned(final Pageable pageable) {
 		Page<Complaint> result;
 
 		result = this.complaintRepository.findNotAssigned(pageable);
@@ -131,7 +127,7 @@ public class ComplaintService {
 		return result;
 	}
 
-	public Page<Complaint> findInvolvedByHandyWorkerId(final int handyWorkerId, final Pageable pageable) {
+	public Page<Complaint> findInvolvedByHandyWorkerPrincipal(final Pageable pageable) {
 		Page<Complaint> result;
 		HandyWorker principal;
 
