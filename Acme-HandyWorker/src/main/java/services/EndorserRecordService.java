@@ -37,7 +37,7 @@ public class EndorserRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	protected EndorserRecord create() {
+	public EndorserRecord create() {
 		EndorserRecord result;
 
 		result = new EndorserRecord();
@@ -65,7 +65,7 @@ public class EndorserRecordService {
 		return results;
 	}
 
-	protected EndorserRecord save(final EndorserRecord endorserRecord) {
+	public EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		this.utilityService.checkEmailRecords(endorserRecord.getEmail());
 
@@ -86,7 +86,7 @@ public class EndorserRecordService {
 		return result;
 	}
 
-	protected void delete(final EndorserRecord endorserRecord) {
+	public void delete(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
 		Assert.isTrue(endorserRecord.getId() != 0);
 		this.checkByPrincipal(endorserRecord);

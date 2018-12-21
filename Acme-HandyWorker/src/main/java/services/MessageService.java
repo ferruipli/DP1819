@@ -104,14 +104,12 @@ public class MessageService {
 
 		result = this.messageRepository.save(message);
 
-		if (this.utilityService.entityIsSpam(message.getBody()) || this.utilityService.entityIsSpam(message.getSubject())) {
-			this.actorService.markAsSuspicious(sender);
-
+		if (this.utilityService.checkIsSpamMarkAsSuspicious(message.getBody(), sender) || this.utilityService.checkIsSpamMarkAsSuspicious(message.getSubject(), sender))
 			for (final Actor r : recipients) {
 				final Box spamBoxRecipients = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipients.getMessages().add(result);
 			}
-		} else
+		else
 			for (final Actor r : recipients) {
 				final Box inBoxRecipients = this.boxService.searchBox(r, "in box");
 				inBoxRecipients.getMessages().add(result);

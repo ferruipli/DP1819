@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="educationRecord/edit.do"
+<form:form action="educationRecord/handyWorker/edit.do"
 	modelAttribute="educationRecord">
 
 	<form:hidden path="id" />
@@ -68,6 +68,6 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="educationRecord.cancel"/>"
-		onclick="javascript: relativeRedir('curriculum/handyWorker/display.do');" />
+		onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');" />
 	<br />
 </form:form>

@@ -39,6 +39,9 @@ public class UtilityService {
 	@Autowired
 	private CustomisationService	customisationService;
 
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructors ------------------------------------------------------------
 
@@ -208,14 +211,18 @@ public class UtilityService {
 
 	}
 
-	public boolean entityIsSpam(final String string) {
+	public boolean checkIsSpamMarkAsSuspicious(final String string, final Actor actor) {
 		boolean res = false;
 		final Collection<String> spamWords = this.customisationService.find().getSpamWords();
 
 		for (final String sw : spamWords)
-			if (string.contains(sw))
+			if (string.contains(sw)) {
 				res = true;
+				break;
+			}
 
+		if (res)
+			this.actorService.markAsSuspicious(actor);
 		return res;
 	}
 

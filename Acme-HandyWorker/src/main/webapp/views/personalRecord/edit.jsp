@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="personalRecord/edit.do" modelAttribute="personalRecord">
+<form:form action="personalRecord/handyWorker/edit.do" modelAttribute="personalRecord">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -60,7 +60,7 @@
 
 	<input type="submit" name="save" value="<spring:message code="personalRecord.save" />" />
 	
-	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/handyWorker/display.do');"/>
+	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
 	<br />
 	
 

@@ -36,25 +36,21 @@
 				code="curriculum.personalRecord.photoLink" /></strong> :
 		<jstl:out value="${curriculum.personalRecord.photoLink}"></jstl:out>
 	</p>
-	<br>
 	<p>
 		<strong><spring:message
 				code="curriculum.personalRecord.email" /></strong> :
 		<jstl:out value="${curriculum.personalRecord.email}"></jstl:out>
 	</p>
-	<br>
 	<p>
 		<strong><spring:message
 				code="curriculum.personalRecord.phoneNumber" /></strong> :
 		<jstl:out value="${curriculum.personalRecord.phoneNumber}"></jstl:out>
 	</p>
-	<br>
 	<p>
 		<strong><spring:message
 				code="curriculum.personalRecord.linkedInProfile" /></strong> :
 		<jstl:out value="${curriculum.personalRecord.linkedInProfile}"></jstl:out>
 	</p>
-	<br>
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<a
 			href="personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}">
@@ -190,11 +186,13 @@
 			var="telephoneNumberHeader" />
 		<display:column property="phoneNumber"
 			title="${telephoneNumberHeader}" sortable="false" />
-
-		<spring:message code="curriculum.endorserRecord.linkedInProfile"
-			var="linkedInProfileHeader" />
+		
+		
+		<a><spring:message code="curriculum.endorserRecord.linkedInProfile"
+			var="linkedInProfileHeader" />	</a>
 		<display:column property="linkedInProfile"
 			title="${linkedInProfileHeader}" sortable="false" />
+		
 
 		<spring:message code="curriculum.endorserRecord.comments"
 			var="commentsHeader" />

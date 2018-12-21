@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="endorserRecord/edit.do"
+<form:form action="endorserRecord/handyWorker/edit.do"
 	modelAttribute="endorserRecord">
 
 	<form:hidden path="id" />
@@ -69,7 +69,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="endorserRecord.cancel"/>"
-		onclick="javascript: relativeRedir('curriculum/handyWorker/display.do');" />
+		onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');" />
 	<br />
 
 
