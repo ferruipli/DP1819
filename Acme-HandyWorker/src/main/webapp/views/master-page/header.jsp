@@ -26,14 +26,9 @@
 					<li class="arrow"></li>
 
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
-					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>
-					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation.customisation" /> </a></li>					
-
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>
+					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.administrator.customisation" /> </a></li>
 					<li><a href="category/administrator/list.do"> <spring:message code="master.page.administrator.category" /> </a></li>					
-
 				</ul>
 			</li>
 		</security:authorize>

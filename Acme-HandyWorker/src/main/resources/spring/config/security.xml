@@ -41,8 +41,6 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
-		
-
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
 
 		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
@@ -55,6 +53,7 @@
 		<security:intercept-url pattern="/complaint/referee,customer,handyWorker/**" access="hasAnyRole('REFEREE','CUSTOMER','HANDYWORKER')" />
 
 		<security:intercept-url pattern="/customisation/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/category/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/endorsement/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 
