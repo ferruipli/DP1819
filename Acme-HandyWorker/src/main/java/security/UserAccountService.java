@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import services.ActorService;
 import domain.Actor;
 
 @Service
@@ -17,8 +18,11 @@ public class UserAccountService {
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -50,5 +54,19 @@ public class UserAccountService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public void changeBan(final UserAccount userAccount) {
+		Assert.notNull(userAccount);
+		Assert.isTrue(!userAccount.getIsBanned());
+
+		Actor actor;
+
+		actor = this.actorService.findActorByUseraccount(userAccount.getId());
+
+		Assert.isTrue(actor.getIsSuspicious() == true);
+
+		this.actorService.changeBan(actor);
+
+	}
 
 }

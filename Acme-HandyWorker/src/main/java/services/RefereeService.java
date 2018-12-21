@@ -68,16 +68,20 @@ public class RefereeService {
 
 	// Other business methods -------------------------------------------------
 
-	public void selfAssignComplaint(final Referee referee, final Complaint complaint) {
-		referee.getComplaints().add(complaint);
+	public void selfAssignComplaint(final Complaint complaint) {
+		Referee principal;
+
+		principal = this.findByPrincipal();
+		principal.getComplaints().add(complaint);
 	}
 
 	public boolean principalHasSelfAssigned(final Complaint complaint) {
 		boolean result;
-		Referee principal;
+		Referee principal, handler;
 
 		principal = this.findByPrincipal();
-		result = principal.getComplaints().contains(complaint);
+		handler = this.refereeRepository.findHandlerByComplaintId(complaint.getId());
+		result = handler.equals(principal);
 
 		return result;
 	}

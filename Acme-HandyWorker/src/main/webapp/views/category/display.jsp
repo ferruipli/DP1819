@@ -16,21 +16,26 @@
 
 <p>
 	<strong> <spring:message code="category.parent" />: </strong>
-	<a href="category/administrator/display.do?categoryId=${parent.id}">
-		<jstl:out value="${mapa.get(category.parent.id)}" />
-	</a>
+	<jstl:if test="${category.parent != null}">
+		<a href="category/administrator/display.do?categoryId=${category.parent.id}">
+			<jstl:out value="${mapa.get(category.parent.id)}" />
+		</a>
+	</jstl:if>
+	<jstl:if test="${category.parent == null}">
+		<spring:message code="category.messageParent" />
+	</jstl:if>
 </p>
 
 <jstl:if test="${not empty category.descendants}">
 	<strong> <spring:message code="category.descendant" />: </strong>
 	<display:table name="category.descendants" id="row" requestURI="category/administrator/display.do" pagesize="5" class="displaytag">
 		<display:column>
-			<a href="category/administrator/display.do?categoryId=${mapa.get(row.id)}">
+			<a href="category/administrator/display.do?categoryId=${row.id}">
 				<spring:message code="category.display" />
 			</a>
 		</display:column>
 		<display:column>
-			<a href="category/administrator/edit.do?categoryId=${mapa.get(row.id)}">
+			<a href="category/administrator/edit.do?categoryId=${row.id}">
 				<spring:message code="category.edit" />
 			</a>
 		</display:column>
