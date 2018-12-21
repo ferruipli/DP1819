@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.EndorserRecordService;
+import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.EndorserRecord;
 
@@ -24,6 +25,9 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private EndorserRecordService	endorserRecordService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	// Constructors ---------------------------------------
@@ -53,12 +57,15 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	public ModelAndView action1(@RequestParam final int endorserRecordId) {
 		ModelAndView result;
 		EndorserRecord endorserRecord;
+		Integer handyWorkerId;
 
 		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
 		Assert.notNull(endorserRecord);
 		result = new ModelAndView("endorserRecord/edit");
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result.addObject("endorserRecord", endorserRecord);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 	}

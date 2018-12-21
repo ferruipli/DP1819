@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.EducationRecordService;
+import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.EducationRecord;
 
@@ -24,6 +25,9 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private EducationRecordService	educationRecordService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	// Constructors ---------------------------------------
@@ -53,12 +57,15 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	public ModelAndView action1(@RequestParam final int educationRecordId) {
 		ModelAndView result;
 		EducationRecord educationRecord;
+		Integer handyWorkerId;
 
 		educationRecord = this.educationRecordService.findOne(educationRecordId);
 		Assert.notNull(educationRecord);
 		result = new ModelAndView("educationRecord/edit");
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result.addObject("educationRecord", educationRecord);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 	}

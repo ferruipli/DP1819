@@ -69,7 +69,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="endorserRecord.cancel"/>"
-		onclick="javascript: relativeRedir('curriculum/display.do');" />
+		onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');" />
 	<br />
 
 

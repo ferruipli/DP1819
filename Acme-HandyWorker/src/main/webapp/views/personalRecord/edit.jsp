@@ -60,7 +60,7 @@
 
 	<input type="submit" name="save" value="<spring:message code="personalRecord.save" />" />
 	
-	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do');"/>
+	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
 	<br />
 	
 

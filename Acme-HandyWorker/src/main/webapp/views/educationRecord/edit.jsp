@@ -68,6 +68,6 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="educationRecord.cancel"/>"
-		onclick="javascript: relativeRedir('curriculum/display.do');" />
+		onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');" />
 	<br />
 </form:form>
