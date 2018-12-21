@@ -36,7 +36,7 @@ public class ProfessionalRecordService {
 	}
 	// Simple CRUD methods -----------------------------
 
-	protected ProfessionalRecord create() {
+	public ProfessionalRecord create() {
 		ProfessionalRecord result;
 
 		result = new ProfessionalRecord();
@@ -64,7 +64,7 @@ public class ProfessionalRecordService {
 		return results;
 	}
 
-	protected ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
+	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		this.utilityService.checkDate(professionalRecord.getStartDate(), professionalRecord.getEndDate());
 
@@ -85,7 +85,7 @@ public class ProfessionalRecordService {
 		return result;
 	}
 
-	protected void delete(final ProfessionalRecord professionalRecord) {
+	public void delete(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		Assert.isTrue(professionalRecord.getId() != 0);
 		this.checkByPrincipal(professionalRecord);

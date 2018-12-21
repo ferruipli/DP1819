@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CurriculumService;
-import services.HandyWorkerService;
 import services.PersonalRecordService;
 import controllers.AbstractController;
-import domain.Curriculum;
 import domain.PersonalRecord;
 
 @Controller
@@ -27,12 +24,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private PersonalRecordService	personalRecordService;
-
-	@Autowired
-	private HandyWorkerService		handyWorkerService;
-
-	@Autowired
-	private CurriculumService		curriculumService;
 
 
 	// Constructors ---------------------------------------
@@ -74,7 +65,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 	//Saving-----------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid PersonalRecord personalRecord, final BindingResult binding) {
+	public ModelAndView save(@Valid final PersonalRecord personalRecord, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -82,15 +73,8 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 			result = this.createEditModelAndView(personalRecord);
 		else
 			try {
-				Curriculum curriculum;
-				curriculum = this.curriculumService.findOne(this.handyWorkerService.findByPrincipal().getCurriculum().getId());
-				personalRecord = this.personalRecordService.save(personalRecord);
-				if (curriculum == null) {
-					curriculum = this.curriculumService.create();
-					curriculum.setPersonalRecord(personalRecord);
-					this.curriculumService.save(curriculum);
-				}
-				result = new ModelAndView("redirect:/curriculum/handyWorker/display.do");
+				this.personalRecordService.save(personalRecord);
+				result = new ModelAndView("redirect:/curriculum/display.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
 			}
@@ -103,7 +87,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final PersonalRecord personalRecord) {
 
-		Assert.notNull(personalRecord);
 		ModelAndView result;
 		result = this.createEditModelAndView(personalRecord, null);
 		return result;
@@ -117,7 +100,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		result = new ModelAndView("personalRecord/edit");
 		result.addObject("personalRecord", personalRecord);
 		result.addObject("message", messageCode);
-		result.addObject("RequestURI", "personalRecord/handyWorker/edit.do");
 
 		return result;
 
