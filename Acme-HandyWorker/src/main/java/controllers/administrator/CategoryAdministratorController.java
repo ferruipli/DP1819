@@ -14,9 +14,13 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,9 +46,7 @@ public class CategoryAdministratorController extends AbstractController {
 		super();
 	}
 
-	// Action-1 ---------------------------------------------------------------		
-
-	@RequestMapping("/display")
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int categoryId, final Locale locale) {
 		ModelAndView result;
 		Category category, root;
@@ -73,9 +75,7 @@ public class CategoryAdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/list")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final Locale locale) {
 		ModelAndView result;
 		Collection<Category> categories;
@@ -95,4 +95,54 @@ public class CategoryAdministratorController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		final ModelAndView result = null;
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int categoryId) {
+		final ModelAndView result = null;
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Category category, final BindingResult binding) {
+		return null;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Category category, final BindingResult binding) {
+		return null;
+	}
+
+	// Arcillary methods --------------------------
+	protected ModelAndView createEditModelAndView(final Category category) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(category, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
+		ModelAndView result;
+		Collection<Category> parents;
+
+		parents = this.categoryService.findAll();
+		parents.remove(category);
+
+		result = new ModelAndView("category/edit");
+
+		result.addObject("category", category);
+		result.addObject("parents", parents);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+
 }
