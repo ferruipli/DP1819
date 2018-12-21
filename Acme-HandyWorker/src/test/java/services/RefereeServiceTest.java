@@ -91,7 +91,7 @@ public class RefereeServiceTest extends AbstractTest {
 		referee1 = this.refereeService.findOne(refereeId);
 		complaintsSelfAssigned1 = referee1.getComplaints().size();
 
-		this.refereeService.selfAssignComplaint(referee1, complaint);
+		this.refereeService.selfAssignComplaint(complaint);
 		referee2 = this.refereeService.findOne(refereeId);
 		complaintsSelfAssigned2 = referee2.getComplaints().size();
 
