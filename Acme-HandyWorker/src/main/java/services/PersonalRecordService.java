@@ -38,7 +38,7 @@ public class PersonalRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	protected PersonalRecord create() {
+	public PersonalRecord create() {
 		PersonalRecord result;
 
 		result = new PersonalRecord();
@@ -66,7 +66,7 @@ public class PersonalRecordService {
 		return results;
 	}
 
-	protected PersonalRecord save(final PersonalRecord personalRecord) {
+	public PersonalRecord save(final PersonalRecord personalRecord) {
 		Assert.notNull(personalRecord);
 		this.utilityService.checkEmailRecords(personalRecord.getEmail());
 

@@ -104,14 +104,12 @@ public class MessageService {
 
 		result = this.messageRepository.save(message);
 
-		if (this.utilityService.entityIsSpam(message.getBody()) || this.utilityService.entityIsSpam(message.getSubject())) {
-			this.actorService.markAsSuspicious(sender);
-
+		if (this.utilityService.checkIsSpamMarkAsSuspicious(message.getBody(), sender) || this.utilityService.checkIsSpamMarkAsSuspicious(message.getSubject(), sender))
 			for (final Actor r : recipients) {
 				final Box spamBoxRecipients = this.boxService.searchBox(r, "spam box");
 				spamBoxRecipients.getMessages().add(result);
 			}
-		} else
+		else
 			for (final Actor r : recipients) {
 				final Box inBoxRecipients = this.boxService.searchBox(r, "in box");
 				inBoxRecipients.getMessages().add(result);
@@ -237,4 +235,49 @@ public class MessageService {
 		inBoxCustomer.getMessages().add(message_saved);
 		outBoxSystemActor.getMessages().add(message_saved);
 	}
+	/*
+	 * public Message broadcastMessage(final Message message) {
+	 * Assert.notNull(message);
+	 * this.checkByPrincipal(message);
+	 * 
+	 * Date sendMoment;
+	 * 
+	 * final Message result;
+	 * final Actor sender;
+	 * final Collection<Actor> recipients;
+	 * final Box outBoxSender;
+	 * 
+	 * sender = this.actorService.findPrincipal();
+	 * recipients = this.actorService.findAll();
+	 * outBoxSender = this.boxService.searchBox(sender, "out box");
+	 * 
+	 * if (this.isSpamMessage(message))
+	 * message.setIsSpam(true);
+	 * else
+	 * message.setIsSpam(false);
+	 * 
+	 * sendMoment = this.utilityService.current_moment();
+	 * message.setSendMoment(sendMoment);
+	 * 
+	 * result = this.messageRepository.save(message);
+	 * 
+	 * if (message.getIsSpam()) {
+	 * this.actorService.markAsSuspicious(sender);
+	 * 
+	 * for (final Actor r : recipients) {
+	 * final Box spamBoxRecipients = this.boxService.searchBox(r, "spam box");
+	 * spamBoxRecipients.getMessages().add(result);
+	 * }
+	 * } else
+	 * for (final Actor r : recipients) {
+	 * final Box inBoxRecipients = this.boxService.searchBox(r, "in box");
+	 * inBoxRecipients.getMessages().add(result);
+	 * }
+	 * 
+	 * outBoxSender.getMessages().add(result);
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
 }

@@ -15,7 +15,7 @@ import domain.Curriculum;
 import domain.HandyWorker;
 
 @Controller
-@RequestMapping("/curriculum/handyWorker")
+@RequestMapping("/curriculum")
 public class CurriculumController extends AbstractController {
 
 	// Services --------------------------------------------------

@@ -127,6 +127,20 @@ public class CategoryService {
 	}
 
 	// Other business methods --------------------------
+	public Map<Integer, String> categoriesByLanguage(final Collection<Category> categories, final String language) {
+		Map<Integer, String> results;
+		String name_category;
+
+		results = new HashMap<Integer, String>();
+
+		for (final Category c : categories) {
+			name_category = this.categoryTranslationService.findByLanguageCategory(c.getId(), language).getName();
+			results.put(c.getId(), name_category);
+		}
+
+		return results;
+
+	}
 
 	// Auxiliar methods --------------------------------
 	protected void updateParent(final Category category, final Category parent) {
@@ -162,7 +176,7 @@ public class CategoryService {
 
 	// Private methods ---------------------------------
 
-	private Category findRootCategory() {
+	public Category findRootCategory() {
 		Category result;
 
 		result = this.categoryRepository.findRootCategory();

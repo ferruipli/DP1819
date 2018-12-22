@@ -38,7 +38,7 @@ public class EducationRecordService {
 
 	// Simple CRUD methods -----------------------------
 
-	protected EducationRecord create() {
+	public EducationRecord create() {
 		EducationRecord result;
 
 		result = new EducationRecord();
@@ -66,7 +66,7 @@ public class EducationRecordService {
 		return results;
 	}
 
-	protected EducationRecord save(final EducationRecord educationRecord) {
+	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		this.utilityService.checkDate(educationRecord.getStartDate(), educationRecord.getEndDate());
 
@@ -90,7 +90,7 @@ public class EducationRecordService {
 		return result;
 	}
 
-	protected void delete(final EducationRecord educationRecord) {
+	public void delete(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		Assert.isTrue(educationRecord.getId() != 0);
 		this.checkByPrincipal(educationRecord);

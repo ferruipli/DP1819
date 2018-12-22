@@ -12,8 +12,11 @@ import domain.Complaint;
 @Repository
 public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 
-	@Query("select c from Complaint c where c.fixUpTask.customer.id = ?1")
-	Page<Complaint> findByCustomerPrincipal(int customerId, Pageable pageable);
+	@Query("select c from Referee r join r.complaints c where c.id = ?1")
+	Complaint findAssigned(int complaintId);
+
+	@Query("select c from Complaint c where c.fixUpTask.id = ?1")
+	Page<Complaint> findByFixUpTaskId(int fixUpTaskId, Pageable pageable);
 
 	@Query("select c from Complaint c where c not in (select c2 from Referee r join r.complaints c2)")
 	Page<Complaint> findNotAssigned(Pageable pageable);
@@ -24,7 +27,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c where c.report.id = ?1")
 	Complaint findByReportId(int reportId);
 
-	@Query("select r.complaints from Referee r where r.id = ?1")
+	@Query("select c from Referee r join r.complaints c where r.id = ?1")
 	Page<Complaint> findSelfAssignedByPrincipal(int principalId, Pageable pageable);
 
 	@Query("select c.ticker from Complaint c where c.ticker = ?1")
