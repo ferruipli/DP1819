@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.SectionService;
-import services.TutorialService;
 import controllers.AbstractController;
 import domain.Section;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/section/handyWorker")
@@ -33,9 +31,6 @@ public class SectionHandyWorkerController extends AbstractController {
 	@Autowired
 	private SectionService	sectionService;
 
-	@Autowired
-	private TutorialService	tutorialService;
-
 
 	// Constructors -----------------------------------------------------------
 	public SectionHandyWorkerController() {
@@ -43,16 +38,13 @@ public class SectionHandyWorkerController extends AbstractController {
 	}
 
 	// Section Create ---------------------------------------------------------------		
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		Section section;
-		Tutorial tutorial;
-		tutorial = this.tutorialService.findOne(tutorialId);
 
 		section = this.sectionService.create();
 		result = this.createEditModelAndView(section);
-		this.sectionService.addSectionToTutorial(tutorial, section);
 
 		return result;
 	}

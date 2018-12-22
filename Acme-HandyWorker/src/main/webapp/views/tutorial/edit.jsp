@@ -66,7 +66,7 @@
 	
 	</display:table>
 	
-	<a href="section/handyWorker/create.do?tutorialId=${tutorial.id}">
+	<a href="section/handyWorker/edit.do?tutorialId=${tutorial.id}">
 			<spring:message	code="tutorial.section.add" />
 	</a>
 	
