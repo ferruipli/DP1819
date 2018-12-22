@@ -1,8 +1,6 @@
 
 package services;
 
-import java.util.Collection;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,12 +127,12 @@ public class PhaseService {
 
 	private void checkHandyWorkerAccess(final FixUpTask fixUpTask, final Phase phase) {
 		HandyWorker principal;
-		Collection<FixUpTask> workableFixUpTasks;
+		FixUpTask workableFixUpTask;
 
 		principal = this.handyWorkerService.findByPrincipal();
-		workableFixUpTasks = this.fixUpTaskService.findWorkableFixUpTasks(principal.getId());
+		workableFixUpTask = this.fixUpTaskService.findWorkableFixUpTask(fixUpTask.getId(), principal.getId());
 
-		Assert.isTrue(workableFixUpTasks.contains(fixUpTask));
+		Assert.notNull(workableFixUpTask);
 	}
 
 	private void checkPhaseDate(final FixUpTask fixUpTask, final Phase phase) {
