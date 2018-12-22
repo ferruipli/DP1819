@@ -60,6 +60,7 @@ public class ReportService {
 
 	public Report save(Complaint complaint, final Report report) { // Creating
 		Assert.notNull(report);
+		this.utilityService.checkAttachments(report.getAttachments());
 
 		boolean isUpdating;
 		Report result;
