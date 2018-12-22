@@ -64,7 +64,7 @@ public class ComplaintCustomerController extends AbstractController {
 		else
 			try {
 				this.complaintService.save(complaint);
-				result = new ModelAndView("redirect:/complaint/referee,customer,handyWorker/list.do?fixUpTaskId=" + complaint.getFixUpTask().getId());
+				result = new ModelAndView("redirect:/complaint/customer,handyWorker,referee/list.do?fixUpTaskId=" + complaint.getFixUpTask().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(complaint, "complaint.commit.error");
 			}

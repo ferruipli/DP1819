@@ -41,12 +41,12 @@
 
 	<jstl:if test="${complaint.report ne null}">
 		<strong><spring:message code="complaint.report"/>:</strong>
-		<a href="report/referee,customer,handyWorker/display.do?reportId=${complaint.report.id}"><spring:message code="complaint.report.display"/></a>
+		<a href="report/customer,handyWorker,referee/display.do?reportId=${complaint.report.id}"><spring:message code="complaint.report.display"/></a>
 		<br/>
 	</jstl:if>
 	
 	<strong><spring:message code="complaint.fixUpTask"/>:</strong>
-	<a href="fixUpTask/referee,customer,handyWorker/display.do?fixUpTaskId=${complaint.fixUpTask.id}"><jstl:out value="${complaint.fixUpTask.ticker}"/></a>
+	<a href="fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=${complaint.fixUpTask.id}"><jstl:out value="${complaint.fixUpTask.ticker}"/></a>
 	<br/>
 </fieldset>
 	
@@ -68,5 +68,5 @@
 </security:authorize>
 
 <security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
-	<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${complaint.fixUpTask.id}"><spring:message code="complaint.back"/></a>
+	<a href="complaint/customer,handyWorker,referee/list.do?fixUpTaskId=${complaint.fixUpTask.id}"><spring:message code="complaint.back"/></a>
 </security:authorize>

@@ -8,7 +8,7 @@
 
 <display:table name="complaints" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
-		<a href="complaint/referee,customer,handyWorker/display.do?complaintId=${row.id}"><spring:message code="complaint.display"/></a>
+		<a href="complaint/customer,handyWorker,referee/display.do?complaintId=${row.id}"><spring:message code="complaint.display"/></a>
 	</display:column>
 	
 	<display:column property="ticker" titleKey="complaint.ticker"/>
