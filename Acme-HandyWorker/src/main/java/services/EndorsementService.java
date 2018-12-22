@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -26,8 +25,6 @@ import domain.HandyWorker;
 @Service
 @Transactional
 public class EndorsementService {
-
-	private final int				PAGE_SIZE	= 5;
 
 	// Managed repository ------------------------------
 	@Autowired
@@ -142,27 +139,22 @@ public class EndorsementService {
 		Assert.isTrue(principal.equals(endorsement.getSender()));
 	}
 
-	public Page<Endorsement> findSentEndorsements() {
+	public Page<Endorsement> findSentEndorsements(final Pageable pageable) {
 		Page<Endorsement> results;
 		Endorsable principal;
-		Pageable pageable;
 
 		principal = this.endorsableService.findByPrincipal();
-		pageable = new PageRequest(0, this.PAGE_SIZE);
 
 		results = this.endorsementRepository.findSentEndorsements(principal.getId(), pageable);
 
 		return results;
 	}
 
-	public Page<Endorsement> findReceivedEndorsements() {
+	public Page<Endorsement> findReceivedEndorsements(final Pageable pageable) {
 		Page<Endorsement> results;
 		Endorsable principal;
-		Pageable pageable;
 
 		principal = this.endorsableService.findByPrincipal();
-
-		pageable = new PageRequest(0, this.PAGE_SIZE);
 
 		results = this.endorsementRepository.findReceivedEndorsement(principal.getId(), pageable);
 

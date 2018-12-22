@@ -11,7 +11,7 @@
 
 
 <h3> <spring:message code="endorsement.sent" /> </h3>
-<display:table name="sentEndorsements" id="row" requestURI="${requestURI}" pagesize="${page_size}" class="displaytag">
+<display:table name="sentEndorsements" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
 		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />
@@ -37,7 +37,7 @@
 </a>
 
 <h3> <spring:message code="endorsement.received" /> </h3>
-<display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" pagesize="${page_size}" class="displaytag">
+<display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
 		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />

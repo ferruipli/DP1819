@@ -56,7 +56,7 @@ public class EndorsableService {
 
 		final Double score;
 		Integer p, n;
-		final Page<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements();
+		final Page<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements(null);
 		List<Integer> ls;
 
 		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements.getContent()));
