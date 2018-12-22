@@ -2338,13 +2338,13 @@
 		<property name="moment" value="2018/10/02 14:30" />
 		<property name="comments" value="excellent and great disaster" />
 		<property name="sender" ref="handyworker3" />
-		<property name="recipient" ref="customer2" />
+		<property name="recipient" ref="customer4" />
 	</bean>
 
 	<bean id="endorsement5" class="domain.Endorsement">
 		<property name="moment" value="2018/10/03 14:40" />
 		<property name="comments" value="amazing but excellent" />
-		<property name="sender" ref="customer2" />
+		<property name="sender" ref="customer4" />
 		<property name="recipient" ref="handyworker3" />
 	</bean>
 

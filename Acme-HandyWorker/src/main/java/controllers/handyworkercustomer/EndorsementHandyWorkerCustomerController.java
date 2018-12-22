@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import services.CustomerService;
 import services.EndorsableService;
 import services.EndorsementService;
 import services.HandyWorkerService;
+import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Customer;
 import domain.Endorsable;
@@ -60,21 +63,24 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
-		int page_size;
 		Page<Endorsement> sentEndorsements, receivedEndorsements;
+		Pageable pageable;
+		PaginatedList paginatedSentEndorsements, paginatedReceivedEndorsements;
 
-		sentEndorsements = this.endorsementService.findSentEndorsements();
-		receivedEndorsements = this.endorsementService.findReceivedEndorsements();
+		pageable = this.newFixedPageable(page, dir, sort);
 
-		page_size = 5;
+		sentEndorsements = this.endorsementService.findSentEndorsements(pageable);
+		receivedEndorsements = this.endorsementService.findReceivedEndorsements(pageable);
+
+		paginatedSentEndorsements = new PaginatedListAdapter(sentEndorsements, sort);
+		paginatedReceivedEndorsements = new PaginatedListAdapter(receivedEndorsements, sort);
 
 		result = new ModelAndView("endorsement/list");
-		result.addObject("sentEndorsements", sentEndorsements);
-		result.addObject("receivedEndorsements", receivedEndorsements);
+		result.addObject("sentEndorsements", paginatedSentEndorsements);
+		result.addObject("receivedEndorsements", paginatedReceivedEndorsements);
 		result.addObject("requestURI", "endorsement/handyWorker,customer/list.do");
-		result.addObject("page_size", page_size);
 
 		return result;
 	}

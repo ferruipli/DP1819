@@ -58,7 +58,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		Page<Endorsement> all;
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.notNull(all);
 		Assert.isTrue(all.getContent().size() > 0);
@@ -72,7 +72,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		Page<Endorsement> all;
 
-		all = this.endorsementService.findReceivedEndorsements();
+		all = this.endorsementService.findReceivedEndorsements(null);
 
 		Assert.notNull(all);
 		Assert.isTrue(all.getContent().size() > 0);
@@ -92,7 +92,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		Assert.notNull(endorsement);
 		Assert.isNull(endorsement.getRecipient());
-		Assert.isNull(endorsement.getMoment());
+		Assert.notNull(endorsement.getMoment());
 		Assert.isNull(endorsement.getComments());
 		Assert.isTrue(endorsement.getSender().equals(endorsable));
 
@@ -117,7 +117,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(all.getContent().contains(saved));
 
@@ -126,14 +126,14 @@ public class EndorsementServiceTest extends AbstractTest {
 
 	@Test
 	public void positiveTestSave_dos() {
-		super.authenticate("handyworker5");
+		super.authenticate("handyworker3");
 
 		Page<Endorsement> all;
 		Endorsable recipient;
 		Endorsement endorsement, saved;
 		int recipientId;
 
-		recipientId = super.getEntityId("customer5");
+		recipientId = super.getEntityId("customer4");
 		recipient = this.endorsableService.findOne(recipientId);
 
 		endorsement = this.endorsementService.create();
@@ -142,8 +142,9 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
+		Assert.notNull(saved);
 		Assert.isTrue(all.getContent().contains(saved));
 
 		super.unauthenticate();
@@ -214,7 +215,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(!all.getContent().contains(saved));
 
@@ -243,7 +244,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(!all.getContent().contains(saved));
 
@@ -272,7 +273,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(!all.getContent().contains(saved));
 
@@ -302,7 +303,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		saved = this.endorsementService.save(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(!all.getContent().contains(saved));
 
@@ -321,7 +322,7 @@ public class EndorsementServiceTest extends AbstractTest {
 
 		this.endorsementService.delete(endorsement);
 
-		all = this.endorsementService.findSentEndorsements();
+		all = this.endorsementService.findSentEndorsements(null);
 
 		Assert.isTrue(all.getContent().contains(endorsement));
 
