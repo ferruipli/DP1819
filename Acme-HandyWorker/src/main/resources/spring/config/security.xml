@@ -45,6 +45,8 @@
 		<security:intercept-url pattern="/tutorial/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/tutorial/handyWorker/**" access="hasAnyRole('HANDYWORKER')"  /> 
 		
+		<security:intercept-url pattern="/section/handyWorker/**" access="hasAnyRole('HANDYWORKER')"  /> 
+		
 		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		<security:intercept-url pattern="/application/handyworker/**" access="hasAnyRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
