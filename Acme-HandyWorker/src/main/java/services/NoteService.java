@@ -1,8 +1,6 @@
 
 package services;
 
-import java.util.Date;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +56,7 @@ public class NoteService {
 		Note result;
 
 		result = new Note();
+		result.setMoment(this.utilityService.current_moment());
 
 		return result;
 	}
@@ -70,17 +69,12 @@ public class NoteService {
 		Assert.notNull(note);
 
 		Note result;
-		Date moment;
 		boolean isUpdating;
 
 		isUpdating = this.noteRepository.exists(note.getId());
 
 		if (isUpdating)
 			report = this.reportService.findByNoteId(note.getId());
-		else {
-			moment = this.utilityService.current_moment();
-			note.setMoment(moment);
-		}
 
 		Assert.notNull(report);
 		Assert.isTrue(report.getFinalMode());

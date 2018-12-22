@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collections;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -50,6 +49,7 @@ public class ReportService {
 
 		result = new Report();
 		result.setNotes(Collections.<Note> emptySet());
+		result.setMoment(this.utilityService.current_moment());
 
 		return result;
 	}
@@ -63,16 +63,12 @@ public class ReportService {
 
 		boolean isUpdating;
 		Report result;
-		Date moment;
 
 		isUpdating = this.reportRepository.exists(report.getId());
 
 		if (isUpdating) {
 			Assert.isTrue(!report.getFinalMode());
 			complaint = this.complaintService.findByReportId(report.getId());
-		} else {
-			moment = this.utilityService.current_moment();
-			report.setMoment(moment);
 		}
 
 		Assert.notNull(complaint);
