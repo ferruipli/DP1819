@@ -161,6 +161,14 @@ public class EndorsementService {
 		return results;
 	}
 
+	protected Collection<Endorsement> findEndorsementsByEndorsable(final int endorsableId) {
+		Collection<Endorsement> results;
+
+		results = this.endorsementRepository.findEndorsementsByEndorsable(endorsableId);
+
+		return results;
+	}
+
 	// private methods ---------------------------------
 	private boolean playedRole(final Endorsable endorsable, final String role) {
 		UserAccount userAccount;

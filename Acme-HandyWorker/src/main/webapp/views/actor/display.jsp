@@ -40,6 +40,11 @@
 	<br />
 
 	<p> <strong> <spring:message code="actor.address" /> </strong>  <jstl:out value="${actor.address}" /></p>
+	<br />
+	
+	<jstl:if test="${isEndorsable && actor.score != null}">
+		<p> <strong> <spring:message code="endorsable.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
+	</jstl:if>
 	
 	<a href="actor/${role }/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
 </fieldset>
