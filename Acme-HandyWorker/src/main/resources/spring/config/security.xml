@@ -76,7 +76,7 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" />  
 
-		<security:intercept-url pattern="/socialProfile/authenticated/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/socialProfile/administrator,customer,handyworker,referee,sponsor/**" access="isAuthenticated()" /> 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

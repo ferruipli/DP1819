@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -153,10 +155,10 @@ public class ActorService {
 		actor.setIsSuspicious(true);
 	}
 
-	public Collection<Actor> findAllSuspicious() {
-		Collection<Actor> result;
+	public Page<Actor> findAllSuspicious(final Pageable pageable) {
+		Page<Actor> result;
 
-		result = this.actorRepository.findAllSuspicious();
+		result = this.actorRepository.findAllSuspicious(pageable);
 		Assert.notNull(result);
 
 		return result;

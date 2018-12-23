@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="socialProfiles" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+<display:table name="socialProfiles" id="row" requestURI="${requestURI }"  class="displaytag">
 	
 	<display:column property="nick" titleKey="socialProfile.nick"/>
 	
@@ -30,9 +30,9 @@
 </display:table>
 
 	
-	<a href="socialProfile/authenticated/create.do"><spring:message code="socialProfile.new"/></a>
+	<a href="socialProfile/administrator,customer,handyworker,referee,sponsor/create.do"><spring:message code="socialProfile.new"/></a>
 	
 	<br><br>
 		
 <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
-				onclick="javascript: relativeRedir('actor/authenticated/display.do?actorId=${actorId }');" />
+				onclick="javascript: relativeRedir('actor/authenticatedadministrator,customer,handyworker,referee,sponsor/display.do?actorId=${actorId }');" />
