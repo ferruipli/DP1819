@@ -8,7 +8,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -48,6 +47,14 @@ public class EndorsableService {
 		return result;
 	}
 
+	public Collection<Endorsable> findAll() {
+		Collection<Endorsable> results;
+
+		results = this.endorsableRepository.findAll();
+
+		return results;
+	}
+
 	// Other business methods --------------------------
 	// Los endorsements de un endorsable son los que recibe.
 	public void computeScore(final Endorsable endorsable) {
@@ -56,10 +63,10 @@ public class EndorsableService {
 
 		final Double score;
 		Integer p, n;
-		final Page<Endorsement> receivedEndorsements = this.endorsementService.findReceivedEndorsements(null);
+		final Collection<Endorsement> receivedEndorsements = this.endorsementService.findEndorsementsByEndorsable(endorsable.getId());
 		List<Integer> ls;
 
-		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements.getContent()));
+		ls = new ArrayList<>(this.positiveNegativeWordNumbers(receivedEndorsements));
 		p = ls.get(0);
 		n = ls.get(1);
 
@@ -121,7 +128,6 @@ public class EndorsableService {
 					positive++;
 				else if (negative_ls.contains(word.toLowerCase()))
 					negative++;
-
 		}
 
 		results.add(positive);
