@@ -46,7 +46,7 @@
 		<p> <strong> <spring:message code="endorsable.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
 	</jstl:if>
 	
-	<a href="actor/${role }/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
+	<a href="actor/administrator,customer,handyWorker,referee,sponsor/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
 </fieldset>
 
 <fieldset>
@@ -61,23 +61,8 @@
 <fieldset>
 	<legend><spring:message code="actor.other.legend"/></legend>
 	<p> <strong> <spring:message code="actor.socialProfile" />: </strong>  
-	<jstl:choose>
-		<jstl:when test="${role == 'customer'}">
-			<a href="socialProfile/customer/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
-		</jstl:when>
-		<jstl:when test="${role == 'handyworker'}">
-			<a href="socialProfile/handyworker/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
-		</jstl:when>
-		<jstl:when test="${role == 'sponsor'}">
-			<a href="socialProfile/sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
-		</jstl:when>
-		<jstl:when test="${role == 'administrator'}">
-			<a href="socialProfile/administrator/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
-		</jstl:when>
-		<jstl:when test="${role == 'referee'}">
-			<a href="socialProfile/referee/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
-		</jstl:when>
-	</jstl:choose></p>
+	<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
+	</p>
 </fieldset>
 
 <input type="button" name="return" value="<spring:message code="actor.return" />" 

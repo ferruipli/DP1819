@@ -20,6 +20,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="socialProfiles" id="row" requestURI="${requestURI }"  class="displaytag">
+
+	<display:column>
+		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/edit.do?socialProfileId=${row.id}"><spring:message code="socialProfile.edit"/></a>
+	</display:column>
+	
+	<display:column>
+		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/delete.do?socialProfileId=${row.id}"><spring:message code="socialProfile.delete"/></a>
+	</display:column>
 	
 	<display:column property="nick" titleKey="socialProfile.nick"/>
 	
@@ -30,9 +38,9 @@
 </display:table>
 
 	
-	<a href="socialProfile/administrator,customer,handyworker,referee,sponsor/create.do"><spring:message code="socialProfile.new"/></a>
+	<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/create.do"><spring:message code="socialProfile.new"/></a>
 	
 	<br><br>
 		
 <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
-				onclick="javascript: relativeRedir('actor/authenticatedadministrator,customer,handyworker,referee,sponsor/display.do?actorId=${actorId }');" />
+				onclick="javascript: relativeRedir('actor/authenticatedadministrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actorId }');" />

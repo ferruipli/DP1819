@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="socialProfile/${role }/edit.do" modelAttribute="socialProfile" >
+<form:form action="socialProfile/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="socialProfile" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="actor"/>
@@ -50,6 +50,6 @@
 	<input type="submit" name="save" value="<spring:message code="socialProfile.save"/>" />
 	
 	<input type="button" name="cancel" value="<spring:message code="socialProfile.cancel" />" 
-			onclick="javascript: relativeRedir('socialProfile/${role }/list.do?actorId=${actorId}');" />
+			onclick="javascript: relativeRedir('socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actorId}');" />
 
 </form:form>
