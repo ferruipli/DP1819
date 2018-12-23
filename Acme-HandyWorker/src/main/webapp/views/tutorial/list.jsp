@@ -43,6 +43,14 @@
 		</a>
 	</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('SPONSOR')">
+	<display:column >
+		<a href="sponsorship/sponsor/create.do">
+			<spring:message	code="tutorial.suport" />
+		</a>
+	</display:column>
+</security:authorize>
 </display:table>
 
 <security:authorize access="hasRole('HANDYWORKER')">
@@ -50,3 +58,6 @@
 			<spring:message	code="tutorial.create" />
 		</a>
 	</security:authorize>
+	
+	
+
