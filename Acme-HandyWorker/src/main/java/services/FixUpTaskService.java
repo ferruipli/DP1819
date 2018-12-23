@@ -135,11 +135,10 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	protected Collection<FixUpTask> findWorkableFixUpTasks(final int handyWorkerId) {
-		Collection<FixUpTask> result;
+	protected FixUpTask findWorkableFixUpTask(final int fixUpTaskId, final int handyWorkerId) {
+		FixUpTask result;
 
-		result = this.fixUpTaskRepository.findWorkableFixUpTasks(handyWorkerId);
-		Assert.notNull(result);
+		result = this.fixUpTaskRepository.findWorkableFixUpTask(fixUpTaskId, handyWorkerId);
 
 		return result;
 	}

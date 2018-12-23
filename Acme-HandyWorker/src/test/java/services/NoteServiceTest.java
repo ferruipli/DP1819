@@ -39,10 +39,11 @@ public class NoteServiceTest extends AbstractTest {
 		int reportId;
 		Report report;
 
-		reportId = super.getEntityId("report3");
+		reportId = super.getEntityId("report2");
 		report = this.reportService.findOne(reportId);
+		report.setFinalMode(true);
 
-		super.authenticate("referee2");
+		super.authenticate("referee1");
 		note = this.noteService.create();
 		note.setCommentReferee("Esto es el comentario de test el creador de la nota");
 
@@ -51,12 +52,12 @@ public class NoteServiceTest extends AbstractTest {
 		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
-		super.authenticate("customer5");
+		super.authenticate("customer6");
 		saved.setCommentCustomer("Customer añadiendo un comentario en los tests");
 		this.noteService.save(saved);
 		super.unauthenticate();
 
-		super.authenticate("handyworker5");
+		super.authenticate("handyworker6");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
 		this.noteService.save(saved);
 		super.unauthenticate();
@@ -68,10 +69,11 @@ public class NoteServiceTest extends AbstractTest {
 		int reportId;
 		Report report;
 
-		reportId = super.getEntityId("report3");
+		reportId = super.getEntityId("report2");
 		report = this.reportService.findOne(reportId);
+		report.setFinalMode(true);
 
-		super.authenticate("customer5");
+		super.authenticate("customer6");
 		note = this.noteService.create();
 		note.setCommentCustomer("Esto es el comentario de test el creador de la nota");
 
@@ -80,12 +82,12 @@ public class NoteServiceTest extends AbstractTest {
 		Assert.isTrue(report.getNotes().contains(saved));
 		super.unauthenticate();
 
-		super.authenticate("referee2");
+		super.authenticate("referee1");
 		saved.setCommentReferee("Referee añadiendo un comentario en los tests");
 		this.noteService.save(saved);
 		super.unauthenticate();
 
-		super.authenticate("handyworker5");
+		super.authenticate("handyworker6");
 		saved.setCommentHandyWorker("HandyWorker añadiendo un comentario en los tests");
 		this.noteService.save(saved);
 		super.unauthenticate();

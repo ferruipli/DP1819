@@ -46,6 +46,7 @@ public class ReportServiceTest extends AbstractTest {
 		super.authenticate("referee1");
 
 		report = this.reportService.create();
+		report.setAttachments("");
 		report.setDescription("Esto es una descripción de prueba");
 
 		saved = this.reportService.save(complaint, report);
