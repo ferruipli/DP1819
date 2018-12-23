@@ -40,6 +40,13 @@
 	<form:errors cssClass="error" path="body"/>
 	<br>
 	
+	<form:label path="tags">
+		<spring:message code="message.display.tags"/>:
+	</form:label>
+	<form:textarea path="tags"/>
+	<form:errors cssClass="error" path="tags"/>
+	<br>
+	
 	<form:label path="priority">
 		<spring:message code="message.display.priority"/>:
 	</form:label>
