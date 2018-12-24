@@ -19,10 +19,12 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="box/edit.do" modelAttribute="box" >
+<form:form action="box/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="box" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="messages"/>
+	<form:hidden path="actor"/>
+	
 	
 	<form:label path="name">
 		<spring:message code="box.name"/>
@@ -41,6 +43,6 @@
 	</jstl:if>
 	
 	<input type="button" name="cancel" value="<spring:message code="box.cancel" />" 
-			onclick="javascript: relativeRedir('box/display.do?boxId=${box.id}');" />
+			onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${box.id}');" />
 
 </form:form>
