@@ -8,6 +8,8 @@ import java.util.Collections;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -153,12 +155,20 @@ public class BoxService {
 		return searchBox;
 	}
 
-	public Collection<Box> findAllBoxByActor(final Actor actor) {
-		Collection<Box> res;
+	public Page<Box> findAllBoxByActor(final Actor actor, final Pageable pageable) {
+		Page<Box> res;
 
-		res = this.boxRepository.findAllBoxByActor(actor.getId());
+		res = this.boxRepository.findAllBoxByActor(actor.getId(), pageable);
 
 		return res;
+	}
+
+	public Collection<Box> findBoxesByActor(final int actorId) {
+		Collection<Box> result;
+
+		result = this.boxRepository.findBoxesByActor(actorId);
+
+		return result;
 	}
 
 	public Collection<Box> boxWithMessage(final Message message) {

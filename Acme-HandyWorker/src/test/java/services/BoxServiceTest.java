@@ -110,7 +110,7 @@ public class BoxServiceTest extends AbstractTest {
 		final Collection<Box> boxs;
 		Actor actor;
 		actor = this.actorService.findPrincipal();
-		boxs = this.boxService.findAllBoxByActor(actor);
+		boxs = this.boxService.findBoxesByActor(actor.getId());
 		Assert.notNull(boxs);
 		super.unauthenticate();
 	}

@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +18,10 @@ public interface BoxRepository extends JpaRepository<Box, Integer> {
 	Box searchBox(int actorId, String nameBox);
 
 	@Query("select b from Box b join b.actor a where a.id=?1")
-	Collection<Box> findAllBoxByActor(int actorId);
+	Page<Box> findAllBoxByActor(int actorId, Pageable pageable);
+
+	@Query("select b from Box b join b.actor a where a.id=?1")
+	Collection<Box> findBoxesByActor(int actorId);
 
 	@Query("select b from Box b join b.messages m where m.id=?1")
 	Collection<Box> boxWithMessage(int messageId);

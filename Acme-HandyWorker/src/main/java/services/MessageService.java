@@ -150,7 +150,7 @@ public class MessageService {
 	}
 
 	private void deleteMessageAllBoxActor(final Actor actor, final Message message) {
-		final Collection<Box> findAllBoxByActor = this.boxService.findAllBoxByActor(actor);
+		final Collection<Box> findAllBoxByActor = this.boxService.findBoxesByActor(actor.getId());
 
 		for (final Box b : findAllBoxByActor)
 			if (b.getMessages().contains(message))
@@ -245,7 +245,7 @@ public class MessageService {
 		final Box outBoxSender;
 
 		sender = this.actorService.findPrincipal();
-		recipients = this.actorService.findActorsHaveBoxName("in box");
+		recipients = this.actorService.findAll();
 		outBoxSender = this.boxService.searchBox(sender, "out box");
 
 		result = this.messageRepository.save(message);
