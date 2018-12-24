@@ -124,7 +124,5 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 		result.addObject("message", messageCode);
 
 		return result;
-
 	}
-
 }

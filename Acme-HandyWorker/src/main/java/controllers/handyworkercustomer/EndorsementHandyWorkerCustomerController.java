@@ -29,7 +29,7 @@ import domain.Endorsement;
 import domain.HandyWorker;
 
 @Controller
-@RequestMapping("endorsement/handyWorker,customer")
+@RequestMapping("endorsement/customer,handyWorker")
 public class EndorsementHandyWorkerCustomerController extends AbstractController {
 
 	@Autowired
@@ -80,7 +80,7 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 		result = new ModelAndView("endorsement/list");
 		result.addObject("sentEndorsements", paginatedSentEndorsements);
 		result.addObject("receivedEndorsements", paginatedReceivedEndorsements);
-		result.addObject("requestURI", "endorsement/handyWorker,customer/list.do");
+		result.addObject("requestURI", "endorsement/customer,handyWorker/list.do");
 
 		return result;
 	}

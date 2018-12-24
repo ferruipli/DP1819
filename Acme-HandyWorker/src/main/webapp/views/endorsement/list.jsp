@@ -13,13 +13,13 @@
 <h3> <spring:message code="endorsement.sent" /> </h3>
 <display:table name="sentEndorsements" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
-		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
+		<a href="endorsement/customer,handyWorker/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />
 		</a>
 	</display:column>
 	
 	<display:column>
-		<a href="endorsement/handyWorker,customer/edit.do?endorsementId=${row.id}">
+		<a href="endorsement/customer,handyWorker/edit.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.edit" />
 		</a>
 	</display:column>
@@ -29,7 +29,7 @@
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
 	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<display:column property="recipient.name" titleKey="endorsement.recipient" />
+	<display:column property="sender.name" titleKey="endorsement.recipient" />
 </display:table>
 
 <a href="endorsement/handyWorker,customer/create.do">
@@ -39,7 +39,7 @@
 <h3> <spring:message code="endorsement.received" /> </h3>
 <display:table name="receivedEndorsements" id="row" requestURI="${requestURI}" class="displaytag">
 	<display:column>
-		<a href="endorsement/handyWorker,customer/display.do?endorsementId=${row.id}">
+		<a href="endorsement/customer,handyWorker/display.do?endorsementId=${row.id}">
 			<spring:message code="endorsement.display" />
 		</a>
 	</display:column>
@@ -49,5 +49,5 @@
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
 	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<display:column property="sender.name" titleKey="endorsement.sender" />
+	<display:column value="sender.name" titleKey="endorsement.sender" />
 </display:table>

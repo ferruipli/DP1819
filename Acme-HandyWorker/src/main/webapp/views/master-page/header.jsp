@@ -28,7 +28,8 @@
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.administrator.customisation" /> </a></li>
-					<li><a href="category/administrator/list.do"> <spring:message code="master.page.administrator.category" /> </a></li>					
+					<li><a href="category/administrator/list.do"> <spring:message code="master.page.administrator.category" /> </a></li>
+					<li><a href="endorsable/administrator/list.do"> <spring:message code="master.page.administrator.endorsable" /> </a></li>					
 				</ul>
 			</li>
 		</security:authorize>
@@ -57,7 +58,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.endorsable" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="endorsement/handyWorker,customer/list.do"><spring:message code="master.page.endorsable.endorsement" /></a></li>					
+					<li><a href="endorsement/customer,handyWorker/list.do"><spring:message code="master.page.endorsable.endorsement" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
