@@ -1,5 +1,5 @@
 
-package controllers.customerhandyworkerreferee;
+package controllers.customerhandyWorkerreferee;
 
 import java.util.Collection;
 
@@ -78,18 +78,12 @@ public class ComplaintMultiuserController extends AbstractController {
 		reportCreationPerm = isAssigned ? this.refereeService.principalHasSelfAssigned(complaint) : false;
 
 		result = new ModelAndView("complaint/display");
-		result.addObject(complaint);
+		result.addObject("complaint", complaint);
 		result.addObject("attachments", attachments);
 		result.addObject("isAssigned", isAssigned);
 		result.addObject("reportCreationPerm", reportCreationPerm);
 
 		return result;
 	}
-
-	// Creation ---------------------------------------------------------------
-
-	// Edition ----------------------------------------------------------------
-
-	// Ancillary methods ------------------------------------------------------
 
 }

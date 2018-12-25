@@ -40,7 +40,7 @@
 
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="referee1" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="password" value="092d469d0a71c8002e32f808b861f9a4" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -1917,6 +1917,7 @@
 		<property name="ticker" value="170401-CVV001" />
 		<property name="moment" value="2017/04/01 11:45" />
 		<property name="description" value="Description 3" />
+		<property name="attachments" value="" />
 		<!-- <property name="report" ref="reportXX" /> -->
 		<property name="fixUpTask" ref="fixUpTask7" />
 	</bean>
@@ -1943,6 +1944,7 @@
 		<property name="ticker" value="170824-HYYH54" />
 		<property name="moment" value="2017/08/24 11:58" />
 		<property name="description" value="Description 6" />
+		<property name="attachments" value="" />
 		<property name="fixUpTask" ref="fixUpTask6" />
 	</bean>
 
@@ -3252,6 +3254,7 @@
 	<bean id="report3" class="domain.Report">
 		<property name="moment" value="2018/07/07 17:07" />
 		<property name="description" value="Description 3" />
+		<property name="attachments" value="" />
 		<property name="finalMode" value="true" />
 		<property name="notes">
 			<list>

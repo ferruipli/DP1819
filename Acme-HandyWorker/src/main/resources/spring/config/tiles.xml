@@ -38,6 +38,7 @@
 		<value>/views/personalRecord/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
+		<value>/views/report/tiles.xml</value>
 		<value>/views/security/tiles.xml</value>
 		<value>/views/socialProfile/tiles.xml</value>
 		<value>/views/tutorial/tiles.xml</value>
