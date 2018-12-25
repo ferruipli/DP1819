@@ -11,13 +11,7 @@
 	<form:hidden path="version"/>
 	<form:hidden path="moment"/>
 	<form:hidden path="notes"/>
-	
-	<form:label path="finalMode">
-		<spring:message code="report.final.mode"/>:
-	</form:label>
-	<form:checkbox path="finalMode" />
-	<form:errors cssClass="error" path="finalMode"/>
-	<br/>
+	<form:hidden path="finalMode"/>
 	
 	<form:label path="description">
 		<spring:message code="report.description"/>:
@@ -33,6 +27,7 @@
 	<form:errors cssClass="error" path="attachments"/>
 	<br/>
 	
+	<input type="hidden" name="complaintId" value="${complaintId}"/>
 	
 	<!-- Buttons -->
 	

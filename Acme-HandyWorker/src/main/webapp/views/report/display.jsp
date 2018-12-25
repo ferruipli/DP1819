@@ -36,7 +36,7 @@
 	<legend><spring:message code="report.references"/></legend>
 	
 	<strong><spring:message code="report.notes"/>:</strong>
-	<a href="note/customer,handyWorker,referee/list.do"><jstl:out value="${report.notes.list}"/></a>
+	<a href="note/customer,handyWorker,referee/list.do?reportId=${report.id}"><spring:message code="report.notes.list"/></a>
 	<br/>
 </fieldset>
 	
@@ -44,9 +44,11 @@
 <!-- Links -->
 <br>
 
-<a href="complaint/customer,handyWorker,referee/display.do?complaintId=${complaintId}"><spring:message code="report.back"/></a>
+<a href="report/customer,handyWorker,referee/back.do?reportId=${report.id}"><spring:message code="report.back"/></a>
 
-<jstl:if test="${reportEditionPerm}">
+<jstl:if test="${reportEditionPerm && !report.finalMode}">
 	&nbsp;
 	<a href="report/referee/edit.do?reportId=${report.id}"><spring:message code="report.edit"/></a>
+	&nbsp;
+	<a href="report/referee/makeFinal.do?reportId=${report.id}"><spring:message code="report.make.final"/></a>
 </jstl:if>
