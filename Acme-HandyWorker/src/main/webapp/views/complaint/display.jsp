@@ -39,7 +39,7 @@
 <fieldset>
 	<legend><spring:message code="complaint.references"/></legend>
 
-	<jstl:if test="${complaint.report ne null}">
+	<jstl:if test="${complaint.report ne null && (complaint.report.finalMode || reportCreationPerm)}">
 		<strong><spring:message code="complaint.report"/>:</strong>
 		<a href="report/customer,handyWorker,referee/display.do?reportId=${complaint.report.id}"><spring:message code="complaint.report.display"/></a>
 		<br/>
@@ -61,7 +61,7 @@
 		<a href="complaint/referee/selfAssign.do?complaintId=${complaint.id}"><spring:message code="complaint.self.assign"/></a>
 		&nbsp;
 	</jstl:if>
-	<jstl:if test="${reportCreationPerm}">
+	<jstl:if test="${reportCreationPerm && complaint.report == null}">
 		<a href="report/referee/create.do?complaintId=${complaint.id}"><spring:message code="complaint.create.report"/></a>
 		&nbsp;
 	</jstl:if>

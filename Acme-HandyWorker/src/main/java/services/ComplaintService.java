@@ -94,6 +94,14 @@ public class ComplaintService {
 
 	// Other business methods -------------------------------------------------
 
+	public Integer findIdByReportId(final int reportId) {
+		Integer result;
+
+		result = this.complaintRepository.findIdByReportId(reportId);
+
+		return result;
+	}
+
 	public boolean isAssigned(final int complaintId) {
 		return this.complaintRepository.findAssigned(complaintId) != null;
 	}
