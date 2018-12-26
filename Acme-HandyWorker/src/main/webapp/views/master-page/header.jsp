@@ -52,6 +52,12 @@
 					<li><a href="application/handyWorker/list.do"><spring:message code="master.page.handyWorker.application.list" /></a></li>					
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>				
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="tutorial/handyWorker/list.do"><spring:message code="master.page.handyWorker.tutorial.list" /></a></li>					
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
@@ -84,6 +90,12 @@
 				
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>			
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="tutorial/list.do"><spring:message code="master.page.tutorial.list" /></a></li>					
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

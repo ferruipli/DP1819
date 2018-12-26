@@ -1,8 +1,6 @@
 
 package repositories;
 
-import java.util.Collection;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +21,4 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a where a.name='System'")
 	Actor findSystem();
 
-	@Query("select b.actor from Box b where b.name = ?1")
-	Collection<Actor> findActorsHaveBoxName(String boxName);
 }

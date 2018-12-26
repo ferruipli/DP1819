@@ -40,7 +40,7 @@
 
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="referee1" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="password" value="092d469d0a71c8002e32f808b861f9a4" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -66,7 +66,7 @@
 
 	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="sponsor1" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -1917,6 +1917,7 @@
 		<property name="ticker" value="170401-CVV001" />
 		<property name="moment" value="2017/04/01 11:45" />
 		<property name="description" value="Description 3" />
+		<property name="attachments" value="" />
 		<!-- <property name="report" ref="reportXX" /> -->
 		<property name="fixUpTask" ref="fixUpTask7" />
 	</bean>
@@ -1943,6 +1944,7 @@
 		<property name="ticker" value="170824-HYYH54" />
 		<property name="moment" value="2017/08/24 11:58" />
 		<property name="description" value="Description 6" />
+		<property name="attachments" value="" />
 		<property name="fixUpTask" ref="fixUpTask6" />
 	</bean>
 
@@ -3252,6 +3254,7 @@
 	<bean id="report3" class="domain.Report">
 		<property name="moment" value="2018/07/07 17:07" />
 		<property name="description" value="Description 3" />
+		<property name="attachments" value="" />
 		<property name="finalMode" value="true" />
 		<property name="notes">
 			<list>
@@ -3296,6 +3299,40 @@
 	</bean>
 
 
+	<bean id="section4" class="domain.Section">
+		<property name="number" value="1" />
+		<property name="title" value="section 4" />
+		<property name="text" value="text 4" />
+		<property name="pictures" value="http://www.instagram.com" />
+	</bean>
+	
+	<bean id="section5" class="domain.Section">
+		<property name="number" value="2" />
+		<property name="title" value="section 5" />
+		<property name="text" value="text 5" />
+		<property name="pictures" value="http://www.instagram.com" />
+	</bean>
+	
+	<bean id="section6" class="domain.Section">
+		<property name="number" value="3" />
+		<property name="title" value="section 6" />
+		<property name="text" value="text 6" />
+		<property name="pictures" value="http://www.instagram.com" />
+	</bean>
+	
+	<bean id="section7" class="domain.Section">
+		<property name="number" value="4" />
+		<property name="title" value="section 7" />
+		<property name="text" value="text 7" />
+		<property name="pictures" value="http://www.instagram.com" />
+	</bean>
+	
+	<bean id="section8" class="domain.Section">
+		<property name="number" value="5" />
+		<property name="title" value="section 8" />
+		<property name="text" value="text 8" />
+		<property name="pictures" value="http://www.instagram.com" />
+	</bean>
 
 
 	<!-- SocialProfiles -->
@@ -3429,6 +3466,18 @@
 		<property name="targetPage" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard3" />
 	</bean>
+	
+	<bean id="sponsorship4" class="domain.Sponsorship">
+		<property name="banner" value="http://www.google.com" />
+		<property name="targetPage" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard3" />
+	</bean>
+	
+	<bean id="sponsorship5" class="domain.Sponsorship">
+		<property name="banner" value="http://www.google.com" />
+		<property name="targetPage" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard3" />
+	</bean>
 
 	<!-- Tutorials -->
 
@@ -3475,7 +3524,6 @@
 		<property name="pictures" value="http://www.instagram.com" />
 		<property name="sponsorShips">
 			<list>
-				<ref bean="sponsorship3" />
 			</list>
 		</property>
 		<property name="sections">
@@ -3484,6 +3532,45 @@
 			</list>
 		</property>
 		<property name="handyWorker" ref="handyworker3" />
+	</bean>
+	
+	<bean id="tutorial4" class="domain.Tutorial">
+		<property name="title" value="tutorial 4" />
+		<property name="moment" value="2017/11/08 19:03" />
+		<property name="summary" value="summary 4" />
+		<property name="pictures" value="http://www.instagram.com" />
+		<property name="sponsorShips">
+			<list>
+				<ref bean="sponsorship4" />
+			</list>
+		</property>
+		<property name="sections">
+			<list>
+				<ref bean="section4" />
+				<ref bean="section5" />				
+				<ref bean="section6" />
+			</list>
+		</property>
+		<property name="handyWorker" ref="handyworker1" />
+	</bean>
+	
+	<bean id="tutorial5" class="domain.Tutorial">
+		<property name="title" value="tutorial 5" />
+		<property name="moment" value="2017/11/08 19:03" />
+		<property name="summary" value="summary 5" />
+		<property name="pictures" value="http://www.instagram.com" />
+		<property name="sponsorShips">
+			<list>
+				<ref bean="sponsorship5" />
+			</list>
+		</property>
+		<property name="sections">
+			<list>
+				<ref bean="section7" />
+				<ref bean="section8" />		
+			</list>
+		</property>
+		<property name="handyWorker" ref="handyworker1" />
 	</bean>
 
 	<!-- Warranty -->

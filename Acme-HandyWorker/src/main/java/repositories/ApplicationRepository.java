@@ -1,8 +1,8 @@
 
 package repositories;
 
-import java.util.Collection;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -30,5 +30,5 @@ public interface ApplicationRepository extends JpaRepository<domain.Application,
 	@Query("select a from Application a where a.fixUpTask.id = ?1 and a.status = 'ACCEPTED'")
 	Application findAcceptedApplication(int fixUpTaskId);
 	@Query("select a from Application a where a.handyWorker.id = ?1")
-	Collection<Application> findApplicationByHandyWorker(int handyWorkerid);
+	Page<Application> findApplicationByHandyWorker(int handyWorkerid, Pageable pageable);
 }

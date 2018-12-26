@@ -171,11 +171,4 @@ public class ActorService {
 		return principalId == actor.getUserAccount().getId();
 	}
 
-	public Collection<Actor> findActorsHaveBoxName(final String boxName) {
-		Collection<Actor> result;
-
-		result = this.actorRepository.findActorsHaveBoxName(boxName);
-
-		return result;
-	}
 }

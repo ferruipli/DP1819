@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -53,9 +55,11 @@ public class ApplicationService {
 		Application result;
 		HandyWorker handyWorker;
 		CreditCard creditCard;
+		Date moment;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		creditCard = this.utilityService.createnewCreditCard();
+		moment = this.utilityService.current_moment();
 
 		Assert.notNull(handyWorker.getCurriculum());
 
@@ -64,6 +68,7 @@ public class ApplicationService {
 		result.setHandyWorker(handyWorker);
 		result.setFixUpTask(fixUpTask);
 		result.setCreditCard(creditCard);
+		result.setRegisterMoment(moment);
 
 		return result;
 	}
@@ -71,12 +76,9 @@ public class ApplicationService {
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		Application result;
-		Date moment;
 
 		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
-			moment = this.utilityService.current_moment();
-			application.setRegisterMoment(moment);
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
 			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))
@@ -223,14 +225,14 @@ public class ApplicationService {
 
 		return result;
 	}
-	public Collection<Application> findApplicationByHandyWorker() {
-		Collection<Application> applications;
+	public Page<Application> findApplicationByHandyWorker(final Pageable pageable) {
+		Page<Application> applications;
 		HandyWorker handyWorker;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
-		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId());
+		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId(), pageable);
 
-		Assert.isTrue(!(applications.isEmpty()));
+		Assert.isTrue((applications.getNumberOfElements() != 0));
 		return applications;
 
 	}
