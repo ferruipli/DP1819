@@ -74,7 +74,7 @@ public class ReportService {
 
 		Assert.notNull(complaint);
 		this.utilityService.checkDate(complaint.getMoment(), report.getMoment());
-		this.checkManagerReferee(complaint);
+		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaint));
 		result = this.reportRepository.save(report);
 
 		if (!isUpdating)
@@ -91,7 +91,7 @@ public class ReportService {
 		Complaint complaintInvolved;
 
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
-		this.checkManagerReferee(complaintInvolved);
+		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaintInvolved));
 
 		this.complaintService.removeReport(complaintInvolved);
 		this.reportRepository.delete(report);
@@ -108,6 +108,22 @@ public class ReportService {
 
 	// Other business methods -------------------------------------------------
 
+	public boolean isPrincipalCreator(final Report report) {
+		Referee principal, creator;
+		boolean res;
+
+		principal = this.refereeService.findByPrincipal();
+		creator = this.refereeService.findByReportId(report.getId());
+		res = creator.equals(principal);
+
+		return res;
+	}
+
+	public void makeFinal(final Report report) {
+		Assert.isTrue(this.isPrincipalCreator(report));
+		report.setFinalMode(true);
+	}
+
 	protected Report findByNoteId(final int noteId) {
 		Report result;
 
@@ -118,12 +134,5 @@ public class ReportService {
 
 	protected void addNote(final Report report, final Note note) {
 		report.getNotes().add(note);
-	}
-
-	private void checkManagerReferee(final Complaint complaintInvolved) {
-		Referee principal;
-
-		principal = this.refereeService.findByPrincipal();
-		Assert.isTrue(principal.getComplaints().contains(complaintInvolved));
 	}
 }
