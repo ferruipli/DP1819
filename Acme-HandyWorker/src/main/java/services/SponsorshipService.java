@@ -152,11 +152,9 @@ public class SponsorshipService {
 		tutorial.setSponsorShips(sponsorships);
 	}
 
-	public void addSponsorShipToTutorial(final Sponsorship sponsorship) {
-		Tutorial tutorial;
+	public void addSponsorShipToTutorial(final Sponsorship sponsorship, final Tutorial tutorial) {
 		Collection<Sponsorship> sponsorships;
 
-		tutorial = this.tutorialService.findTutorialBySponsorship(sponsorship);
 		sponsorships = tutorial.getSponsorShips();
 		sponsorships.add(sponsorship);
 
