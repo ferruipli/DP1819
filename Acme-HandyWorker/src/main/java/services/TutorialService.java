@@ -138,5 +138,12 @@ public class TutorialService {
 
 		return tutorials;
 	}
+	public Page<Tutorial> findAllTutorialPageable(final Pageable pageable) {
+		Page<Tutorial> tutorials;
+
+		tutorials = this.tutorialRepository.findAllTutorialPageable(pageable);
+
+		return tutorials;
+	}
 
 }

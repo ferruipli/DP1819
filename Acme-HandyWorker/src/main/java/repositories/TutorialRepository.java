@@ -21,4 +21,7 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
 	@Query("select t from Tutorial t where t.handyWorker.id = ?1")
 	Page<Tutorial> findTutorialByHandyWorker(int id, Pageable pageable);
 
+	@Query("select t from Tutorial t")
+	Page<Tutorial> findAllTutorialPageable(Pageable pageable);
+
 }
