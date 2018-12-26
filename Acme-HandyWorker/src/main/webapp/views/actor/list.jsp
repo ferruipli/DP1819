@@ -27,15 +27,11 @@
 		</jstl:choose>
 	</display:column>
 	
-	<display:column property="name" titleKey="suspicious.table.name"/>
+	<display:column property="fullname" titleKey="actor.fullname" />
 	
-	<display:column property="middleName" titleKey="suspicious.table.middlename"/>
+	<display:column property="email" titleKey="suspicious.table.email" />
 	
-	<display:column property="surname" titleKey="suspicious.table.surname"/>
+	<display:column property="userAccount.username" titleKey="suspicious.table.username" />
 	
-	<display:column property="email" titleKey="suspicious.table.email"/>
-	
-	<display:column property="userAccount.username" titleKey="suspicious.table.username"/>
-	
-	<display:column property="userAccount.authorities" titleKey="suspicious.table.authority"/>
+	<display:column property="userAccount.authorities" titleKey="suspicious.table.authority" />
 </display:table>

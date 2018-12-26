@@ -11,8 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
+import services.EndorsableService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Customer;
+import domain.Endorsable;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping(value = "/actor/administrator,customer,handyWorker,referee,sponsor")
@@ -21,7 +25,10 @@ public class ActorMultiUserController extends AbstractController {
 	// Services
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private EndorsableService	endorsableService;
 
 
 	// Constructor
@@ -36,6 +43,7 @@ public class ActorMultiUserController extends AbstractController {
 	public ModelAndView display() {
 		ModelAndView result;
 		Actor actor;
+		Endorsable endorsable;
 		Collection<Authority> authorities;
 
 		actor = this.actorService.findPrincipal();
@@ -43,7 +51,15 @@ public class ActorMultiUserController extends AbstractController {
 
 		result = new ModelAndView("actor/display");
 
-		result.addObject("actor", actor);
+		if (actor instanceof Customer || actor instanceof HandyWorker) {
+			endorsable = this.endorsableService.findOne(actor.getId());
+			result.addObject("actor", endorsable);
+			result.addObject("isEndorsable", true);
+		} else {
+			result.addObject("actor", actor);
+			result.addObject("isEndorsable", false);
+		}
+
 		result.addObject("authorities", authorities);
 
 		return result;

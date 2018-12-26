@@ -26,7 +26,7 @@
 		<spring:message code="endorsement.recipient" />:
 	</form:label> 
 	<form:select path="recipient">
-		<form:options items="${recipients}" itemLabel="name" itemValue="id" />
+		<form:options items="${recipients}" itemLabel="fullname" itemValue="id" />
 		<form:option label="----" value="0" />
 	</form:select>
 	<form:errors cssClass="error" path="recipient" />

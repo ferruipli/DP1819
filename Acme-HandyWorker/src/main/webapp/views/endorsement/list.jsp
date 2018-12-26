@@ -29,10 +29,10 @@
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
 	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<display:column property="sender.name" titleKey="endorsement.recipient" />
+	<display:column property="recipient.fullname" titleKey="endorsement.recipient" />
 </display:table>
 
-<a href="endorsement/handyWorker,customer/create.do">
+<a href="endorsement/customer,handyWorker/create.do">
 	<spring:message code="endorsement.create" />
 </a>
 
@@ -49,5 +49,5 @@
 	<spring:message code="endorsement.formatMoment" var="w_format"  />
 	<display:column property="moment" titleKey="endorsement.moment" sortable="true" format="${w_format}" />
 	
-	<display:column value="sender.name" titleKey="endorsement.sender" />
+	<display:column property="sender.fullname" titleKey="endorsement.sender" />
 </display:table>
