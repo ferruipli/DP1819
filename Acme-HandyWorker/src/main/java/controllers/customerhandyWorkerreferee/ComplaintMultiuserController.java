@@ -1,5 +1,5 @@
 
-package controllers.refereecustomerhandyworker;
+package controllers.customerhandyWorkerreferee;
 
 import java.util.Collection;
 
@@ -21,7 +21,7 @@ import controllers.AbstractController;
 import domain.Complaint;
 
 @Controller
-@RequestMapping("complaint/referee,customer,handyWorker")
+@RequestMapping("complaint/customer,handyWorker,referee")
 public class ComplaintMultiuserController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
@@ -57,7 +57,7 @@ public class ComplaintMultiuserController extends AbstractController {
 
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaintsAdapted);
-		result.addObject("requestURI", "complaint/referee,customer,handyWorker/list.do?fixUpTaskId=" + Integer.toString(fixUpTaskId));
+		result.addObject("requestURI", "complaint/customer,handyWorker,referee/list.do?fixUpTaskId=" + Integer.toString(fixUpTaskId));
 		result.addObject("fixUpTaskId", fixUpTaskId);
 
 		return result;
@@ -78,18 +78,12 @@ public class ComplaintMultiuserController extends AbstractController {
 		reportCreationPerm = isAssigned ? this.refereeService.principalHasSelfAssigned(complaint) : false;
 
 		result = new ModelAndView("complaint/display");
-		result.addObject(complaint);
+		result.addObject("complaint", complaint);
 		result.addObject("attachments", attachments);
 		result.addObject("isAssigned", isAssigned);
 		result.addObject("reportCreationPerm", reportCreationPerm);
 
 		return result;
 	}
-
-	// Creation ---------------------------------------------------------------
-
-	// Edition ----------------------------------------------------------------
-
-	// Ancillary methods ------------------------------------------------------
 
 }

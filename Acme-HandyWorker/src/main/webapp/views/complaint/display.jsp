@@ -39,14 +39,14 @@
 <fieldset>
 	<legend><spring:message code="complaint.references"/></legend>
 
-	<jstl:if test="${complaint.report ne null}">
+	<jstl:if test="${complaint.report ne null && (complaint.report.finalMode || reportCreationPerm)}">
 		<strong><spring:message code="complaint.report"/>:</strong>
-		<a href="report/referee,customer,handyWorker/display.do?reportId=${complaint.report.id}"><spring:message code="complaint.report.display"/></a>
+		<a href="report/customer,handyWorker,referee/display.do?reportId=${complaint.report.id}"><spring:message code="complaint.report.display"/></a>
 		<br/>
 	</jstl:if>
 	
 	<strong><spring:message code="complaint.fixUpTask"/>:</strong>
-	<a href="fixUpTask/referee,customer,handyWorker/display.do?fixUpTaskId=${complaint.fixUpTask.id}"><jstl:out value="${complaint.fixUpTask.ticker}"/></a>
+	<a href="fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=${complaint.fixUpTask.id}"><jstl:out value="${complaint.fixUpTask.ticker}"/></a>
 	<br/>
 </fieldset>
 	
@@ -61,12 +61,12 @@
 		<a href="complaint/referee/selfAssign.do?complaintId=${complaint.id}"><spring:message code="complaint.self.assign"/></a>
 		&nbsp;
 	</jstl:if>
-	<jstl:if test="${reportCreationPerm}">
+	<jstl:if test="${reportCreationPerm && complaint.report == null}">
 		<a href="report/referee/create.do?complaintId=${complaint.id}"><spring:message code="complaint.create.report"/></a>
 		&nbsp;
 	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
-	<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${complaint.fixUpTask.id}"><spring:message code="complaint.back"/></a>
+	<a href="complaint/customer,handyWorker,referee/list.do?fixUpTaskId=${complaint.fixUpTask.id}"><spring:message code="complaint.back"/></a>
 </security:authorize>

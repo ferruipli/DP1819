@@ -132,4 +132,37 @@ public class MessageServiceTest extends AbstractTest {
 		Assert.isTrue(size1 + 1 == size2);
 		super.unauthenticate();
 	}
+
+	@Test
+	public void broadcastMessageTest() {
+		super.authenticate("admin1");
+		Message message;
+		Collection<Actor> recipients;
+		Box outBoxSender;
+
+		final Actor sender = this.actorService.findPrincipal();
+		recipients = this.actorService.findAll();
+
+		message = this.messageService.create();
+		message.setBody("Hola éste es el cuerpo del mensaje");
+		message.getRecipients().addAll(recipients);
+		message.setSender(sender);
+		message.setSubject("buenas tardes");
+		message.setPriority("NEUTRAL");
+
+		message = this.messageService.save(message);
+
+		for (final Actor r : recipients) {
+			Box inbox;
+
+			inbox = this.boxService.searchBox(r, "in box");
+			Assert.isTrue(this.boxService.boxWithMessage(message).contains(inbox));
+		}
+
+		outBoxSender = this.boxService.searchBox(sender, "out box");
+		Assert.isTrue(this.boxService.boxWithMessage(message).contains(outBoxSender));
+
+		super.unauthenticate();
+
+	}
 }

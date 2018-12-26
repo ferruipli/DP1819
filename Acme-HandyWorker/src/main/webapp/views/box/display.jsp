@@ -19,16 +19,20 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h2><spring:message code="box.name"/>:</h2><jstl:out value="${box.name}"/>
+<h2><spring:message code="box.name"/>: <jstl:out value="${box.name}"/></h2>
 	<jstl:if test="${box.isSystemBox == false }">
-		<a href="box/edit.do?boxId=${box.id }"><spring:message code="box.edit"/></a>
+		<a href="box/administrator,customer,handyWorker,referee,sponsor/edit.do?boxId=${box.id }"><spring:message code="box.edit"/></a>
 	</jstl:if>
 
 <fieldset>
 	<legend><spring:message code="box.messages"/></legend>
-<display:table name="messages" id="row" requestURI="box/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
+<display:table name="messages" id="row" requestURI="box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
 	<display:column>
-		<a href="message/display.do?messageId=${rowMessage.id}&folderId=${folder.id}"><spring:message code="folder.table.display" /></a>
+		<a href="message/administrator,customer,handyWorker,referee,sponsor/delete.do?messageId=${rowMessage.id}"><spring:message code="message.delete" /></a>
+	</display:column>
+	
+	<display:column>
+		<a href="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${rowMessage.id}"><spring:message code="box.display" /></a>
 	</display:column>
 	
 	<spring:message code="message.date.format" var="dateFormat"/>
@@ -38,15 +42,15 @@
 	
 	<display:column property="priority" titleKey="message.priority"/>
 	
-	<display:column property="sender" titleKey="message.sender"/>
+	<display:column property="sender.userAccount.username" titleKey="message.sender"/>
 	
 	<display:column property="tags" titleKey="message.tags"/>
 	
 </display:table>
 
-	<a href="message/edit.do"><spring:message code="message.send"/></a>
+	<a href="message/administrator,customer,handyWorker,referee,sponsor/edit.do"><spring:message code="message.send"/></a>
 
 </fieldset>
 
 <input type="button" name="return" value="<spring:message code="box.return" />" 
-				onclick="javascript: relativeRedir('box/list.do');" />
+				onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/list.do');" />

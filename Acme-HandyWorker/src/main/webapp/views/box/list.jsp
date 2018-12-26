@@ -19,9 +19,9 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="boxes" id="row" requestURI="${requestUri }" pagesize="5" class="displaytag">
+<display:table name="boxes" id="row" requestURI="${requestURI }"  class="displaytag">
 	<display:column>
-		<a href="box/display.do?boxId=${row.id}"><spring:message code="box.display" /></a>
+		<a href="box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${row.id}"><spring:message code="box.display" /></a>
 	</display:column>
 	
 	<display:column property="name" titleKey="box.name"/>

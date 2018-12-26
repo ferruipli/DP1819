@@ -9,7 +9,13 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="actors" id="row" requestURI="actor/administrator/list.do" pagesize="5" class="displaytag">
+<display:table name="actors" id="row" requestURI="${requestURI}" class="displaytag">
+	<jstl:if test="${isEndorsable}">
+		<display:column>
+			<a href="endorsable/administrator/computeScore.do?endorsableId=${row.id}"> <spring:message code="endorsable.compute" /> </a>
+		</display:column>
+	</jstl:if>
+
 	<display:column>
 		<jstl:choose>
 			<jstl:when test="${row.userAccount.isBanned}">

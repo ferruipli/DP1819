@@ -1,7 +1,6 @@
 
 package repositories;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
@@ -18,8 +17,8 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	@Query("select f from FixUpTask f join f.phases ph where ph.id = ?1")
 	FixUpTask findByPhaseId(int phaseId);
 
-	@Query("select a.fixUpTask from HandyWorker hw join hw.applications a where hw.id = ?1 and a.status = 'ACCEPTED'")
-	Collection<FixUpTask> findWorkableFixUpTasks(int handyWorkerId);
+	@Query("select a.fixUpTask from HandyWorker hw join hw.applications a where hw.id = ?2 and a.status = 'ACCEPTED' and a.fixUpTask.id = ?1")
+	FixUpTask findWorkableFixUpTask(int fixUpTaskId, int handyWorkerId);
 
 	@Query("select avg(c.fixUpTasks.size), min(c.fixUpTasks.size), max(c.fixUpTasks.size), sqrt(sum(c.fixUpTasks.size * c.fixUpTasks.size)/ count(c.fixUpTasks.size) -avg(c.fixUpTasks.size)*avg(c.fixUpTasks.size)) from Customer c")
 	double[] findDataNumberFixUpTaskPerUser();

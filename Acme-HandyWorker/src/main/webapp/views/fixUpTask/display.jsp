@@ -18,7 +18,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.customer"/>:</strong>
-	<a href="actor/referee,customer,handyWorker,administrator/display.do?actorId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
+	<a href="actor/administrator,customer,handyWorker,referee/display.do?actorId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.publicationMoment"/>:</strong>
@@ -47,7 +47,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.warranty"/>:</strong>
-	<a href="warranty/referee,customer,handyWorker/display.do?warrantyId=${fixUpTask.warranty.id}"><jstl:out value="${fixUpTask.warranty.title}"/></a>
+	<a href="warranty/customer,handyWorker,referee/display.do?warrantyId=${fixUpTask.warranty.id}"><jstl:out value="${fixUpTask.warranty.title}"/></a>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.category"/>:</strong>
@@ -60,18 +60,18 @@
 	<legend><spring:message code="fixUpTask.references"/></legend>
 
 	<strong><spring:message code="fixUpTask.applications"/>:</strong>
-	<a href="application/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.application.list"/></a>
+	<a href="application/customer,handyWorker,referee/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.application.list"/></a>
 	<br/>
 	
 	<jstl:if test="${isWorkable}">
 		<strong><spring:message code="fixUpTask.complaints"/>:</strong>
-		<a href="complaint/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.complaint.list"/></a>
+		<a href="complaint/customer,handyWorker,referee/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.complaint.list"/></a>
 		<br/>
 	</jstl:if>
 	
 	<jstl:if test="${isWorkable}">
 		<strong><spring:message code="fixUpTask.phases"/>:</strong>
-		<a href="phase/referee,customer,handyWorker/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.phase.list"/></a>
+		<a href="phase/customer,handyWorker,referee/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.phase.list"/></a>
 		<br/>
 	</jstl:if>
 </fieldset>

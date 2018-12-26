@@ -17,7 +17,7 @@
 	</security:authorize>
 	
 	<display:column>
-		<a href="fixUpTask/referee,customer,handyWorker/display.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.display"/></a>
+		<a href="fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.display"/></a>
 	</display:column>
 	
 	<display:column property="ticker" titleKey="fixUpTask.ticker"/>

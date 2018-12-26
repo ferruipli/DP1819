@@ -1,9 +1,10 @@
 
 package controllers.administrator;
 
-import java.util.Collection;
-
+import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Actor;
 
@@ -31,16 +33,23 @@ public class ActorAdministratorController extends AbstractController {
 	// List
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
-		Collection<Actor> actors;
+		Page<Actor> actors;
+		Pageable pageable;
+		PaginatedList actorsAdapted;
+		boolean isEndorsable;
 
-		actors = this.actorService.findAllSuspicious();
+		isEndorsable = false;
+		pageable = this.newFixedPageable(page, dir, sort);
+		actors = this.actorService.findAllSuspicious(pageable);
+		actorsAdapted = new PaginatedListAdapter(actors, sort);
 
 		result = new ModelAndView("actor/list");
 
-		result.addObject("actors", actors);
-
+		result.addObject("actors", actorsAdapted);
+		result.addObject("requestURI", "actor/administrator/list.do");
+		result.addObject("isEndorsable", isEndorsable);
 		return result;
 
 	}

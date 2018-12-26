@@ -36,7 +36,7 @@ public class EndorsableServiceTest extends AbstractTest {
 		endorsable = this.endorsableService.findByPrincipal();
 
 		this.endorsableService.computeScore(endorsable);
-
+		System.out.println(endorsable.getScore());
 		Assert.notNull(endorsable.getScore());
 
 		super.unauthenticate();
@@ -51,7 +51,7 @@ public class EndorsableServiceTest extends AbstractTest {
 		endorsable = this.endorsableService.findByPrincipal();
 
 		this.endorsableService.computeScore(endorsable);
-
+		System.out.println(endorsable.getScore());
 		Assert.notNull(endorsable.getScore());
 
 		super.unauthenticate();
@@ -59,14 +59,14 @@ public class EndorsableServiceTest extends AbstractTest {
 
 	@Test
 	public void testComputeScore_tres() {
-		super.authenticate("customer2");
+		super.authenticate("customer4");
 
 		Endorsable endorsable;
 
 		endorsable = this.endorsableService.findByPrincipal();
 
 		this.endorsableService.computeScore(endorsable);
-
+		System.out.println(endorsable.getScore());
 		Assert.notNull(endorsable.getScore());
 
 		super.unauthenticate();
@@ -81,7 +81,7 @@ public class EndorsableServiceTest extends AbstractTest {
 		endorsable = this.endorsableService.findByPrincipal();
 
 		this.endorsableService.computeScore(endorsable);
-
+		System.out.println(endorsable.getScore());
 		Assert.notNull(endorsable.getScore());
 
 		super.unauthenticate();
