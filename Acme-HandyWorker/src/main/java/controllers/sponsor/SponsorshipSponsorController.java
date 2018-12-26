@@ -74,13 +74,10 @@ public class SponsorshipSponsorController extends AbstractController {
 			result = this.createEditModelAndView(sponsorship, tutorialId);
 		else
 			try {
-				if (sponsorship.getId() == 0) {
-					tutorialId = Integer.parseInt(request.getParameter("tutorialId"));
-					tutorial = this.tutorialService.findOne(tutorialId);
-					saved = this.sponsorshipService.save(sponsorship);
-					this.sponsorshipService.addSponsorShipToTutorial(saved, tutorial);
-				} else
-					saved = this.sponsorshipService.save(sponsorship);
+				tutorialId = Integer.parseInt(request.getParameter("tutorialId"));
+				tutorial = this.tutorialService.findOne(tutorialId);
+				saved = this.sponsorshipService.save(sponsorship);
+				this.sponsorshipService.addSponsorShipToTutorial(saved, tutorial);
 
 				result = new ModelAndView("redirect:../../tutorial/list.do");
 
