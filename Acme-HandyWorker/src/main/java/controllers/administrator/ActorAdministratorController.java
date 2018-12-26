@@ -38,9 +38,7 @@ public class ActorAdministratorController extends AbstractController {
 		Page<Actor> actors;
 		Pageable pageable;
 		PaginatedList actorsAdapted;
-		boolean isEndorsable;
 
-		isEndorsable = false;
 		pageable = this.newFixedPageable(page, dir, sort);
 		actors = this.actorService.findAllSuspicious(pageable);
 		actorsAdapted = new PaginatedListAdapter(actors, sort);
@@ -49,9 +47,8 @@ public class ActorAdministratorController extends AbstractController {
 
 		result.addObject("actors", actorsAdapted);
 		result.addObject("requestURI", "actor/administrator/list.do");
-		result.addObject("isEndorsable", isEndorsable);
+		result.addObject("isEndorsable", false);
 		return result;
-
 	}
 
 	// Ban

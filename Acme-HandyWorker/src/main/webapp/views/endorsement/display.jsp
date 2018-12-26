@@ -22,20 +22,20 @@
 <p>
 	<strong> <spring:message code="endorsement.sender" />: </strong>
 	<a href="actor/handyWorker,customer/display.do?actorId=${sender.id}}">
-		<jstl:out value="${endorsement.sender.name}" />
+		<jstl:out value="${endorsement.sender.fullname}" />		
 	</a>
 </p>
 
 <p>
 	<strong> <spring:message code="endorsement.recipient" />: </strong>
 	<a href="actor/handyWorker,customer/display.do?actorId=${recipient.id}}">
-		<jstl:out value="${endorsement.recipient.name}" />
+		<jstl:out value="${endorsement.recipient.fullname}" />
 	</a>
 </p>
 <br />
 
 <p>
-	<a href="endorsement/handyWorker,customer/list.do">
+	<a href="endorsement/customer,handyWorker/list.do">
 		 <spring:message code="endorsement.return" />
 	</a>
 </p>	   
