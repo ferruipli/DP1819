@@ -70,6 +70,7 @@
 		<security:intercept-url pattern="/endorserRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		
 		<security:intercept-url pattern="/message/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/message/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/miscellaneousRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		
