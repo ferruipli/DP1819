@@ -88,7 +88,7 @@
 <input type="button" 
 	   name="return"
 	   value="<spring:message code="tutorial.return" />"
-	   onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />	
+	   onclick="javascript: relativeRedir('tutorial/list.do');" />	
 </security:authorize>
 
 	
