@@ -1,8 +1,8 @@
 
 package repositories;
 
-import java.util.Collection;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,6 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
 	Tutorial findTutorialBySection(int id);
 
 	@Query("select t from Tutorial t where t.handyWorker.id = ?1")
-	Collection<Tutorial> findTutorialByHandyWorker(int id);
+	Page<Tutorial> findTutorialByHandyWorker(int id, Pageable pageable);
 
 }

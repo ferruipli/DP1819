@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -129,10 +131,10 @@ public class TutorialService {
 
 		return result;
 	}
-	public Collection<Tutorial> findTutorialByHandyWorker(final HandyWorker handyWorker) {
-		Collection<Tutorial> tutorials;
+	public Page<Tutorial> findTutorialByHandyWorker(final HandyWorker handyWorker, final Pageable pageable) {
+		Page<Tutorial> tutorials;
 
-		tutorials = this.tutorialRepository.findTutorialByHandyWorker(handyWorker.getId());
+		tutorials = this.tutorialRepository.findTutorialByHandyWorker(handyWorker.getId(), pageable);
 
 		return tutorials;
 	}

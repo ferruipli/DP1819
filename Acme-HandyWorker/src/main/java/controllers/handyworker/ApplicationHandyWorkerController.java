@@ -9,9 +9,10 @@
 
 package controllers.handyworker;
 
-import java.util.Collection;
-
+import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Application;
 
@@ -37,13 +39,18 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	// Application List -----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
-		Collection<Application> applications;
+		Page<Application> applications;
+		final Pageable pageable;
+		final PaginatedList tutorialsAdapted;
+
+		pageable = this.newFixedPageable(page, dir, sort);
+		applications = this.applicationService.findApplicationByHandyWorker(pageable);
+		tutorialsAdapted = new PaginatedListAdapter(applications, sort);
 
 		result = new ModelAndView("application/list");
-		applications = this.applicationService.findApplicationByHandyWorker();
-		result.addObject("applications", applications);
+		result.addObject("applications", tutorialsAdapted);
 		result.addObject("requestURI", "application/handyWorker/list.do");
 
 		return result;

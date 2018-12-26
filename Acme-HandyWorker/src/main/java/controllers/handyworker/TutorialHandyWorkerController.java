@@ -14,7 +14,10 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.HandyWorkerService;
 import services.TutorialService;
+import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.HandyWorker;
 import domain.Section;
@@ -48,15 +52,21 @@ public class TutorialHandyWorkerController extends AbstractController {
 	// Tutorial list ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
-		Collection<Tutorial> tutorials;
+		Page<Tutorial> tutorials;
+		final Pageable pageable;
+		final PaginatedList tutorialsAdapted;
 		HandyWorker handyWorker;
 
-		result = new ModelAndView("tutorial/list");
 		handyWorker = this.handyWorkerService.findByPrincipal();
-		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker);
-		result.addObject("tutorials", tutorials);
+		pageable = this.newFixedPageable(page, dir, sort);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker, pageable);
+		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
+
+		result = new ModelAndView("tutorial/list");
+		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("requestURI", "tutorial/handyWorker/list.do");
 
 		return result;
 	}

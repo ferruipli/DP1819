@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -223,14 +225,14 @@ public class ApplicationService {
 
 		return result;
 	}
-	public Collection<Application> findApplicationByHandyWorker() {
-		Collection<Application> applications;
+	public Page<Application> findApplicationByHandyWorker(final Pageable pageable) {
+		Page<Application> applications;
 		HandyWorker handyWorker;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
-		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId());
+		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId(), pageable);
 
-		Assert.isTrue(!(applications.isEmpty()));
+		Assert.isTrue((applications.getNumberOfElements() != 0));
 		return applications;
 
 	}
