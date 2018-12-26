@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<display:table id="row" name="applications"  requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table id="row" name="applications"  requestURI="${requestURI}"  class="displaytag">
 
 
 	<jsp:useBean id="now" class="java.util.Date" />

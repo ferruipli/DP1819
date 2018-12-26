@@ -41,10 +41,8 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
-
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" /> 
-		
 
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
 		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
@@ -84,9 +82,17 @@
 
 		<security:intercept-url pattern="/report/referee/**" access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/customer,handyWorker,referee/**" access="hasAnyRole('REFEREE','CUSTOMER','HANDYWORKER')" />
-
+		
+		<security:intercept-url pattern="/section/handyWorker/**" access="hasAnyRole('HANDYWORKER')"  />
+		
 		<security:intercept-url pattern="/socialProfile/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" />
 
+		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasAnyRole('SPONSOR')" />
+		
+		<security:intercept-url pattern="/tutorial/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/tutorial/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/tutorial/handyWorker/**" access="hasAnyRole('HANDYWORKER')"  /> 
+				
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 
