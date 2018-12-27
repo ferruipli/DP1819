@@ -3,6 +3,7 @@ package controllers.authenticated;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ActorService;
 import services.BoxService;
 import services.MessageService;
 import controllers.AbstractController;
+import converters.StringToBoxConverter;
+import converters.StringToMessageConverter;
 import domain.Actor;
 import domain.Box;
 import domain.Message;
@@ -28,13 +32,21 @@ public class MessageMultiUserController extends AbstractController {
 	// Services
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageService				messageService;
 
 	@Autowired
-	private BoxService		boxService;
+	private BoxService					boxService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService				actorService;
+
+	// Converters
+
+	@Autowired
+	private StringToMessageConverter	stringToMessageConverter;
+
+	@Autowired
+	private StringToBoxConverter		stringToBoxConverter;
 
 
 	// Contructor
@@ -87,7 +99,7 @@ public class MessageMultiUserController extends AbstractController {
 		else
 			try {
 				this.messageService.save(messageToSend);
-				result = new ModelAndView("box/administrator,customer,handyWorker,referee,sponsor/list.do");
+				result = new ModelAndView("redirect:/box/administrator,customer,handyWorker,referee,sponsor/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(messageToSend, "message.commit.error");
 			}
@@ -96,15 +108,72 @@ public class MessageMultiUserController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Message messageToDelete, final BindingResult binding) {
+	// Delete
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int messageId) {
 		ModelAndView result;
+		Message messageToDelete;
+
+		messageToDelete = this.messageService.findOne(messageId);
 
 		try {
 			this.messageService.delete(messageToDelete);
 			result = new ModelAndView("redirect:/box/administrator,customer,handyWorker,referee,sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(messageToDelete, "message.commit.error");
+		}
+
+		return result;
+
+	}
+
+	// Move
+
+	@RequestMapping(value = "/move", method = RequestMethod.GET)
+	public ModelAndView move(@RequestParam final int messageId) {
+		ModelAndView result;
+		Message messageToMove;
+		Collection<Box> targetBoxes;
+		Box sourceBox;
+		Actor actor;
+
+		actor = this.actorService.findPrincipal();
+		sourceBox = this.boxService.searchBoxByMessageAndActor(messageId, actor.getId());
+		messageToMove = this.messageService.findOne(messageId);
+		targetBoxes = this.boxService.findBoxesByActor(actor.getId());
+		targetBoxes.remove(sourceBox);
+
+		result = new ModelAndView("message/move");
+		result.addObject("messageToMove", messageToMove);
+		result.addObject("targetBoxes", targetBoxes);
+		result.addObject("sourceBox", sourceBox);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/move", method = RequestMethod.POST, params = "move")
+	public ModelAndView moveMessage(final HttpServletRequest request, final RedirectAttributes redir) {
+		ModelAndView result;
+		Message messageToMove;
+		Box sourceBox, targetBox;
+		String messageToMoveId, sourceBoxId, targetBoxId;
+
+		messageToMoveId = request.getParameter("messageToMoveId");
+		sourceBoxId = request.getParameter("sourceBoxId");
+		targetBoxId = request.getParameter("targetBoxId");
+
+		messageToMove = this.stringToMessageConverter.convert(messageToMoveId);
+		sourceBox = this.stringToBoxConverter.convert(sourceBoxId);
+		targetBox = this.stringToBoxConverter.convert(targetBoxId);
+
+		try {
+			this.messageService.moveMessageFromBoxToBox(sourceBox, targetBox, messageToMove);
+			result = new ModelAndView("redirect:/box/administrator,customer,handyWorker,referee,sponsor/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("message/move");
+			redir.addFlashAttribute("message", "message.commit.error");
 		}
 
 		return result;

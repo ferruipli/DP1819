@@ -12,35 +12,26 @@
 <fieldset>
 	<legend><spring:message code="message.fieldset.message" /></legend>
 	
-	<form action="message/${role}/move.do" method="post">
-		<input type="hidden" name="messageId" value="${messageToMove.id}">
+	<form action="message/administrator,customer,handyWorker,referee,sponsor/move.do" method="post">
+		<input type="hidden" name="messageToMoveId" value="${messageToMove.id}">
 		<input type="hidden" name="sourceBoxId" value="${sourceBox.id}">
 	
 		<ul>
 			<li>
-				<spring:message code="message.move.subject"/>${messageToMove.subject}
+				<spring:message code="message.move.subject"/> ${messageToMove.subject}
 			</li>
 				
 			<li>
-				<label for="sourceBoxSelectId">
-					<spring:message code="message.move.sourceBox" />
-				</label>
-				<select name="sourceBoxId" id="sourceBoxSelectId" form="formId">
-					<jstl:if test="${not empty sourceBoxes}">
-						<jstl:forEach var="rowBox" items="${boxes}">
-							<option value="${rowBox.id}">${rowBox.name}</option>
-						</jstl:forEach>
-					</jstl:if>
-				</select>
+				<spring:message code="message.move.sourceBox"/> ${sourceBox.name}
 			</li>
 		
 			<li>
 				<label for="targetBoxSelectId">
 					<spring:message code="message.move.targetBox" />
 				</label>
-				<select name="targetBoxId" id="targetBoxSelectId" form="formId">
-					<jstl:if test="${not empty boxes}">
-						<jstl:forEach var="rowBox" items="${boxes}">
+				<select name="targetBoxId" id="targetBoxSelectId">
+					<jstl:if test="${not empty targetBoxes}">
+						<jstl:forEach var="rowBox" items="${targetBoxes}">
 							<option value="${rowBox.id}">${rowBox.name}</option>
 						</jstl:forEach>
 					</jstl:if>
@@ -50,6 +41,6 @@
 		
 		<input type="submit" name="move" value="<spring:message code="message.button.move"/>" />
 		<input type="button" name="cancel" value="<spring:message code="message.button.cancel"/>" 
-				onclick="javascript: relativeRedir('message/${role }/display.do?messageId=${messageToMove.id}')" />
+				onclick="javascript: relativeRedir('message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${messageToMove.id}')" />
 	</form>
 </fieldset>

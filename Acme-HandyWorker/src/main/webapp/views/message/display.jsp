@@ -41,7 +41,7 @@
  <fieldset>
 	<legend><spring:message code="message.display.recipients"/></legend>
 	
-	<display:table name="${messageToDisplay.recipients }" id="row" requestURI="message/${role }/display.do?messageId=${messageToDisplay.id }" pagesize="5" class="displaytag">
+	<display:table name="${messageToDisplay.recipients }" id="row" requestURI="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${messageToDisplay.id }" pagesize="5" class="displaytag">
 		
 		<display:column property="name" titleKey="message.recipient.name"/>
 		
@@ -56,7 +56,5 @@
 <input type="button" name="return" value="<spring:message code="message.button.return" />" 
 				onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${boxId}');" />
 				
-<input type="submit" name="delete" value="<spring:message code="message.button.delete"/>" 
-				onclick="return confirm('<spring:message code="message.confirm.delete" />')"/>
-				
-<input type="submit" name="move" value="<spring:message code="message.button.move"/>" />
+<input type="submit" name="move" value="<spring:message code="message.button.move" />"
+				onclick="javascript: relativeRedir('message/administrator,customer,handyWorker,referee,sponsor/move.do?messageId=${messageToDisplay.id}');" />

@@ -29,6 +29,10 @@
 <display:table name="messages" id="row" requestURI="box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
 	
 	<display:column>
+		<a href="message/administrator,customer,handyWorker,referee,sponsor/delete.do?messageId=${row.id}"><spring:message code="box.delete" /></a>
+	</display:column>
+	
+	<display:column>
 		<a href="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${row.id}"><spring:message code="box.display" /></a>
 	</display:column>
 	
