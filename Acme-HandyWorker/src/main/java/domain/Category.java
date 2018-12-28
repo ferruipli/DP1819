@@ -25,7 +25,6 @@ public class Category extends DomainEntity {
 	// Attributes ----------------------------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
 	private Category						parent;
 	private Collection<Category>			descendants;
 	private Collection<CategoryTranslation>	categoriesTranslations;

@@ -27,9 +27,10 @@
 
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
-					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.administrator.customisation" /> </a></li>
+					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation.customisation" /> </a></li>
 					<li><a href="category/administrator/list.do"> <spring:message code="master.page.administrator.category" /> </a></li>
-					<li><a href="endorsable/administrator/list.do"> <spring:message code="master.page.administrator.endorsable" /> </a></li>					
+					<li><a href="endorsable/administrator/list.do"> <spring:message code="master.page.administrator.endorsable" /> </a></li>
+					<li><a href="dashboard/administrator/display.do"> <spring:message code="master.page.administrator.dashboard" /> </a></li>					
 				</ul>
 			</li>
 		</security:authorize>

@@ -1,9 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -11,10 +13,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.CategoryRepository;
 import domain.Category;
 import domain.CategoryTranslation;
+import forms.CategoryForm;
 
 @Service
 @Transactional
@@ -75,15 +79,15 @@ public class CategoryService {
 
 		root = this.findRootCategory();
 
-		Assert.isTrue(category.getParent() != null || category.equals(root));
+		Assert.isTrue((category.equals(root) && category.getParent() == null) || (!category.equals(root) && category.getParent() != null));
 
 		result = this.categoryRepository.save(category);
 
-		parent_category = this.findOneToEdit(result.getParent().getId());
-
-		if (category.getId() == 0)
+		if (category.getId() == 0) {
+			parent_category = result.getParent();
 			this.addDescendantCategory(parent_category, result);
-		else {
+		} else if (category.getId() != root.getId()) {
+			parent_category = result.getParent();
 			// Si category cambia de padre, entonces hay que realizar cambios en la jerarquia
 			old_category = this.findOne(category.getId());
 			if (!old_category.getParent().equals(parent_category)) {
@@ -98,25 +102,25 @@ public class CategoryService {
 
 		return result;
 	}
+
 	public void delete(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() != 0);
 
-		final Category parent_category = this.findOneToEdit(category.getParent().getId());
 		final Collection<Category> descendant_categories = category.getDescendants();
-		Category cat = null;
+		final Category root = this.findRootCategory();
 
-		// Actualizar atributos del padre de category
-		this.removeDescendantCategory(parent_category, category);
-		if (!descendant_categories.isEmpty()) {
-			this.addDescendantCategories(parent_category, descendant_categories);
+		if (category.getId() != root.getId()) {
+			final Category parent_category = category.getParent();
+			// Actualizar atributos del padre de category
+			this.removeDescendantCategory(parent_category, category);
+			if (!descendant_categories.isEmpty()) {
+				this.addDescendantCategories(parent_category, descendant_categories);
 
-			// Actualizar atributos de los descendientes de category
-			for (final Category c : descendant_categories) {
-				cat = this.findOneToEdit(c.getId());
-				this.updateParent(cat, parent_category);
+				// Actualizar atributos de los descendientes de category
+				for (final Category c : descendant_categories)
+					this.updateParent(c, parent_category);
 			}
-
 		}
 
 		// Eliminar los categoriesTranslation
@@ -143,6 +147,70 @@ public class CategoryService {
 	}
 
 	// Auxiliar methods --------------------------------
+	public Category reconstruct(final CategoryForm categoryForm) {
+		Category result;
+		List<CategoryTranslation> categoriesTranslation;
+		CategoryTranslation en_category, es_category, en_saved, es_saved;
+
+		if (categoryForm.getId() == 0) {
+			result = this.create();
+			categoriesTranslation = new ArrayList<CategoryTranslation>();
+
+			en_category = this.categoryTranslationService.create();
+			en_category.setLanguage("en");
+			en_category.setName(categoryForm.getEn_name());
+
+			es_category = this.categoryTranslationService.create();
+			es_category.setLanguage("es");
+			es_category.setName(categoryForm.getEs_name());
+
+			en_saved = this.categoryTranslationService.save(en_category);
+			es_saved = this.categoryTranslationService.save(es_category);
+
+			categoriesTranslation.add(en_saved);
+			categoriesTranslation.add(es_saved);
+
+			result.setCategoriesTranslations(categoriesTranslation);
+		} else {
+			result = this.findOne(categoryForm.getId());
+
+			en_saved = this.categoryTranslationService.findByLanguageCategory(categoryForm.getId(), "en");
+			en_saved.setName(categoryForm.getEn_name());
+
+			es_saved = this.categoryTranslationService.findByLanguageCategory(categoryForm.getId(), "es");
+			es_saved.setName(categoryForm.getEs_name());
+		}
+
+		result.setParent(categoryForm.getParent());
+
+		return result;
+	}
+
+	public Category validateParent(final CategoryForm categoryForm, final BindingResult binding) {
+		Category result;
+		Category root;
+
+		root = this.findRootCategory();
+
+		result = categoryForm.getParent();
+		if (categoryForm.getId() == root.getId() && result != null)
+			binding.rejectValue("parent", "category.error.root", "Root category has not parent");
+		else if (categoryForm.getId() != root.getId() && result == null)
+			binding.rejectValue("parent", "category.error.null", "Must be null");
+
+		return result;
+	}
+
+	public String validateName(final String nameAttribute, final String valueAttribute, final BindingResult binding) {
+		String result;
+
+		result = valueAttribute;
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue(nameAttribute, "category.error.blank", "Must not be blank");
+
+		return result;
+	}
+
 	protected void updateParent(final Category category, final Category parent) {
 		category.setParent(parent);
 	}
