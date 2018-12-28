@@ -77,6 +77,7 @@ public class EndorsementService {
 	public Endorsement save(final Endorsement endorsement) {
 		Assert.notNull(endorsement);
 		this.checkByPrincipal(endorsement);
+		this.utilityService.checkIsSpamMarkAsSuspicious(endorsement.getComments(), endorsement.getSender());
 
 		boolean is_role;
 		Date moment;

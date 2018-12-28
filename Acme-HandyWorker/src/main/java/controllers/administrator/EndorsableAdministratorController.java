@@ -26,20 +26,6 @@ public class EndorsableAdministratorController extends AbstractController {
 		super();
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int endorsableId) {
-		ModelAndView result;
-		Endorsable endorsable;
-
-		endorsable = this.endorsableService.findOne(endorsableId);
-
-		result = new ModelAndView("actor/display");
-		result.addObject("actor", endorsable);
-		result.addObject("isEndorsable", true);
-
-		return result;
-	}
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;

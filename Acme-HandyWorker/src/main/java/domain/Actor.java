@@ -6,6 +6,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -31,6 +32,7 @@ public abstract class Actor extends DomainEntity {
 	private String	name;
 	private String	middleName;
 	private String	surname;
+	private String	fullname;
 	private String	photoLink;
 	private String	email;
 	private String	phoneNumber;
@@ -63,6 +65,21 @@ public abstract class Actor extends DomainEntity {
 
 	public void setSurname(final String surname) {
 		this.surname = surname;
+	}
+
+	@Transient
+	public String getFullname() {
+
+		if (this.middleName != null)
+			this.fullname = this.name + " " + this.middleName + " " + this.surname;
+		else
+			this.fullname = this.name + " " + this.surname;
+
+		return this.fullname;
+	}
+
+	public void setFullname(final String fullname) {
+		this.fullname = fullname;
 	}
 
 	@URL

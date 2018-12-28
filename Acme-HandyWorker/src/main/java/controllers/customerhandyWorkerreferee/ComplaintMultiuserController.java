@@ -24,8 +24,7 @@ import domain.Complaint;
 @RequestMapping("complaint/customer,handyWorker,referee")
 public class ComplaintMultiuserController extends AbstractController {
 
-	// Services ---------------------------------------------------------------
-
+	// Services --------------------------------------------------------------- 
 	@Autowired
 	private ComplaintService	complaintService;
 

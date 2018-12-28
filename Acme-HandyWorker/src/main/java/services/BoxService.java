@@ -179,4 +179,12 @@ public class BoxService {
 		return res;
 	}
 
+	public Box searchBoxByMessageAndActor(final int messageId, final int actorId) {
+		Box result;
+
+		result = this.boxRepository.searchBoxByMessageAndActor(messageId, actorId);
+
+		return result;
+	}
+
 }

@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Customer;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +30,9 @@ public class ActorServiceTest extends AbstractTest {
 
 	@Autowired
 	private MessageService	messageService;
+
+	@Autowired
+	private CustomerService	customerService;
 
 
 	// Tests ----------------------------------------------
@@ -113,6 +117,20 @@ public class ActorServiceTest extends AbstractTest {
 		message = this.messageService.save(message);
 		Assert.isTrue(sender.getIsSuspicious());
 		super.unauthenticate();
+	}
+
+	@Test
+	public void testIsCustomer() {
+		final int id = super.getEntityId("customer1");
+
+		final Actor actor = this.actorService.findOne(id);
+		Customer customer = null;
+
+		if (actor instanceof Customer)
+			customer = this.customerService.findOne(id);
+
+		System.out.println(customer.getFullname());
+		Assert.notNull(customer.getFullname());
 	}
 
 }
