@@ -70,15 +70,16 @@ public class ReportRefereeController extends AbstractController {
 		Complaint complaint;
 		Report saved;
 		Integer complaintId;
+		String paramComplaintId;
 
-		complaintId = null;
+		paramComplaintId = request.getParameter("complaintId");
+		complaintId = paramComplaintId == null ? null : Integer.parseInt(paramComplaintId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(report, complaintId);
 		else
 			try {
 				if (report.getId() == 0) {
-					complaintId = Integer.parseInt(request.getParameter("complaintId"));
 					complaint = this.complaintService.findOne(complaintId);
 					saved = this.reportService.save(complaint, report);
 				} else
