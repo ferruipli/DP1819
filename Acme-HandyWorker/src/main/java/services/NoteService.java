@@ -4,6 +4,8 @@ package services;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -99,6 +101,15 @@ public class NoteService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Page<Note> findByReportId(final int reportId, final Pageable pageable) {
+		Page<Note> result;
+
+		result = this.noteRepository.findByReportId(reportId, pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	public double[] findDataNumberNotesPerReport() {
 		double[] result;

@@ -24,13 +24,14 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c where c not in (select c2 from Referee r join r.complaints c2)")
 	Page<Complaint> findNotAssigned(Pageable pageable);
 
-	@Query("select c from HandyWorker hw join hw.applications a join a.fixUpTask.complaints c where hw.id = ?1 and a.status = 'ACCEPTED'")
+	@Query(value = "select c from Complaint c where c.id in (select cc.id from HandyWorker hw join hw.applications a join a.fixUpTask.complaints cc where hw.id = ?1 and a.status = 'ACCEPTED')",
+		countQuery = "select count(c) from HandyWorker hw join hw.applications a join a.fixUpTask.complaints c where hw.id = ?1 and a.status = 'ACCEPTED'")
 	Page<Complaint> findInvolvedByHandyWorkerId(int handyWorkerId, Pageable pageable);
 
 	@Query("select c from Complaint c where c.report.id = ?1")
 	Complaint findByReportId(int reportId);
 
-	@Query("select c from Referee r join r.complaints c where r.id = ?1")
+	@Query(value = "select c from Complaint c where c.id in (select cc.id from Referee r join r.complaints cc where r.id = ?1)", countQuery = "select count(c) from Referee r join r.complaints c where r.id = ?1")
 	Page<Complaint> findSelfAssignedByPrincipal(int principalId, Pageable pageable);
 
 	@Query("select c.ticker from Complaint c where c.ticker = ?1")
