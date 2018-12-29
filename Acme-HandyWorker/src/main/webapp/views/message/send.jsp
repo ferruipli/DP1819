@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="message/${role }/send.do" modelAttribute="messageToSend" >
+<form:form action="message/administrator,customer,handyWorker,referee,sponsor/send.do" modelAttribute="messageToSend" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="sendMoment"/>
@@ -49,7 +49,7 @@
 		<form:option label="LOW" value="LOW"/>
 	</form:select>
 	<br>
-	
+<!-- 
 	<jstl:choose>
 		<jstl:when test="${not empty actors}">
 			<label for="recipientsId">
@@ -66,6 +66,19 @@
 			<form:hidden path="recipients"/>
 		</jstl:otherwise>
 	</jstl:choose>
+ -->		
+ 	
+ 	<form:label path="recipients">
+		<spring:message code="message.display.recipients"/>
+	</form:label>
+	<form:select path="recipients">
+		<jstl:forEach var="recipient" items="${actors}">
+			<form:option label="${recipient.name} ${recipient.surname} - (${recipient.email})" value="${recipient.id}"/>
+		</jstl:forEach>
+	</form:select>
+	<br>
+ 	
+	
 	
 	<form:label path="tags">
 		<spring:message code="message.display.tags"/>
@@ -79,6 +92,6 @@
 	
 	<input type="submit" name="send" value="<spring:message code="message.button.send"/>" />
 	<input type="button" name="cancel" value="<spring:message code="message.button.cancel"/>" 
-			onclick="javascript: relativeRedir('box/${role}/display.do?boxId=${boxId }')" />	
+			onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/list.do')" />	
 
 </form:form>

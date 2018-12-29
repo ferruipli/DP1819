@@ -56,12 +56,11 @@ public class ComplaintMultiuserController extends AbstractController {
 
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaintsAdapted);
-		result.addObject("requestURI", "complaint/customer,handyWorker,referee/list.do?fixUpTaskId=" + Integer.toString(fixUpTaskId));
+		result.addObject("requestURI", "complaint/customer,handyWorker,referee/list.do");
 		result.addObject("fixUpTaskId", fixUpTaskId);
 
 		return result;
 	}
-
 	// Display ----------------------------------------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

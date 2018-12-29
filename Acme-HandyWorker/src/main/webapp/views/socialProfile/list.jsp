@@ -43,4 +43,4 @@
 	<br><br>
 		
 <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
-				onclick="javascript: relativeRedir('actor/authenticatedadministrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actorId }');" />
+				onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actorId }');" />
