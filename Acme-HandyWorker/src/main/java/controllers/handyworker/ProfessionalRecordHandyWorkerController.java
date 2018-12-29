@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.HandyWorkerService;
 import services.ProfessionalRecordService;
 import controllers.AbstractController;
+import domain.HandyWorker;
 import domain.ProfessionalRecord;
 
 @Controller
@@ -76,13 +77,16 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 	public ModelAndView save(@Valid final ProfessionalRecord professionalRecord, final BindingResult binding) {
 
 		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(professionalRecord);
 		else
 			try {
 				this.professionalRecordService.save(professionalRecord);
-				result = new ModelAndView("redirect:/curriculum/display.do");
+				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(professionalRecord, "professionalRecord.commit.error");
 			}
@@ -94,10 +98,13 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final ProfessionalRecord professionalRecord, final BindingResult binding) {
 		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		try {
 			this.professionalRecordService.delete(professionalRecord);
-			result = new ModelAndView("redirect:../../curriculum/display.do");
+			result = new ModelAndView("redirect:../../curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(professionalRecord, "professionalRecord.commit.error");
 		}
