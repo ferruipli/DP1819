@@ -9,6 +9,8 @@
 
 package controllers.sponsor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CustomisationService;
 import services.SponsorService;
 import services.SponsorshipService;
 import services.TutorialService;
@@ -32,13 +35,16 @@ import domain.Tutorial;
 public class SponsorshipSponsorController extends AbstractController {
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private SponsorshipService		sponsorshipService;
 
 	@Autowired
-	private SponsorService		sponsorService;
+	private SponsorService			sponsorService;
 
 	@Autowired
-	private TutorialService		tutorialService;
+	private TutorialService			tutorialService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -52,9 +58,12 @@ public class SponsorshipSponsorController extends AbstractController {
 	public ModelAndView create(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
+		List<String> brandName;
 
 		sponsorship = this.sponsorshipService.create();
+		brandName = (List<String>) this.customisationService.find().getCreditCardMakes();
 		result = this.createEditModelAndView(sponsorship, tutorialId);
+		result.addObject("brandName", brandName);
 
 		return result;
 	}

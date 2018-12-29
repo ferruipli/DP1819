@@ -45,7 +45,7 @@
 		<security:intercept-url pattern="/actor/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" /> 
 
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
-		<security:intercept-url pattern="/application/handyworkercustomer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
+		<security:intercept-url pattern="/application/handyWorker,customer/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		<security:intercept-url pattern="/application/handyworker/**" access="hasAnyRole('HANDYWORKER')" />
 
 		<security:intercept-url pattern="/box/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" />
