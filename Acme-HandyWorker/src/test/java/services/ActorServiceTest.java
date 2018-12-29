@@ -133,4 +133,28 @@ public class ActorServiceTest extends AbstractTest {
 		Assert.notNull(customer.getFullname());
 	}
 
+	@Test
+	public void testSaveActor() {
+		Actor actor, saved;
+		String middleName, newMiddleName;
+
+		super.authenticate("admin1");
+
+		actor = this.actorService.findOne(super.getEntityId("administrator1"));
+		newMiddleName = "manuel";
+
+		middleName = actor.getMiddleName();
+
+		actor.setMiddleName(newMiddleName);
+
+		saved = this.actorService.save(actor);
+
+		Assert.isTrue(!saved.getMiddleName().equals(middleName));
+
+		Assert.notNull(this.actorService.findOne(saved.getId()));
+
+		super.authenticate(null);
+
+	}
+
 }

@@ -60,7 +60,7 @@ public class ActorService {
 		return userAccount;
 	}
 
-	protected Actor save(final Actor actor) {
+	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
 		this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
