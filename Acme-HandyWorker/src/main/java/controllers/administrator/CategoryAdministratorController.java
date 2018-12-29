@@ -137,9 +137,8 @@ public class CategoryAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final CategoryForm categoryForm, final BindingResult binding) {
 		ModelAndView result;
-		final String en_name, es_name;
-		final Category parent;
-		Category category;
+		String en_name, es_name;
+		Category parent, category;
 
 		parent = this.categoryService.validateParent(categoryForm, binding);
 		en_name = this.categoryService.validateName("en_name", categoryForm.getEn_name(), binding);

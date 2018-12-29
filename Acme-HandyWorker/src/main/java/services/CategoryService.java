@@ -186,8 +186,7 @@ public class CategoryService {
 			es_saved.setName(categoryForm.getEs_name());
 
 			result.setParent(categoryForm.getParent());
-		} else
-			result = root;
+		}
 
 		return result;
 	}
