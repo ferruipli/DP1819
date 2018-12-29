@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -72,33 +74,19 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
-		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size());
-		Assert.isTrue(this.validLanguages(category));
+		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size() && this.validLanguages(category));
 
-		Category root, result, parent_category, old_category, old_parent_category;
+		Category root, result, parent_category;
 
 		root = this.findRootCategory();
 
-		Assert.isTrue((category.equals(root) && category.getParent() == null) || (!category.equals(root) && category.getParent() != null));
+		Assert.isTrue(!category.equals(root) && category.getParent() != null);
 
 		result = this.categoryRepository.save(category);
 
-		if (category.getId() == 0) {
-			parent_category = result.getParent();
+		parent_category = result.getParent();
+		if (category.getId() == 0)
 			this.addDescendantCategory(parent_category, result);
-		} else if (category.getId() != root.getId()) {
-			parent_category = result.getParent();
-			// Si category cambia de padre, entonces hay que realizar cambios en la jerarquia
-			old_category = this.findOne(category.getId());
-			if (!old_category.getParent().equals(parent_category)) {
-				// El antiguo padre de category deja de tener como descendiente a category
-				old_parent_category = this.findOneToEdit(old_category.getParent().getId());
-				this.removeDescendantCategory(old_parent_category, result);
-
-				// El nuevo padre de category pasa a tener a category como descendiente
-				this.addDescendantCategory(parent_category, result);
-			}
-		}
 
 		return result;
 	}
@@ -107,20 +95,22 @@ public class CategoryService {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() != 0);
 
-		final Collection<Category> descendant_categories = category.getDescendants();
+		final Collection<Category> descendant_categories;
 		final Category root = this.findRootCategory();
 
-		if (category.getId() != root.getId()) {
-			final Category parent_category = category.getParent();
-			// Actualizar atributos del padre de category
-			this.removeDescendantCategory(parent_category, category);
-			if (!descendant_categories.isEmpty()) {
-				this.addDescendantCategories(parent_category, descendant_categories);
+		Assert.isTrue(!category.equals(root));
 
-				// Actualizar atributos de los descendientes de category
-				for (final Category c : descendant_categories)
-					this.updateParent(c, parent_category);
-			}
+		descendant_categories = category.getDescendants();
+
+		final Category parent_category = category.getParent();
+		// Actualizar atributos del padre de category
+		this.removeDescendantCategory(parent_category, category);
+		if (!descendant_categories.isEmpty()) {
+			this.addDescendantCategories(parent_category, descendant_categories);
+
+			// Actualizar atributos de los descendientes de category
+			for (final Category c : descendant_categories)
+				this.updateParent(c, parent_category);
 		}
 
 		// Eliminar los categoriesTranslation
@@ -131,15 +121,26 @@ public class CategoryService {
 	}
 
 	// Other business methods --------------------------
-	public Map<Integer, String> categoriesByLanguage(final Collection<Category> categories, final String language) {
-		Map<Integer, String> results;
-		String name_category;
+	public SortedMap<Integer, List<String>> categoriesByLanguage(final Collection<Category> categories, final String language) {
+		SortedMap<Integer, List<String>> results;
+		String name_category, name_parent_category = "";
+		List<String> ls;
+		Category parent;
 
-		results = new HashMap<Integer, String>();
+		results = new TreeMap<>();
 
 		for (final Category c : categories) {
+			parent = c.getParent();
+			ls = new ArrayList<String>();
 			name_category = this.categoryTranslationService.findByLanguageCategory(c.getId(), language).getName();
-			results.put(c.getId(), name_category);
+
+			if (parent != null)
+				name_parent_category = this.categoryTranslationService.findByLanguageCategory(parent.getId(), language).getName();
+
+			ls.add(name_category);
+			ls.add(name_parent_category);
+
+			results.put(c.getId(), ls);
 		}
 
 		return results;
@@ -148,9 +149,12 @@ public class CategoryService {
 
 	// Auxiliar methods --------------------------------
 	public Category reconstruct(final CategoryForm categoryForm) {
-		Category result;
+		Category result, root;
 		List<CategoryTranslation> categoriesTranslation;
 		CategoryTranslation en_category, es_category, en_saved, es_saved;
+
+		root = this.findRootCategory();
+		result = null;
 
 		if (categoryForm.getId() == 0) {
 			result = this.create();
@@ -171,7 +175,8 @@ public class CategoryService {
 			categoriesTranslation.add(es_saved);
 
 			result.setCategoriesTranslations(categoriesTranslation);
-		} else {
+			result.setParent(categoryForm.getParent());
+		} else if (categoryForm.getId() != root.getId()) {
 			result = this.findOne(categoryForm.getId());
 
 			en_saved = this.categoryTranslationService.findByLanguageCategory(categoryForm.getId(), "en");
@@ -179,9 +184,10 @@ public class CategoryService {
 
 			es_saved = this.categoryTranslationService.findByLanguageCategory(categoryForm.getId(), "es");
 			es_saved.setName(categoryForm.getEs_name());
-		}
 
-		result.setParent(categoryForm.getParent());
+			result.setParent(categoryForm.getParent());
+		} else
+			result = root;
 
 		return result;
 	}
@@ -207,6 +213,14 @@ public class CategoryService {
 		result = valueAttribute;
 		if (result.equals("") || result.equals(null))
 			binding.rejectValue(nameAttribute, "category.error.blank", "Must not be blank");
+
+		return result;
+	}
+
+	public Category findRootCategory() {
+		Category result;
+
+		result = this.categoryRepository.findRootCategory();
 
 		return result;
 	}
@@ -243,23 +257,6 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
-
-	public Category findRootCategory() {
-		Category result;
-
-		result = this.categoryRepository.findRootCategory();
-
-		return result;
-	}
-
-	private Category findOneToEdit(final int categoryId) {
-		Category result;
-
-		result = this.findOne(categoryId);
-
-		return result;
-	}
-
 	private boolean validLanguages(final Category category) {
 		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;

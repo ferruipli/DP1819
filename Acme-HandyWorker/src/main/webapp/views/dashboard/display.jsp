@@ -10,16 +10,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<strong> <spring:message code="dashboard.one" /> </strong>:
-</p>
-<display:table name="dataFixUpTaskPerUser" id="row" class="displaytag">
-	<display:column value="${row[0]}" titleKey="dashboard.average" />
-	<display:column value="${row[1]}" titleKey="dashboard.min" />
-	<display:column value="${row[2]}" titleKey="dashboard.max" />
-	<display:column value="${row[3]}" titleKey="dashboard.deviation" />
-</display:table>
-
-<p>
 	<strong> <spring:message code="dashboard.five" /> </strong>:
 	<jstl:out value="${ratPendingApp}" />
 </p>
@@ -35,12 +25,25 @@
 	<strong> <spring:message code="dashboard.eight" /> </strong>:
 	<jstl:out value="${ratPendingPeriodApp}" />
 </p>
+<p>
+	<strong> <spring:message code="dashboard.thirteen" /> </strong>:
+	<jstl:out value="${ratTaskWithComplaints}" />
+</p>
+
 <p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
 <display:table name="customers" id="row" requestURI="dashboard/administrator/listCustomers" pagesize="5" class="displaytag">
 	<display:column property="fullname" titleKey="actor.fullname" />
 </display:table>
-<br />
-<p> <spring:message code="dashboard.ten" /> </p>
+<p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
 <display:table name="handyWorkers" id="row" requestURI="dashboard/administrator/listHandyWorkers" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+</display:table>
+
+<p> <strong> <spring:message code="dashboard.fourteen" />: </strong> </p>
+<display:table name="topThreeC" id="row" requestURI="dashboard/administrator/listCustomers" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+</display:table>
+<p> <strong> <spring:message code="dashboard.fifteen" />: </strong> </p>
+<display:table name="topThreeHW" id="row" requestURI="dashboard/administrator/listHandyWorkers" pagesize="5" class="displaytag">
 	<display:column property="fullname" titleKey="actor.fullname" />
 </display:table>

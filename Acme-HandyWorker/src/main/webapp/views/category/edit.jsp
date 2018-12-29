@@ -19,7 +19,7 @@
 			<spring:message code="category.parent" />:
 		</form:label>
 		<form:select path="parent">
-			<form:options items="${parents}" itemLabel="id" itemValue="id" />
+			<form:options items="${parents}" itemLabel="nameCategory" itemValue="id" />
 			<form:option label="----" value="0" />
 		</form:select>
 		<form:errors cssClass="error" path="parent" />

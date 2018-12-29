@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import services.ComplaintService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
+import services.NoteService;
 import controllers.AbstractController;
 import domain.Customer;
 import domain.HandyWorker;
@@ -34,6 +36,12 @@ public class DashboardAdministratorController extends AbstractController {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private ComplaintService	complaintService;
+
+	@Autowired
+	private NoteService			noteService;
+
 
 	// Constructors --------------
 	public DashboardAdministratorController() {
@@ -45,14 +53,16 @@ public class DashboardAdministratorController extends AbstractController {
 	public ModelAndView display() {
 		ModelAndView result;
 		double[] dataFixUpTaskPerUser;
-		final double[] dataApplicationsPerTask;
+		final double[] dataApplicationsPerTask, dataNotesPerReport;
 		double[] dataMaximumPrice;
 		Double[] dataOfApplicationPrice;
-		Double ratPendingApp, ratAcceptedApp, ratRejectedApp, ratPendingPeriodApp;
-		Collection<Customer> customers;
-		Collection<HandyWorker> handyWorkers;
+		final Double[] dataComplaintsPerTask;
+		Double ratPendingApp, ratAcceptedApp, ratRejectedApp, ratPendingPeriodApp, ratTaskWithComplaints;
+		Collection<Customer> customers, topThreeC;
+		Collection<HandyWorker> handyWorkers, topThreeHW;
 
 		// LEVEL C -----------------------------------------
+
 		dataFixUpTaskPerUser = this.fixUpTaskService.findDataNumberFixUpTaskPerUser();
 		//TODO: dataApplicationPerTask
 		dataMaximumPrice = this.fixUpTaskService.findDataMaximumPrice();
@@ -65,8 +75,18 @@ public class DashboardAdministratorController extends AbstractController {
 		customers = this.customerService.customerMoreThanAverage();
 		handyWorkers = this.handyWorkerService.atLeast10Application();
 
+		// LEVEL B --------------------------------------
+		//TODO:dataComplaintsPerTask = this.complaintService
+		dataNotesPerReport = this.noteService.findDataNumberNotesPerReport();
+
+		ratTaskWithComplaints = this.fixUpTaskService.findRatioFixUpTaskWithComplaint();
+
+		topThreeC = this.customerService.topThreeCustomer();
+		topThreeHW = this.handyWorkerService.topThreeHandyWorker();
+
 		result = new ModelAndView("dashboard/display");
 
+		// LEVEL A
 		result.addObject("dataFixUpTaskPerUser", dataFixUpTaskPerUser);
 		//TODO: result.addObject("dataApplicationPerTask", dataApplicationPerTask);
 		result.addObject("dataMaximumPrice", dataMaximumPrice);
@@ -78,6 +98,13 @@ public class DashboardAdministratorController extends AbstractController {
 
 		result.addObject("customers", customers);
 		result.addObject("handyWorkers", handyWorkers);
+
+		// LEVEL B
+		//result.addObject("dataApplicationPerTask", dataApplicationPerTask);
+		result.addObject("dataNotesPerReport", dataNotesPerReport);
+		result.addObject("ratTaskWithComplaints", ratTaskWithComplaints);
+		result.addObject("topThreeC", topThreeC);
+		result.addObject("topThreeHW", topThreeHW);
 
 		return result;
 	}
