@@ -61,7 +61,7 @@
 
 <fieldset>
 	<display:table name="curriculum.educationRecords"
-		id="rowEducationRecord" requestURI="${requestURI}" pagesize="5"
+		id="rowEducationRecord" pagesize="5"
 		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
@@ -112,7 +112,7 @@
 
 <fieldset>
 	<display:table name="curriculum.professionalRecords"
-		id="rowProfessionalRecord" requestURI="${requestURI}" pagesize="5"
+		id="rowProfessionalRecord" pagesize="5"
 		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
@@ -161,8 +161,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord"
-		requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord" pagesize="5" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -210,7 +209,7 @@
 
 <fieldset>
 	<display:table name="curriculum.miscellaneousRecords"
-		id="rowMiscellaneousRecord" requestURI="${requestURI}" pagesize="5"
+		id="rowMiscellaneousRecord" pagesize="5"
 		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
