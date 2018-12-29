@@ -46,7 +46,7 @@
 	
 	<security:authorize access="hasRole('SPONSOR')">
 	<display:column >
-		<a href="sponsorship/sponsor/create.do">
+		<a href="sponsorship/sponsor/edit.do?tutorialId=${row.id}">
 			<spring:message	code="tutorial.suport" />
 		</a>
 	</display:column>

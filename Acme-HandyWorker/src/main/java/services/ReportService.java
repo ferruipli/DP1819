@@ -108,6 +108,14 @@ public class ReportService {
 
 	// Other business methods -------------------------------------------------
 
+	public Integer findIdByNoteId(final int noteId) {
+		Integer result;
+
+		result = this.reportRepository.findIdByNoteId(noteId);
+
+		return result;
+	}
+
 	public boolean isPrincipalCreator(final Report report) {
 		Referee principal, creator;
 		boolean res;

@@ -32,13 +32,15 @@
 	</jstl:if>
 </fieldset>
 
-<fieldset>
-	<legend><spring:message code="report.references"/></legend>
-	
-	<strong><spring:message code="report.notes"/>:</strong>
-	<a href="note/customer,handyWorker,referee/list.do?reportId=${report.id}"><spring:message code="report.notes.list"/></a>
-	<br/>
-</fieldset>
+<jstl:if test="${report.finalMode}">
+	<fieldset>
+		<legend><spring:message code="report.references"/></legend>
+		
+		<strong><spring:message code="report.notes"/>:</strong>
+		<a href="note/customer,handyWorker,referee/list.do?reportId=${report.id}"><spring:message code="report.notes.list"/></a>
+		<br/>
+	</fieldset>
+</jstl:if>
 	
 	
 <!-- Links -->

@@ -43,14 +43,14 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		ModelAndView result;
 		Page<Application> applications;
 		final Pageable pageable;
-		final PaginatedList tutorialsAdapted;
+		final PaginatedList applicationsAdapted;
 
 		pageable = this.newFixedPageable(page, dir, sort);
 		applications = this.applicationService.findApplicationByHandyWorker(pageable);
-		tutorialsAdapted = new PaginatedListAdapter(applications, sort);
+		applicationsAdapted = new PaginatedListAdapter(applications, sort);
 
 		result = new ModelAndView("application/list");
-		result.addObject("applications", tutorialsAdapted);
+		result.addObject("applications", applicationsAdapted);
 		result.addObject("requestURI", "application/handyWorker/list.do");
 
 		return result;

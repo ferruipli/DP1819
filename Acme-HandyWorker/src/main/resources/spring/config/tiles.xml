@@ -35,6 +35,7 @@
 		<value>/views/message/tiles.xml</value>
 		<value>/views/misc/tiles.xml</value>
 		<value>/views/miscellaneousRecord/tiles.xml</value>
+		<value>/views/note/tiles.xml</value>
 		<value>/views/personalRecord/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>

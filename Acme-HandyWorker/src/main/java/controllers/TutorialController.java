@@ -12,7 +12,10 @@ package controllers;
 
 import java.util.Collection;
 
+import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.TutorialService;
+import utilities.internal.PaginatedListAdapter;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -59,13 +63,19 @@ public class TutorialController extends AbstractController {
 	// Tutorial list ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView tutorialList() {
+	public ModelAndView tutorialList(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
-		Collection<Tutorial> tutorials;
+		Page<Tutorial> tutorials;
+		final Pageable pageable;
+		final PaginatedList tutorialsAdapted;
+
+		pageable = this.newFixedPageable(page, dir, sort);
+		tutorials = this.tutorialService.findAllTutorialPageable(pageable);
+		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
 
 		result = new ModelAndView("tutorial/list");
-		tutorials = this.tutorialService.findAll();
-		result.addObject("tutorials", tutorials);
+		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("requestURI", "tutorial/list.do");
 
 		return result;
 	}

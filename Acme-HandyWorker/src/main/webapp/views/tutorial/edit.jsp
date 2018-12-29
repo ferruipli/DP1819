@@ -24,7 +24,9 @@
 	<form:hidden path="moment" />
 	<form:hidden path="sponsorShips" />
 	<form:hidden path="handyWorker" />
-	<form:hidden path="sections" />
+	<form:hidden path="sections" />	
+	
+
 
 	<form:label path="title">
 		<spring:message code="tutorial.title" />:
