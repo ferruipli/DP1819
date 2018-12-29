@@ -174,6 +174,15 @@ public class ApplicationService {
 	}
 
 	//Req 12.5.4
+	public Double[] findDataOfApplicationPerFixUpTask() {
+		Double[] result;
+
+		result = this.applicationRepository.findDataOfApplicationPerFixUpTask();
+
+		return result;
+	}
+
+	//Req 12.5.4
 	public Double[] findDataOfApplicationPrice() {
 		Double[] result;
 
