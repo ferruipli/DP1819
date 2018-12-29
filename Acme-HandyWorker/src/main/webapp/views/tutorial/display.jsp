@@ -39,7 +39,7 @@
 	
 <p>
 <strong> <spring:message code="tutorial.pictures" />: </strong>
-	<a href = "${tutorial.pictures}"><jstl:out value="${tutorial.pictures}"></jstl:out></a>
+<img src="${tutorial.pictures}">
 </p> 
 <strong> <spring:message code="tutorial.sections" />: </strong>
 		
@@ -52,12 +52,11 @@
 	<spring:message code="tutorial.section.title" var="sectionTitle" />
 	<display:column property="title" title="${sectionTitle}" sortable="true" />
 	
-	<spring:message code="tutorial.section.pictures" var="sectionPictures" />
-	<display:column property="pictures" title="${sectionPictures}" />
+	<display:column>	
+	<a href="section/display.do?sectionId=${sections.id}">
+		<spring:message	code="tutorial.display" /></a>
+	</display:column>
 	
-	<spring:message code="tutorial.section.text" var="sectionText" />
-	<display:column property="text" title="${sectionText}"/>
-
 	</display:table>  
 	
 	

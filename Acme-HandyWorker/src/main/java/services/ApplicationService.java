@@ -41,9 +41,6 @@ public class ApplicationService {
 	@Autowired
 	private UtilityService			utilityService;
 
-	@Autowired
-	private LoginService			loginService;
-
 
 	//Constructor ----------------------------------------------------
 	public ApplicationService() {
@@ -75,15 +72,15 @@ public class ApplicationService {
 
 	public Application save(final Application application) {
 		Assert.notNull(application);
-		Application result;
+		final Application result;
 
 		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]"))
 				Assert.notNull(application.getHandyWorker().getCurriculum());
-			if (LoginService.getPrincipal().getAuthorities().contains("CUSTOMER"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[CUSTOMER]"))
 				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
 					//Check that number of accepted application is 0
 					this.checkAcceptedApplication(application);

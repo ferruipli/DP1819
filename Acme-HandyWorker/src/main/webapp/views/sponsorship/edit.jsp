@@ -36,6 +36,7 @@
 	</form:label>
 	<form:input path="targetPage"/>
 	<form:errors cssClass="error" path="targetPage" />
+	<img src="${tutorial.pictures}">
 	<br />
 
 	 <fieldset>

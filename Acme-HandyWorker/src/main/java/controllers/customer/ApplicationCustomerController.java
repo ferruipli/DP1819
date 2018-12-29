@@ -82,7 +82,6 @@ public class ApplicationCustomerController extends AbstractController {
 
 		result = this.createEditModelAndView(application);
 		result.addObject("brandName", brandName);
-
 		return result;
 	}
 

@@ -43,7 +43,7 @@
 		<form:label path="handyWorkerComments">
 			<spring:message code="application.handyWorkerComments" />:
 		</form:label>
-		<form:input path="handyWorkerComments" />
+		<form:textarea path="handyWorkerComments"   />
 		<form:errors cssClass="error" path="handyWorkerComments" />
 		<br />
 </security:authorize>
@@ -52,7 +52,7 @@
 		<form:label path="customerComments">
 			<spring:message code="application.customerComments" />:
 		</form:label>
-		<form:input path="customerComments" />
+		<form:textarea path="customerComments"  />
 		<form:errors cssClass="error" path="customerComments" />
 		<br /><br/>
 

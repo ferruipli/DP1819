@@ -43,7 +43,7 @@ public class TutorialController extends AbstractController {
 	// Tutorial display ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView tutorialDisplay(@RequestParam final int tutorialId) {
+	public ModelAndView display(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		Tutorial tutorial;
 		Collection<Section> sections;
@@ -63,7 +63,7 @@ public class TutorialController extends AbstractController {
 	// Tutorial list ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView tutorialList(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Page<Tutorial> tutorials;
 		final Pageable pageable;

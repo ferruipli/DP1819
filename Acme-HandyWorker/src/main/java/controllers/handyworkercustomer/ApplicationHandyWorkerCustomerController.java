@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import security.LoginService;
 import services.ApplicationService;
 import services.CustomisationService;
@@ -43,7 +44,7 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 
 	//  APPLICATION DISPLAY---------------------------------------------------------------		
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView applicationDisplay(@RequestParam final int applicationId) {
+	public ModelAndView display(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
 		Double VAT;
@@ -57,7 +58,7 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 		return result;
 	}
 
-	// Application Edit save -----------------------------------------------------------
+	// Application save -----------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Application application, final BindingResult binding) {
@@ -69,9 +70,9 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 			try {
 
 				//If status is pending and actor is handyworker he/she can edit application
-				if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER")) {
+				if (LoginService.getPrincipal().getAuthorities().contains(Authority.HANDYWORKER)) {
 					this.applicationService.save(application);
-					result = new ModelAndView("redirect:../../");
+					result = new ModelAndView("redirect:../../application/handyWorker/list.do");
 
 					//If actor is customer 
 				} else {
