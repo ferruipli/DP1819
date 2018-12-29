@@ -31,6 +31,10 @@
 	
 	<display:column property="email" titleKey="suspicious.table.email" />
 	
+	<display:column property="phoneNumber" titleKey="suspicious.table.phoneNumber" />
+	
+	<display:column property="address" titleKey="suspicious.table.address" />
+	
 	<display:column property="userAccount.username" titleKey="suspicious.table.username" />
 	
 	<display:column property="userAccount.authorities" titleKey="suspicious.table.authority" />

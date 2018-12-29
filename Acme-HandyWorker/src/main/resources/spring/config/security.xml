@@ -71,6 +71,9 @@
 		
 		<security:intercept-url pattern="/finder/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		
+		<security:intercept-url pattern="/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
+
+		
 		<security:intercept-url pattern="/message/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/message/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" />
 		
