@@ -236,5 +236,12 @@ public class ApplicationService {
 		return applications;
 
 	}
+	public Page<Application> findApplicationByFixUpTask(final int fixUpTaskId, final Pageable pageable) {
+		Page<Application> result;
+
+		result = this.applicationRepository.findApplicationByFixUpTask(fixUpTaskId, pageable);
+
+		return result;
+	}
 
 }

@@ -67,14 +67,15 @@ public class SponsorshipSponsorController extends AbstractController {
 		final Tutorial tutorial;
 		final Sponsorship saved;
 		Integer tutorialId;
+		String paramTutorialId;
 
-		tutorialId = null;
+		paramTutorialId = request.getParameter("tutorialId");
+		tutorialId = paramTutorialId == null ? null : Integer.parseInt(paramTutorialId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(sponsorship, tutorialId);
 		else
 			try {
-				tutorialId = Integer.parseInt(request.getParameter("tutorialId"));
 				tutorial = this.tutorialService.findOne(tutorialId);
 				saved = this.sponsorshipService.save(sponsorship);
 				this.sponsorshipService.addSponsorShipToTutorial(saved, tutorial);

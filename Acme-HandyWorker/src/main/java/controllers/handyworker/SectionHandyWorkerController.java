@@ -62,14 +62,15 @@ public class SectionHandyWorkerController extends AbstractController {
 		final Tutorial tutorial;
 		Integer tutorialId;
 		Section saved;
+		String paramTutorialId;
 
-		tutorialId = null;
+		paramTutorialId = request.getParameter("tutorialId");
+		tutorialId = paramTutorialId == null ? null : Integer.parseInt(paramTutorialId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(section, tutorialId);
 		else
 			try {
-				tutorialId = Integer.parseInt(request.getParameter("tutorialId"));
 				tutorial = this.tutorialService.findOne(tutorialId);
 				saved = this.sectionService.save(section);
 				this.sectionService.addSectionToTutorial(tutorial, saved);
