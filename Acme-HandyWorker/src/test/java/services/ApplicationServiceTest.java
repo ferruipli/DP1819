@@ -177,10 +177,30 @@ public class ApplicationServiceTest extends AbstractTest {
 		creditCard = new CreditCard();
 		creditCard.setBrandName("maria");
 		creditCard.setCvvCode(123);
-		creditCard.setExpirationMonth("08");
+		creditCard.setExpirationMonth("02");
 		creditCard.setHolderName("maria");
-		creditCard.setExpirationYear("22");
+		creditCard.setExpirationYear("23");
 		creditCard.setNumber("6702386065238009");
+
+		application = this.applicationService.findOne(super.getEntityId("application3"));
+		this.applicationService.addCreditCard(application, creditCard);
+		Assert.isTrue(application.getCreditCard().equals(creditCard));
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreckCreditCard1() {
+		super.authenticate("handyWorker1");
+		final Application application;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		creditCard.setBrandName("maria");
+		creditCard.setCvvCode(023);
+		creditCard.setExpirationMonth("0");
+		creditCard.setHolderName("maria jimenez");
+		creditCard.setExpirationYear("23");
+		creditCard.setNumber("679");
 
 		application = this.applicationService.findOne(super.getEntityId("application3"));
 		this.applicationService.addCreditCard(application, creditCard);

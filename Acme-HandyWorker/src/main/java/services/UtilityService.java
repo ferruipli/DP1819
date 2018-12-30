@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,26 +167,34 @@ public class UtilityService {
 		boolean res;
 		res = true;
 
-		String brandName;
 		Integer cvvCode;
 		String expirationMonth;
 		String expirationYear;
 		String holderName;
 		String number;
 
-		brandName = creditCard.getBrandName();
 		cvvCode = creditCard.getCvvCode();
 		expirationMonth = creditCard.getExpirationMonth();
 		expirationYear = creditCard.getExpirationYear();
 		holderName = creditCard.getHolderName();
 		number = creditCard.getNumber();
 
-		if (brandName.equals("") || expirationMonth.equals("") || expirationYear.equals("") || holderName.equals("") || cvvCode > 999 || cvvCode < 100 || number.length() > 18 || number.length() < 13)
+		final Pattern holderNamePattern = Pattern.compile("[a-zA-Z]*");
+		final Pattern expirationPattern = Pattern.compile("[0-9][0-9]");
+		final Pattern numberPattern = Pattern.compile("\\d{9,16}");
+		final Pattern cvvPattern = Pattern.compile("[1-9][0-9][0-9]");
+
+		final Matcher holderNameMat = holderNamePattern.matcher(holderName);
+		final Matcher expirationMonthMat = expirationPattern.matcher(expirationMonth);
+		final Matcher expirationYearMat = expirationPattern.matcher(expirationYear);
+		final Matcher numberMat = numberPattern.matcher(number);
+		final Matcher cvvMat = cvvPattern.matcher(cvvCode.toString());
+
+		if (!holderNameMat.matches() || !expirationMonthMat.matches() || !expirationYearMat.matches() || !numberMat.matches() || !cvvMat.matches())
 			res = false;
 		return res;
 
 	}
-
 	public Boolean checkIfCreditCardChanged(final CreditCard creditCard) {
 		String brandName;
 		String expirationMonth;
