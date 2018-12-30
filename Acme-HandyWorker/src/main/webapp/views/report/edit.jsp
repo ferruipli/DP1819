@@ -42,7 +42,7 @@
 		<jstl:set var="back_redir" value="complaint/customer,handyWorker,referee/display.do?complaintId=${complaintId}"/>
 	</jstl:if>
 	
-	<input type="button" name="cancel"	value="<spring:message code="report.cancel"/>" onclick="javascript: relativeRedir('${back_redir}');"/>
+	<input type="button" name="cancel" value="<spring:message code="report.cancel"/>" onclick="javascript: relativeRedir('${back_redir}');"/>
 	<br />
 
 </form:form>

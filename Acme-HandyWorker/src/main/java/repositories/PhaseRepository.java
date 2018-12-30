@@ -12,7 +12,7 @@ import domain.Phase;
 @Repository
 public interface PhaseRepository extends JpaRepository<Phase, Integer> {
 
-	@Query("select ph from FixUpTask f join f.phases ph where f.id = ?1 order by ph.startMoment")
-	Page<Phase> findByFixUpTaskIdOrdered(int fixUpTaskId, Pageable pageable);
+	@Query(value = "select ph from Phase ph where ph.id in (select phh.id from FixUpTask f join f.phases phh where f.id = ?1)", countQuery = "select count(ph) from FixUpTask f join f.phases ph where f.id = ?1")
+	Page<Phase> findByFixUpTaskId(int fixUpTaskId, Pageable pageable);
 
 }

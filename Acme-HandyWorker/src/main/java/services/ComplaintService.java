@@ -146,6 +146,14 @@ public class ComplaintService {
 		return result;
 	}
 
+	public double[] findDataNumberComplaintPerFixUpTask() {
+		double[] result;
+
+		result = this.complaintRepository.findDataNumberComplaintPerFixUpTask();
+
+		return result;
+	}
+
 	public void addFixUpTask(final Complaint complaint, final FixUpTask fixUpTask) {
 		complaint.setFixUpTask(fixUpTask);
 	}

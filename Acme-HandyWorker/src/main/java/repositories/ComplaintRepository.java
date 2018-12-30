@@ -37,4 +37,6 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c.ticker from Complaint c where c.ticker = ?1")
 	String existTicker(String ticker);
 
+	@Query("select min(f.complaints.size), max(f.complaints.size), avg(f.complaints.size), sqrt(sum (f.complaints.size * f.complaints.size) / count (f.complaints.size)- avg(f.complaints.size) *avg(f.complaints.size)) from FixUpTask f")
+	double[] findDataNumberComplaintPerFixUpTask();
 }

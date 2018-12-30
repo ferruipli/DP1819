@@ -9,6 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="fixUpTask.date.format2" var="dateFormat"/>
+<spring:message code="fixUpTask.date.format3" var="momentFormat"/>
 
 <fieldset>
 	<legend><spring:message code="fixUpTask.attributes"/></legend>
@@ -22,7 +23,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.publicationMoment"/>:</strong>
-	<fmt:formatDate value="${fixUpTask.publicationMoment}" pattern="${dateFormat}"/>
+	<fmt:formatDate value="${fixUpTask.publicationMoment}" pattern="${momentFormat}"/>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.description"/>:</strong>

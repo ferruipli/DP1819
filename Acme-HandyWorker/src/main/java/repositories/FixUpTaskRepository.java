@@ -17,6 +17,9 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	@Query("select f from FixUpTask f join f.phases ph where ph.id = ?1")
 	FixUpTask findByPhaseId(int phaseId);
 
+	@Query("select f.id from FixUpTask f join f.phases ph where ph.id = ?1")
+	Integer findIdByPhaseId(int phaseId);
+
 	@Query("select a.fixUpTask from HandyWorker hw join hw.applications a where hw.id = ?2 and a.status = 'ACCEPTED' and a.fixUpTask.id = ?1")
 	FixUpTask findWorkableFixUpTask(int fixUpTaskId, int handyWorkerId);
 

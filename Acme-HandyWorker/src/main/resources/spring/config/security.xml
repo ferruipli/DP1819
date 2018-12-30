@@ -71,6 +71,9 @@
 		
 		<security:intercept-url pattern="/finder/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		
+		<!-- PERMISOS TEMPORALES -->
+		<security:intercept-url pattern="/fixUpTask/**" access="permitAll" />
+
 		<security:intercept-url pattern="/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 
 		<security:intercept-url pattern="/message/administrator/**" access="hasRole('ADMIN')" />
@@ -81,6 +84,9 @@
 		<security:intercept-url pattern="/miscellaneousRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		
 		<security:intercept-url pattern="/personalRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
+		
+		<security:intercept-url pattern="/phase/customer,handyWorker,referee/**" access="hasAnyRole('REFEREE','CUSTOMER','HANDYWORKER')" />
+		<security:intercept-url pattern="/phase/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		
 		<security:intercept-url pattern="/professionalRecord/handyWorker/**" access="hasAnyRole('HANDYWORKER')" />
 		

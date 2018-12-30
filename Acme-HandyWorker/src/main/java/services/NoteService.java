@@ -56,9 +56,28 @@ public class NoteService {
 
 	public Note create() {
 		Note result;
+		// TODO: A la espera de preguntar al profesor
+		//		Authority authReferee, authCustomer, authHandyWorker;
+		//		UserAccount principal;
+		//
+		//		authReferee = new Authority();
+		//		authReferee.setAuthority(Authority.REFEREE);
+		//		authCustomer = new Authority();
+		//		authCustomer.setAuthority(Authority.CUSTOMER);
+		//		authHandyWorker = new Authority();
+		//		authHandyWorker.setAuthority(Authority.HANDYWORKER);
+		//
+		//		principal = LoginService.getPrincipal();
 
 		result = new Note();
 		result.setMoment(this.utilityService.current_moment());
+
+		//		if (principal.getAuthorities().contains(authHandyWorker))
+		//			result.setCommentHandyWorker("");
+		//		else if (principal.getAuthorities().contains(authCustomer))
+		//			result.setCommentCustomer("");
+		//		else if (principal.getAuthorities().contains(authReferee))
+		//			result.setCommentReferee("");
 
 		return result;
 	}
