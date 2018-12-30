@@ -51,6 +51,11 @@
 	<p> <strong> <spring:message code="actor.socialProfile" />: </strong>  
 		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
 	</p>
+	<jstl:if test="${actor.userAccount.authorities=='[HANDYWORKER]'}">
+		<p> <strong> <spring:message code="actor.curriculum" />: </strong>  
+		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum"/></a>
+	</p>
+	</jstl:if>
 </fieldset>
 
 <input type="button" name="return" value="<spring:message code="actor.return" />" 
