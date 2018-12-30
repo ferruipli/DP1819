@@ -34,7 +34,7 @@
 </p>
 <p>
 <strong> <spring:message code="tutorial.handyWorker" />: </strong>
-	<a href = "handyWorker/display.do?handyorkerId=${tutorial.handyWorker.id}"><jstl:out value="${tutorial.handyWorker.name}" /></a>
+	<a href = "handyWorker/display.do?actorId=${tutorial.handyWorker.id}"><jstl:out value="${tutorial.handyWorker.name}" /></a>
 </p> 	
 	
 <p>

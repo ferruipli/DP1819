@@ -61,7 +61,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		pageable = this.newFixedPageable(page, dir, sort);
-		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker, pageable);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker.getId(), pageable);
 		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
 
 		result = new ModelAndView("tutorial/list");

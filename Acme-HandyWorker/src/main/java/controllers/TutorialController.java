@@ -87,6 +87,26 @@ public class TutorialController extends AbstractController {
 		return result;
 	}
 
+	// Tutorial list by handyWorker---------------------------------------------------------------		
+
+	@RequestMapping(value = "/listHW", method = RequestMethod.GET)
+	public ModelAndView listHandyWorker(@RequestParam final int handyWorkerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+		ModelAndView result;
+		Page<Tutorial> tutorials;
+		final Pageable pageable;
+		final PaginatedList tutorialsAdapted;
+
+		pageable = this.newFixedPageable(page, dir, sort);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorkerId, pageable);
+		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
+
+		result = new ModelAndView("tutorial/list");
+		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("requestURI", "tutorial/list.do");
+
+		return result;
+	}
+
 	private Sponsorship getRandomSponsorship(final Collection<Sponsorship> sponsorships) {
 		Sponsorship sponsorship;
 		sponsorship = null;
