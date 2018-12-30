@@ -10,7 +10,6 @@
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -34,7 +33,7 @@
 	<p>
 		<strong><spring:message
 				code="curriculum.personalRecord.photoLink" /></strong> :
-		<jstl:out value="${curriculum.personalRecord.photoLink}"></jstl:out>
+		<img src="${curriculum.personalRecord.photoLink}">
 	</p>
 	<p>
 		<strong><spring:message
@@ -60,9 +59,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.educationRecords"
-		id="rowEducationRecord" requestURI="${requestURI}" pagesize="5"
-		class="displaytag">
+	<display:table name="educationRecords" id="rowEducationRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -111,9 +108,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.professionalRecords"
-		id="rowProfessionalRecord" requestURI="${requestURI}" pagesize="5"
-		class="displaytag">
+	<display:table name="professionalRecords" id="rowProfessionalRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -161,8 +156,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord"
-		requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<display:table name="endorserRecords" id="rowEndorserRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -186,13 +180,14 @@
 			var="telephoneNumberHeader" />
 		<display:column property="phoneNumber"
 			title="${telephoneNumberHeader}" sortable="false" />
-		
-		
-		<a><spring:message code="curriculum.endorserRecord.linkedInProfile"
-			var="linkedInProfileHeader" />	</a>
+
+
+		<a><spring:message
+				code="curriculum.endorserRecord.linkedInProfile"
+				var="linkedInProfileHeader" /> </a>
 		<display:column property="linkedInProfile"
 			title="${linkedInProfileHeader}" sortable="false" />
-		
+
 
 		<spring:message code="curriculum.endorserRecord.comments"
 			var="commentsHeader" />
@@ -209,10 +204,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.miscellaneousRecords"
-		id="rowMiscellaneousRecord" requestURI="${requestURI}" pagesize="5"
-		class="displaytag">
-
+	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord" class="displaytag">
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
 				<a
@@ -244,5 +236,3 @@
 	</security:authorize>
 
 </fieldset>
-
-

@@ -5,7 +5,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.HandyWorkerService;
 import services.PersonalRecordService;
 import controllers.AbstractController;
+import domain.HandyWorker;
 import domain.PersonalRecord;
 
 @Controller
@@ -60,7 +60,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		Integer handyWorkerId;
 
 		personalRecord = this.personalRecordService.findOne(personalRecordId);
-		Assert.notNull(personalRecord);
 		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = this.createEditModelAndView(personalRecord);
@@ -75,13 +74,16 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 	public ModelAndView save(@Valid final PersonalRecord personalRecord, final BindingResult binding) {
 
 		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(personalRecord);
 		else
 			try {
 				this.personalRecordService.save(personalRecord);
-				result = new ModelAndView("redirect:/curriculum/display.do");
+				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
 			}
@@ -103,10 +105,13 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		assert personalRecord != null;
 
 		ModelAndView result;
+		Integer handyWorkerId;
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = new ModelAndView("personalRecord/edit");
 		result.addObject("personalRecord", personalRecord);
 		result.addObject("message", messageCode);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 
