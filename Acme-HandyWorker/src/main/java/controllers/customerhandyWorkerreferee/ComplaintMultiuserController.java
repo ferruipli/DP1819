@@ -1,5 +1,5 @@
 
-package controllers.customerhandyworkerreferee;
+package controllers.customerhandyWorkerreferee;
 
 import java.util.Collection;
 
