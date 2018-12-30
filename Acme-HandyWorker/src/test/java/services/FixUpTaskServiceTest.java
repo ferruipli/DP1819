@@ -47,9 +47,9 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		double[] data;
 
 		data = this.fixUpTaskService.findDataNumberFixUpTaskPerUser();
-
 		Assert.notNull(data);
-		System.out.println(data);
+		System.out.println(data.length);
+		System.out.println(data[0]);
 	}
 
 	@Test

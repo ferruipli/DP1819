@@ -33,6 +33,19 @@ public class ApplicationServiceTest extends AbstractTest {
 
 	// Test ------------------------------------------------
 	@Test
+	public void testdata() {
+		Double[] data;
+
+		data = this.applicationService.findDataOfApplicationPrice();
+		Assert.notNull(data);
+		System.out.println(data.length);
+		System.out.println(data[0]);
+		System.out.println(data[1]);
+		System.out.println(data[2]);
+		System.out.println(data[3]);
+	}
+
+	@Test
 	public void testCreate() {
 		super.authenticate("handyWorker2");
 		final Application application;

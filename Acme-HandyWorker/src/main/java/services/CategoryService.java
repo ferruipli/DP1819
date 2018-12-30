@@ -76,7 +76,7 @@ public class CategoryService {
 		Assert.notNull(category);
 		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size() && this.validLanguages(category));
 
-		Category root, result, parent_category;
+		Category root, result, parent_category, old_category, old_parent_category;
 
 		root = this.findRootCategory();
 
@@ -87,6 +87,19 @@ public class CategoryService {
 		parent_category = result.getParent();
 		if (category.getId() == 0)
 			this.addDescendantCategory(parent_category, result);
+		else {
+			parent_category = result.getParent();
+			// Si category cambia de padre, entonces hay que realizar cambios en la jerarquia
+			old_category = category;
+			if (!old_category.getParent().equals(parent_category)) {
+				// El antiguo padre de category deja de tener como descendiente a category
+				old_parent_category = this.findOne(old_category.getParent().getId());
+				this.removeDescendantCategory(old_parent_category, result);
+
+				// El nuevo padre de category pasa a tener a category como descendiente
+				this.addDescendantCategory(parent_category, result);
+			}
+		}
 
 		return result;
 	}
@@ -186,7 +199,8 @@ public class CategoryService {
 			es_saved.setName(categoryForm.getEs_name());
 
 			result.setParent(categoryForm.getParent());
-		}
+		} else
+			result = root;
 
 		return result;
 	}
