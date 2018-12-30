@@ -93,7 +93,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 		String paramFixUpTaskId;
 
 		paramFixUpTaskId = request.getParameter("fixUpTaskId");
-		fixUpTaskId = paramFixUpTaskId == null || paramFixUpTaskId.isEmpty() ? null : Integer.parseInt(paramFixUpTaskId);
+		fixUpTaskId = paramFixUpTaskId.isEmpty() ? null : Integer.parseInt(paramFixUpTaskId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(phase, fixUpTaskId);

@@ -9,6 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<jstl:if test="${!report.finalMode}">
+	<p style="color:blue;"><spring:message code="report.info"/></p>
+</jstl:if>
+
 <fieldset>
 	<legend><spring:message code="report.attributes"/></legend>
 	

@@ -47,6 +47,7 @@
 		<value>/views/socialProfile/messages</value>
 		<value>/views/sponsorship/messages</value>
 		<value>/views/tutorial/messages</value>
+		<value>/views/warranty/messages</value>
 		<value>/views/welcome/messages</value>
 	</util:list>
 

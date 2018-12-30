@@ -48,7 +48,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.warranty"/>:</strong>
-	<a href="warranty/customer,handyWorker,referee/display.do?warrantyId=${fixUpTask.warranty.id}"><jstl:out value="${fixUpTask.warranty.title}"/></a>
+	<a href="warranty/customer,handyWorker,referee/display.do?warrantyId=${fixUpTask.warranty.id}&fixUpTaskId=${fixUpTask.id}"><jstl:out value="${fixUpTask.warranty.title}"/></a>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.category"/>:</strong>

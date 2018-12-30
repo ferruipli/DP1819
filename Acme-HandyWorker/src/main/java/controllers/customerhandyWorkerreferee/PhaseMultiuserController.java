@@ -1,5 +1,5 @@
 
-package controllers.customerhandyworkerreferee;
+package controllers.customerhandyWorkerreferee;
 
 import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
