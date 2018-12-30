@@ -105,10 +105,13 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		assert personalRecord != null;
 
 		ModelAndView result;
+		Integer handyWorkerId;
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = new ModelAndView("personalRecord/edit");
 		result.addObject("personalRecord", personalRecord);
 		result.addObject("message", messageCode);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 

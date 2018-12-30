@@ -3047,7 +3047,7 @@
 	<!-- PersonalRecords -->
 	<bean id="personalRecord1" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord1" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord1@gmail.com" />
 		<property name="phoneNumber" value="631047853" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
@@ -3055,7 +3055,7 @@
 
 	<bean id="personalRecord2" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord2" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord2@gmail.com" />
 		<property name="phoneNumber" value="601895472" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
@@ -3063,7 +3063,7 @@
 
 	<bean id="personalRecord3" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord3" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord3@gmail.com" />
 		<property name="phoneNumber" value="652013984" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />

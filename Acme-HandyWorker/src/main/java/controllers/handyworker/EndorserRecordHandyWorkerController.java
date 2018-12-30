@@ -125,10 +125,13 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 		assert endorserRecord != null;
 
 		ModelAndView result;
+		Integer handyWorkerId;
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = new ModelAndView("endorserRecord/edit");
 		result.addObject("endorserRecord", endorserRecord);
 		result.addObject("message", messageCode);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 	}

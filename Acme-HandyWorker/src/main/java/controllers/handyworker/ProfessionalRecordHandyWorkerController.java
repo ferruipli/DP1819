@@ -125,10 +125,13 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 		assert professionalRecord != null;
 
 		ModelAndView result;
+		Integer handyWorkerId;
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = new ModelAndView("professionalRecord/edit");
 		result.addObject("professionalRecord", professionalRecord);
 		result.addObject("message", messageCode);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 

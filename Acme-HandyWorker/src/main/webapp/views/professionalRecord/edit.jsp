@@ -22,14 +22,14 @@
 	<form:errors cssClass="error" path="nameCompany" />
 	<br />
 
-	<form:label path="startDate">
+	<form:label path="startDate" placeholder = "dd/mm/yyyy">
 		<spring:message code="professionalRecord.startDate" />:
 	</form:label>
 	<form:input path="startDate" />
 	<form:errors cssClass="error" path="startDate" />
 	<br />
 
-	<form:label path="endDate">
+	<form:label path="endDate" placeholder = "dd/mm/yyyy">
 		<spring:message code="professionalRecord.endDate" />:
 	</form:label>
 	<form:input path="endDate" />

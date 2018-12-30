@@ -33,7 +33,7 @@
 	<p>
 		<strong><spring:message
 				code="curriculum.personalRecord.photoLink" /></strong> :
-		<jstl:out value="${curriculum.personalRecord.photoLink}"></jstl:out>
+		<img src="${curriculum.personalRecord.photoLink}">
 	</p>
 	<p>
 		<strong><spring:message
