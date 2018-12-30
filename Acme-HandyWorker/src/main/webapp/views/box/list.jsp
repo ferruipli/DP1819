@@ -27,3 +27,6 @@
 	<display:column property="name" titleKey="box.name"/>
 	
 </display:table>
+
+		<a href="box/administrator,customer,handyWorker,referee,sponsor/create.do"><spring:message code="box.create" /></a>
+	

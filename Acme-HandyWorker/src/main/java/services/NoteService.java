@@ -4,6 +4,8 @@ package services;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -54,9 +56,28 @@ public class NoteService {
 
 	public Note create() {
 		Note result;
+		// TODO: A la espera de preguntar al profesor
+		//		Authority authReferee, authCustomer, authHandyWorker;
+		//		UserAccount principal;
+		//
+		//		authReferee = new Authority();
+		//		authReferee.setAuthority(Authority.REFEREE);
+		//		authCustomer = new Authority();
+		//		authCustomer.setAuthority(Authority.CUSTOMER);
+		//		authHandyWorker = new Authority();
+		//		authHandyWorker.setAuthority(Authority.HANDYWORKER);
+		//
+		//		principal = LoginService.getPrincipal();
 
 		result = new Note();
 		result.setMoment(this.utilityService.current_moment());
+
+		//		if (principal.getAuthorities().contains(authHandyWorker))
+		//			result.setCommentHandyWorker("");
+		//		else if (principal.getAuthorities().contains(authCustomer))
+		//			result.setCommentCustomer("");
+		//		else if (principal.getAuthorities().contains(authReferee))
+		//			result.setCommentReferee("");
 
 		return result;
 	}
@@ -99,6 +120,15 @@ public class NoteService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Page<Note> findByReportId(final int reportId, final Pageable pageable) {
+		Page<Note> result;
+
+		result = this.noteRepository.findByReportId(reportId, pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	public double[] findDataNumberNotesPerReport() {
 		double[] result;

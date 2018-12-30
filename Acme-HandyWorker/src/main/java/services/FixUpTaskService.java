@@ -111,6 +111,22 @@ public class FixUpTaskService {
 
 	// Other business methods -------------------------------------------------
 
+	public FixUpTask findByPhaseId(final int phaseId) {
+		FixUpTask result;
+
+		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
+
+		return result;
+	}
+
+	public Integer findIdByPhaseId(final int phaseId) {
+		Integer result;
+
+		result = this.fixUpTaskRepository.findIdByPhaseId(phaseId);
+
+		return result;
+	}
+
 	public double[] findDataNumberFixUpTaskPerUser() {
 		double[] result;
 
@@ -148,14 +164,6 @@ public class FixUpTaskService {
 
 		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 		Assert.notNull(result);
-
-		return result;
-	}
-
-	protected FixUpTask findByPhaseId(final int phaseId) {
-		FixUpTask result;
-
-		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
 
 		return result;
 	}

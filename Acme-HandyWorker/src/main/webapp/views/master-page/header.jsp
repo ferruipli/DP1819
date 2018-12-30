@@ -88,8 +88,17 @@
 				</ul>
 			</li>
 		</security:authorize>
-				
-		<security:authorize access="isAnonymous()">
+		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv"><spring:message	code="master.page.sponsor.sponsorship" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="sponsorship/sponsor/list.do"><spring:message code="master.page.sponsor.sponsorship.list" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+
+
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>			
 				<ul>
@@ -97,7 +106,6 @@
 					<li><a href="tutorial/list.do"><spring:message code="master.page.tutorial.list" /></a></li>					
 				</ul>
 			</li>
-		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
 			<li>

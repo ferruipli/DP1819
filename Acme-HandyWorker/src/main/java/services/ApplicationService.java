@@ -41,9 +41,6 @@ public class ApplicationService {
 	@Autowired
 	private UtilityService			utilityService;
 
-	@Autowired
-	private LoginService			loginService;
-
 
 	//Constructor ----------------------------------------------------
 	public ApplicationService() {
@@ -75,15 +72,15 @@ public class ApplicationService {
 
 	public Application save(final Application application) {
 		Assert.notNull(application);
-		Application result;
+		final Application result;
 
 		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			if (LoginService.getPrincipal().getAuthorities().contains("HANDYWORKER"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]"))
 				Assert.notNull(application.getHandyWorker().getCurriculum());
-			if (LoginService.getPrincipal().getAuthorities().contains("CUSTOMER"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[CUSTOMER]"))
 				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
 					//Check that number of accepted application is 0
 					this.checkAcceptedApplication(application);
@@ -174,6 +171,15 @@ public class ApplicationService {
 	}
 
 	//Req 12.5.4
+	public Double[] findDataOfApplicationPerFixUpTask() {
+		Double[] result;
+
+		result = this.applicationRepository.findDataOfApplicationPerFixUpTask();
+
+		return result;
+	}
+
+	//Req 12.5.4
 	public Double[] findDataOfApplicationPrice() {
 		Double[] result;
 
@@ -235,6 +241,13 @@ public class ApplicationService {
 		Assert.isTrue((applications.getNumberOfElements() != 0));
 		return applications;
 
+	}
+	public Page<Application> findApplicationByFixUpTask(final int fixUpTaskId, final Pageable pageable) {
+		Page<Application> result;
+
+		result = this.applicationRepository.findApplicationByFixUpTask(fixUpTaskId, pageable);
+
+		return result;
 	}
 
 }

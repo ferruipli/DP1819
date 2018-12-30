@@ -27,12 +27,13 @@
 <fieldset>
 	<legend><spring:message code="box.messages"/></legend>
 <display:table name="messages" id="row" requestURI="box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
+	
 	<display:column>
-		<a href="message/administrator,customer,handyWorker,referee,sponsor/delete.do?messageId=${rowMessage.id}"><spring:message code="message.delete" /></a>
+		<a href="message/administrator,customer,handyWorker,referee,sponsor/delete.do?messageId=${row.id}"><spring:message code="box.delete" /></a>
 	</display:column>
 	
 	<display:column>
-		<a href="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${rowMessage.id}"><spring:message code="box.display" /></a>
+		<a href="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${row.id}"><spring:message code="box.display" /></a>
 	</display:column>
 	
 	<spring:message code="message.date.format" var="dateFormat"/>
@@ -48,7 +49,7 @@
 	
 </display:table>
 
-	<a href="message/administrator,customer,handyWorker,referee,sponsor/edit.do"><spring:message code="message.send"/></a>
+	<a href="message/administrator,customer,handyWorker,referee,sponsor/send.do"><spring:message code="message.send"/></a>
 
 </fieldset>
 

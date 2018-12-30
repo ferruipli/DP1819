@@ -21,6 +21,8 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	
+	<input type="hidden" name="tutorialId" value="${tutorialId}"/>
 
 	<form:label path="number">
 		<spring:message code="section.number" />:

@@ -72,10 +72,9 @@
 	<form:input path="category" />
 	<form:errors cssClass="error" path="category" />
 	<br />
-<p/>
-	
-	<input type="submit" name="save" value="<spring:message code="finder.search" />" />
+<p/>	
+	<input type="submit" name="save" value="<spring:message code="finder.save" />" />
 	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
+		<a href = "fixUpTask/handyWorker/list.do?finderId=${finder.id}"></a>
 	<br />
-
 </form:form>

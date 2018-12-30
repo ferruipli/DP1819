@@ -32,10 +32,17 @@
 	<!-- Buttons -->
 	
 	<input type="submit" name="save" value="<spring:message code="report.save"/>"/>
+	
 	<jstl:if test="${report.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="report.delete"/>" onclick="return confirm('<spring:message code="report.confirm.delete"/>')"/>
+		<jstl:set var="back_redir" value="report/customer,handyWorker,referee/back.do?reportId=${report.id}"/>
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="report.cancel"/>" onclick="javascript: relativeRedir('complaint/customer,handyWorker,referee/display.do?complaintId=${complaintId}');"/>
+	
+	<jstl:if test="${report.id == 0}">
+		<jstl:set var="back_redir" value="complaint/customer,handyWorker,referee/display.do?complaintId=${complaintId}"/>
+	</jstl:if>
+	
+	<input type="button" name="cancel" value="<spring:message code="report.cancel"/>" onclick="javascript: relativeRedir('${back_redir}');"/>
 	<br />
 
 </form:form>

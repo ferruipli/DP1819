@@ -86,6 +86,20 @@ public class BoxMultiUserController extends AbstractController {
 
 	}
 
+	// Create
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Box box;
+
+		box = this.boxService.create();
+
+		result = this.createEditModelAndView(box);
+
+		return result;
+	}
+
 	// Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)

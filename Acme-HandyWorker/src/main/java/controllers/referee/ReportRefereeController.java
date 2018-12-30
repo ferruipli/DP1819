@@ -70,15 +70,16 @@ public class ReportRefereeController extends AbstractController {
 		Complaint complaint;
 		Report saved;
 		Integer complaintId;
+		String paramComplaintId;
 
-		complaintId = null;
+		paramComplaintId = request.getParameter("complaintId");
+		complaintId = paramComplaintId.isEmpty() ? null : Integer.parseInt(paramComplaintId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(report, complaintId);
 		else
 			try {
 				if (report.getId() == 0) {
-					complaintId = Integer.parseInt(request.getParameter("complaintId"));
 					complaint = this.complaintService.findOne(complaintId);
 					saved = this.reportService.save(complaint, report);
 				} else
@@ -93,12 +94,14 @@ public class ReportRefereeController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Report report, final BindingResult binding, final HttpServletRequest request) {
+	public ModelAndView delete(final Report report, final BindingResult binding) {
 		ModelAndView result;
+		int complaintId;
 
 		try {
+			complaintId = this.complaintService.findIdByReportId(report.getId());
 			this.reportService.delete(report);
-			result = new ModelAndView("redirect:/report/customer,handyWorker,referee/display.do?reportId=" + report.getId());
+			result = new ModelAndView("redirect:/complaint/customer,handyWorker,referee/display.do?complaintId=" + complaintId);
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(report, "report.commit.error");
 		}

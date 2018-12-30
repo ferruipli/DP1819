@@ -26,4 +26,7 @@ public interface BoxRepository extends JpaRepository<Box, Integer> {
 	@Query("select b from Box b join b.messages m where m.id=?1")
 	Collection<Box> boxWithMessage(int messageId);
 
+	@Query("select b from Box b join b.messages m where m.id = ?1 and b.actor.id = ?2")
+	Box searchBoxByMessageAndActor(int messageId, int actorId);
+
 }
