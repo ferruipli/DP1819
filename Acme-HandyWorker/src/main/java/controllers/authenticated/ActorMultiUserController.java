@@ -67,7 +67,7 @@ public class ActorMultiUserController extends AbstractController {
 		}
 
 		result.addObject("authorities", authorities);
-		result.addObject("handyWorker", handyWorker);
+		result.addObject("curriculum", handyWorker.getCurriculum());
 
 		return result;
 	}

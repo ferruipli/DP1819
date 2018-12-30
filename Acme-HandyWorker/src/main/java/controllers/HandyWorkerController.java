@@ -53,7 +53,7 @@ public class HandyWorkerController extends AbstractController {
 		result.addObject("isEndorsable", true);
 
 		result.addObject("authorities", authorities);
-		result.addObject("handyWorker", handyWorker);
+		result.addObject("curriculum", handyWorker.getCurriculum());
 
 		return result;
 	}

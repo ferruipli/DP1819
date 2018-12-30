@@ -52,16 +52,10 @@
 		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
 	</p>
 	<jstl:if test="${actor.userAccount.authorities=='[HANDYWORKER]'}">
-		<jstl:if test="${handyWorker.curriculum != null}">
+		<jstl:if test="${curriculum != null}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
 		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.see"/></a>
 		</p>	
-		</jstl:if>
-		
-		<jstl:if test="${handyWorker.curriculum == null && handyWorker.id == actor.id}">
-		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
-		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.add"/></a>
-		</p>
 		</jstl:if>
 	
 	
