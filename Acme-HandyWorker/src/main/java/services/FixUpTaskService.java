@@ -127,16 +127,16 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public double[] findDataNumberFixUpTaskPerUser() {
-		double[] result;
+	public Double[] findDataNumberFixUpTaskPerUser() {
+		Double[] result;
 
 		result = this.fixUpTaskRepository.findDataNumberFixUpTaskPerUser();
 
 		return result;
 	}
 
-	public double[] findDataMaximumPrice() {
-		double[] result;
+	public Double[] findDataMaximumPrice() {
+		Double[] result;
 
 		result = this.fixUpTaskRepository.findDataMaximumPrice();
 

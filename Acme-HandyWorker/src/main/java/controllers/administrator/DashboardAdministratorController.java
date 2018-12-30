@@ -52,11 +52,9 @@ public class DashboardAdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
 		ModelAndView result;
-		double[] dataFixUpTaskPerUser;
-		final double[] dataApplicationsPerTask, dataNotesPerReport;
-		double[] dataMaximumPrice;
-		Double[] dataOfApplicationPrice;
+		Double[] dataApplicationsPerTask, dataOfApplicationPrice;
 		final Double[] dataComplaintsPerTask;
+		Double[] dataMaximumPrice, dataFixUpTaskPerUser, dataNotesPerReport;
 		Double ratPendingApp, ratAcceptedApp, ratRejectedApp, ratPendingPeriodApp, ratTaskWithComplaints;
 		Collection<Customer> customers, topThreeC;
 		Collection<HandyWorker> handyWorkers, topThreeHW;
@@ -64,7 +62,7 @@ public class DashboardAdministratorController extends AbstractController {
 		// LEVEL C -----------------------------------------
 
 		dataFixUpTaskPerUser = this.fixUpTaskService.findDataNumberFixUpTaskPerUser();
-		//TODO: dataApplicationPerTask
+		dataApplicationsPerTask = this.applicationService.findDataOfApplicationPerFixUpTask();
 		dataMaximumPrice = this.fixUpTaskService.findDataMaximumPrice();
 		dataOfApplicationPrice = this.applicationService.findDataOfApplicationPrice();
 		ratPendingApp = this.applicationService.findRatioPendingApplications();
@@ -76,7 +74,7 @@ public class DashboardAdministratorController extends AbstractController {
 		handyWorkers = this.handyWorkerService.atLeast10Application();
 
 		// LEVEL B --------------------------------------
-		//TODO:dataComplaintsPerTask = this.complaintService
+		dataComplaintsPerTask = this.complaintService.findDataNumberComplaintPerFixUpTask();
 		dataNotesPerReport = this.noteService.findDataNumberNotesPerReport();
 
 		ratTaskWithComplaints = this.fixUpTaskService.findRatioFixUpTaskWithComplaint();
@@ -88,7 +86,7 @@ public class DashboardAdministratorController extends AbstractController {
 
 		// LEVEL A
 		result.addObject("dataFixUpTaskPerUser", dataFixUpTaskPerUser);
-		//TODO: result.addObject("dataApplicationPerTask", dataApplicationPerTask);
+		result.addObject("dataApplicationPerTask", dataApplicationsPerTask);
 		result.addObject("dataMaximumPrice", dataMaximumPrice);
 		result.addObject("dataOfApplicationPrice", dataOfApplicationPrice);
 		result.addObject("ratPendingApp", ratPendingApp);
@@ -100,9 +98,10 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("handyWorkers", handyWorkers);
 
 		// LEVEL B
-		//result.addObject("dataApplicationPerTask", dataApplicationPerTask);
+		result.addObject("dataComplaintsPerTask", dataComplaintsPerTask);
 		result.addObject("dataNotesPerReport", dataNotesPerReport);
 		result.addObject("ratTaskWithComplaints", ratTaskWithComplaints);
+
 		result.addObject("topThreeC", topThreeC);
 		result.addObject("topThreeHW", topThreeHW);
 

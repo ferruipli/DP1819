@@ -130,8 +130,8 @@ public class NoteService {
 		return result;
 	}
 
-	public double[] findDataNumberNotesPerReport() {
-		double[] result;
+	public Double[] findDataNumberNotesPerReport() {
+		Double[] result;
 
 		result = this.noteRepository.findDataNumberNotesPerReport();
 
