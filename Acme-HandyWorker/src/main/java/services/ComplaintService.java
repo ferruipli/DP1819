@@ -146,8 +146,8 @@ public class ComplaintService {
 		return result;
 	}
 
-	public double[] findDataNumberComplaintPerFixUpTask() {
-		double[] result;
+	public Double[] findDataNumberComplaintPerFixUpTask() {
+		Double[] result;
 
 		result = this.complaintRepository.findDataNumberComplaintPerFixUpTask();
 
