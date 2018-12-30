@@ -1,5 +1,5 @@
 
-package controllers.customerhandyWorkerreferee;
+package controllers.customerhandyworkerreferee;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

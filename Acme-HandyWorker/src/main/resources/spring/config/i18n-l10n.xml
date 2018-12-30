@@ -26,6 +26,7 @@
 		<value>/views/curriculum/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/customisation/messages</value>
+		<value>/views/dashboard/messages</value>
 		<value>/views/educationRecord/messages</value>
 		<value>/views/endorsement/messages</value>
 		<value>/views/endorserRecord/messages</value>
@@ -37,6 +38,7 @@
 		<value>/views/miscellaneousRecord/messages</value>
 		<value>/views/note/messages</value>
 		<value>/views/personalRecord/messages</value>
+		<value>/views/phase/messages</value>
 		<value>/views/professionalRecord/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/report/messages</value>

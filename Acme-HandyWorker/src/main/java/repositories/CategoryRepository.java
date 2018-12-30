@@ -12,5 +12,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 	@Query("select c from Category c where c.parent is null")
 	Category findRootCategory();
-
 }

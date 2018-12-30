@@ -43,6 +43,16 @@ public class FixUpTaskServiceTest extends AbstractTest {
 	// Test -------------------------------------------------------------------
 
 	@Test
+	public void testdata() {
+		Double[] data;
+
+		data = this.fixUpTaskService.findDataNumberFixUpTaskPerUser();
+		Assert.notNull(data);
+		System.out.println(data.length);
+		//System.out.println(data[0]);
+	}
+
+	@Test
 	public void testSaveDeleteFixUpTask() {
 		FixUpTask fixUpTask, saved;
 		Warranty warranty;

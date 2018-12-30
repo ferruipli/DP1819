@@ -68,7 +68,7 @@ public class PhaseService {
 			this.checkOwner(phase);
 			fixUpTask = this.fixUpTaskService.findByPhaseId(phase.getId());
 		} else
-			this.checkHandyWorkerAccess(fixUpTask, phase);
+			Assert.isTrue(this.checkHandyWorkerAccess(fixUpTask));
 
 		Assert.notNull(fixUpTask);
 		this.checkPhaseDate(fixUpTask, phase);
@@ -105,11 +105,27 @@ public class PhaseService {
 
 	// Other business methods -------------------------------------------------
 
-	public Page<Phase> findByFixUpTaskIdOrdered(final int fixUpTaskId, final Pageable pageable) {
+	public Page<Phase> findByFixUpTaskId(final int fixUpTaskId, final Pageable pageable) {
 		Page<Phase> result;
 
-		result = this.phaseRepository.findByFixUpTaskIdOrdered(fixUpTaskId, pageable);
+		result = this.phaseRepository.findByFixUpTaskId(fixUpTaskId, pageable);
 		Assert.notNull(result);
+
+		return result;
+	}
+
+	public boolean checkHandyWorkerAccess(final FixUpTask fixUpTask) {
+		boolean result;
+		HandyWorker principal;
+		FixUpTask workableFixUpTask;
+
+		principal = this.handyWorkerService.findByPrincipal();
+		if (principal == null)
+			result = false;
+		else {
+			workableFixUpTask = this.fixUpTaskService.findWorkableFixUpTask(fixUpTask.getId(), principal.getId());
+			result = workableFixUpTask != null;
+		}
 
 		return result;
 	}
@@ -123,16 +139,6 @@ public class PhaseService {
 		ownerId = this.handyWorkerService.findPhaseCreator(phase);
 
 		Assert.isTrue(principalId == ownerId);
-	}
-
-	private void checkHandyWorkerAccess(final FixUpTask fixUpTask, final Phase phase) {
-		HandyWorker principal;
-		FixUpTask workableFixUpTask;
-
-		principal = this.handyWorkerService.findByPrincipal();
-		workableFixUpTask = this.fixUpTaskService.findWorkableFixUpTask(fixUpTask.getId(), principal.getId());
-
-		Assert.notNull(workableFixUpTask);
 	}
 
 	private void checkPhaseDate(final FixUpTask fixUpTask, final Phase phase) {

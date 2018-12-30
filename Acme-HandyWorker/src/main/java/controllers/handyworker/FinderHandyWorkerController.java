@@ -40,7 +40,7 @@ public class FinderHandyWorkerController extends AbstractController {
 
 	//  FINDER EDIT---------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView finderEdit() {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Finder finder;
 

@@ -11,14 +11,14 @@
 
 <p>
 	<strong> <spring:message code="categoryTranslation.name" />: </strong>
-	<jstl:out value="${mapa.get(category.id)}" />
+	<jstl:out value="${mapa.get(category.id)[0]}" />
 </p>
 
 <p>
 	<strong> <spring:message code="category.parent" />: </strong>
 	<jstl:if test="${category.parent != null}">
 		<a href="category/administrator/display.do?categoryId=${category.parent.id}">
-			<jstl:out value="${mapa.get(category.parent.id)}" />
+			<jstl:out value="${mapa.get(category.id)[1]}" />
 		</a>
 	</jstl:if>
 	<jstl:if test="${category.parent == null}">
@@ -39,7 +39,7 @@
 				<spring:message code="category.edit" />
 			</a>
 		</display:column>
-		<display:column value="${mapa.get(row.id)}" titleKey="categoryTranslation.name" />
+		<display:column value="${mapa.get(row.id)[0]}" titleKey="categoryTranslation.name" />
 	</display:table>
 </jstl:if>
 

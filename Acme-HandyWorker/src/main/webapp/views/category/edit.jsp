@@ -9,47 +9,48 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="category/administrator/edit.do" modelAtribute="category">
+<form:form action="category/administrator/edit.do" modelAttribute="categoryForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="descendants" />
 	
-	<form:label path="parent">
-		<spring:message code="category.parent" />:
-	</form:label>
-	<form:select path="parent">
-		<form:options item="${parents}" itemLabel="name" itemValue="id" />
-		<form:option label="----" value="0" />
-	</form:select>
-	<form:errors cssClass="error" path="parent" />
-	<br/>
-	
-	<forEach var="categoryTranslation" begin="1" end="${number_languages}">
-		<form:hidden path="id" />
-		<form:hidden path="version" />
+	<fieldset>
+		<legend> <spring:message code="category" /> </legend>
 		
-		<form:label path="name">
-			<spring:message code="categoryTranslation.name" />:
+		<form:label path="parent">
+			<spring:message code="category.parent" />:
 		</form:label>
-		<form:input path="name" />
-		<form:errors cssClass="error" path="name" />
+		<form:select path="parent">
+			<form:options items="${parents}" itemLabel="nameCategory" itemValue="id" />
+			<form:option label="----" value="0" />
+		</form:select>
+		<form:errors cssClass="error" path="parent" />
 		<br/>
+	</fieldset>
+
+	<fieldset>
+		<legend> <spring:message code="categoriesTranslation" /> </legend>
 		
-		<form:label path="language">
-			<spring:message code="categoryTranslation.language" />:
+		<form:label path="en_name">
+			<spring:message code="english_name" />:
 		</form:label>
-		<form:input path="language" />
-		<form:errors cssClass="error" path="language" />
-		<br/>
-	</forEach>
-	
+		<form:input path="en_name"/>
+		<form:errors cssClass="error" path="en_name" />
+		<br />
+		
+		<form:label path="es_name">
+			<spring:message code="spanish_name" />:
+		</form:label>
+		<form:input path="es_name"/>
+		<form:errors cssClass="error" path="es_name" />
+		<br />
+	</fieldset>
+
 	<input type="submit" name="save" value="<spring:message code="category.save" />" />
-	<jstl:if test="${category.id != 0}">
+	<jstl:if test="${categoryForm.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="category.delete" />"
 			onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="category.cancel" />
-		"onclick="javascript: relativeRedir('categoty/customer/list.do');" />
+	<input type="button" name="cancel"	value="<spring:message code="category.cancel"/>" 
+		onclick="javascript: relativeRedir('category/administrator/list.do');" />
 	<br />
 </form:form>

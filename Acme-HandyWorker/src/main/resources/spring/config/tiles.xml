@@ -26,6 +26,7 @@
 		<value>/views/curriculum/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/customisation/tiles.xml</value>
+		<value>/views/dashboard/tiles.xml</value>
 		<value>/views/educationRecord/tiles.xml</value>
 		<value>/views/endorsement/tiles.xml</value>
 		<value>/views/endorserRecord/tiles.xml</value>
@@ -37,6 +38,7 @@
 		<value>/views/miscellaneousRecord/tiles.xml</value>
 		<value>/views/note/tiles.xml</value>
 		<value>/views/personalRecord/tiles.xml</value>
+		<value>/views/phase/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/report/tiles.xml</value>
