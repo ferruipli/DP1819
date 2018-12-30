@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import services.ActorService;
 import services.EndorsableService;
+import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Customer;
@@ -30,6 +31,9 @@ public class ActorMultiUserController extends AbstractController {
 	@Autowired
 	private EndorsableService	endorsableService;
 
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
 
 	// Constructor
 
@@ -45,9 +49,11 @@ public class ActorMultiUserController extends AbstractController {
 		Actor actor;
 		Endorsable endorsable;
 		Collection<Authority> authorities;
+		HandyWorker handyWorker;
 
 		actor = this.actorService.findPrincipal();
 		authorities = actor.getUserAccount().getAuthorities();
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		result = new ModelAndView("actor/display");
 
@@ -61,6 +67,7 @@ public class ActorMultiUserController extends AbstractController {
 		}
 
 		result.addObject("authorities", authorities);
+		result.addObject("handyWorker", handyWorker);
 
 		return result;
 	}
