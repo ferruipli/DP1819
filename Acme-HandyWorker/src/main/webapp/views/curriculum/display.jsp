@@ -10,7 +10,6 @@
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -60,7 +59,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.educationRecords" id="rowEducationRecord" class="displaytag">
+	<display:table name="educationRecords" id="rowEducationRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -109,7 +108,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.professionalRecords" id="rowProfessionalRecord" class="displaytag">
+	<display:table name="professionalRecords" id="rowProfessionalRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -157,7 +156,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord" class="displaytag">
+	<display:table name="endorserRecords" id="rowEndorserRecord" class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
@@ -205,7 +204,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="curriculum.miscellaneousRecords" id="rowMiscellaneousRecord" class="displaytag">
+	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord" class="displaytag">
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<display:column>
 				<a
@@ -237,5 +236,3 @@
 	</security:authorize>
 
 </fieldset>
-
-
