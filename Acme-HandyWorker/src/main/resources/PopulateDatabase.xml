@@ -232,6 +232,20 @@
 		</property>
 		<property name="isBanned" value="false" />
 	</bean>
+	
+	
+	<bean id="userAccount18" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
 
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
@@ -3443,6 +3457,27 @@
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
+				<ref bean="sponsorship4" />
+				<ref bean="sponsorship5" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="José" />
+		<property name="middleName" value="Pepe" />
+		<property name="surname" value="García" />
+		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="email" value="ppgar@gmail.com" />
+		<property name="phoneNumber" value="698357269" />
+		<property name="address" value="Calle Naranjo 2" />
+		<property name="isSuspicious" value="false" />
+		<property name="userAccount" ref="userAccount18" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship2" />
+				<ref bean="sponsorship3" />
 			</list>
 		</property>
 	</bean>

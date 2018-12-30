@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.displaytag.pagination.PaginatedList;
@@ -48,14 +49,20 @@ public class TutorialController extends AbstractController {
 		Tutorial tutorial;
 		Collection<Section> sections;
 		Collection<Sponsorship> sponsorships;
+		Sponsorship sponsorship;
 
 		result = new ModelAndView("tutorial/display");
 		tutorial = this.tutorialService.findOne(tutorialId);
 		sections = tutorial.getSections();
 		sponsorships = tutorial.getSponsorShips();
+		sponsorship = this.getRandomSponsorship(sponsorships);
+
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
 		result.addObject("sponsorships", sponsorships);
+
+		if (sponsorship != null)
+			result.addObject("sponsorship", sponsorship);
 
 		return result;
 	}
@@ -80,4 +87,15 @@ public class TutorialController extends AbstractController {
 		return result;
 	}
 
+	private Sponsorship getRandomSponsorship(final Collection<Sponsorship> sponsorships) {
+		Sponsorship sponsorship;
+		sponsorship = null;
+		final ArrayList<Sponsorship> lista = new ArrayList<Sponsorship>(sponsorships);
+		if (sponsorships.size() != 0) {
+			final double random = Math.random() * (sponsorships.size() - 1);
+			final int intRandom = (int) random;
+			sponsorship = lista.get(intRandom);
+		}
+		return sponsorship;
+	}
 }
