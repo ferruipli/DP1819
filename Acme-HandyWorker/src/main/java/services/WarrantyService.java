@@ -51,6 +51,15 @@ public class WarrantyService {
 		return result;
 	}
 
+	public Page<Warranty> findAll(final Pageable pageable) {
+		Page<Warranty> result;
+
+		result = this.warrantyRepository.findAll(pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Warranty save(final Warranty warranty) {
 		Assert.notNull(warranty);
 		Assert.isTrue(!warranty.getFinalMode());
@@ -85,10 +94,10 @@ public class WarrantyService {
 		warranty.setFinalMode(true);
 	}
 
-	public Page<Warranty> findAllPageable(final Pageable pageable) {
-		Page<Warranty> result;
+	public Collection<Warranty> findFinalWarranties() {
+		Collection<Warranty> result;
 
-		result = this.warrantyRepository.findAllPageable(pageable);
+		result = this.warrantyRepository.findFinalWarranties();
 		Assert.notNull(result);
 
 		return result;

@@ -47,7 +47,13 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
+					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.fixUpTask" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="fixUpTask/customer/list.do"><spring:message code="master.page.fixUpTask.own.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -58,6 +64,13 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="application/handyWorker/list.do"><spring:message code="master.page.handyWorker.application.list" /></a></li>					
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.fixUpTask" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="fixUpTask/handyWorker/listAll.do"><spring:message code="master.page.fixUpTask.all.list" /></a></li>
+					<li><a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="master.page.fixUpTask.involved.list" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>				

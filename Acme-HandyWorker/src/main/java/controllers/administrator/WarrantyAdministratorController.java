@@ -61,7 +61,7 @@ public class WarrantyAdministratorController extends AbstractController {
 		PaginatedList warrantiesAdapted;
 
 		pageable = this.newFixedPageable(page, dir, sort);
-		warranties = this.warrantyService.findAllPageable(pageable);
+		warranties = this.warrantyService.findAll(pageable);
 		warrantiesAdapted = new PaginatedListAdapter(warranties, sort);
 
 		result = new ModelAndView("warranty/list");
