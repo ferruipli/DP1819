@@ -31,7 +31,7 @@ public class CategoryTranslationService {
 	}
 
 	// Simple CRUD methods -----------------------------
-	public CategoryTranslation findOne(final int categoryTranslationId) {
+	protected CategoryTranslation findOne(final int categoryTranslationId) {
 		CategoryTranslation result;
 
 		result = this.categoryTranslationRepository.findOne(categoryTranslationId);
@@ -40,7 +40,7 @@ public class CategoryTranslationService {
 		return result;
 	}
 
-	public Collection<CategoryTranslation> findAll() {
+	protected Collection<CategoryTranslation> findAll() {
 		Collection<CategoryTranslation> results;
 
 		results = this.categoryTranslationRepository.findAll();
@@ -48,7 +48,7 @@ public class CategoryTranslationService {
 		return results;
 	}
 
-	public CategoryTranslation create() {
+	protected CategoryTranslation create() {
 		CategoryTranslation result;
 
 		result = new CategoryTranslation();
@@ -56,7 +56,7 @@ public class CategoryTranslationService {
 		return result;
 	}
 
-	public CategoryTranslation save(final CategoryTranslation categoryTranslation) {
+	protected CategoryTranslation save(final CategoryTranslation categoryTranslation) {
 		Assert.notNull(categoryTranslation);
 		Assert.isTrue(this.validLanguage(categoryTranslation));
 
@@ -67,7 +67,7 @@ public class CategoryTranslationService {
 		return result;
 	}
 
-	public void delete(final CategoryTranslation categoryTranslation) {
+	protected void delete(final CategoryTranslation categoryTranslation) {
 		Assert.notNull(categoryTranslation);
 		Assert.isTrue(categoryTranslation.getId() != 0);
 
