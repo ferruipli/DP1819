@@ -33,6 +33,13 @@
 					<li><a href="dashboard/administrator/display.do"> <spring:message code="master.page.administrator.dashboard" /> </a></li>					
 				</ul>
 			</li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.warranty" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.warranty.list" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CUSTOMER')">
