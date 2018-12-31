@@ -8,9 +8,17 @@
 
 
 <spring:message code="phase.date.format" var="tableDateFormat"/>
+<jstl:choose>
+	<jstl:when test="${phaseEditionPerm}">
+		<jstl:set var="startMomentSort" value="${5}"/>
+	</jstl:when>
+	<jstl:otherwise>
+		<jstl:set var="startMomentSort" value="${3}"/>
+	</jstl:otherwise>
+</jstl:choose>
 
 
-<display:table name="phases" id="row" requestURI="phase/customer,handyWorker,referee/list.do" defaultsort="1" class="displaytag">
+<display:table name="phases" id="row" requestURI="phase/customer,handyWorker,referee/list.do" defaultsort="${startMomentSort}" class="displaytag">
 	<display:column>
 		<a href="phase/customer,handyWorker,referee/display.do?phaseId=${row.id}"><spring:message code="phase.display"/></a>
 	</display:column>

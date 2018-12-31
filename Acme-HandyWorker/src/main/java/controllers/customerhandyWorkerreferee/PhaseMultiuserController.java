@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.FixUpTaskService;
 import services.PhaseService;
+import services.UtilityService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.FixUpTask;
@@ -29,6 +30,9 @@ public class PhaseMultiuserController extends AbstractController {
 
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private UtilityService		utilityService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -52,7 +56,7 @@ public class PhaseMultiuserController extends AbstractController {
 		phases = this.phaseService.findByFixUpTaskId(fixUpTaskId, pageable);
 		phasesAdapted = new PaginatedListAdapter(phases, sort);
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		phaseEditionPerm = this.phaseService.checkHandyWorkerAccess(fixUpTask);
+		phaseEditionPerm = this.editionPerm(fixUpTask);
 
 		result = new ModelAndView("phase/list");
 		result.addObject("phases", phasesAdapted);
@@ -73,7 +77,7 @@ public class PhaseMultiuserController extends AbstractController {
 
 		phase = this.phaseService.findOne(phaseId);
 		fixUpTask = this.fixUpTaskService.findByPhaseId(phaseId);
-		phaseEditionPerm = this.phaseService.checkHandyWorkerAccess(fixUpTask);
+		phaseEditionPerm = this.editionPerm(fixUpTask);
 
 		result = new ModelAndView("phase/display");
 		result.addObject("phase", phase);
@@ -91,6 +95,16 @@ public class PhaseMultiuserController extends AbstractController {
 
 		fixUpTaskId = this.fixUpTaskService.findIdByPhaseId(phaseId);
 		result = new ModelAndView("redirect:/phase/customer,handyWorker,referee/list.do?fixUpTaskId=" + fixUpTaskId);
+
+		return result;
+	}
+
+	// Ancillary methods ------------------------------------------------------
+
+	private boolean editionPerm(final FixUpTask fixUpTask) {
+		boolean result;
+
+		result = this.phaseService.checkHandyWorkerAccess(fixUpTask) && fixUpTask.getEndDate().after(this.utilityService.current_moment());
 
 		return result;
 	}

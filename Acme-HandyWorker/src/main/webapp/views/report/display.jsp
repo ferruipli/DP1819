@@ -56,5 +56,6 @@
 	&nbsp;
 	<a href="report/referee/edit.do?reportId=${report.id}"><spring:message code="report.edit"/></a>
 	&nbsp;
-	<a href="report/referee/makeFinal.do?reportId=${report.id}"><spring:message code="report.make.final"/></a>
+	<a href="report/referee/makeFinal.do?reportId=${report.id}" 
+	   onclick="return confirm('<spring:message code="report.confirm.make.final"/>')"><spring:message code="report.make.final"/></a>
 </jstl:if>
