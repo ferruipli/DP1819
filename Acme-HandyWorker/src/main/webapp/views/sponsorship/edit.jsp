@@ -36,6 +36,7 @@
 	</form:label>
 	<form:input path="targetPage"/>
 	<form:errors cssClass="error" path="targetPage" />
+	<img src="${tutorial.pictures}">
 	<br />
 
 	 <fieldset>
@@ -48,21 +49,15 @@
 		<form:errors cssClass="error" path="creditCard.holderName" />
 	<br /><br/>
 	
-<%-- 		<form:label id = "brandName" path="brandName">
+		<form:label path="creditCard.brandName">
 		<spring:message code="application.creditCard.brandName" />:
-		</form:label>
-			<form:select path="brandName">
-				<form:options items="${brandName}" itemLabel="brandName" itemValue="id" />
-			</form:select>
- --%>
- 
- <form:label path="creditCard.brandName">
-			<spring:message code="sponsorship.creditCard.brandName" />:
-		</form:label>
-		<form:input path="creditCard.brandName" />
-		<form:errors cssClass="error" path="creditCard.brandName" />
-	<br /><br/>
-
+	</form:label> 
+	<form:select path="creditCard.brandName">
+		<form:options items="${brandName}" />
+	</form:select>
+	<form:errors cssClass="error" path="creditCard.brandName" />
+	<br/><br/>
+	
 		<form:label path="creditCard.number">
 			<spring:message code="sponsorship.creditCard.number" />:
 		</form:label>

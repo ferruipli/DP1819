@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.displaytag.pagination.PaginatedList;
@@ -43,19 +44,25 @@ public class TutorialController extends AbstractController {
 	// Tutorial display ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView tutorialDisplay(@RequestParam final int tutorialId) {
+	public ModelAndView display(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		Tutorial tutorial;
 		Collection<Section> sections;
 		Collection<Sponsorship> sponsorships;
+		Sponsorship sponsorship;
 
 		result = new ModelAndView("tutorial/display");
 		tutorial = this.tutorialService.findOne(tutorialId);
 		sections = tutorial.getSections();
 		sponsorships = tutorial.getSponsorShips();
+		sponsorship = this.getRandomSponsorship(sponsorships);
+
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
 		result.addObject("sponsorships", sponsorships);
+
+		if (sponsorship != null)
+			result.addObject("sponsorship", sponsorship);
 
 		return result;
 	}
@@ -63,7 +70,7 @@ public class TutorialController extends AbstractController {
 	// Tutorial list ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView tutorialList(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Page<Tutorial> tutorials;
 		final Pageable pageable;
@@ -80,4 +87,35 @@ public class TutorialController extends AbstractController {
 		return result;
 	}
 
+	// Tutorial list by handyWorker---------------------------------------------------------------		
+
+	@RequestMapping(value = "/listHW", method = RequestMethod.GET)
+	public ModelAndView listHandyWorker(@RequestParam final int handyWorkerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+		ModelAndView result;
+		Page<Tutorial> tutorials;
+		final Pageable pageable;
+		final PaginatedList tutorialsAdapted;
+
+		pageable = this.newFixedPageable(page, dir, sort);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorkerId, pageable);
+		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
+
+		result = new ModelAndView("tutorial/list");
+		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("requestURI", "tutorial/list.do");
+
+		return result;
+	}
+
+	private Sponsorship getRandomSponsorship(final Collection<Sponsorship> sponsorships) {
+		Sponsorship sponsorship;
+		sponsorship = null;
+		final ArrayList<Sponsorship> lista = new ArrayList<Sponsorship>(sponsorships);
+		if (sponsorships.size() != 0) {
+			final double random = Math.random() * (sponsorships.size() - 1);
+			final int intRandom = (int) random;
+			sponsorship = lista.get(intRandom);
+		}
+		return sponsorship;
+	}
 }

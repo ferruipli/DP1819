@@ -232,6 +232,20 @@
 		</property>
 		<property name="isBanned" value="false" />
 	</bean>
+	
+	
+	<bean id="userAccount18" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
 
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
@@ -3047,7 +3061,7 @@
 	<!-- PersonalRecords -->
 	<bean id="personalRecord1" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord1" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord1@gmail.com" />
 		<property name="phoneNumber" value="631047853" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
@@ -3055,7 +3069,7 @@
 
 	<bean id="personalRecord2" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord2" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord2@gmail.com" />
 		<property name="phoneNumber" value="601895472" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
@@ -3063,7 +3077,7 @@
 
 	<bean id="personalRecord3" class="domain.PersonalRecord">
 		<property name="fullName" value="personalRecord3" />
-		<property name="photoLink" value="http://www.google.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="personalRecord3@gmail.com" />
 		<property name="phoneNumber" value="652013984" />
 		<property name="linkedInProfile" value="http://www.linkedin.com" />
@@ -3281,21 +3295,21 @@
 		<property name="number" value="25" />
 		<property name="title" value="section 1" />
 		<property name="text" value="text 1" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://i.ytimg.com/vi/JT8WrIoAL_8/maxresdefault.jpg" />
 	</bean>
 
 	<bean id="section2" class="domain.Section">
 		<property name="number" value="26" />
 		<property name="title" value="section 2" />
 		<property name="text" value="text 2" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://previews.123rf.com/images/carballo/carballo1702/carballo170200018/70781164-saludo-de-alba%C3%B1il-con-la-se%C3%B1al-de-aprobaci%C3%B3n-y-aprobaci%C3%B3n.jpg" />
 	</bean>
 
 	<bean id="section3" class="domain.Section">
 		<property name="number" value="27" />
 		<property name="title" value="section 3" />
 		<property name="text" value="text 3" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJTZ0Dc-YwlHG96uOHBNHJhLqxOTmIZ-q8Y21Z-d4cOjybYUB7TA" />
 	</bean>
 
 
@@ -3303,35 +3317,35 @@
 		<property name="number" value="1" />
 		<property name="title" value="section 4" />
 		<property name="text" value="text 4" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://navarra.elespanol.com/media/navarra/images/2015/11/20/2015112012332065859.jpg" />
 	</bean>
 	
 	<bean id="section5" class="domain.Section">
 		<property name="number" value="2" />
 		<property name="title" value="section 5" />
 		<property name="text" value="text 5" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="http://www.fontanerosvalencia24horasawa.com/wp-content/uploads/2017/07/herramientas-que-utiliza-un-fontanero-624x388.jpg" />
 	</bean>
 	
 	<bean id="section6" class="domain.Section">
 		<property name="number" value="3" />
 		<property name="title" value="section 6" />
 		<property name="text" value="text 6" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="http://www.fontaneriaen.com.es/wp-content/uploads/2015/05/servicio-fontanero.png" />
 	</bean>
 	
 	<bean id="section7" class="domain.Section">
 		<property name="number" value="4" />
 		<property name="title" value="section 7" />
 		<property name="text" value="text 7" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://es.habcdn.com/photos/subcategories/fontaneros_30_medium.jpg" />
 	</bean>
 	
 	<bean id="section8" class="domain.Section">
 		<property name="number" value="5" />
 		<property name="title" value="section 8" />
 		<property name="text" value="text 8" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyDryAwrEb1T_xoDiYyjwISZXNq-6fKyRxGj98bTOz_Ej1F-Ws" />
 	</bean>
 
 
@@ -3443,6 +3457,27 @@
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
+				<ref bean="sponsorship4" />
+				<ref bean="sponsorship5" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="José" />
+		<property name="middleName" value="Pepe" />
+		<property name="surname" value="García" />
+		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="email" value="ppgar@gmail.com" />
+		<property name="phoneNumber" value="698357269" />
+		<property name="address" value="Calle Naranjo 2" />
+		<property name="isSuspicious" value="false" />
+		<property name="userAccount" ref="userAccount18" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship2" />
+				<ref bean="sponsorship3" />
 			</list>
 		</property>
 	</bean>
@@ -3450,7 +3485,7 @@
 	<!-- Sponsorship -->
 
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="banner" value="http://www.google.com" />
+		<property name="banner" value="https://thumbs.dreamstime.com/z/fontanero-banner-set-55843758.jpg" />
 		<property name="targetPage" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
 	</bean>
@@ -3462,19 +3497,19 @@
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
-		<property name="banner" value="http://www.google.com" />
+		<property name="banner" value="http://static.websguru.com.ar/var/m_1/1e/1ef/25285/423577-El-Fontanero-del-Sur-banner.jpg" />
 		<property name="targetPage" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard3" />
 	</bean>
 	
 	<bean id="sponsorship4" class="domain.Sponsorship">
-		<property name="banner" value="http://www.google.com" />
+		<property name="banner" value="https://c8.alamy.com/compes/e8kwfj/un-fontanero-o-portero-sosteniendo-un-embolo-de-caucho-peeping-sobre-un-banner-de-desplazamiento-y-apuntando-e8kwfj.jpg" />
 		<property name="targetPage" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard3" />
 	</bean>
 	
 	<bean id="sponsorship5" class="domain.Sponsorship">
-		<property name="banner" value="http://www.google.com" />
+		<property name="banner" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRMpOEYyHFDJm8oRpTzG2uSeGI12Qj8XyHS533ALo30mi8eqTyXQ" />
 		<property name="targetPage" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard3" />
 	</bean>
@@ -3485,7 +3520,7 @@
 		<property name="title" value="tutorial 1" />
 		<property name="moment" value="2018/02/02 14:48" />
 		<property name="summary" value="summary 1" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://previews.123rf.com/images/vadimgozhda/vadimgozhda1410/vadimgozhda141001214/32695592-fontanero-profesional-servicio-de-reparaci%C3%B3n-de-fontaner%C3%ADa-fontanero-reparar-una-ducha-.jpg" />
 		<property name="sponsorShips">
 			<list>
 				<ref bean="sponsorship1" />
@@ -3503,7 +3538,7 @@
 		<property name="title" value="tutorial 2" />
 		<property name="moment" value="2017/05/14 15:58" />
 		<property name="summary" value="summary 2" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="http://bricolage-pvc.com/wp-content/uploads/2012/11/una-zapatilla.jpg" />
 		<property name="sponsorShips">
 			<list>
 				<ref bean="sponsorship2" />
@@ -3521,7 +3556,7 @@
 		<property name="title" value="tutorial 3" />
 		<property name="moment" value="2017/11/06 17:54" />
 		<property name="summary" value="summary 3" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://www.easyrepair.es/web/wp-content/uploads/2017/02/tap-1937219_1280.jpg" />
 		<property name="sponsorShips">
 			<list>
 			</list>
@@ -3538,7 +3573,7 @@
 		<property name="title" value="tutorial 4" />
 		<property name="moment" value="2017/11/08 19:03" />
 		<property name="summary" value="summary 4" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://www.easyrepair.es/web/wp-content/uploads/2017/02/tap-1937219_1280.jpg" />
 		<property name="sponsorShips">
 			<list>
 				<ref bean="sponsorship4" />
@@ -3558,7 +3593,7 @@
 		<property name="title" value="tutorial 5" />
 		<property name="moment" value="2017/11/08 19:03" />
 		<property name="summary" value="summary 5" />
-		<property name="pictures" value="http://www.instagram.com" />
+		<property name="pictures" value="https://i.ytimg.com/vi/5xTkh0moiM8/maxresdefault.jpg" />
 		<property name="sponsorShips">
 			<list>
 				<ref bean="sponsorship5" />

@@ -9,7 +9,7 @@
 
 package controllers.customer;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +75,13 @@ public class ApplicationCustomerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
-		Collection<String> brandName;
+		List<String> brandName;
 
 		application = this.applicationService.findOne(applicationId);
-		brandName = this.customisationService.find().getCreditCardMakes();
+		brandName = (List<String>) this.customisationService.find().getCreditCardMakes();
 
 		result = this.createEditModelAndView(application);
 		result.addObject("brandName", brandName);
-
 		return result;
 	}
 

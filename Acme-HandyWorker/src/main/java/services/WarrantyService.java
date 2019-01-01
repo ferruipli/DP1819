@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -49,6 +51,15 @@ public class WarrantyService {
 		return result;
 	}
 
+	public Page<Warranty> findAll(final Pageable pageable) {
+		Page<Warranty> result;
+
+		result = this.warrantyRepository.findAll(pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Warranty save(final Warranty warranty) {
 		Assert.notNull(warranty);
 		Assert.isTrue(!warranty.getFinalMode());
@@ -78,4 +89,17 @@ public class WarrantyService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public void makeFinal(final Warranty warranty) {
+		warranty.setFinalMode(true);
+	}
+
+	public Collection<Warranty> findFinalWarranties() {
+		Collection<Warranty> result;
+
+		result = this.warrantyRepository.findFinalWarranties();
+		Assert.notNull(result);
+
+		return result;
+	}
 }

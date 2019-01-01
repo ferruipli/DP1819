@@ -18,6 +18,7 @@ import domain.Application;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
+import domain.HandyWorker;
 import domain.Phase;
 
 @Service
@@ -36,6 +37,12 @@ public class FixUpTaskService {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// Constructor ------------------------------------------------------------
@@ -109,18 +116,75 @@ public class FixUpTaskService {
 		return result;
 	}
 
+	public Page<FixUpTask> findAll(final Pageable pageable) {
+		Page<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findAll(pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 
-	public double[] findDataNumberFixUpTaskPerUser() {
-		double[] result;
+	public boolean hasAcceptedApplication(final int fixUpTaskId) {
+		boolean result;
+		Application application;
+
+		application = this.applicationService.findAcceptedApplication(fixUpTaskId);
+		result = application != null;
+
+		return result;
+	}
+
+	public Page<FixUpTask> findByCustomerPrincipal(final Pageable pageable) {
+		Page<FixUpTask> result;
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		result = this.fixUpTaskRepository.findByCustomerPrincipal(principal.getId(), pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Page<FixUpTask> findWorkableByHandyWorkerPrincipal(final Pageable pageable) {
+		Page<FixUpTask> result;
+		HandyWorker principal;
+
+		principal = this.handyWorkerService.findByPrincipal();
+		result = this.fixUpTaskRepository.findWorkableByHandyWorkerPrincipal(principal.getId(), pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public FixUpTask findByPhaseId(final int phaseId) {
+		FixUpTask result;
+
+		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
+
+		return result;
+	}
+
+	public Integer findIdByPhaseId(final int phaseId) {
+		Integer result;
+
+		result = this.fixUpTaskRepository.findIdByPhaseId(phaseId);
+
+		return result;
+	}
+
+	public Double[] findDataNumberFixUpTaskPerUser() {
+		Double[] result;
 
 		result = this.fixUpTaskRepository.findDataNumberFixUpTaskPerUser();
 
 		return result;
 	}
 
-	public double[] findDataMaximumPrice() {
-		double[] result;
+	public Double[] findDataMaximumPrice() {
+		Double[] result;
 
 		result = this.fixUpTaskRepository.findDataMaximumPrice();
 
@@ -148,14 +212,6 @@ public class FixUpTaskService {
 
 		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 		Assert.notNull(result);
-
-		return result;
-	}
-
-	protected FixUpTask findByPhaseId(final int phaseId) {
-		FixUpTask result;
-
-		result = this.fixUpTaskRepository.findByPhaseId(phaseId);
 
 		return result;
 	}

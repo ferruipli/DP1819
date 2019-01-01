@@ -61,7 +61,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		pageable = this.newFixedPageable(page, dir, sort);
-		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker, pageable);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker.getId(), pageable);
 		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
 
 		result = new ModelAndView("tutorial/list");
@@ -105,7 +105,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:../../");
+				result = new ModelAndView("redirect:../../tutorial/handyWorker/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");

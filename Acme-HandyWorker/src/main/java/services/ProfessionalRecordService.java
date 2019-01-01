@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -109,6 +111,14 @@ public class ProfessionalRecordService {
 		curriculum = this.curriculumService.findByPrincipal();
 
 		Assert.isTrue(curriculum.getProfessionalRecords().contains(professionalRecord));
+	}
+
+	public Page<ProfessionalRecord> findProfessionalRecordByCurriculum(final Curriculum curriculum, final Pageable pageable) {
+		Page<ProfessionalRecord> professionalRecords;
+
+		professionalRecords = this.professionalRecordRepository.findProfessionalRecordByCurriculum(curriculum.getId(), pageable);
+
+		return professionalRecords;
 	}
 
 }

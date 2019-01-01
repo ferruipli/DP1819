@@ -55,7 +55,7 @@ public class SectionHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	//Tutorial save ---------------------------------------------------------------		
+	//Section save ---------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Section section, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
@@ -75,7 +75,7 @@ public class SectionHandyWorkerController extends AbstractController {
 				saved = this.sectionService.save(section);
 				this.sectionService.addSectionToTutorial(tutorial, saved);
 
-				result = new ModelAndView("redirect:../../");
+				result = new ModelAndView("redirect:../../tutorial/handyWorker/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(section, tutorialId, "section.commit.error");

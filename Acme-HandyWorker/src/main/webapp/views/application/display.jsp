@@ -41,8 +41,7 @@
 </p>
 <p>
 	<strong> <spring:message code="application.handyWorker" />: </strong>
-	<jstl:out value="${application.handyWorker.name}" />
-</p>
+	<a href = "handyWorker/display.do?handyorkerId=${application.handyWorker.id}"><jstl:out value="${application.handyWorker.name}" /></a>
 <p>
 	<strong> <spring:message code="application.handyWorkerComments" />: </strong>
 	<jstl:out value="${application.handyWorkerComments}" />

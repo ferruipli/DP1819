@@ -54,10 +54,14 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 		ModelAndView result;
 		Endorsement endorsement;
 
-		endorsement = this.endorsementService.findOne(endorsementId);
+		try {
+			endorsement = this.endorsementService.findOne(endorsementId);
 
-		result = new ModelAndView("endorsement/display");
-		result.addObject("endorsement", endorsement);
+			result = new ModelAndView("endorsement/display");
+			result.addObject("endorsement", endorsement);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
+		}
 
 		return result;
 	}

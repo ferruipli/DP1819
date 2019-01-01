@@ -12,6 +12,10 @@ import domain.Application;
 @Repository
 public interface ApplicationRepository extends JpaRepository<domain.Application, Integer> {
 
+	//Req 12.5.2 
+	@Query("select avg(f.applications.size), min(f.applications.size), max(f.applications.size), sqrt(sum(f.applications.size * f.applications.size)/count(f.applications.size) - avg(f.applications.size)*avg(f.applications.size)) from FixUpTask f")
+	Double[] findDataOfApplicationPerFixUpTask();
+
 	//Req 12.5.4 
 	@Query("select avg(a.offeredPrice),min(a.offeredPrice),max(a.offeredPrice),sqrt(sum(a.offeredPrice * a.offeredPrice)/count(a.offeredPrice)-avg(a.offeredPrice)*avg(a.offeredPrice)) from Application a")
 	Double[] findDataOfApplicationPrice();

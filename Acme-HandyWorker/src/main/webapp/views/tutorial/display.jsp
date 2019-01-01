@@ -34,12 +34,12 @@
 </p>
 <p>
 <strong> <spring:message code="tutorial.handyWorker" />: </strong>
-	<a href = "handyWorker/display.do?handyorkerId=${tutorial.handyWorker.id}"><jstl:out value="${tutorial.handyWorker.name}" /></a>
+	<a href = "handyWorker/display.do?actorId=${tutorial.handyWorker.id}"><jstl:out value="${tutorial.handyWorker.name}" /></a>
 </p> 	
 	
 <p>
 <strong> <spring:message code="tutorial.pictures" />: </strong>
-	<a href = "${tutorial.pictures}"><jstl:out value="${tutorial.pictures}"></jstl:out></a>
+<img src="${tutorial.pictures}">
 </p> 
 <strong> <spring:message code="tutorial.sections" />: </strong>
 		
@@ -52,17 +52,16 @@
 	<spring:message code="tutorial.section.title" var="sectionTitle" />
 	<display:column property="title" title="${sectionTitle}" sortable="true" />
 	
-	<spring:message code="tutorial.section.pictures" var="sectionPictures" />
-	<display:column property="pictures" title="${sectionPictures}" />
+	<display:column>	
+	<a href="section/display.do?sectionId=${sections.id}">
+		<spring:message	code="tutorial.display" /></a>
+	</display:column>
 	
-	<spring:message code="tutorial.section.text" var="sectionText" />
-	<display:column property="text" title="${sectionText}"/>
-
 	</display:table>  
 	
 	
-<%-- 	<security:authorize access="hasRole('HANDYWORKER', 'SPONSOR')">
- --%>	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
+ 	<security:authorize access="hasRole('SPONSOR')">
+	<strong> <spring:message code="tutorial.sponsorships" />: </strong>
 		
 
 	<display:table name="tutorial.sponsorShips" id="sponsorShips">
@@ -75,7 +74,9 @@
 	
 	</display:table>
 	
-<%-- 	</security:authorize> --%>
+	</security:authorize>
+
+<img src="${sponsorship.banner}">
 
 <security:authorize access="hasRole('HANDYWORKER')">   
 <input type="button" 

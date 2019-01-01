@@ -16,6 +16,7 @@ import services.EducationRecordService;
 import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.EducationRecord;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/educationRecord/handyWorker")
@@ -76,13 +77,16 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	public ModelAndView save(@Valid final EducationRecord educationRecord, final BindingResult binding) {
 
 		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(educationRecord);
 		else
 			try {
 				this.educationRecordService.save(educationRecord);
-				result = new ModelAndView("redirect:/curriculum/display.do");
+				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 			}
@@ -94,10 +98,13 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final EducationRecord educationRecord, final BindingResult binding) {
 		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		try {
 			this.educationRecordService.delete(educationRecord);
-			result = new ModelAndView("redirect:../../curriculum/display.do");
+			result = new ModelAndView("redirect:../../curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 		}
@@ -118,10 +125,13 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 		assert educationRecord != null;
 
 		ModelAndView result;
+		Integer handyWorkerId;
+		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
 		result = new ModelAndView("educationRecord/edit");
 		result.addObject("educationRecord", educationRecord);
 		result.addObject("message", messageCode);
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 

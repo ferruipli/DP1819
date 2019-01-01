@@ -75,7 +75,7 @@
 	
 	<input type="submit" name="save" value="<spring:message code="tutorial.save" />" />
 	<jstl:if test="${tutorial.id != 0}">
-	<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />" />
+	<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />"onclick="return confirm('<spring:message code="tutorial.confirm.delete" />')" />
 	</jstl:if>
 	<input type="button" name="cancel"	value="<spring:message code="tutorial.cancel" />"onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
 	<br />

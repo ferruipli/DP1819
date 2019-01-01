@@ -54,19 +54,23 @@
 	</display:column>
 
 <security:authorize access="hasRole('CUSTOMER')">	
-	<jstl:if test="${row.status=='PENDING'}">
+	
 	<display:column style="background-color:${colorValue}">
+	<jstl:if test="${row.status=='PENDING'}">
 			<a href="application/customer/cancel.do?applicationId=${row.id}">
 				<spring:message	code="application.cancel" />
 			</a>
+			
+	</jstl:if>
 	</display:column>
 	
 	<display:column style="background-color:${colorValue}">
+	<jstl:if test="${row.status=='PENDING'}">
 			<a href="application/customer/edit.do?applicationId=${row.id}">
 				<spring:message	code="application.accept" />
 			</a>
+			</jstl:if>
 	</display:column>	
-	</jstl:if>
 
 </security:authorize>
 	

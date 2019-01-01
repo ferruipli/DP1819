@@ -10,11 +10,11 @@
 
 package controllers.administrator;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
-import javax.validation.Valid;
+import java.util.SortedMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +28,7 @@ import services.CategoryService;
 import services.CategoryTranslationService;
 import controllers.AbstractController;
 import domain.Category;
+import forms.CategoryForm;
 
 @Controller
 @RequestMapping("/category/administrator")
@@ -49,28 +50,35 @@ public class CategoryAdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int categoryId, final Locale locale) {
 		ModelAndView result;
-		Category category, root;
-		String language, name_parent, name_category;
-		Map<Integer, String> category_name;
+		Category category, root, parent;
+		String language, name_category, name_parent_category = "";
+		SortedMap<Integer, List<String>> mapa;
+		final List<String> ls = new ArrayList<>();
 
-		category = this.categoryService.findOne(categoryId);
-		root = this.categoryService.findRootCategory();
+		try {
+			category = this.categoryService.findOne(categoryId);
+			parent = category.getParent();
+			root = this.categoryService.findRootCategory();
 
-		language = locale.getLanguage();
+			language = locale.getLanguage();
 
-		name_category = this.categoryTranslationService.findByLanguageCategory(category.getId(), language).getName();
+			mapa = this.categoryService.categoriesByLanguage(category.getDescendants(), language);
 
-		category_name = this.categoryService.categoriesByLanguage(category.getDescendants(), language);
-		category_name.put(categoryId, name_category);
+			if (!category.equals(root))
+				name_parent_category = this.categoryTranslationService.findByLanguageCategory(parent.getId(), language).getName();
 
-		if (!root.equals(category)) {
-			name_parent = this.categoryTranslationService.findByLanguageCategory(category.getParent().getId(), language).getName();
-			category_name.put(category.getParent().getId(), name_parent);
+			name_category = this.categoryTranslationService.findByLanguageCategory(categoryId, language).getName();
+			ls.add(name_category);
+			ls.add(name_parent_category);
+
+			mapa.put(categoryId, ls);
+
+			result = new ModelAndView("category/display");
+			result.addObject("category", category);
+			result.addObject("mapa", mapa);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
 		}
-
-		result = new ModelAndView("category/display");
-		result.addObject("category", category);
-		result.addObject("mapa", category_name);
 
 		return result;
 	}
@@ -79,66 +87,126 @@ public class CategoryAdministratorController extends AbstractController {
 	public ModelAndView list(final Locale locale) {
 		ModelAndView result;
 		Collection<Category> categories;
-		Map<Integer, String> category_name;
+		SortedMap<Integer, List<String>> mapa;
 		String language;
-
-		categories = this.categoryService.findAll();
-
 		language = locale.getLanguage();
 
-		category_name = this.categoryService.categoriesByLanguage(categories, language);
+		categories = this.categoryService.findAll();
+		mapa = this.categoryService.categoriesByLanguage(categories, language);
 
 		result = new ModelAndView("category/list");
 		result.addObject("requestURI", "category/administrator/list.do");
-		result.addObject("categories", categories);
-		result.addObject("mapa", category_name);
+		result.addObject("mapa", mapa);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
-		final ModelAndView result = null;
+		final ModelAndView result;
+		CategoryForm categoryForm;
+
+		categoryForm = new CategoryForm();
+
+		result = this.createEditModelAndView(categoryForm);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int categoryId) {
-		final ModelAndView result = null;
+		final ModelAndView result;
+		Category category;
+		CategoryForm categoryForm;
+		String en_name, es_name;
+
+		category = this.categoryService.findOne(categoryId);
+
+		en_name = this.categoryTranslationService.findByLanguageCategory(categoryId, "en").getName();
+		es_name = this.categoryTranslationService.findByLanguageCategory(categoryId, "es").getName();
+
+		categoryForm = new CategoryForm();
+
+		categoryForm.setId(categoryId);
+		categoryForm.setParent(category.getParent());
+		categoryForm.setEn_name(en_name);
+		categoryForm.setEs_name(es_name);
+
+		result = this.createEditModelAndView(categoryForm);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Category category, final BindingResult binding) {
-		return null;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Category category, final BindingResult binding) {
-		return null;
-	}
-
-	// Arcillary methods --------------------------
-	protected ModelAndView createEditModelAndView(final Category category) {
+	public ModelAndView save(final CategoryForm categoryForm, final BindingResult binding) {
 		ModelAndView result;
+		String en_name, es_name;
+		Category parent, category;
 
-		result = this.createEditModelAndView(category, null);
+		parent = this.categoryService.validateParent(categoryForm, binding);
+		en_name = this.categoryService.validateName("en_name", categoryForm.getEn_name(), binding);
+		es_name = this.categoryService.validateName("es_name", categoryForm.getEs_name(), binding);
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(categoryForm);
+		else
+			try {
+				category = this.categoryService.reconstruct(categoryForm);
+				this.categoryService.save(category);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(categoryForm, "category.commit.error");
+			}
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final CategoryForm categoryForm, final BindingResult binding) {
+		ModelAndView result;
+		Category category;
+
+		try {
+			category = this.categoryService.findOne(categoryForm.getId());
+			this.categoryService.delete(category);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(categoryForm, "category.commit.error");
+		}
+
+		return result;
+	}
+
+	// Arcillary methods --------------------------
+	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(categoryForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm, final String messageCode) {
 		ModelAndView result;
 		Collection<Category> parents;
+		Category category;
+		String name;
 
 		parents = this.categoryService.findAll();
-		parents.remove(category);
+
+		for (final Category c : parents) {
+			name = this.categoryTranslationService.findByLanguageCategory(c.getId(), "en").getName();
+			c.setNameCategory(name);
+		}
+
+		if (categoryForm.getId() != 0) {
+			category = this.categoryService.findOne(categoryForm.getId());
+			parents.remove(category);
+		}
 
 		result = new ModelAndView("category/edit");
 
-		result.addObject("category", category);
+		result.addObject("categoryForm", categoryForm);
 		result.addObject("parents", parents);
 		result.addObject("message", messageCode);
 

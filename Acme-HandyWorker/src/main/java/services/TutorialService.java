@@ -131,10 +131,10 @@ public class TutorialService {
 
 		return result;
 	}
-	public Page<Tutorial> findTutorialByHandyWorker(final HandyWorker handyWorker, final Pageable pageable) {
+	public Page<Tutorial> findTutorialByHandyWorker(final int handyWorkerId, final Pageable pageable) {
 		Page<Tutorial> tutorials;
 
-		tutorials = this.tutorialRepository.findTutorialByHandyWorker(handyWorker.getId(), pageable);
+		tutorials = this.tutorialRepository.findTutorialByHandyWorker(handyWorkerId, pageable);
 
 		return tutorials;
 	}

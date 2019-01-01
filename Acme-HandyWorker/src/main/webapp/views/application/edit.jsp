@@ -43,7 +43,7 @@
 		<form:label path="handyWorkerComments">
 			<spring:message code="application.handyWorkerComments" />:
 		</form:label>
-		<form:input path="handyWorkerComments" />
+		<form:textarea path="handyWorkerComments"   />
 		<form:errors cssClass="error" path="handyWorkerComments" />
 		<br />
 </security:authorize>
@@ -52,7 +52,7 @@
 		<form:label path="customerComments">
 			<spring:message code="application.customerComments" />:
 		</form:label>
-		<form:input path="customerComments" />
+		<form:textarea path="customerComments"  />
 		<form:errors cssClass="error" path="customerComments" />
 		<br /><br/>
 
@@ -67,20 +67,16 @@
 		<form:errors cssClass="error" path="creditCard.holderName" />
 	<br /><br/>
 	
-<%-- 		<form:label id = "brandName" path="brandName">
-		<spring:message code="application.creditCard.brandName" />:
-		</form:label>
-			<form:select path="brandName">
-				<form:options items="${brandName}" itemLabel="brandName" itemValue="id" />
-			</form:select>
- --%>
  
- <form:label path="creditCard.brandName">
-			<spring:message code="application.creditCard.brandName" />:
-		</form:label>
-		<form:input path="creditCard.brandName" />
-		<form:errors cssClass="error" path="creditCard.brandName" />
-	<br /><br/>
+ 	<form:label path="creditCard.brandName">
+		<spring:message code="application.creditCard.brandName" />:
+	</form:label> 
+	<form:select path="creditCard.brandName">
+		<form:options items="${brandName}" />
+	</form:select>
+	<form:errors cssClass="error" path="creditCard.brandName" />
+	<br/><br/>
+
 
 		<form:label path="creditCard.number">
 			<spring:message code="application.creditCard.number" />:

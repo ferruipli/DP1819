@@ -9,6 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<jstl:if test="${!report.finalMode}">
+	<p style="color:blue;"><spring:message code="report.info"/></p>
+</jstl:if>
+
 <fieldset>
 	<legend><spring:message code="report.attributes"/></legend>
 	
@@ -52,5 +56,6 @@
 	&nbsp;
 	<a href="report/referee/edit.do?reportId=${report.id}"><spring:message code="report.edit"/></a>
 	&nbsp;
-	<a href="report/referee/makeFinal.do?reportId=${report.id}"><spring:message code="report.make.final"/></a>
+	<a href="report/referee/makeFinal.do?reportId=${report.id}" 
+	   onclick="return confirm('<spring:message code="report.confirm.make.final"/>')"><spring:message code="report.make.final"/></a>
 </jstl:if>

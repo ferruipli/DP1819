@@ -21,8 +21,11 @@ import services.AdministratorService;
 import services.CustomerService;
 import services.EndorsableService;
 import services.HandyWorkerService;
+<<<<<<< HEAD
 import services.RefereeService;
 import services.SponsorService;
+=======
+>>>>>>> master
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -62,6 +65,9 @@ public class ActorMultiUserController extends AbstractController {
 	@Autowired
 	private SponsorService			sponsorService;
 
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
 
 	// Constructor
 
@@ -77,9 +83,11 @@ public class ActorMultiUserController extends AbstractController {
 		Actor actor;
 		Endorsable endorsable;
 		Collection<Authority> authorities;
+		HandyWorker handyWorker;
 
 		actor = this.actorService.findPrincipal();
 		authorities = actor.getUserAccount().getAuthorities();
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		result = new ModelAndView("actor/display");
 
@@ -93,6 +101,7 @@ public class ActorMultiUserController extends AbstractController {
 		}
 
 		result.addObject("authorities", authorities);
+		result.addObject("curriculum", handyWorker.getCurriculum());
 
 		return result;
 	}
