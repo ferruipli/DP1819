@@ -10,6 +10,8 @@
 
 package controllers.customerhandyWorkerreferee;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CategoryTranslationService;
 import services.CustomisationService;
 import services.FixUpTaskService;
 import controllers.AbstractController;
@@ -29,10 +32,13 @@ public class FixUpTaskMultiuserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private FixUpTaskService		fixUpTaskService;
+	private FixUpTaskService			fixUpTaskService;
 
 	@Autowired
-	private CustomisationService	customisationService;
+	private CustomisationService		customisationService;
+
+	@Autowired
+	private CategoryTranslationService	categoryTranslationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -44,21 +50,21 @@ public class FixUpTaskMultiuserController extends AbstractController {
 	// Display ----------------------------------------------------------------		
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int fixUpTaskId) {
+	public ModelAndView display(@RequestParam final int fixUpTaskId, final Locale locale) {
 		ModelAndView result;
 		FixUpTask fixUpTask;
-		//CategoryTranslation categoryTranslation;
+		String category;
 		double vat;
 		boolean isWorkable;
 
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		//categoryTranslation = new ArrayList<>(fixUpTask.getCategory().getCategoriesTranslations()).get(0);
+		category = this.categoryTranslationService.findByLanguageCategory(fixUpTask.getCategory().getId(), locale.getLanguage()).getName();
 		vat = this.customisationService.find().getVAT();
 		isWorkable = this.fixUpTaskService.hasAcceptedApplication(fixUpTaskId);
 
 		result = new ModelAndView("fixUpTask/display");
 		result.addObject(fixUpTask);
-		// TODO: result.addObject("category", categoryTranslation);
+		result.addObject("category", category);
 		result.addObject("isWorkable", isWorkable);
 		result.addObject("vat", vat);
 
