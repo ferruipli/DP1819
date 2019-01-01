@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.CreditCard;
@@ -234,6 +235,14 @@ public class UtilityService {
 		if (res)
 			this.actorService.markAsSuspicious(actor);
 		return res;
+	}
+
+	public void checkActorIsBanned(final Actor actor) {
+		UserAccount userAccount;
+
+		userAccount = actor.getUserAccount();
+
+		Assert.isTrue(!userAccount.getIsBanned());
 	}
 
 }

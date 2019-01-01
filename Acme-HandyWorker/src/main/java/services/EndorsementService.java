@@ -52,9 +52,13 @@ public class EndorsementService {
 	// Simple CRUD methods -----------------------------
 	public Endorsement findOne(final int endorsementId) {
 		Endorsement result;
+		Endorsable principal;
+
+		principal = this.endorsableService.findByPrincipal();
 
 		result = this.endorsementRepository.findOne(endorsementId);
 		Assert.notNull(result);
+		Assert.isTrue(result.getSender().equals(principal) || result.getRecipient().equals(principal));
 
 		return result;
 	}

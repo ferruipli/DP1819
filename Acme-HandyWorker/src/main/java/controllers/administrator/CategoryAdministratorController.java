@@ -55,26 +55,30 @@ public class CategoryAdministratorController extends AbstractController {
 		SortedMap<Integer, List<String>> mapa;
 		final List<String> ls = new ArrayList<>();
 
-		category = this.categoryService.findOne(categoryId);
-		parent = category.getParent();
-		root = this.categoryService.findRootCategory();
+		try {
+			category = this.categoryService.findOne(categoryId);
+			parent = category.getParent();
+			root = this.categoryService.findRootCategory();
 
-		language = locale.getLanguage();
+			language = locale.getLanguage();
 
-		mapa = this.categoryService.categoriesByLanguage(category.getDescendants(), language);
+			mapa = this.categoryService.categoriesByLanguage(category.getDescendants(), language);
 
-		if (!category.equals(root))
-			name_parent_category = this.categoryTranslationService.findByLanguageCategory(parent.getId(), language).getName();
+			if (!category.equals(root))
+				name_parent_category = this.categoryTranslationService.findByLanguageCategory(parent.getId(), language).getName();
 
-		name_category = this.categoryTranslationService.findByLanguageCategory(categoryId, language).getName();
-		ls.add(name_category);
-		ls.add(name_parent_category);
+			name_category = this.categoryTranslationService.findByLanguageCategory(categoryId, language).getName();
+			ls.add(name_category);
+			ls.add(name_parent_category);
 
-		mapa.put(categoryId, ls);
+			mapa.put(categoryId, ls);
 
-		result = new ModelAndView("category/display");
-		result.addObject("category", category);
-		result.addObject("mapa", mapa);
+			result = new ModelAndView("category/display");
+			result.addObject("category", category);
+			result.addObject("mapa", mapa);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:list.do");
+		}
 
 		return result;
 	}

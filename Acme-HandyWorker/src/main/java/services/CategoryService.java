@@ -89,14 +89,13 @@ public class CategoryService {
 			this.addDescendantCategory(parent_category, result);
 		else {
 			parent_category = result.getParent();
-			// Si category cambia de padre, entonces hay que realizar cambios en la jerarquia
+			// If category::parent changes, the hierarchy must change too
 			old_category = category;
 			if (!old_category.getParent().equals(parent_category)) {
-				// El antiguo padre de category deja de tener como descendiente a category
+				// The former category::parent stop to have as descendant to category
 				old_parent_category = this.findOne(old_category.getParent().getId());
 				this.removeDescendantCategory(old_parent_category, result);
-
-				// El nuevo padre de category pasa a tener a category como descendiente
+				// The new category::parent has a category as new descendant
 				this.addDescendantCategory(parent_category, result);
 			}
 		}
@@ -116,17 +115,16 @@ public class CategoryService {
 		descendant_categories = category.getDescendants();
 
 		final Category parent_category = category.getParent();
-		// Actualizar atributos del padre de category
+		// Updating parent's attributes
 		this.removeDescendantCategory(parent_category, category);
 		if (!descendant_categories.isEmpty()) {
 			this.addDescendantCategories(parent_category, descendant_categories);
-
-			// Actualizar atributos de los descendientes de category
+			// Updating descendant categories's attributes
 			for (final Category c : descendant_categories)
 				this.updateParent(c, parent_category);
 		}
 
-		// Eliminar los categoriesTranslation
+		// Deleting category::categoriesTranslations
 		for (final CategoryTranslation c : category.getCategoriesTranslations())
 			this.categoryTranslationService.delete(c);
 
