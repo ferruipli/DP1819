@@ -67,13 +67,14 @@
 	<form:errors cssClass="error" path="warranty"/>
 	<br/>
 	
-	<!-- TODO: habría que llamar a una función javascript que me devuelva las traducciones de las categorías dependiendo del valor de locale -->
 	<form:label path="category">
 		<spring:message code="fixUpTask.category"/>:
 	</form:label>
 	<form:select path="category" multiple="false" size="1">
 		<form:option label="----" value="0"/>
-		<form:options items="${categories}" itemLabel="categoriesTranslations.name" itemValue="id"/>
+		<jstl:forEach var="categoryId" items="${categories.keySet()}">
+			<form:option label="${categories.get(categoryId)[0]}" value="${categoryId}"/>
+		</jstl:forEach>
 	</form:select>
 	<form:errors cssClass="error" path="category"/>
 	<br/>		

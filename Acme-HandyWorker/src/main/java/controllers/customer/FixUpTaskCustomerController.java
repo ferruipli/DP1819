@@ -1,16 +1,10 @@
-/*
- * CustomerController.java
- * 
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
- * http://www.tdg-seville.info/License.html
- */
 
 package controllers.customer;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.SortedMap;
 
 import javax.validation.Valid;
 
@@ -24,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CategoryService;
 import services.FixUpTaskService;
 import services.WarrantyService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
+import domain.Category;
 import domain.FixUpTask;
 import domain.Warranty;
 
@@ -40,8 +36,8 @@ public class FixUpTaskCustomerController extends AbstractController {
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
 
-	//	@Autowired
-	//	private CategoryService		categoryService;
+	@Autowired
+	private CategoryService		categoryService;
 
 	@Autowired
 	private WarrantyService		warrantyService;
@@ -76,13 +72,13 @@ public class FixUpTaskCustomerController extends AbstractController {
 	// Create -----------------------------------------------------------------		
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(final Locale locale) {
 		ModelAndView result;
 		FixUpTask fixUpTask;
 
 		fixUpTask = this.fixUpTaskService.create();
-		// TODO: me queda por pasarle las categorías
-		result = this.createEditModelAndView(fixUpTask);
+
+		result = this.createEditModelAndView(fixUpTask, locale);
 
 		return result;
 	}
@@ -90,44 +86,44 @@ public class FixUpTaskCustomerController extends AbstractController {
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int fixUpTaskId) {
+	public ModelAndView edit(@RequestParam final int fixUpTaskId, final Locale locale) {
 		ModelAndView result;
 		FixUpTask fixUpTask;
 
 		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		// TODO: me queda por pasarle las categorías
-		result = this.createEditModelAndView(fixUpTask);
+
+		result = this.createEditModelAndView(fixUpTask, locale);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
+	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
 		FixUpTask saved;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(fixUpTask);
+			result = this.createEditModelAndView(fixUpTask, locale);
 		else
 			try {
 				saved = this.fixUpTaskService.save(fixUpTask);
 				result = new ModelAndView("redirect:/fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=" + saved.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(fixUpTask, "fixUpTask.commit.error");
+				result = this.createEditModelAndView(fixUpTask, locale, "fixUpTask.commit.error");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final FixUpTask fixUpTask, final BindingResult binding) {
+	public ModelAndView delete(final FixUpTask fixUpTask, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
 
 		try {
 			this.fixUpTaskService.delete(fixUpTask);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(fixUpTask, "fixUpTask.commit.error");
+			result = this.createEditModelAndView(fixUpTask, locale, "fixUpTask.commit.error");
 		}
 
 		return result;
@@ -135,23 +131,28 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask) {
+	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask, final Locale locale) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(fixUpTask, null);
+		result = this.createEditModelAndView(fixUpTask, locale, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask, final Locale locale, final String messageCode) {
 		ModelAndView result;
 		Collection<Warranty> warranties;
+		SortedMap<Integer, List<String>> categoryMap;
+		Collection<Category> categories;
 
 		warranties = this.warrantyService.findFinalWarranties();
+		categories = this.categoryService.findAll();
+		categoryMap = this.categoryService.categoriesByLanguage(categories, locale.getLanguage());
 
 		result = new ModelAndView("fixUpTask/edit");
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("warranties", warranties);
+		result.addObject("categories", categoryMap);
 
 		result.addObject("message", messageCode);
 
