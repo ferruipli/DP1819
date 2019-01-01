@@ -62,7 +62,7 @@ public class ActorService {
 
 	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
-		this.utilityService.checkUsername(actor);
+		//this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
 
 		Actor result;
@@ -169,6 +169,16 @@ public class ActorService {
 
 		principalId = LoginService.getPrincipal().getId();
 		return principalId == actor.getUserAccount().getId();
+	}
+
+	public boolean existEmail(final String email) {
+		boolean result;
+		Actor actor;
+
+		actor = this.actorRepository.findActorByEmail(email);
+		result = !(actor == null);
+
+		return result;
 	}
 
 }

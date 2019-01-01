@@ -25,6 +25,8 @@
 				<ul>
 					<li class="arrow"></li>
 
+					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
+					<li><a href="actor/administrator/create.do?role=referee"><spring:message code="master.page.referee.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation.customisation" /> </a></li>
