@@ -62,6 +62,7 @@ public class FixUpTaskService {
 		result.setApplications(Collections.<Application> emptySet());
 		result.setPhases(Collections.<Phase> emptySet());
 		result.setCustomer(this.customerService.findByPrincipal());
+		result.setPublicationMoment(this.utilityService.current_moment());
 
 		return result;
 	}
@@ -74,10 +75,6 @@ public class FixUpTaskService {
 		this.utilityService.checkDate(fixUpTask.getStartDate(), fixUpTask.getEndDate());
 
 		FixUpTask result;
-		Date moment;
-
-		moment = this.utilityService.current_moment();
-		fixUpTask.setPublicationMoment(moment);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
 

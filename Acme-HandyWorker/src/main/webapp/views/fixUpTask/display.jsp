@@ -52,8 +52,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.category"/>:</strong>
-	<!-- TODO: en lugar de usar categoryTranslation habría que llamar a una función javascript que me devuelva la traducción dependiendo del valor de locale -->
-	<jstl:out value="${categoryTranslation.name}"/>
+	<jstl:out value="${category}"/>
 	<br/>
 </fieldset>
 
