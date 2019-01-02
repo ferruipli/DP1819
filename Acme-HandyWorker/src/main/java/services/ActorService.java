@@ -64,6 +64,7 @@ public class ActorService {
 		Assert.notNull(actor);
 		this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
+		this.utilityService.checkIsSpamMarkAsSuspicious(actor.getAddress() + actor.getEmail() + actor.getMiddleName() + actor.getName() + actor.getSurname(), actor);
 
 		Actor result;
 		boolean isUpdating;

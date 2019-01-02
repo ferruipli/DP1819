@@ -36,7 +36,7 @@
 	
 	<spring:message code="fixUpTask.vat" var="vatTag"/>
 	<strong><spring:message code="fixUpTask.maxPrice"/>:</strong>
-	<jstl:out value="${fixUpTask.maxPrice * (1 + vat)}"/> &#8364; <jstl:out value="(${vat*100}% ${vatTag} Inc.)"/>
+	<fmt:formatNumber type="number" maxFractionDigits="2" value="${fixUpTask.maxPrice * (1 + vat)}"/> &#8364; <jstl:out value="(${vat*100}% ${vatTag} Inc.)"/>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.startDate"/>:</strong>

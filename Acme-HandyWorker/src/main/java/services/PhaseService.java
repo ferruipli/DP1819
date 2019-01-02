@@ -139,6 +139,7 @@ public class PhaseService {
 		ownerId = this.handyWorkerService.findPhaseCreator(phase);
 
 		Assert.isTrue(principalId == ownerId);
+		this.utilityService.checkIsSpamMarkAsSuspicious(phase.getDescription() + phase.getTitle(), principal);
 	}
 
 	private void checkPhaseDate(final FixUpTask fixUpTask, final Phase phase) {

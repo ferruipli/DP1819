@@ -71,10 +71,14 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 		Assert.isTrue(fixUpTask.getWarranty().getFinalMode());
 		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot update a FixUpTaks with an Application associated
-		this.checkByPrincipal(fixUpTask);
 		this.utilityService.checkDate(fixUpTask.getStartDate(), fixUpTask.getEndDate());
 
 		FixUpTask result;
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		this.checkByPrincipal(fixUpTask, principal);
+		this.utilityService.checkIsSpamMarkAsSuspicious(fixUpTask.getAddress() + fixUpTask.getDescription(), principal);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
 
@@ -88,7 +92,11 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 		Assert.isTrue(this.fixUpTaskRepository.exists(fixUpTask.getId()));
 		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot delete a FixUpTaks with an Application associated
-		this.checkByPrincipal(fixUpTask);
+
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		this.checkByPrincipal(fixUpTask, principal);
 
 		this.customerService.removeFixUpTask(fixUpTask.getCustomer(), fixUpTask);
 
@@ -237,11 +245,7 @@ public class FixUpTaskService {
 		fixUpTask.getApplications().add(application);
 	}
 
-	private void checkByPrincipal(final FixUpTask fixUpTask) {
-		Customer principal;
-
-		principal = this.customerService.findByPrincipal();
-
+	private void checkByPrincipal(final FixUpTask fixUpTask, final Customer principal) {
 		Assert.isTrue(principal.equals(fixUpTask.getCustomer()));
 	}
 }

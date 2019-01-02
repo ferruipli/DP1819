@@ -76,6 +76,7 @@ public class ComplaintService {
 
 		principal = this.customerService.findByPrincipal();
 		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));
+		this.utilityService.checkIsSpamMarkAsSuspicious(complaint.getAttachments() + complaint.getDescription(), principal);
 
 		result = this.complaintRepository.save(complaint);
 		this.fixUpTaskService.addComplaint(complaint.getFixUpTask(), result);
