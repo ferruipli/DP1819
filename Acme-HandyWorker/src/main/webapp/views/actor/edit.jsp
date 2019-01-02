@@ -9,8 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/${role}/edit.do" modelAttribute="actor" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
+
+<form:form action="actor/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="actor">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -22,6 +22,7 @@
 		
 			<form:hidden path="finder"/>
 			<form:hidden path="applications"/>
+			<form:hidden path="make"/>
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
 			<h2><spring:message code="header.sponsor"/></h2>
@@ -95,7 +96,7 @@
 		<form:errors cssClass="error" path="address" />
 		<br /> 
 	</fieldset>
-	
+<!-- 
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
 	
@@ -113,9 +114,30 @@
 		
 	</fieldset>
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
+ -->
+ 
+ 	<jstl:choose>
+		<jstl:when test="${role == 'customer'}">
+			<input type="submit" name="saveCustomer" value="<spring:message code="actor.save" />" />
+		</jstl:when>
+		<jstl:when test="${role == 'handyworker'}">
+			<input type="submit" name="saveHw" value="<spring:message code="actor.save" />" />
+		</jstl:when>
+		<jstl:when test="${role == 'sponsor'}">
+			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />" />
+		</jstl:when>
+		<jstl:when test="${role == 'administrator'}">
+			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" />
+		</jstl:when>
+		<jstl:when test="${role == 'referee'}">
+			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" />
+		</jstl:when>
+	</jstl:choose>
+ 
+ 	
+	
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
-		onclick="javascript: relativeRedir('actor/${role}/display.do?actorId=${actor.id }')" />
+		onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actor.id }')" />
 	
 	<hr>
 	

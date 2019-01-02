@@ -69,4 +69,21 @@ public class UserAccountService {
 
 	}
 
+	public boolean existUsername(final String username) {
+		boolean result;
+		UserAccount userAccount;
+
+		userAccount = this.userAccountRepository.findByUsername(username);
+		result = !(userAccount == null);
+
+		return result;
+	}
+
+	public void setLogin(final UserAccount userAccount, final String username, final String password) {
+		if (!"".equals(username) && username != null)
+			userAccount.setUsername(username);
+
+		if (!"".equals(password) && password != null)
+			userAccount.setPassword(password);
+	}
 }

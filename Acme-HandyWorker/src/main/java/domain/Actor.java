@@ -18,7 +18,7 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Actor extends DomainEntity {
+public class Actor extends DomainEntity {
 
 	// Constructors
 

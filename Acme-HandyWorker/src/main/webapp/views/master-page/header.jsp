@@ -25,6 +25,8 @@
 				<ul>
 					<li class="arrow"></li>
 
+					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
+					<li><a href="actor/administrator/create.do?role=referee"><spring:message code="master.page.referee.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 					<li><a href="message/administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation.customisation" /> </a></li>
@@ -121,13 +123,24 @@
 	<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			
-		</security:authorize>
+		
 			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>			
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="tutorial/list.do"><spring:message code="master.page.tutorial.list" /></a></li>					
 				</ul>
 			</li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=customer"><spring:message code="master.page.customer.create" /></a></li>
+					<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=handyworker"><spring:message code="master.page.handyworker.create" /></a></li>
+					<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=sponsor"><spring:message code="master.page.sponsor.create" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		
 		<security:authorize access="isAuthenticated()">
 			<li>

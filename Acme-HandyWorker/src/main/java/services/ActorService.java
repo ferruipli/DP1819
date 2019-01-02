@@ -60,9 +60,9 @@ public class ActorService {
 		return userAccount;
 	}
 
-	protected Actor save(final Actor actor) {
+	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
-		this.utilityService.checkUsername(actor);
+		//this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
 		this.utilityService.checkIsSpamMarkAsSuspicious(actor.getAddress() + actor.getEmail() + actor.getMiddleName() + actor.getName() + actor.getSurname(), actor);
 
@@ -170,6 +170,16 @@ public class ActorService {
 
 		principalId = LoginService.getPrincipal().getId();
 		return principalId == actor.getUserAccount().getId();
+	}
+
+	public boolean existEmail(final String email) {
+		boolean result;
+		Actor actor;
+
+		actor = this.actorRepository.findActorByEmail(email);
+		result = !(actor == null);
+
+		return result;
 	}
 
 }
