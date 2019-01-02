@@ -61,6 +61,15 @@ public class CategoryService {
 		return results;
 	}
 
+	public Collection<Category> findAllExceptDefault() {
+		Collection<Category> results;
+
+		results = this.categoryRepository.findAllExceptDefault();
+		Assert.notNull(results);
+
+		return results;
+	}
+
 	public Category create() {
 		Category result;
 
