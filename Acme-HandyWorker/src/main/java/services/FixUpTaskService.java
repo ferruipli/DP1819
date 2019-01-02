@@ -79,6 +79,7 @@ public class FixUpTaskService {
 		principal = this.customerService.findByPrincipal();
 		this.checkByPrincipal(fixUpTask, principal);
 		this.utilityService.checkIsSpamMarkAsSuspicious(fixUpTask.getAddress() + fixUpTask.getDescription(), principal);
+		this.utilityService.checkActorIsBanned(principal);
 
 		result = this.fixUpTaskRepository.save(fixUpTask);
 
@@ -97,6 +98,7 @@ public class FixUpTaskService {
 
 		principal = this.customerService.findByPrincipal();
 		this.checkByPrincipal(fixUpTask, principal);
+		this.utilityService.checkActorIsBanned(principal);
 
 		this.customerService.removeFixUpTask(fixUpTask.getCustomer(), fixUpTask);
 

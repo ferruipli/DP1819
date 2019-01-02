@@ -75,6 +75,7 @@ public class WarrantyService {
 		Administrator principal;
 
 		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 		this.utilityService.checkIsSpamMarkAsSuspicious(warranty.getLaws() + warranty.getTerms() + warranty.getTitle(), principal);
 
 		result = this.warrantyRepository.save(warranty);
@@ -86,6 +87,11 @@ public class WarrantyService {
 		Assert.notNull(warranty);
 		Assert.isTrue(this.warrantyRepository.exists(warranty.getId()));
 		Assert.isTrue(!warranty.getFinalMode());
+
+		Administrator principal;
+
+		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		this.warrantyRepository.delete(warranty);
 	}

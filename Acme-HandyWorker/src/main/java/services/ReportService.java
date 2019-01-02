@@ -75,6 +75,7 @@ public class ReportService {
 		}
 
 		Assert.notNull(complaint);
+		this.utilityService.checkActorIsBanned(principal);
 		this.utilityService.checkIsSpamMarkAsSuspicious(report.getAttachments() + report.getDescription(), principal);
 		this.utilityService.checkDate(complaint.getMoment(), report.getMoment());
 		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaint));
@@ -92,8 +93,12 @@ public class ReportService {
 		Assert.isTrue(!report.getFinalMode());
 
 		Complaint complaintInvolved;
+		Referee principal;
 
+		principal = this.refereeService.findByPrincipal();
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
+
+		this.utilityService.checkActorIsBanned(principal);
 		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaintInvolved));
 
 		this.complaintService.removeReport(complaintInvolved);

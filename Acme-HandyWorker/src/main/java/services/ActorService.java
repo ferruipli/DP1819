@@ -66,8 +66,11 @@ public class ActorService {
 		this.utilityService.checkEmailActors(actor);
 		this.utilityService.checkIsSpamMarkAsSuspicious(actor.getAddress() + actor.getEmail() + actor.getMiddleName() + actor.getName() + actor.getSurname(), actor);
 
-		Actor result;
+		Actor result, principal;
 		boolean isUpdating;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		isUpdating = this.actorRepository.exists(actor.getId());
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));

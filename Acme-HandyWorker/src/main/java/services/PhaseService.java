@@ -140,6 +140,7 @@ public class PhaseService {
 
 		Assert.isTrue(principalId == ownerId);
 		this.utilityService.checkIsSpamMarkAsSuspicious(phase.getDescription() + phase.getTitle(), principal);
+		this.utilityService.checkActorIsBanned(principal);
 	}
 
 	private void checkPhaseDate(final FixUpTask fixUpTask, final Phase phase) {

@@ -163,7 +163,7 @@ public class NoteService {
 			refereeInvolved = this.refereeService.findByReportId(report.getId());
 			referee = this.refereeService.findByUserAccount(principal.getId());
 			Assert.isTrue(refereeInvolved.equals(referee));
-			this.checkMarkAsSuspicious(note, referee);
+			this.checkBannedActorMarkAsSuspicious(note, referee);
 		} else if (principal.getAuthorities().contains(authCustomer)) {
 			// Check if the actor is writing the corresponding comment
 			Assert.isTrue(note.getCommentCustomer() != null);
@@ -172,7 +172,7 @@ public class NoteService {
 			customerInvolved = this.customerService.findCustomerByReport(report.getId());
 			customer = this.customerService.findByUserAccount(principal.getId());
 			Assert.isTrue(customerInvolved.equals(customer));
-			this.checkMarkAsSuspicious(note, customer);
+			this.checkBannedActorMarkAsSuspicious(note, customer);
 		} else if (principal.getAuthorities().contains(authHandyWorker)) {
 			// Check if the actor is writing the corresponding comment
 			Assert.isTrue(note.getCommentHandyWorker() != null);
@@ -181,11 +181,12 @@ public class NoteService {
 			handyWorkerInvolved = this.handyWorkerService.findByReportId(report.getId());
 			handyWorker = this.handyWorkerService.findByUserAccount(principal.getId());
 			Assert.isTrue(handyWorkerInvolved.equals(handyWorker));
-			this.checkMarkAsSuspicious(note, handyWorker);
+			this.checkBannedActorMarkAsSuspicious(note, handyWorker);
 		}
 	}
 
-	private void checkMarkAsSuspicious(final Note note, final Actor principal) {
+	private void checkBannedActorMarkAsSuspicious(final Note note, final Actor principal) {
 		this.utilityService.checkIsSpamMarkAsSuspicious(note.getCommentCustomer() + note.getCommentHandyWorker() + note.getCommentReferee(), principal);
+		this.utilityService.checkActorIsBanned(principal);
 	}
 }
