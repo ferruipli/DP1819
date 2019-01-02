@@ -109,7 +109,8 @@
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasAnyRole('SPONSOR')" />
 		
 		<security:intercept-url pattern="/tutorial/list.do" access="permitAll" /> 
-		<security:intercept-url pattern="/tutorial/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/tutorial/display.do" access="permitAll" />
+		<security:intercept-url pattern="/tutorial/listHandyWorker.do" access="permitAll" />		  
 		<security:intercept-url pattern="/tutorial/handyWorker/**" access="hasAnyRole('HANDYWORKER')"  />
 		
 		<security:intercept-url pattern="/warranty/administrator/**" access="hasRole('ADMIN')" />

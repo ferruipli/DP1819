@@ -48,10 +48,9 @@
 	<form:textarea path="pictures" />
 	<form:errors cssClass="error" path="pictures" />
 	<br />
-	
-	<strong> <spring:message code="tutorial.sections" />: </strong>
-		
 
+<jstl:if test="${empty tutorial.sections}">	
+	<strong> <spring:message code="tutorial.sections" />: </strong>
 	<display:table name="tutorial.sections" id="sections">
 	
 	<spring:message code="tutorial.section.number" var="sectionNumber" />
@@ -67,17 +66,22 @@
 	<display:column property="pictures" title="${sectionPictures}" />
 	
 	</display:table>
-	
+</jstl:if>
+
+<jstl:if test="${tutorial.id != 0}">
 	<a href="section/handyWorker/edit.do?tutorialId=${tutorial.id}">
 			<spring:message	code="tutorial.section.add" />
 	</a>
+</jstl:if>
 	
-	
+	<p />
 	<input type="submit" name="save" value="<spring:message code="tutorial.save" />" />
-	<jstl:if test="${tutorial.id != 0}">
+	<jstl:if test="${tutorial.id != 0 && tutorial.handyWorker == owner}">
 	<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />"onclick="return confirm('<spring:message code="tutorial.confirm.delete" />')" />
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="tutorial.cancel" />"onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
+	<a href="tutorial/handyWorker/list.do">
+					<spring:message	code="tutorial.return" />
+	</a> 
 	<br />
 
 </form:form>

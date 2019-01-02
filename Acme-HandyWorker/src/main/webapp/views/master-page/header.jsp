@@ -75,7 +75,7 @@
 					<li><a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="master.page.fixUpTask.involved.list" /></a></li>
 				</ul>
 			</li>
-			<li><a class="fNiv"><spring:message	code="master.page.tutorial" /></a>				
+			<li><a class="fNiv"><spring:message	code="master.page.handyWorker.tutorial" /></a>				
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="tutorial/handyWorker/list.do"><spring:message code="master.page.handyWorker.tutorial.list" /></a></li>					

@@ -88,7 +88,9 @@
  	
 	
 	<input type="submit" name="save" value="<spring:message code="sponsorship.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="sponsorship.cancel" />"onclick="javascript: relativeRedir('tutorial/list.do');" />
+	<a href="sponsorship/sponsor/list.do">
+		<spring:message	code="sponsorship.return" />			
+	</a>
 	<br />
 
 </form:form>

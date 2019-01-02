@@ -76,7 +76,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		result = new ModelAndView("section/display");
+		result = new ModelAndView("sponsorship/display");
 		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
 		result.addObject("sponsorship", sponsorship);
 
@@ -93,7 +93,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		sponsor = this.sponsorService.findByPrincipal();
 		sponsorships = sponsor.getSponsorships();
 
-		result = new ModelAndView("tutorial/list");
+		result = new ModelAndView("sponsorship/list");
 		result.addObject("sponsorships", sponsorships);
 		result.addObject("requestURI", "sponsorship/sponsor/list.do");
 

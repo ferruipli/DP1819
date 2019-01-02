@@ -89,7 +89,7 @@ public class TutorialController extends AbstractController {
 
 	// Tutorial list by handyWorker---------------------------------------------------------------		
 
-	@RequestMapping(value = "/listHW", method = RequestMethod.GET)
+	@RequestMapping(value = "/listHandyWorker", method = RequestMethod.GET)
 	public ModelAndView listHandyWorker(@RequestParam final int handyWorkerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Page<Tutorial> tutorials;

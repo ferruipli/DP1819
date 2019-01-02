@@ -53,7 +53,8 @@
 	<br />
 		
 	<input type="submit" name="save" value="<spring:message code="section.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="section.cancel" />"onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
-	<br />
+		<a href="tutorial/handyWorker/list.do">
+					<spring:message	code="section.return" />
+				</a> 
 
 </form:form>

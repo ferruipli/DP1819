@@ -54,13 +54,13 @@
 	<jstl:if test="${actor.userAccount.authorities=='[HANDYWORKER]'}">
 		<jstl:if test="${curriculum != null}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
-		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.see"/></a>
+		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.display"/></a>
 		</p>	
 		</jstl:if>
 	
 	
 	<p> <strong> <spring:message code="actor.tutorial" />: </strong>  
-		<a href="tutorial/list.do?handyWorkerId=${actor.id}"><spring:message code="actor.tutorial.see"/></a>
+		<a href="tutorial/listHandyWorker.do?handyWorkerId=${actor.id}"><spring:message code="actor.tutorial.display"/></a>
 	</p>
 	</jstl:if>
 </fieldset>

@@ -25,8 +25,8 @@
 	<display:column property="targetPage" titleKey="sponsorship.targetPage" />
 	
 	<display:column>
-	<a href="sponsorship/sponsor/display.do?sponsorId=${row.id}">
-		<spring:message	code="tutorial.display" />			
+	<a href="sponsorship/sponsor/display.do?sponsorshipId=${row.id}">
+		<spring:message	code="sponsorship.display" />			
 	</a>
 	</display:column>	
 </display:table>

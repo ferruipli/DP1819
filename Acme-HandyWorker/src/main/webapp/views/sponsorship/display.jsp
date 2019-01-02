@@ -20,7 +20,7 @@
 
 <p>
 	<strong> <spring:message code="sponsorship.targetPage" />: </strong>
-	<jstl:out value="${sponsorship.targetPage}" />
+	<a href="${sponsorship.targetPage}" ><jstl:out value="${sponsorship.targetPage}" /></a>
 </p>
 
 <p>
@@ -30,10 +30,8 @@
 
 
 
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="sponsorship.return" />"
-	   onclick="javascript: relativeRedir('sponsorship/sponsor/list.do');" />	
-
+<a href="sponsorship/sponsor/list.do">
+		<spring:message	code="sponsorship.return" />			
+	</a>
 
 	

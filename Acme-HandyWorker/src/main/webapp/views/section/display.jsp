@@ -37,10 +37,11 @@
 <img src="${tutorial.pictures}">
 </p> 
 
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="tutorial.return" />"
-	   onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />	
+	<a href="tutorial/handyWorker/list.do">
+					<spring:message	code="section.return" />
+	</a> 
+
+
 
 
 	

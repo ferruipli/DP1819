@@ -41,7 +41,7 @@
 </p>
 <p>
 	<strong> <spring:message code="application.handyWorker" />: </strong>
-	<a href = "handyWorker/display.do?handyorkerId=${application.handyWorker.id}"><jstl:out value="${application.handyWorker.name}" /></a>
+	<a href = "handyWorker/display.do?actorId=${application.handyWorker.id}"><jstl:out value="${application.handyWorker.name}" /></a>
 <p>
 	<strong> <spring:message code="application.handyWorkerComments" />: </strong>
 	<jstl:out value="${application.handyWorkerComments}" />
@@ -82,14 +82,13 @@
  
  
 <security:authorize access="hasRole('CUSTOMER')" >	   
-<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
+	<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
 					<spring:message	code="application.return" />
 				</a>
 </security:authorize>
 
-<security:authorize access="hasRole('HANDYWORKER')" >	   
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="application.return" />"
-	   onclick="javascript: relativeRedir('application/handyWorker/list.do');" />	
+<security:authorize access="hasRole('HANDYWORKER')" >	
+	<a href="application/handyWorker/list.do">
+					<spring:message	code="application.return" />
+				</a>   
 </security:authorize>

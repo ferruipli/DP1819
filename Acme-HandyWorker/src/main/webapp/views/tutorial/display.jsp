@@ -77,19 +77,17 @@
 	</security:authorize>
 
 <img src="${sponsorship.banner}">
-
+<p/>
 <security:authorize access="hasRole('HANDYWORKER')">   
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="tutorial.return" />"
-	   onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />	
+	<a href="tutorial/handyWorker/list.do">
+					<spring:message	code="tutorial.return" />
+	</a> 
 </security:authorize>
 
 <security:authorize access= "isAnonymous()">   
-<input type="button" 
-	   name="return"
-	   value="<spring:message code="tutorial.return" />"
-	   onclick="javascript: relativeRedir('tutorial/list.do');" />	
+	<a href="tutorial/list.do">
+					<spring:message	code="tutorial.return" />
+	</a> 
 </security:authorize>
 
 	

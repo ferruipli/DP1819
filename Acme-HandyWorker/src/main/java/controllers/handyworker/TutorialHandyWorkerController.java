@@ -145,12 +145,15 @@ public class TutorialHandyWorkerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String messageCode) {
 		ModelAndView result;
 		Collection<Section> sections;
+		HandyWorker owner;
 
 		sections = tutorial.getSections();
 		result = new ModelAndView("tutorial/edit");
+		owner = this.handyWorkerService.findByPrincipal();
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
 		result.addObject("message", messageCode);
+		result.addObject("owner", owner);
 
 		return result;
 	}
