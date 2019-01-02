@@ -108,6 +108,11 @@ public class WarrantyService {
 	// Other business methods -------------------------------------------------
 
 	public void makeFinal(final Warranty warranty) {
+		Administrator principal;
+
+		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		warranty.setFinalMode(true);
 	}
 

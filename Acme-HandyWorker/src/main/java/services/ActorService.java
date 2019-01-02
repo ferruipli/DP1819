@@ -148,6 +148,10 @@ public class ActorService {
 
 		final UserAccount userAccount;
 		boolean isBanned;
+		Actor principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		userAccount = actor.getUserAccount();
 		isBanned = userAccount.getIsBanned();
@@ -156,6 +160,11 @@ public class ActorService {
 	}
 
 	public void markAsSuspicious(final Actor actor) {
+		Actor principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		actor.setIsSuspicious(true);
 	}
 
@@ -177,7 +186,10 @@ public class ActorService {
 
 	public boolean existEmail(final String email) {
 		boolean result;
-		Actor actor;
+		Actor actor, principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		actor = this.actorRepository.findActorByEmail(email);
 		result = !(actor == null);

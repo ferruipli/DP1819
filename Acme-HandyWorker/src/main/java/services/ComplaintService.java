@@ -157,6 +157,11 @@ public class ComplaintService {
 	}
 
 	public void addFixUpTask(final Complaint complaint, final FixUpTask fixUpTask) {
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		complaint.setFixUpTask(fixUpTask);
 	}
 
