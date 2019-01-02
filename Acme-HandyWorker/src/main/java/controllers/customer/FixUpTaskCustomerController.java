@@ -146,7 +146,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		Collection<Category> categories;
 
 		warranties = this.warrantyService.findFinalWarranties();
-		categories = this.categoryService.findAll();
+		categories = this.categoryService.findAllExceptDefault();
 		categoryMap = this.categoryService.categoriesByLanguage(categories, locale.getLanguage());
 
 		result = new ModelAndView("fixUpTask/edit");
