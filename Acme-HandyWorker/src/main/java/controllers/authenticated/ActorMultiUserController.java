@@ -3,6 +3,7 @@ package controllers.authenticated;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.UserAccountService;
 import services.ActorService;
-import services.AdministratorService;
-import services.CustomerService;
 import services.EndorsableService;
 import services.HandyWorkerService;
-import services.RefereeService;
-import services.SponsorService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -39,28 +36,16 @@ public class ActorMultiUserController extends AbstractController {
 	// Services
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private EndorsableService		endorsableService;
+	private EndorsableService	endorsableService;
 
 	@Autowired
-	private UserAccountService		userAccountService;
+	private UserAccountService	userAccountService;
 
 	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
-	private CustomerService			customerService;
-
-	@Autowired
-	private RefereeService			refereeService;
-
-	@Autowired
-	private SponsorService			sponsorService;
-
-	@Autowired
-	private HandyWorkerService		handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor
@@ -96,6 +81,54 @@ public class ActorMultiUserController extends AbstractController {
 
 		result.addObject("authorities", authorities);
 		result.addObject("curriculum", handyWorker.getCurriculum());
+
+		return result;
+	}
+
+	// Creation
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final String role) {
+		Assert.isTrue(role.equals("customer") || role.equals("handyworker") || role.equals("sponsor"));
+		final ModelAndView result;
+
+		result = this.createActor(role);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	// Register
+
+	@RequestMapping(value = "/registercustomer", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerCustomer(@Valid final Customer customer, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(customer, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerhandyworker", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyWorker, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(handyWorker, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registersponsor", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerSponsor(@Valid final Sponsor sponsor, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(sponsor, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
 
 		return result;
 	}
