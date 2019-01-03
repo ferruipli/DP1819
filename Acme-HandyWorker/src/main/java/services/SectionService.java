@@ -50,6 +50,7 @@ public class SectionService {
 	public Section save(final Section section) {
 		Assert.notNull(section);
 		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+		this.utilityService.checkIsSpamMarkAsSuspicious(section.getText() + section.getTitle(), this.handyWorkerService.findByPrincipal());
 
 		Section result;
 

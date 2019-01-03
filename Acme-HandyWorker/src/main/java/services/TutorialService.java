@@ -67,6 +67,7 @@ public class TutorialService {
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
 		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+		this.utilityService.checkIsSpamMarkAsSuspicious(tutorial.getSummary() + tutorial.getTitle(), this.handyWorkerService.findByPrincipal());
 		this.checkByPrincipal(tutorial);
 
 		Tutorial result;

@@ -84,10 +84,12 @@ public class ApplicationService {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
 
 				this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+				this.utilityService.checkIsSpamMarkAsSuspicious(application.getHandyWorkerComments(), this.handyWorkerService.findByPrincipal());
 				Assert.notNull(application.getHandyWorker().getCurriculum());
 			}
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[CUSTOMER]"))
 				this.utilityService.checkActorIsBanned(this.customerService.findByPrincipal());
+			this.utilityService.checkIsSpamMarkAsSuspicious(application.getCustomerComments(), this.customerService.findByPrincipal());
 
 			if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
 				//Check that number of accepted application is 0
