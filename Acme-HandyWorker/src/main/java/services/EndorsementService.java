@@ -113,9 +113,9 @@ public class EndorsementService {
 		result = this.endorsementRepository.save(endorsement);
 
 		if (endorsement.getId() != 0 && recipient.getScore() != null)
-			// Si un endorsable modifica el atributo endorsement::comments, entonces
-			// volver a recalcular el atributo Endorsable::score del recipient si
-			// anteriormente un administrator le calculo su valor
+			// If an endorsable updates the attribute Endorsement::comments, then
+			// it must to compute again the recipient's attribute Endorsable::score,
+			// if, previously, an admin compute the score value. 
 			this.endorsableService.computeScore(recipient);
 
 		return result;
@@ -142,6 +142,7 @@ public class EndorsementService {
 		principal = this.endorsableService.findByPrincipal();
 
 		Assert.isTrue(principal.equals(endorsement.getSender()));
+		this.utilityService.checkActorIsBanned(principal);
 	}
 
 	public Page<Endorsement> findSentEndorsements(final Pageable pageable) {
