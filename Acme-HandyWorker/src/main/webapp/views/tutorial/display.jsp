@@ -78,16 +78,9 @@
 
 <img src="${sponsorship.banner}">
 <p/>
-<security:authorize access="hasRole('HANDYWORKER')">   
-	<a href="tutorial/handyWorker/list.do">
-					<spring:message	code="tutorial.return" />
-	</a> 
-</security:authorize>
-
-<security:authorize access= "isAnonymous()">   
+  
 	<a href="tutorial/list.do">
 					<spring:message	code="tutorial.return" />
 	</a> 
-</security:authorize>
 
 	
