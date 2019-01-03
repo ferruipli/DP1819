@@ -8,6 +8,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -55,8 +57,16 @@ public class EndorsableService {
 		return results;
 	}
 
+	public Page<Endorsable> paginatedFindAll(final Pageable pageable) {
+		Page<Endorsable> results;
+
+		results = this.endorsableRepository.findAll(pageable);
+
+		return results;
+	}
+
 	// Other business methods --------------------------
-	// Los endorsements de un endorsable son los que recibe.
+	// The endorsements from an endorsable are those received endorsements
 	public void computeScore(final Endorsable endorsable) {
 		Assert.notNull(endorsable);
 		Assert.isTrue(endorsable.getId() != 0);

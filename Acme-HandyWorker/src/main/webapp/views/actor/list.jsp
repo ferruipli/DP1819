@@ -16,16 +16,18 @@
 		</display:column>
 	</jstl:if>
 
-	<display:column>
-		<jstl:choose>
-			<jstl:when test="${row.userAccount.isBanned}">
-				<a href="actor/administrator/changeBan.do?actorId=${row.id}"><spring:message code="suspicious.table.unban"/></a>
-			</jstl:when>
-			<jstl:otherwise>
-				<a href="actor/administrator/changeBan.do?actorId=${row.id}"><spring:message code="suspicious.table.ban"/></a>
-			</jstl:otherwise>
-		</jstl:choose>
-	</display:column>
+	<jstl:if test="${!isEndorsable}">
+		<display:column>
+			<jstl:choose>
+				<jstl:when test="${row.userAccount.isBanned}">
+					<a href="actor/administrator/changeBan.do?actorId=${row.id}"><spring:message code="suspicious.table.unban"/></a>
+				</jstl:when>
+				<jstl:otherwise>
+					<a href="actor/administrator/changeBan.do?actorId=${row.id}"><spring:message code="suspicious.table.ban"/></a>
+				</jstl:otherwise>
+			</jstl:choose>
+		</display:column>
+	</jstl:if>
 	
 	<display:column property="fullname" titleKey="actor.fullname" />
 	

@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +23,6 @@ public class Category extends DomainEntity {
 
 
 	// Attributes ----------------------------------------------------------------------
-	private String							nameCategory;
 
 	// Relationships ----------------------------------------------------------
 	private Category						parent;
@@ -39,15 +37,6 @@ public class Category extends DomainEntity {
 	}
 	public void setCategoriesTranslations(final Collection<CategoryTranslation> categoriesTranslations) {
 		this.categoriesTranslations = categoriesTranslations;
-	}
-
-	@Transient
-	public String getNameCategory() {
-		return this.nameCategory;
-	}
-
-	public void setNameCategory(final String nameCategory) {
-		this.nameCategory = nameCategory;
 	}
 
 	@Valid
