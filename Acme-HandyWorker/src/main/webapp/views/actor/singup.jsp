@@ -29,9 +29,12 @@
 			<form:hidden path="sponsorships"/>
 		</jstl:when>
 		<jstl:when test="${role == 'referee'}">
-			<h2><spring:message code="header.sponsor"/></h2>
+			<h2><spring:message code="header.referee"/></h2>
 		
 			<form:hidden path="complaints"/>
+		</jstl:when>
+		<jstl:when test="${role == 'administrator'}">
+			<h2><spring:message code="header.administrator"/></h2>
 		</jstl:when>
 	</jstl:choose>
 		
@@ -88,12 +91,28 @@
 		<br />
 		
 		<form:label path="address">
-			<spring:message code="actor.address" />
+			<spring:message code="actor.address.requested" />
 		</form:label>
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address" />
 		<br /> 
+		
+		<jstl:if test="${role == 'handyworker'}">
+			<form:label path="make">
+					<spring:message code="actor.make.requested" />
+				</form:label>
+				<form:input path="make"/>
+				<form:errors cssClass="error" path="name" />
+				<br /> 	
+ 		</jstl:if>
 	</fieldset>
+	
+	<script type="text/javascript">
+		function calcMD5(){
+			document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
+			document.getElementById('confirmPasswordId').value = document.getElementById('passwordId').value ;
+		}
+	</script>
 	
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
@@ -144,7 +163,8 @@
 		<input type="hidden" name="role" value="${role}"/>
 	</fieldset>
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
+	
+	<input type="submit" name="save" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();"/>
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('welcome/index.do')" />
 </form:form>

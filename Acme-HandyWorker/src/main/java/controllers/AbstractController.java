@@ -24,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccount;
 import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
@@ -31,7 +32,6 @@ import services.CustomerService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
-import services.UtilityService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
@@ -64,9 +64,6 @@ public class AbstractController {
 
 	@Autowired
 	private UserAccountService		userAccountService;
-
-	@Autowired
-	private UtilityService			utilityService;
 
 
 	// Panic handler ----------------------------------------------------------
@@ -131,12 +128,14 @@ public class AbstractController {
 
 	public ModelAndView registerActor(final Actor actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
-		String hashedPassword, username, password, role, confirmPassword;
+		//final String hashedPassword;
+		String username, password, role, confirmPassword;
 		final Administrator administrator;
 		final Customer customer;
 		final HandyWorker handyWorker;
 		final Referee referee;
 		final Sponsor sponsor;
+		UserAccount userAccount;
 
 		username = request.getParameter("username");
 		password = request.getParameter("password");
@@ -157,8 +156,12 @@ public class AbstractController {
 			result = this.createModelAndView(actor, role, "actor.username.size");
 		else
 			try {
-				hashedPassword = this.hashPassword(password);
-				this.userAccountService.setLogin(actor.getUserAccount(), username, hashedPassword);
+				//hashedPassword = this.hashPassword(password);
+				//this.userAccountService.setLogin(actor.getUserAccount(), username, hashedPassword);
+				this.userAccountService.setLogin(actor.getUserAccount(), username, password);
+				userAccount = actor.getUserAccount();
+
+				userAccount.setIsBanned(false);
 
 				switch (role) {
 				case "administrator":

@@ -64,9 +64,13 @@ public class ActorService {
 		Assert.notNull(actor);
 		//this.utilityService.checkUsername(actor);
 		this.utilityService.checkEmailActors(actor);
+		this.utilityService.checkIsSpamMarkAsSuspicious(actor.getAddress() + actor.getEmail() + actor.getMiddleName() + actor.getName() + actor.getSurname(), actor);
 
-		Actor result;
+		Actor result, principal;
 		boolean isUpdating;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		isUpdating = this.actorRepository.exists(actor.getId());
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
@@ -144,6 +148,10 @@ public class ActorService {
 
 		final UserAccount userAccount;
 		boolean isBanned;
+		Actor principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		userAccount = actor.getUserAccount();
 		isBanned = userAccount.getIsBanned();
@@ -152,6 +160,11 @@ public class ActorService {
 	}
 
 	public void markAsSuspicious(final Actor actor) {
+		Actor principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		actor.setIsSuspicious(true);
 	}
 
@@ -173,7 +186,10 @@ public class ActorService {
 
 	public boolean existEmail(final String email) {
 		boolean result;
-		Actor actor;
+		Actor actor, principal;
+
+		principal = this.findPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		actor = this.actorRepository.findActorByEmail(email);
 		result = !(actor == null);

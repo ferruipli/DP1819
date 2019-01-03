@@ -64,8 +64,10 @@ public class ReportService {
 
 		boolean isUpdating;
 		Report result;
+		Referee principal;
 
 		isUpdating = this.reportRepository.exists(report.getId());
+		principal = this.refereeService.findByPrincipal();
 
 		if (isUpdating) {
 			Assert.isTrue(!report.getFinalMode());
@@ -73,6 +75,8 @@ public class ReportService {
 		}
 
 		Assert.notNull(complaint);
+		this.utilityService.checkActorIsBanned(principal);
+		this.utilityService.checkIsSpamMarkAsSuspicious(report.getAttachments() + report.getDescription(), principal);
 		this.utilityService.checkDate(complaint.getMoment(), report.getMoment());
 		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaint));
 		result = this.reportRepository.save(report);
@@ -89,8 +93,12 @@ public class ReportService {
 		Assert.isTrue(!report.getFinalMode());
 
 		Complaint complaintInvolved;
+		Referee principal;
 
+		principal = this.refereeService.findByPrincipal();
 		complaintInvolved = this.complaintService.findByReportId(report.getId());
+
+		this.utilityService.checkActorIsBanned(principal);
 		Assert.isTrue(this.refereeService.principalHasSelfAssigned(complaintInvolved));
 
 		this.complaintService.removeReport(complaintInvolved);
@@ -122,6 +130,8 @@ public class ReportService {
 
 		principal = this.refereeService.findByPrincipal();
 		creator = this.refereeService.findByReportId(report.getId());
+		this.utilityService.checkActorIsBanned(principal);
+
 		res = creator.equals(principal);
 
 		return res;

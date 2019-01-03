@@ -76,6 +76,8 @@ public class ComplaintService {
 
 		principal = this.customerService.findByPrincipal();
 		Assert.isTrue(complaint.getFixUpTask().getCustomer().equals(principal));
+		this.utilityService.checkActorIsBanned(principal);
+		this.utilityService.checkIsSpamMarkAsSuspicious(complaint.getAttachments() + complaint.getDescription(), principal);
 
 		result = this.complaintRepository.save(complaint);
 		this.fixUpTaskService.addComplaint(complaint.getFixUpTask(), result);
@@ -155,6 +157,11 @@ public class ComplaintService {
 	}
 
 	public void addFixUpTask(final Complaint complaint, final FixUpTask fixUpTask) {
+		Customer principal;
+
+		principal = this.customerService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		complaint.setFixUpTask(fixUpTask);
 	}
 

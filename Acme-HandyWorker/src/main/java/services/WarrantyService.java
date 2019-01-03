@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.WarrantyRepository;
+import domain.Administrator;
 import domain.Warranty;
 
 @Service
@@ -21,10 +22,16 @@ public class WarrantyService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private WarrantyRepository	warrantyRepository;
-
+	private WarrantyRepository		warrantyRepository;
 
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructor ------------------------------------------------------------
 
@@ -65,6 +72,11 @@ public class WarrantyService {
 		Assert.isTrue(!warranty.getFinalMode());
 
 		Warranty result;
+		Administrator principal;
+
+		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+		this.utilityService.checkIsSpamMarkAsSuspicious(warranty.getLaws() + warranty.getTerms() + warranty.getTitle(), principal);
 
 		result = this.warrantyRepository.save(warranty);
 
@@ -75,6 +87,11 @@ public class WarrantyService {
 		Assert.notNull(warranty);
 		Assert.isTrue(this.warrantyRepository.exists(warranty.getId()));
 		Assert.isTrue(!warranty.getFinalMode());
+
+		Administrator principal;
+
+		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 
 		this.warrantyRepository.delete(warranty);
 	}
@@ -91,6 +108,11 @@ public class WarrantyService {
 	// Other business methods -------------------------------------------------
 
 	public void makeFinal(final Warranty warranty) {
+		Administrator principal;
+
+		principal = this.administratorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
+
 		warranty.setFinalMode(true);
 	}
 
