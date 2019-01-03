@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import security.LoginService;
 import services.ApplicationService;
 import services.CustomisationService;
@@ -70,7 +69,7 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 			try {
 
 				//If status is pending and actor is handyworker he/she can edit application
-				if (LoginService.getPrincipal().getAuthorities().contains(Authority.HANDYWORKER)) {
+				if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
 					this.applicationService.save(application);
 					result = new ModelAndView("redirect:../../application/handyWorker/list.do");
 

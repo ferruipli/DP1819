@@ -66,6 +66,7 @@ public class TutorialService {
 	}
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		this.checkByPrincipal(tutorial);
 
 		Tutorial result;
@@ -101,6 +102,7 @@ public class TutorialService {
 
 	public void delete(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		Assert.isTrue(tutorial.getId() != 0);
 		this.checkByPrincipal(tutorial);
 

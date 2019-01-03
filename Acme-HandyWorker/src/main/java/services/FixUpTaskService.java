@@ -222,6 +222,17 @@ public class FixUpTaskService {
 
 		return result;
 	}
+	public Page<FixUpTask> findFixUpTaskFinderPaged(final Pageable pageable) {
+		Page<FixUpTask> result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		result = this.fixUpTaskRepository.findFixUpTaskFinderPaged(handyWorker.getFinder().getId(), pageable);
+
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	protected String existTicker(final String ticker) {
 		String result;

@@ -14,7 +14,6 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,7 +40,6 @@ public class Finder extends DomainEntity {
 	private Date	lastUpdate;
 
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -90,7 +88,6 @@ public class Finder extends DomainEntity {
 		this.endDate = endDate;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getCategory() {
 		return this.category;
 	}
@@ -99,7 +96,6 @@ public class Finder extends DomainEntity {
 		this.category = category;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getWarranty() {
 		return this.warranty;
 	}

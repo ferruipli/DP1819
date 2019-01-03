@@ -62,6 +62,7 @@ public class SponsorshipService {
 		Sponsorship result;
 
 		principal = this.sponsorService.findByPrincipal();
+		this.utilityService.checkActorIsBanned(principal);
 		Assert.isTrue(this.utilityService.checkCreditCard(sponsorship.getCreditCard()));
 
 		if (sponsorship.getId() == 0) {
@@ -105,6 +106,7 @@ public class SponsorshipService {
 		Sponsor principal;
 		principal = this.sponsorService.findByPrincipal();
 
+		this.utilityService.checkActorIsBanned(principal);
 		this.removeSponsorshipToSponsor(principal, sponsorship);
 		this.removeSponsorShipToTutorial(sponsorship);
 

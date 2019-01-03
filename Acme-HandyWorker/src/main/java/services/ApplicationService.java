@@ -41,6 +41,9 @@ public class ApplicationService {
 	@Autowired
 	private UtilityService			utilityService;
 
+	@Autowired
+	private CustomerService			customerService;
+
 
 	//Constructor ----------------------------------------------------
 	public ApplicationService() {
@@ -49,6 +52,7 @@ public class ApplicationService {
 
 	//Simple CRUD methods -------------------------------------------
 	public Application create(final FixUpTask fixUpTask) {
+		Assert.isTrue(this.findApplicationByHWFixUpTask(fixUpTask.getId()).isEmpty());
 		Application result;
 		HandyWorker handyWorker;
 		CreditCard creditCard;
@@ -69,7 +73,6 @@ public class ApplicationService {
 
 		return result;
 	}
-
 	public Application save(final Application application) {
 		Assert.notNull(application);
 		final Application result;
@@ -78,14 +81,19 @@ public class ApplicationService {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
 			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
 		} else {
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
+
+				this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 				Assert.notNull(application.getHandyWorker().getCurriculum());
+			}
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[CUSTOMER]"))
-				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
-					//Check that number of accepted application is 0
-					this.checkAcceptedApplication(application);
-					application.setStatus("ACCEPTED");
-				}
+
+				this.utilityService.checkActorIsBanned(this.customerService.findByPrincipal());
+			if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
+				//Check that number of accepted application is 0
+				this.checkAcceptedApplication(application);
+				application.setStatus("ACCEPTED");
+			}
 		}
 		result = this.applicationRepository.save(application);
 
@@ -120,6 +128,7 @@ public class ApplicationService {
 	//Other business methods-------------------------------------------
 	public void addCreditCard(final Application application, final CreditCard creditCard) {
 		Assert.isTrue(this.utilityService.checkCreditCard(creditCard));
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		application.setCreditCard(creditCard);
 	}
 
@@ -133,6 +142,7 @@ public class ApplicationService {
 
 	public Application changeStatus(final Application application) {
 		Assert.notNull(application);
+		this.utilityService.checkActorIsBanned(this.customerService.findByPrincipal());
 
 		FixUpTask fixUpTask;
 		final Collection<Application> applications;
@@ -152,22 +162,6 @@ public class ApplicationService {
 			application.setStatus("REJECTED");
 
 		return application;
-	}
-
-	public void removeApplicationToHandyWorker(final Application application) {
-		HandyWorker handyWorker;
-
-		handyWorker = application.getHandyWorker();
-
-		handyWorker.getApplications().remove(application);
-	}
-
-	public void removeApplicationToFixUpTask(final Application application) {
-		FixUpTask fixUpTask;
-
-		fixUpTask = application.getFixUpTask();
-
-		fixUpTask.getApplications().remove(application);
 	}
 
 	//Req 12.5.4
@@ -246,6 +240,16 @@ public class ApplicationService {
 		Page<Application> result;
 
 		result = this.applicationRepository.findApplicationByFixUpTask(fixUpTaskId, pageable);
+
+		return result;
+	}
+
+	public Collection<Application> findApplicationByHWFixUpTask(final int fixUpTaskId) {
+		Collection<Application> result;
+		HandyWorker handyWorker;
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		result = this.applicationRepository.findApplicationByHWFixUpTask(handyWorker.getId(), fixUpTaskId);
 
 		return result;
 	}

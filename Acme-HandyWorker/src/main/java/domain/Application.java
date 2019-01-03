@@ -72,7 +72,6 @@ public class Application extends DomainEntity {
 		this.offeredPrice = offeredPrice;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getHandyWorkerComments() {
 		return this.handyWorkerComments;
 	}
@@ -81,7 +80,6 @@ public class Application extends DomainEntity {
 		this.handyWorkerComments = handyWorkerComments;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getCustomerComments() {
 		return this.customerComments;
 	}

@@ -29,6 +29,9 @@ public class SectionService {
 	@Autowired
 	private TutorialService		tutorialService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	//Constructor ----------------------------------------------------
 	public SectionService() {
@@ -46,6 +49,7 @@ public class SectionService {
 
 	public Section save(final Section section) {
 		Assert.notNull(section);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 
 		Section result;
 
@@ -79,6 +83,7 @@ public class SectionService {
 
 	public void delete(final Section section) {
 		Assert.notNull(section);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		Assert.isTrue(section.getId() != 0);
 		this.checkByPrincipal(section);
 

@@ -61,8 +61,10 @@ public class FinderService {
 
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		Finder result;
 		Date date;
+		Collection<FixUpTask> fixUpTasks;
 
 		date = this.utilityService.current_moment();
 
@@ -70,6 +72,8 @@ public class FinderService {
 			this.checkByPrincipal(finder);
 
 		finder.setLastUpdate(date);
+		fixUpTasks = this.search(finder);
+		finder.setFixUpTasks(fixUpTasks);
 		result = this.finderRepository.save(finder);
 
 		return result;
@@ -97,34 +101,30 @@ public class FinderService {
 	//Other business methods-------------------------------------------
 	public Collection<FixUpTask> search(final Finder finder) {
 		this.checkByPrincipal(finder);
+		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 
 		final Pageable pageable;
-		final int maxFinderResults, timeCacheFinderResults;
+		final int maxFinderResults;
 		final String keyWord, warranty, category;
 		final Double startPrice, endPrice;
 		final Date startDate, endDate;
 		final Page<FixUpTask> pageFixUpTasks;
 		final Collection<FixUpTask> collectionFixUpTask;
 
-		timeCacheFinderResults = this.customisationService.find().getTimeCachedFinderResults();
+		maxFinderResults = this.customisationService.find().getMaxFinderResults();
+		pageable = new PageRequest(0, maxFinderResults);
+		keyWord = this.checkKeyWord(finder);
+		startPrice = this.checkStartPrice(finder);
+		endPrice = this.checkEndPrice(finder);
+		startDate = this.checkStartDate(finder);
+		endDate = this.checkEndDate(finder);
+		warranty = this.checkWarranty(finder);
+		category = this.checkCategory(finder);
 
-		if (this.compareTime(finder.getLastUpdate(), timeCacheFinderResults)) {
-			maxFinderResults = this.customisationService.find().getMaxFinderResults();
-			pageable = new PageRequest(0, maxFinderResults);
-			keyWord = this.checkKeyWord(finder);
-			startPrice = this.checkStartPrice(finder);
-			endPrice = this.checkEndPrice(finder);
-			startDate = this.checkStartDate(finder);
-			endDate = this.checkEndDate(finder);
-			warranty = this.checkWarranty(finder);
-			category = this.checkCategory(finder);
+		pageFixUpTasks = this.fixUpTaskService.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 
-			pageFixUpTasks = this.fixUpTaskService.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
-
-			collectionFixUpTask = pageFixUpTasks.getContent();
-			finder.setLastUpdate(LocalDate.now().toDate());
-		} else
-			collectionFixUpTask = finder.getFixUpTasks();
+		collectionFixUpTask = pageFixUpTasks.getContent();
+		finder.setLastUpdate(LocalDate.now().toDate());
 
 		return collectionFixUpTask;
 	}
@@ -151,7 +151,7 @@ public class FinderService {
 		result = finder.getStartPrice();
 
 		if (result == null)
-			finder.setStartPrice(0.0);
+			finder.setStartPrice(0.00);
 
 		return finder.getStartPrice();
 	}
@@ -161,7 +161,7 @@ public class FinderService {
 		result = finder.getEndPrice();
 
 		if (result == null)
-			finder.setEndPrice(1000000000.0);
+			finder.setEndPrice(1000000.00);
 
 		return finder.getEndPrice();
 	}
@@ -218,7 +218,7 @@ public class FinderService {
 		return finder.getCategory();
 	}
 
-	private boolean compareTime(final Date lastUpdate, final Integer cache) {
+	public boolean compareTime(final Date lastUpdate, final Integer cache) {
 		final Boolean result;
 		Long time, hours;
 		Date date;

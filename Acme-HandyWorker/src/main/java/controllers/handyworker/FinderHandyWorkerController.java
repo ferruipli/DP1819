@@ -60,7 +60,7 @@ public class FinderHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.finderService.save(finder);
-				result = new ModelAndView("redirect:../../fixUpTask/handyWorker/listAll.do");
+				result = new ModelAndView("redirect:../../fixUpTask/handyWorker/listFinder.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(finder, "finder.commit.error");

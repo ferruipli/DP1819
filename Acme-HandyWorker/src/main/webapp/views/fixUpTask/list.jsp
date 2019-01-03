@@ -6,6 +6,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jsp:useBean id="now" class="java.util.Date" />
+
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
 	<security:authorize access="hasRole('CUSTOMER')">
@@ -27,6 +29,14 @@
 	
 	<display:column property="description" titleKey="fixUpTask.description"/>
 	
+	<security:authorize access="hasRole('HANDYWORKER')">
+		<display:column>
+			<jstl:if test="${row.startDate.time <now.time}">
+				<a href="application/handyWorker/create.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.apply"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 </display:table>
 
 <security:authorize access="hasRole('CUSTOMER')">
@@ -34,5 +44,14 @@
 </security:authorize>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<a href="finder/handyWorker/search.do"><spring:message code="fixUpTask.back.finder"/></a>
+<!-- SI NO HA PASADO EL TIEMPO DE LA CACHE DOY LA OPCIÓN DE VER LA LISTA YA GUARDADA O DE EDITAR EL FINDER -->
+	<jstl:if test="${lastUpdateFinder}">
+		<a href="fixUpTask/handyWorker/listFinder.do"><spring:message code="fixUpTask.back.finder"/></a>
+		<a href="finder/handyWorker/edit.do"><spring:message code="fixUpTask.edit.finder"/></a>
+	</jstl:if>
+	
+<!-- SI HA PASADO EL TIEMPO DE LA CACHE EDITO EL FINDER-->
+	<jstl:if test="${!lastUpdateFinder}">
+		<a href="finder/handyWorker/edit.do"><spring:message code="fixUpTask.edit.finder"/></a>
+	</jstl:if>
 </security:authorize>

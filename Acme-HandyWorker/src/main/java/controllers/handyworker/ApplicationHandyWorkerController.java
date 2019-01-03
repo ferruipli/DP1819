@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import services.FixUpTaskService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Application;
+import domain.FixUpTask;
 
 @Controller
 @RequestMapping(value = "/application/handyWorker")
@@ -30,6 +32,9 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private ApplicationService	applicationService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -52,6 +57,27 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applicationsAdapted);
 		result.addObject("requestURI", "application/handyWorker/list.do");
+
+		return result;
+	}
+	// Application create -----------------------------------------------------------
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int fixUpTaskId) {
+		ModelAndView result;
+		Application application;
+
+		try {
+			final FixUpTask fixUpTask;
+
+			fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+			application = this.applicationService.create(fixUpTask);
+
+			result = this.createEditModelAndView(application);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/application/handyWorker/list.do?");
+
+		}
 
 		return result;
 	}

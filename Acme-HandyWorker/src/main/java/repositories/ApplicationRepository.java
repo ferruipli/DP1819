@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,4 +46,8 @@ public interface ApplicationRepository extends JpaRepository<domain.Application,
 
 	@Query("select a from Application a where a.fixUpTask.id = ?1")
 	Page<Application> findApplicationByFixUpTask(final int fixUpTaskId, final Pageable pageable);
+
+	@Query("select a from Application a where a.handyWorker.id =?1 and a.fixUpTask.id=?2")
+	Collection<Application> findApplicationByHWFixUpTask(int idHW, int idFixUpTask);
+
 }
