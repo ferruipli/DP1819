@@ -137,12 +137,6 @@ public class SponsorshipService {
 		sponsor.getSponsorships().remove(sponsorship);
 	}
 
-	public void addCreditCardToSponsorship(final Sponsorship sponsorship, final CreditCard creditCard) {
-		Assert.notNull(creditCard);
-
-		sponsorship.setCreditCard(creditCard);
-	}
-
 	public void removeSponsorShipToTutorial(final Sponsorship sponsorship) {
 		Tutorial tutorial;
 		Collection<Sponsorship> sponsorships;

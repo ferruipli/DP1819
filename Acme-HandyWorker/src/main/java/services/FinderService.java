@@ -72,6 +72,7 @@ public class FinderService {
 			this.checkByPrincipal(finder);
 
 		finder.setLastUpdate(date);
+
 		fixUpTasks = this.search(finder);
 		finder.setFixUpTasks(fixUpTasks);
 		result = this.finderRepository.save(finder);

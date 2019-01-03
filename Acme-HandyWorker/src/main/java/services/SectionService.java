@@ -92,7 +92,6 @@ public class SectionService {
 		tutorial = this.tutorialService.findTutorialBySection(section);
 
 		this.removeSectionToTutorial(tutorial, section);
-
 		this.sectionRepository.delete(section);
 	}
 
@@ -107,7 +106,7 @@ public class SectionService {
 		Assert.isTrue(handyWorker.equals(principal));
 	}
 
-	public void removeSectionToTutorial(final Tutorial tutorial, final Section section) {
+	protected void removeSectionToTutorial(final Tutorial tutorial, final Section section) {
 		tutorial.getSections().remove(section);
 	}
 

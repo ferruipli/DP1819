@@ -87,8 +87,8 @@ public class ApplicationService {
 				Assert.notNull(application.getHandyWorker().getCurriculum());
 			}
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[CUSTOMER]"))
-
 				this.utilityService.checkActorIsBanned(this.customerService.findByPrincipal());
+
 			if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
 				//Check that number of accepted application is 0
 				this.checkAcceptedApplication(application);
@@ -103,7 +103,9 @@ public class ApplicationService {
 	}
 	private void checkAcceptedApplication(final Application application) {
 		Application app;
+
 		app = this.findAcceptedApplication(application.getFixUpTask().getId());
+
 		Assert.isTrue(app == null);
 	}
 
@@ -126,7 +128,7 @@ public class ApplicationService {
 	}
 
 	//Other business methods-------------------------------------------
-	public void addCreditCard(final Application application, final CreditCard creditCard) {
+	protected void addCreditCard(final Application application, final CreditCard creditCard) {
 		Assert.isTrue(this.utilityService.checkCreditCard(creditCard));
 		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		application.setCreditCard(creditCard);
@@ -233,6 +235,7 @@ public class ApplicationService {
 		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId(), pageable);
 
 		Assert.isTrue((applications.getNumberOfElements() != 0));
+
 		return applications;
 
 	}

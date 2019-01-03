@@ -99,7 +99,9 @@ public class SponsorService {
 	}
 	protected Sponsor findSponsorBySponsorshipId(final int id) {
 		Sponsor sponsor;
+
 		sponsor = this.sponsorRepository.findSponsorBySponsorshipId(id);
+
 		return sponsor;
 	}
 
