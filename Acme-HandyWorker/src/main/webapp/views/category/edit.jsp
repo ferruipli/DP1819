@@ -19,8 +19,10 @@
 			<spring:message code="category.parent" />:
 		</form:label>
 		<form:select path="parent">
-			<form:options items="${parents}" itemLabel="nameCategory" itemValue="id" />
 			<form:option label="----" value="0" />
+			<jstl:forEach var="categoryId" items="${parents.keySet()}">
+				<form:option label="${parents.get(categoryId)[0]}" value="${categoryId}"/>
+			</jstl:forEach>
 		</form:select>
 		<form:errors cssClass="error" path="parent" />
 		<br/>
