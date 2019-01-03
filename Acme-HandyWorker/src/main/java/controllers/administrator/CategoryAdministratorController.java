@@ -102,19 +102,19 @@ public class CategoryAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(final Locale locale) {
 		final ModelAndView result;
 		CategoryForm categoryForm;
 
 		categoryForm = new CategoryForm();
 
-		result = this.createEditModelAndView(categoryForm);
+		result = this.createEditModelAndView(categoryForm, locale);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int categoryId) {
+	public ModelAndView edit(@RequestParam final int categoryId, final Locale locale) {
 		final ModelAndView result;
 		Category category;
 		CategoryForm categoryForm;
@@ -132,13 +132,13 @@ public class CategoryAdministratorController extends AbstractController {
 		categoryForm.setEn_name(en_name);
 		categoryForm.setEs_name(es_name);
 
-		result = this.createEditModelAndView(categoryForm);
+		result = this.createEditModelAndView(categoryForm, locale);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final CategoryForm categoryForm, final BindingResult binding) {
+	public ModelAndView save(final CategoryForm categoryForm, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
 		String en_name, es_name;
 		Category parent, category;
@@ -148,21 +148,21 @@ public class CategoryAdministratorController extends AbstractController {
 		es_name = this.categoryService.validateName("es_name", categoryForm.getEs_name(), binding);
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(categoryForm);
+			result = this.createEditModelAndView(categoryForm, locale);
 		else
 			try {
 				category = this.categoryService.reconstruct(categoryForm);
 				this.categoryService.save(category);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(categoryForm, "category.commit.error");
+				result = this.createEditModelAndView(categoryForm, locale, "category.commit.error");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final CategoryForm categoryForm, final BindingResult binding) {
+	public ModelAndView delete(final CategoryForm categoryForm, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
 		Category category;
 
@@ -171,38 +171,35 @@ public class CategoryAdministratorController extends AbstractController {
 			this.categoryService.delete(category);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(categoryForm, "category.commit.error");
+			result = this.createEditModelAndView(categoryForm, locale, "category.commit.error");
 		}
 
 		return result;
 	}
 
 	// Arcillary methods --------------------------
-	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm) {
+	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm, final Locale locale) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(categoryForm, null);
+		result = this.createEditModelAndView(categoryForm, locale, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final CategoryForm categoryForm, final Locale locale, final String messageCode) {
 		ModelAndView result;
-		Collection<Category> parents;
+		SortedMap<Integer, List<String>> parents;
+		Collection<Category> categories;
 		Category category;
-		String name;
 
-		parents = this.categoryService.findAll();
-
-		for (final Category c : parents) {
-			name = this.categoryTranslationService.findByLanguageCategory(c.getId(), "en").getName();
-			c.setNameCategory(name);
-		}
+		categories = this.categoryService.findAll();
 
 		if (categoryForm.getId() != 0) {
 			category = this.categoryService.findOne(categoryForm.getId());
-			parents.remove(category);
+			categories.remove(category);
 		}
+
+		parents = this.categoryService.categoriesByLanguage(categories, locale.getLanguage());
 
 		result = new ModelAndView("category/edit");
 
