@@ -9,7 +9,6 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="confirm.telephone" var="confirmTelephone"/>
 <form:form action="actor/${Url}register${role}.do" modelAttribute="${role}">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
@@ -91,7 +90,7 @@
 		<br />
 		
 		<form:label path="address">
-			<spring:message code="actor.address.requested" />
+			<spring:message code="actor.address" />
 		</form:label>
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address" />
