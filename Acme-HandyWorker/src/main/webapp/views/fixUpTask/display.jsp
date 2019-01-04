@@ -19,7 +19,7 @@
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.customer"/>:</strong>
-	<a href="actor/administrator,customer,handyWorker,referee/display.do?actorId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
+	<a href="actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${fixUpTask.customer.id}"><jstl:out value="${fixUpTask.customer.name} ${fixUpTask.customer.surname}"/></a>
 	<br/>
 	
 	<strong><spring:message code="fixUpTask.publicationMoment"/>:</strong>
@@ -67,9 +67,7 @@
 		<strong><spring:message code="fixUpTask.complaints"/>:</strong>
 		<a href="complaint/customer,handyWorker,referee/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.complaint.list"/></a>
 		<br/>
-	</jstl:if>
-	
-	<jstl:if test="${isWorkable}">
+
 		<strong><spring:message code="fixUpTask.phases"/>:</strong>
 		<a href="phase/customer,handyWorker,referee/list.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.phase.list"/></a>
 		<br/>
@@ -77,7 +75,7 @@
 </fieldset>
 	
 	
-<!-- Buttons -->
+<!-- Links -->
 
 <br>
 
@@ -90,5 +88,5 @@
 </security:authorize>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<a href="application/handyWorker/list.do"><spring:message code="fixUpTask.back"/></a>
+	<a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="fixUpTask.back"/></a>
 </security:authorize>

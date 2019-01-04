@@ -130,7 +130,9 @@ public class ReportService {
 
 		principal = this.refereeService.findByPrincipal();
 		creator = this.refereeService.findByReportId(report.getId());
-		this.utilityService.checkActorIsBanned(principal);
+
+		if (principal != null) // This method is being called from ReportService::save
+			this.utilityService.checkActorIsBanned(principal);
 
 		res = creator.equals(principal);
 

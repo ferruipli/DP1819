@@ -15,7 +15,7 @@ import domain.FixUpTask;
 public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 
 	@Query("select f from FixUpTask f where f.customer.id = ?1")
-	Page<FixUpTask> findByCustomerPrincipal(int customerId, Pageable pageable);
+	Page<FixUpTask> findByCustomerId(int customerId, Pageable pageable);
 
 	@Query("select a.fixUpTask from HandyWorker hw join hw.applications a where hw.id = ?1 and a.status = 'ACCEPTED'")
 	Page<FixUpTask> findWorkableByHandyWorkerPrincipal(int handyWorkerId, Pageable pageable);
