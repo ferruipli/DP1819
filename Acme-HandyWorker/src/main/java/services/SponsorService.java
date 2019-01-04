@@ -90,7 +90,7 @@ public class SponsorService {
 		return result;
 	}
 
-	protected Sponsor findByUserAccount(final int userAccountId) {
+	public Sponsor findByUserAccount(final int userAccountId) {
 		Sponsor result;
 
 		result = this.sponsorRepository.findByUserAccount(userAccountId);

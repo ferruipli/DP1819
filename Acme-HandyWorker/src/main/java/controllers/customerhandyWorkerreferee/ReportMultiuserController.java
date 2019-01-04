@@ -48,7 +48,7 @@ public class ReportMultiuserController extends AbstractController {
 		boolean reportEditionPerm;
 
 		report = this.reportService.findOne(reportId);
-		attachments = this.utilityService.getSplittedAttachments(report.getAttachments());
+		attachments = this.utilityService.getSplittedString(report.getAttachments());
 		reportEditionPerm = this.reportService.isPrincipalCreator(report);
 
 		if (!report.getFinalMode() && !reportEditionPerm)

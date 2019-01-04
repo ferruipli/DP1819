@@ -96,7 +96,7 @@
 		<form:errors cssClass="error" path="address" />
 		<br /> 
 	</fieldset>
-<!-- 
+ 
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
 	
@@ -109,12 +109,18 @@
 		<label for="newPasswordId">
 			<spring:message code="userAccount.newPassword" />
 		</label>
-		<input type="password" name="newPassword" id="newPasswordId"/>
+		<input type="password" name="newPassword" id="passwordId"/>
+		<br />
+		
+		<label for="confirmPasswordId">
+			<spring:message code="userAccount.confirmPassword" />
+		</label>
+		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
 	</fieldset>
 	
- -->
+ 
  
  	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
@@ -127,15 +133,15 @@
 			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />" />
 		</jstl:when>
 		<jstl:when test="${role == 'administrator'}">
-			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" />
+			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();" />
 		</jstl:when>
 		<jstl:when test="${role == 'referee'}">
 			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" />
 		</jstl:when>
 	</jstl:choose>
- 
- 	
-	
+  <!-- 
+ 	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
+-->
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actor.id }')" />
 	

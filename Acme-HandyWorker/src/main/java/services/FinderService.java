@@ -61,7 +61,7 @@ public class FinderService {
 
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
-		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+		//this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		Finder result;
 		Date date;
 		Collection<FixUpTask> fixUpTasks;
@@ -101,8 +101,8 @@ public class FinderService {
 
 	//Other business methods-------------------------------------------
 	public Collection<FixUpTask> search(final Finder finder) {
-		this.checkByPrincipal(finder);
-		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+		//this.checkByPrincipal(finder);
+		//this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 
 		final Pageable pageable;
 		final int maxFinderResults;

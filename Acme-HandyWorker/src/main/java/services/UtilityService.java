@@ -108,7 +108,7 @@ public class UtilityService {
 		List<String> attachmentList;
 
 		Assert.notNull(attachments);
-		attachmentList = this.getSplittedAttachments(attachments);
+		attachmentList = this.getSplittedString(attachments);
 
 		for (final String at : attachmentList)
 			try {
@@ -118,14 +118,28 @@ public class UtilityService {
 			}
 	}
 
-	public List<String> getSplittedAttachments(final String attachments) {
+	public void checkTags(final String tags) {
+		List<String> tagsList;
+
+		Assert.notNull(tags);
+		tagsList = this.getSplittedString(tags);
+
+		for (final String t : tagsList)
+			try {
+				new String(t);
+			} catch (final Throwable oops) {
+				throw new IllegalArgumentException("Invalid Tag");
+			}
+	}
+
+	public List<String> getSplittedString(final String string) {
 		List<String> result;
-		String[] attachmentsArray;
+		String[] stringsArray;
 
 		result = new ArrayList<>();
-		attachmentsArray = attachments.split("\r");
+		stringsArray = string.split("\r");
 
-		for (String at : attachmentsArray) {
+		for (String at : stringsArray) {
 			at = at.trim();
 			if (!at.isEmpty())
 				result.add(at);

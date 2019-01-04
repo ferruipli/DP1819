@@ -108,7 +108,6 @@ public class Actor extends DomainEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getAddress() {
 		return this.address;
 	}

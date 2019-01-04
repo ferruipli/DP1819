@@ -83,6 +83,7 @@ public class MessageService {
 	}
 
 	public Message save(final Message message) {
+		this.utilityService.checkTags(message.getTags());
 		Assert.notNull(message);
 		Assert.isTrue(message.getId() == 0);
 		Assert.notNull(message.getSender());

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.ActorService;
 import services.BoxService;
 import services.MessageService;
+import services.UtilityService;
 import controllers.AbstractController;
 import converters.StringToBoxConverter;
 import converters.StringToMessageConverter;
@@ -39,6 +40,9 @@ public class MessageMultiUserController extends AbstractController {
 
 	@Autowired
 	private ActorService				actorService;
+
+	@Autowired
+	private UtilityService				utilityService;
 
 	// Converters
 
@@ -63,14 +67,17 @@ public class MessageMultiUserController extends AbstractController {
 		Message messageToDisplay;
 		Box box;
 		Actor actor;
+		Collection<String> tags;
 
 		actor = this.actorService.findPrincipal();
 		messageToDisplay = this.messageService.findOne(messageId);
+		tags = this.utilityService.getSplittedString(messageToDisplay.getTags());
 		box = this.boxService.searchBoxByMessageAndActor(messageId, actor.getId());
 
 		result = new ModelAndView("message/display");
 		result.addObject("messageToDisplay", messageToDisplay);
 		result.addObject("boxId", box.getId());
+		result.addObject("tags", tags);
 
 		return result;
 	}
