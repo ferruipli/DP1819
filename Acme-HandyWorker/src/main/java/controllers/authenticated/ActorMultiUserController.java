@@ -153,8 +153,23 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
-	public ModelAndView save(@Valid final Administrator actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Administrator actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
+		String newUsername, newPassword, confirmPassword;
+
+		confirmPassword = request.getParameter("confirmPassword");
+		newPassword = request.getParameter("newPassword");
+		newUsername = request.getParameter("newUsername");
+
+		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			else if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword)) {
+
+			} else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);

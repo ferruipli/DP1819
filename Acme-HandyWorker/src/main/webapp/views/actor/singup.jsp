@@ -9,7 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}">
+<spring:message code="confirm.telephone" var="confirmTelephone"/>
+<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -85,7 +86,7 @@
 		<form:label path="phoneNumber">
 			<spring:message code="actor.phoneNumber" />
 		</form:label>
-		<form:input path="phoneNumber" placeholder="+34 654654654"/>
+		<form:input path="phoneNumber" placeholder="+34 654654654" id="phoneNumber"/>
 		<form:errors cssClass="error" path="phoneNumber" />
 		<br />
 		
@@ -105,13 +106,6 @@
 				<br /> 	
  		</jstl:if>
 	</fieldset>
-	
-	<script type="text/javascript">
-		function calcMD5(){
-			document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
-			document.getElementById('confirmPasswordId').value = document.getElementById('passwordId').value ;
-		}
-	</script>
 	
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>

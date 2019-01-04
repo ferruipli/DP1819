@@ -71,7 +71,7 @@ public class ComplaintMultiuserController extends AbstractController {
 		boolean isAssigned, reportCreationPerm;
 
 		complaint = this.complaintService.findOne(complaintId);
-		attachments = this.utilityService.getSplittedAttachments(complaint.getAttachments());
+		attachments = this.utilityService.getSplittedString(complaint.getAttachments());
 		isAssigned = this.complaintService.isAssigned(complaintId);
 		reportCreationPerm = isAssigned ? this.refereeService.principalHasSelfAssigned(complaint) : false;
 

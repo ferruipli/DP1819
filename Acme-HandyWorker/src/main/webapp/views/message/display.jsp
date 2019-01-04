@@ -32,8 +32,15 @@
 	<p> <strong> <spring:message code="message.display.priority" />: </strong>  <jstl:out value="${messageToDisplay.priority}" /> </p>
 	<br />
 	
-	<p> <strong> <spring:message code="message.display.tags" />: </strong> <jstl:out value="${messageToDisplay.tags}" /> </p>
-	<br />
+	<jstl:if test="${not empty tags}">
+		<strong><spring:message code="message.display.tags"/>:</strong>
+		<br>
+		<ul>
+			<jstl:forEach var="tag" items="${tags}">
+				<li><jstl:out value="${tag}" /> </li>
+			</jstl:forEach>
+		</ul>
+	</jstl:if>
 	
 	<p> <strong> <spring:message code="message.display.sender" />: </strong>  <jstl:out value="${messageToDisplay.sender.name} ${messageToDisplay.sender.middleName} ${messageToDisplay.sender.surname} ${messageToDisplay.sender.email}" /> </p>
 	<br />

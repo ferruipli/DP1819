@@ -46,6 +46,22 @@
 			form.submit();
 	}
 	
+	function checkTelephone(msg) {
+		var telephone = document.getElementById("phoneNumber").value;
+		var regExp = /^((\+[0-9]{1,3}\ )?([0-9]{1,3}\ )?([0-9]+)?)$/;
+		
+		if (regExp.test(telephone)) {
+			return true;
+		} else {
+			return confirm(msg);
+		}
+	}
+	
+	function calcMD5(){
+		document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
+		document.getElementById('confirmPasswordId').value = document.getElementById('passwordId').value ;
+	}
+	
 	function relativeRedir(loc) {	
 		var b = document.getElementsByTagName('base');
 		if (b && b[0] && b[0].href) {

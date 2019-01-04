@@ -79,7 +79,7 @@ public class Message extends DomainEntity {
 	public void setPriority(final String priority) {
 		this.priority = priority;
 	}
-	@Pattern(regexp = "^(?!\\s*$).+")
+
 	public String getTags() {
 		return this.tags;
 	}
