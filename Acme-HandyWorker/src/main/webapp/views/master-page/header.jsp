@@ -96,6 +96,16 @@
 			</ul>
 		</li>
 	</security:authorize>
+	
+<!-- if actor is CUSTOMER -->
+<security:authorize access="hasRole('CUSTOMER')">
+			<li><a class="fNiv"><spring:message	code="master.page.fixUpTask" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="fixUpTask/customer/list.do"><spring:message code="master.page.fixUpTask.own.list" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
 		
 <!-- if actor is HANDYWORKER OR CUSTOMER -->
 	<security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
