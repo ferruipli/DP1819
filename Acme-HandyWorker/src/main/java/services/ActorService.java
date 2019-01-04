@@ -66,11 +66,12 @@ public class ActorService {
 		this.utilityService.checkEmailActors(actor);
 		this.utilityService.checkIsSpamMarkAsSuspicious(actor.getAddress() + actor.getEmail() + actor.getMiddleName() + actor.getName() + actor.getSurname(), actor);
 
-		Actor result, principal;
+		Actor result;
+		//final Actor principal;
 		boolean isUpdating;
 
-		principal = this.findPrincipal();
-		this.utilityService.checkActorIsBanned(principal);
+		//principal = this.findPrincipal();
+		//this.utilityService.checkActorIsBanned(principal);
 
 		isUpdating = this.actorRepository.exists(actor.getId());
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
@@ -186,10 +187,11 @@ public class ActorService {
 
 	public boolean existEmail(final String email) {
 		boolean result;
-		Actor actor, principal;
+		Actor actor;
+		//Actor principal;
 
-		principal = this.findPrincipal();
-		this.utilityService.checkActorIsBanned(principal);
+		//principal = this.findPrincipal();
+		//this.utilityService.checkActorIsBanned(principal);
 
 		actor = this.actorRepository.findActorByEmail(email);
 		result = !(actor == null);
