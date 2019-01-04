@@ -141,6 +141,7 @@
 				<li class="arrow"></li>
 				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/display.do"><spring:message code="master.page.actor.display" /></a></li>
 				<li><a href="box/administrator,customer,handyWorker,referee,sponsor/list.do"><spring:message code="master.page.box.list" /></a></li>
+				<li><a href="message/administrator,customer,handyWorker,referee,sponsor/send.do"><spring:message code="master.page.message.send" /></a></li>
 				<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 			</ul>
 		</li>
