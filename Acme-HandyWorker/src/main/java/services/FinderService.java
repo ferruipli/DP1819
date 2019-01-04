@@ -61,7 +61,10 @@ public class FinderService {
 
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
-		//this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
+		HandyWorker handyWorker;
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		if (this.handyWorkerService != null)
+			this.utilityService.checkActorIsBanned(handyWorker);
 		Finder result;
 		Date date;
 		Collection<FixUpTask> fixUpTasks;

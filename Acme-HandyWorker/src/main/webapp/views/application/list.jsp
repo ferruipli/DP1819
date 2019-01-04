@@ -48,7 +48,7 @@
 </security:authorize>
 
 	<display:column style="background-color:${colorValue }" >
-		<a href="application/handyWorker,customer/display.do?applicationId=${row.id}">
+		<a href="application/customer,handyWorker,referee/display.do?applicationId=${row.id}">
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>

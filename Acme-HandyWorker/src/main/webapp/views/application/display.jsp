@@ -80,15 +80,7 @@
  </jstl:if>
  </security:authorize>
  
- 
-<security:authorize access="hasRole('CUSTOMER')" >	   
-	<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
+   
+	<a href="application/customer,handyWorker,referee/list.do?fixUpTaskId=${application.fixUpTask.id}">
 					<spring:message	code="application.return" />
 				</a>
-</security:authorize>
-
-<security:authorize access="hasRole('HANDYWORKER')" >	
-	<a href="application/handyWorker/list.do">
-					<spring:message	code="application.return" />
-				</a>   
-</security:authorize>
