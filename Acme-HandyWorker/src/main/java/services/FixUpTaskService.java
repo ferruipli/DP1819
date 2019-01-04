@@ -149,7 +149,15 @@ public class FixUpTaskService {
 		Customer principal;
 
 		principal = this.customerService.findByPrincipal();
-		result = this.fixUpTaskRepository.findByCustomerPrincipal(principal.getId(), pageable);
+		result = this.findByCustomerId(principal.getId(), pageable);
+
+		return result;
+	}
+
+	public Page<FixUpTask> findByCustomerId(final int customerId, final Pageable pageable) {
+		Page<FixUpTask> result;
+
+		result = this.fixUpTaskRepository.findByCustomerId(customerId, pageable);
 		Assert.notNull(result);
 
 		return result;

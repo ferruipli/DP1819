@@ -52,14 +52,14 @@ public class FixUpTaskCustomerController extends AbstractController {
 	// Listing ----------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+	public ModelAndView list(@RequestParam(required = false) final Integer customerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Page<FixUpTask> fixUpTasks;
 		Pageable pageable;
 		PaginatedListAdapter fixUpTasksAdapted;
 
 		pageable = this.newFixedPageable(page, dir, sort);
-		fixUpTasks = this.fixUpTaskService.findByCustomerPrincipal(pageable);
+		fixUpTasks = customerId == null ? this.fixUpTaskService.findByCustomerPrincipal(pageable) : this.fixUpTaskService.findByCustomerId(customerId, pageable);
 		fixUpTasksAdapted = new PaginatedListAdapter(fixUpTasks, sort);
 
 		result = new ModelAndView("fixUpTask/list");
