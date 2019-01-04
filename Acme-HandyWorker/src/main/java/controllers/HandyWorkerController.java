@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
+import services.ActorService;
 import services.EndorsableService;
 import services.HandyWorkerService;
+import domain.Actor;
 import domain.Endorsable;
 import domain.HandyWorker;
 
@@ -27,6 +29,9 @@ public class HandyWorkerController extends AbstractController {
 
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Constructor
@@ -43,10 +48,17 @@ public class HandyWorkerController extends AbstractController {
 		Endorsable endorsable;
 		Collection<Authority> authorities;
 		HandyWorker handyWorker;
+		Boolean isAuthorized;
+		Actor principal;
 
 		endorsable = this.endorsableService.findOne(actorId);
 		authorities = endorsable.getUserAccount().getAuthorities();
 		handyWorker = this.handyWorkerService.findOne(actorId);
+		principal = this.actorService.findPrincipal();
+		isAuthorized = false;
+
+		if (principal.getId() == handyWorker.getId())
+			isAuthorized = true;
 
 		result = new ModelAndView("actor/display");
 		result.addObject("actor", endorsable);
@@ -54,6 +66,7 @@ public class HandyWorkerController extends AbstractController {
 
 		result.addObject("authorities", authorities);
 		result.addObject("curriculum", handyWorker.getCurriculum());
+		result.addObject("isAuthorized", isAuthorized);
 
 		return result;
 	}
