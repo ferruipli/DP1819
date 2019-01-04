@@ -90,12 +90,13 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		else
 			try {
 				Curriculum curriculum;
-				curriculum = this.curriculumService.findByPrincipal();
-				this.personalRecordService.save(personalRecord);
+				curriculum = handyWorker.getCurriculum();
 				if (curriculum == null) {
 					curriculum = this.curriculumService.create();
+					curriculum.setPersonalRecord(personalRecord);
 					this.curriculumService.save(curriculum);
-				}
+				} else
+					this.personalRecordService.save(personalRecord);
 				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
