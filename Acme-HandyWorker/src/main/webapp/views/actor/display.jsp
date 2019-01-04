@@ -61,7 +61,7 @@
 		</jstl:if>
 		<jstl:if test="${curriculum == null && isAuthorized == true}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
-		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.create"/></a>
+		<a href="personalRecord/handyWorker/create.do?"><spring:message code="actor.curriculum.create"/></a>
 		</p>	
 		</jstl:if>
 	

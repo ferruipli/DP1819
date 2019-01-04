@@ -82,7 +82,7 @@ public class CurriculumService {
 	}
 
 	// Other business methods --------------------------
-	protected Curriculum findByPrincipal() {
+	public Curriculum findByPrincipal() {
 		HandyWorker handyworker;
 		Curriculum result;
 
