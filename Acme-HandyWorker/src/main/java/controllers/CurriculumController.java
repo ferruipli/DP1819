@@ -1,14 +1,11 @@
 
 package controllers;
 
-import javax.validation.Valid;
-
 import org.displaytag.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +21,6 @@ import utilities.internal.PaginatedListAdapter;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
-import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.ProfessionalRecord;
 
@@ -91,58 +87,5 @@ public class CurriculumController extends AbstractController {
 		result.addObject("endorserRecords", endorserRecordsAdapted);
 
 		return result;
-	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-		ModelAndView result;
-		Curriculum curriculum;
-
-		curriculum = this.curriculumService.create();
-
-		result = this.createEditModelAndView(curriculum);
-
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Curriculum curriculum, final BindingResult binding) {
-		ModelAndView result;
-		HandyWorker handyWorker;
-
-		handyWorker = this.handyWorkerService.findByPrincipal();
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(curriculum);
-		else
-			try {
-				this.curriculumService.save(curriculum);
-				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(curriculum, "curriculum.commit.error");
-			}
-
-		return result;
-	}
-
-	// Arcillary methods --------------------------
-
-	protected ModelAndView createEditModelAndView(final Curriculum curriculum) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(curriculum, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(final Curriculum curriculum, final String messageCode) {
-		ModelAndView result;
-
-		result = new ModelAndView("curriculum/edit");
-		result.addObject("curriculum", curriculum);
-		result.addObject("message", messageCode);
-
-		return result;
-
 	}
 }

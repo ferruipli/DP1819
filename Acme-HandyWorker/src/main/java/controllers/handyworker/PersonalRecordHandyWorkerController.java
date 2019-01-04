@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CurriculumService;
 import services.HandyWorkerService;
 import services.PersonalRecordService;
 import controllers.AbstractController;
+import domain.Curriculum;
 import domain.HandyWorker;
 import domain.PersonalRecord;
 
@@ -28,6 +30,9 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	// Constructors ---------------------------------------
@@ -46,6 +51,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 		personalRecord = this.personalRecordService.create();
 		result = this.createEditModelAndView(personalRecord);
+		result.addObject("existCurriculum", false);
 
 		return result;
 
@@ -57,13 +63,14 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int personalRecordId) {
 		ModelAndView result;
 		PersonalRecord personalRecord;
-		Integer handyWorkerId;
+		HandyWorker handyWorker;
 
 		personalRecord = this.personalRecordService.findOne(personalRecordId);
-		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
+		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		result = this.createEditModelAndView(personalRecord);
-		result.addObject("handyWorkerId", handyWorkerId);
+		result.addObject("handyWorkerId", handyWorker.getId());
+		result.addObject("existCurriculum", true);
 
 		return result;
 	}
@@ -82,7 +89,13 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 			result = this.createEditModelAndView(personalRecord);
 		else
 			try {
+				Curriculum curriculum;
+				curriculum = this.curriculumService.findByPrincipal();
 				this.personalRecordService.save(personalRecord);
+				if (curriculum == null) {
+					curriculum = this.curriculumService.create();
+					this.curriculumService.save(curriculum);
+				}
 				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
