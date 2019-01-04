@@ -24,17 +24,17 @@
 	<form:errors cssClass="error" path="description"/>
 	<br/>
 	
-	<form:label path="startMoment" placeholder = "dd/mm/yyyy hh:mm">
+	<form:label path="startMoment">
 		<spring:message code="phase.startMoment"/>:
 	</form:label>
-	<form:input path="startMoment"/>
+	<form:input path="startMoment" placeholder = "dd/mm/yyyy hh:mm"/>
 	<form:errors cssClass="error" path="startMoment"/>
 	<br/>
 	
-	<form:label path="endMoment" placeholder = "dd/mm/yyyy hh:mm">
+	<form:label path="endMoment">
 		<spring:message code="phase.endMoment"/>:
 	</form:label>
-	<form:input path="endMoment"/>
+	<form:input path="endMoment" placeholder = "dd/mm/yyyy hh:mm"/>
 	<form:errors cssClass="error" path="endMoment"/>
 	<br/>
 	
