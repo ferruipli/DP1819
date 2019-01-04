@@ -48,17 +48,12 @@ public class HandyWorkerController extends AbstractController {
 		Endorsable endorsable;
 		Collection<Authority> authorities;
 		HandyWorker handyWorker;
-		Boolean isAuthorized;
-		Actor principal;
+		final Boolean isAuthorized;
+		final Actor principal;
 
 		endorsable = this.endorsableService.findOne(actorId);
 		authorities = endorsable.getUserAccount().getAuthorities();
 		handyWorker = this.handyWorkerService.findOne(actorId);
-		principal = this.actorService.findPrincipal();
-		isAuthorized = false;
-
-		if (principal.getId() == handyWorker.getId())
-			isAuthorized = true;
 
 		result = new ModelAndView("actor/display");
 		result.addObject("actor", endorsable);
@@ -66,7 +61,7 @@ public class HandyWorkerController extends AbstractController {
 
 		result.addObject("authorities", authorities);
 		result.addObject("curriculum", handyWorker.getCurriculum());
-		result.addObject("isAuthorized", isAuthorized);
+		result.addObject("isAuthorized", false);
 
 		return result;
 	}

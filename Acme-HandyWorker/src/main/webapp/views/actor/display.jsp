@@ -54,7 +54,7 @@
 		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
 	</p>
 	<jstl:if test="${actor.userAccount.authorities=='[HANDYWORKER]'}">
-		<jstl:if test="${curriculum != null}">
+		<jstl:if test="${actor.curriculum != null}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
 		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.display"/></a>
 		</p>	

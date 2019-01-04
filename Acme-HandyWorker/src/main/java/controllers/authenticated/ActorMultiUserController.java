@@ -80,8 +80,10 @@ public class ActorMultiUserController extends AbstractController {
 		}
 
 		result.addObject("authorities", authorities);
-		result.addObject("curriculum", handyWorker.getCurriculum());
 		result.addObject("isAuthorized", true);
+
+		if (actor instanceof HandyWorker)
+			result.addObject("curriculum", handyWorker.getCurriculum());
 
 		return result;
 	}
