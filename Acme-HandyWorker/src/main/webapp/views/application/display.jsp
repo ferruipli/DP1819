@@ -19,9 +19,9 @@
 
 
 <p>
-	<strong> <spring:message code="application.fixUpTask" />: </strong>
-	<jstl:out value="${application.fixUpTask.ticker}" />
-</p>
+	<strong><spring:message code="application.fixUpTask"/>:</strong>
+	<a href="fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=${application.fixUpTask.id}"><jstl:out value="${application.fixUpTask.ticker}"/></a>
+	<br/>
 
 	<p>
 	<strong> <spring:message code="application.registerMoment" />: </strong>

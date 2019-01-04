@@ -227,9 +227,14 @@ public class FixUpTaskService {
 		HandyWorker handyWorker;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
-		result = this.fixUpTaskRepository.findFixUpTaskFinderPaged(handyWorker.getFinder().getId(), pageable);
+		result = null;
 
-		Assert.notNull(result);
+		if(handyWorker.getFinder() !=null){
+			result = this.fixUpTaskRepository.findFixUpTaskFinderPaged(handyWorker.getFinder().getId(), pageable);
+
+			Assert.notNull(result);
+		}
+		
 
 		return result;
 	}

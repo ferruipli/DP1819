@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ApplicationService;
-import services.CustomisationService;
 import controllers.AbstractController;
 import domain.Application;
 
@@ -29,10 +28,7 @@ import domain.Application;
 public class ApplicationHandyWorkerCustomerController extends AbstractController {
 
 	@Autowired
-	private ApplicationService		applicationService;
-
-	@Autowired
-	private CustomisationService	customisationService;
+	private ApplicationService	applicationService;
 
 
 	// Constructors -----------------------------------------------------------
