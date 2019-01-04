@@ -116,7 +116,7 @@ public class CustomerService {
 		return result;
 	}
 
-	protected Customer findByUserAccount(final int userAccountId) {
+	public Customer findByUserAccount(final int userAccountId) {
 		Customer result;
 
 		result = this.customerRepository.findByUserAccount(userAccountId);

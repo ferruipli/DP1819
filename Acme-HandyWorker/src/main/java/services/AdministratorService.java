@@ -71,7 +71,7 @@ public class AdministratorService {
 		return result;
 	}
 
-	private Administrator findByUserAccount(final int userAccountId) {
+	public Administrator findByUserAccount(final int userAccountId) {
 		Administrator result;
 
 		result = this.administratorRepository.findByUserAccount(userAccountId);

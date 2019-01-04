@@ -139,9 +139,9 @@
 			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" />
 		</jstl:when>
 	</jstl:choose>
- 
- 	
-	
+  <!-- 
+ 	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
+-->
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actor.id }')" />
 	

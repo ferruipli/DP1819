@@ -48,6 +48,20 @@ public class ActorMultiUserController extends AbstractController {
 	private HandyWorkerService	handyWorkerService;
 
 
+	/*
+	 * @Autowired
+	 * private AdministratorService administratorService;
+	 * 
+	 * @Autowired
+	 * private CustomerService customerService;
+	 * 
+	 * @Autowired
+	 * private RefereeService refereeService;
+	 * 
+	 * @Autowired
+	 * private SponsorService sponsorService;
+	 */
+
 	// Constructor
 
 	public ActorMultiUserController() {
@@ -151,6 +165,70 @@ public class ActorMultiUserController extends AbstractController {
 		return result;
 
 	}
+	/*
+	 * @RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	 * public ModelAndView save(@Valid Actor actor, final BindingResult binding, final HttpServletRequest request) {
+	 * ModelAndView result;
+	 * String newUsername, newPassword, confirmPassword;
+	 * 
+	 * confirmPassword = request.getParameter("confirmPassword");
+	 * newPassword = request.getParameter("newPassword");
+	 * newUsername = request.getParameter("newUsername");
+	 * 
+	 * if (!newUsername.isEmpty() && !newPassword.isEmpty())
+	 * if (this.userAccountService.existUsername(newUsername))
+	 * this.editModelAndView(actor, "actor.username.used");
+	 * else if (newPassword.length() < 5 || newPassword.length() > 32)
+	 * this.editModelAndView(actor, "actor.password.size");
+	 * else if (!confirmPassword.equals(newPassword)) {
+	 * 
+	 * } else
+	 * this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
+	 * 
+	 * if (binding.hasErrors())
+	 * result = this.editModelAndView(actor);
+	 * else
+	 * try {
+	 * for (final Authority a : this.userAccountService.findByActor(actor).getAuthorities())
+	 * switch (a.toString()) {
+	 * case Authority.ADMIN:
+	 * Administrator administrator;
+	 * administrator = this.administratorService.findByUserAccount(actor.getUserAccount().getId());
+	 * this.actorService.save(administrator);
+	 * break;
+	 * case Authority.CUSTOMER:
+	 * actor = new Customer();
+	 * //customer = this.customerService.findByUserAccount(actor.getUserAccount().getId());
+	 * final Customer customer = (Customer) actor;
+	 * this.actorService.save(customer);
+	 * break;
+	 * case Authority.HANDYWORKER:
+	 * HandyWorker handyWorker;
+	 * handyWorker = this.handyWorkerService.findByUserAccount(actor.getUserAccount().getId());
+	 * this.actorService.save(handyWorker);
+	 * break;
+	 * case Authority.REFEREE:
+	 * Referee referee;
+	 * referee = this.refereeService.findByUserAccount(actor.getUserAccount().getId());
+	 * this.actorService.save(referee);
+	 * break;
+	 * case Authority.SPONSOR:
+	 * Sponsor sponsor;
+	 * sponsor = this.sponsorService.findByUserAccount(actor.getUserAccount().getId());
+	 * this.actorService.save(sponsor);
+	 * break;
+	 * default:
+	 * break;
+	 * }
+	 * 
+	 * result = new ModelAndView("redirect:display.do?actorId=" + actor.getId());
+	 * } catch (final Throwable oops) {
+	 * result = this.editModelAndView(actor, "actor.commit.error");
+	 * }
+	 * 
+	 * return result;
+	 * }
+	 */
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
 	public ModelAndView save(@Valid final Administrator actor, final BindingResult binding, final HttpServletRequest request) {
@@ -185,8 +263,24 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveCustomer")
-	public ModelAndView save(@Valid final Customer actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Customer actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
+
+		String newUsername, newPassword, confirmPassword;
+
+		confirmPassword = request.getParameter("confirmPassword");
+		newPassword = request.getParameter("newPassword");
+		newUsername = request.getParameter("newUsername");
+
+		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			else if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword)) {
+
+			} else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
@@ -202,8 +296,24 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveHw")
-	public ModelAndView save(@Valid final HandyWorker actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final HandyWorker actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
+
+		String newUsername, newPassword, confirmPassword;
+
+		confirmPassword = request.getParameter("confirmPassword");
+		newPassword = request.getParameter("newPassword");
+		newUsername = request.getParameter("newUsername");
+
+		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			else if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword)) {
+
+			} else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
@@ -219,8 +329,24 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveReferee")
-	public ModelAndView save(@Valid final Referee actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Referee actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
+
+		String newUsername, newPassword, confirmPassword;
+
+		confirmPassword = request.getParameter("confirmPassword");
+		newPassword = request.getParameter("newPassword");
+		newUsername = request.getParameter("newUsername");
+
+		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			else if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword)) {
+
+			} else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
@@ -236,8 +362,24 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveSponsor")
-	public ModelAndView save(@Valid final Sponsor actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Sponsor actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
+
+		String newUsername, newPassword, confirmPassword;
+
+		confirmPassword = request.getParameter("confirmPassword");
+		newPassword = request.getParameter("newPassword");
+		newUsername = request.getParameter("newUsername");
+
+		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			else if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword)) {
+
+			} else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);

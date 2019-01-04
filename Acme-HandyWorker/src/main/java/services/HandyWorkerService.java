@@ -118,7 +118,7 @@ public class HandyWorkerService {
 		return result;
 	}
 
-	protected HandyWorker findByUserAccount(final int userAccountId) {
+	public HandyWorker findByUserAccount(final int userAccountId) {
 		HandyWorker result;
 
 		result = this.handyWorkerRepository.findByUserAccount(userAccountId);

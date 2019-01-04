@@ -106,7 +106,7 @@ public class RefereeService {
 		return result;
 	}
 
-	protected Referee findByUserAccount(final int userAccountId) {
+	public Referee findByUserAccount(final int userAccountId) {
 		Referee result;
 
 		result = this.refereeRepository.findByUserAccount(userAccountId);
