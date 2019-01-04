@@ -35,7 +35,9 @@
 		<p> <strong> <spring:message code="endorsable.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
 	</jstl:if>
 	
+	<jstl:if test="${isAuthorized == true}">
 	<a href="actor/administrator,customer,handyWorker,referee,sponsor/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
+	</jstl:if>
 </fieldset>
 
 <fieldset>
@@ -52,9 +54,14 @@
 		<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a>
 	</p>
 	<jstl:if test="${actor.userAccount.authorities=='[HANDYWORKER]'}">
-		<jstl:if test="${curriculum != null}">
+		<jstl:if test="${actor.curriculum != null}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
 		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.display"/></a>
+		</p>	
+		</jstl:if>
+		<jstl:if test="${curriculum == null && isAuthorized == true}">
+		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
+		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.create"/></a>
 		</p>	
 		</jstl:if>
 	
