@@ -30,7 +30,7 @@ import domain.Application;
 import domain.FixUpTask;
 
 @Controller
-@RequestMapping(value = "/application/customer")
+@RequestMapping("/application/customer")
 public class ApplicationCustomerController extends AbstractController {
 
 	@Autowired

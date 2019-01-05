@@ -33,7 +33,7 @@ import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
-@RequestMapping(value = "/sponsorship/sponsor")
+@RequestMapping("/sponsorship/sponsor")
 public class SponsorshipSponsorController extends AbstractController {
 
 	@Autowired

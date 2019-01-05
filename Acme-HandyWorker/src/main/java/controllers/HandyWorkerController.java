@@ -17,7 +17,7 @@ import domain.Endorsable;
 import domain.HandyWorker;
 
 @Controller
-@RequestMapping(value = "/handyWorker")
+@RequestMapping("/handyWorker")
 public class HandyWorkerController extends AbstractController {
 
 	// Services

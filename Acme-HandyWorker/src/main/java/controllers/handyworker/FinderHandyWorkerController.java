@@ -24,7 +24,7 @@ import controllers.AbstractController;
 import domain.Finder;
 
 @Controller
-@RequestMapping(value = "/finder/handyWorker")
+@RequestMapping("/finder/handyWorker")
 public class FinderHandyWorkerController extends AbstractController {
 
 	@Autowired

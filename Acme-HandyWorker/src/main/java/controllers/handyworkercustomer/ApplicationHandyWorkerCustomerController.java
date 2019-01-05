@@ -24,7 +24,7 @@ import controllers.AbstractController;
 import domain.Application;
 
 @Controller
-@RequestMapping(value = "/application/handyWorker,customer")
+@RequestMapping("/application/handyWorker,customer")
 public class ApplicationHandyWorkerCustomerController extends AbstractController {
 
 	@Autowired
