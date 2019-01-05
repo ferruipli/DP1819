@@ -28,7 +28,7 @@ import domain.Application;
 import domain.FixUpTask;
 
 @Controller
-@RequestMapping(value = "/application/customer,handyWorker,referee")
+@RequestMapping("/application/customer,handyWorker,referee")
 public class ApplicationMultiuserController extends AbstractController {
 
 	@Autowired
