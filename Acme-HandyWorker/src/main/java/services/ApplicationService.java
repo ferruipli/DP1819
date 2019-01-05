@@ -77,10 +77,9 @@ public class ApplicationService {
 		Assert.notNull(application);
 		final Application result;
 
-		if (application.getId() == 0) {
+		if (application.getId() == 0)
 			Assert.notNull(application.getHandyWorker().getCurriculum());
-			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
-		} else {
+		else {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
 				this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getHandyWorkerComments(), this.handyWorkerService.findByPrincipal());

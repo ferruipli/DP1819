@@ -75,7 +75,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 			result = this.createEditModelAndView(application);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/application/handyWorker/list.do?");
+			result = new ModelAndView("redirect:/application/handyWorker/list.do");
 
 		}
 

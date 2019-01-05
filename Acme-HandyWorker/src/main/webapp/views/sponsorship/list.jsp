@@ -18,7 +18,7 @@
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<display:table id="row" name="sponsorships"  requestURI="${requestURI}" class="displaytag">
+<display:table id="row" name="sponsorships"  requestURI="${requestURI}"  pagesize="5" class="displaytag">
 
 	<display:column property="banner" titleKey="sponsorship.banner" sortable="true" />
 
