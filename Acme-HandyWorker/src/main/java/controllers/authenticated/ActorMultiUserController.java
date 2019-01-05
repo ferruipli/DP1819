@@ -71,15 +71,24 @@ public class ActorMultiUserController extends AbstractController {
 	// Display
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
+	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
 		ModelAndView result;
 		Actor actor;
 		Endorsable endorsable;
 		Collection<Authority> authorities;
 		HandyWorker handyWorker;
 
-		actor = this.actorService.findPrincipal();
-		authorities = actor.getUserAccount().getAuthorities();
+		actor = null;
+		authorities = null;
+
+		if (actorId == null) {
+			actor = this.actorService.findPrincipal();
+			authorities = actor.getUserAccount().getAuthorities();
+		} else
+			actor = this.endorsableService.findOne(actorId);
+
+		//actor = this.actorService.findPrincipal();
+		//authorities = actor.getUserAccount().getAuthorities();
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		result = new ModelAndView("actor/display");
@@ -94,7 +103,10 @@ public class ActorMultiUserController extends AbstractController {
 		}
 
 		result.addObject("authorities", authorities);
-		result.addObject("isAuthorized", true);
+		if (actorId != null)
+			result.addObject("isAuthorized", false);
+		else
+			result.addObject("isAuthorized", true);
 
 		if (actor instanceof HandyWorker)
 			result.addObject("curriculum", handyWorker.getCurriculum());

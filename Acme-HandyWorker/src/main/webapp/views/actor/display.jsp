@@ -70,6 +70,15 @@
 		<a href="tutorial/listHandyWorker.do?handyWorkerId=${actor.id}"><spring:message code="actor.tutorial.display"/></a>
 	</p>
 	</jstl:if>
+	
+	<security:authorize access="hasRole('CUSTOMER')">
+		<p> <strong> <spring:message code="actor.fixuptask" />: </strong>  
+		<a href="fixUpTask/customer/list.do?customerId=${actor.id}"><spring:message code="actor.customer.fixuptask"/></a>
+		</p>
+	</security:authorize>
+	
+	
+	
 </fieldset>
 
 <input type="button" name="return" value="<spring:message code="actor.return" />" 
