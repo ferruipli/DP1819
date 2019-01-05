@@ -51,12 +51,12 @@ public class TutorialController extends AbstractController {
 		Collection<Sponsorship> sponsorships;
 		Sponsorship sponsorship;
 
-		result = new ModelAndView("tutorial/display");
 		tutorial = this.tutorialService.findOne(tutorialId);
 		sections = tutorial.getSections();
 		sponsorships = tutorial.getSponsorShips();
 		sponsorship = this.getRandomSponsorship(sponsorships);
 
+		result = new ModelAndView("tutorial/display");
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
 		result.addObject("sponsorships", sponsorships);

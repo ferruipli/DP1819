@@ -10,7 +10,6 @@
 package controllers.sponsor;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,12 +27,13 @@ import services.SponsorService;
 import services.SponsorshipService;
 import services.TutorialService;
 import controllers.AbstractController;
+import domain.Customisation;
 import domain.Sponsor;
 import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
-@RequestMapping(value = "/sponsorship/sponsor")
+@RequestMapping("/sponsorship/sponsor")
 public class SponsorshipSponsorController extends AbstractController {
 
 	@Autowired
@@ -60,12 +60,9 @@ public class SponsorshipSponsorController extends AbstractController {
 	public ModelAndView create(@RequestParam final int tutorialId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
-		List<String> brandName;
 
 		sponsorship = this.sponsorshipService.create();
-		brandName = (List<String>) this.customisationService.find().getCreditCardMakes();
 		result = this.createEditModelAndView(sponsorship, tutorialId);
-		result.addObject("brandName", brandName);
 
 		return result;
 	}
@@ -141,9 +138,15 @@ public class SponsorshipSponsorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship, final Integer tutorialId, final String messageCode) {
 		ModelAndView result;
+		Collection<String> creditCardMakes;
+		Customisation customisation;
+
+		customisation = this.customisationService.find();
+		creditCardMakes = customisation.getCreditCardMakes();
 
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
+		result.addObject("brandName", creditCardMakes);
 		result.addObject("tutorialId", tutorialId);
 		result.addObject("message", messageCode);
 

@@ -19,45 +19,41 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <display:table id="row" name="tutorials"  requestURI="${requestURI}" class="displaytag">
-
 	<display:column property="title" titleKey="tutorial.title" sortable="true" />
-
 
 	<spring:message code="tutorial.formatMoment" var="formatMoment"/>
 	<display:column  property="moment" titleKey="tutorial.moment" sortable="true"  format="${formatMoment}"  />
 
 	<display:column property="summary" titleKey="tutorial.summary" />
-	
-	
-	<display:column>
-	<a href="tutorial/display.do?tutorialId=${row.id}">
-		<spring:message	code="tutorial.display" />			
-	</a>
-	</display:column>
-
 		
-	<security:authorize access="hasRole('HANDYWORKER')">
-	<display:column >
-		<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
-			<spring:message	code="tutorial.edit" />
+	<display:column>
+		<a href="tutorial/display.do?tutorialId=${row.id}">
+			<spring:message	code="tutorial.display" />			
 		</a>
 	</display:column>
+
+	<security:authorize access="hasRole('HANDYWORKER')">
+		<display:column >
+			<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
+				<spring:message	code="tutorial.edit" />
+			</a>
+		</display:column>
 	</security:authorize>
 	
 	<security:authorize access="hasRole('SPONSOR')">
-	<display:column >
-		<a href="sponsorship/sponsor/edit.do?tutorialId=${row.id}">
-			<spring:message	code="tutorial.suport" />
-		</a>
-	</display:column>
-</security:authorize>
+		<display:column >
+			<a href="sponsorship/sponsor/edit.do?tutorialId=${row.id}">
+				<spring:message	code="tutorial.suport" />
+			</a>
+		</display:column>
+	</security:authorize>
 </display:table>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-		<a href="tutorial/handyWorker/create.do?">
-			<spring:message	code="tutorial.create" />
-		</a>
-	</security:authorize>
+	<a href="tutorial/handyWorker/create.do?">
+		<spring:message	code="tutorial.create" />
+	</a>
+</security:authorize>
 	
 	
 

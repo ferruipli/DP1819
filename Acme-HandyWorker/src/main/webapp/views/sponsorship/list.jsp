@@ -19,18 +19,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <display:table id="row" name="sponsorships"  requestURI="${requestURI}" class="displaytag">
-
+	<display:column>
+		<a href="sponsorship/sponsor/display.do?sponsorshipId=${row.id}">
+			<spring:message	code="sponsorship.display" />			
+		</a>
+	</display:column>
+	
 	<display:column property="banner" titleKey="sponsorship.banner" sortable="true" />
 
-	<display:column property="targetPage" titleKey="sponsorship.targetPage" />
-	
-	<display:column>
-	<a href="sponsorship/sponsor/display.do?sponsorshipId=${row.id}">
-		<spring:message	code="sponsorship.display" />			
-	</a>
-	</display:column>	
+	<display:column property="targetPage" titleKey="sponsorship.targetPage" />		
 </display:table>
-
-	
-	
-

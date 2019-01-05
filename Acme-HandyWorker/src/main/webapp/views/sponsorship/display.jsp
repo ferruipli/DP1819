@@ -20,18 +20,19 @@
 
 <p>
 	<strong> <spring:message code="sponsorship.targetPage" />: </strong>
-	<a href="${sponsorship.targetPage}" ><jstl:out value="${sponsorship.targetPage}" /></a>
+	<a href="${sponsorship.targetPage}" >
+		<jstl:out value="${sponsorship.targetPage}" />
+	</a>
 </p>
 
 <p>
 	<strong> <spring:message code="sponsorship.banner" />: </strong>
-	<img src="${sponsorship.banner}">
 </p>
-
-
+<img src="${sponsorship.banner}" alt="Banner" width="300" height="400">
+<br />
 
 <a href="sponsorship/sponsor/list.do">
-		<spring:message	code="sponsorship.return" />			
-	</a>
+	<spring:message	code="sponsorship.return" />			
+</a>
 
 	
