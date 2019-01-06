@@ -81,7 +81,7 @@
 
 <security:authorize access="hasRole('REFEREE')">
 	<a href="complaint/referee/listSelfAssigned.do"><spring:message code="fixUpTask.back.selfAssigned"/></a>
-	&nbsp;
+	<br>
 	<a href="complaint/referee/listNotAssigned.do"><spring:message code="fixUpTask.back.notAssigned"/></a>
 </security:authorize>
 
