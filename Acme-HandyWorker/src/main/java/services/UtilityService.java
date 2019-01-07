@@ -66,6 +66,21 @@ public class UtilityService {
 		Assert.isTrue(email.matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"));
 	}
 
+	public String getValidPhone(final String phone) {
+		String countryCode, result;
+
+		if (!(phone == null || phone.equals(""))) {
+			if (phone.matches("(([0-9]{1,3}\\ )?([0-9]+))")) {
+				countryCode = this.customisationService.find().getCountryCode();
+				result = countryCode + " " + phone;
+			} else
+				result = phone;
+		} else
+			result = null;
+
+		return result;
+	}
+
 	public String generateValidTicker() {
 		String numbers, result;
 		Integer day, month, year;
