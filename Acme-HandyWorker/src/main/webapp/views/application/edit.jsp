@@ -24,12 +24,12 @@
 	<form:hidden path="registerMoment" />
 	<form:hidden path="handyWorker" />	
 	<form:hidden path="fixUpTask" />
-	<form:hidden path="status" />
-	<form:hidden path="creditCard" />	
-	<form:hidden path="handyWorkerComments" />
-	<form:hidden path="customerComments" />
+	<form:hidden path="status" />	
 
 <security:authorize access="hasRole('HANDYWORKER')">
+	
+	<form:hidden path="customerComments" />	
+	<form:hidden path="creditCard" />
 	
 	<jstl:if test="${application.status=='PENDING'}">
 		<form:label path="offeredPrice">
@@ -49,6 +49,8 @@
 </security:authorize>
 	
 <security:authorize access="hasRole('CUSTOMER')">
+
+	<form:hidden path="handyWorkerComments" />
 		<form:label path="customerComments">
 			<spring:message code="application.customerComments" />:
 		</form:label>

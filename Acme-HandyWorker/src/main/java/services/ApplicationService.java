@@ -77,10 +77,13 @@ public class ApplicationService {
 		Assert.notNull(application);
 		final Application result;
 
-		if (application.getId() == 0)
+		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
-		else {
+			result = this.applicationRepository.save(application);
+			this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
+		} else {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
+				Assert.isTrue(this.handyWorkerService.findByPrincipal().equals(application.getHandyWorker()));
 				this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getHandyWorkerComments(), this.handyWorkerService.findByPrincipal());
 				Assert.notNull(application.getHandyWorker().getCurriculum());
@@ -94,11 +97,8 @@ public class ApplicationService {
 				}
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getCustomerComments(), this.customerService.findByPrincipal());
 			}
-
+			result = this.applicationRepository.save(application);
 		}
-		result = this.applicationRepository.save(application);
-
-		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
 	}

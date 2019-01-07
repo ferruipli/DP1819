@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
 import services.CustomisationService;
-import services.FixUpTaskService;
 import controllers.AbstractController;
 import domain.Application;
 
@@ -30,9 +29,6 @@ public class ApplicationCustomerController extends AbstractController {
 
 	@Autowired
 	private ApplicationService		applicationService;
-
-	@Autowired
-	private FixUpTaskService		fixUpTasksService;
 
 	@Autowired
 	private CustomisationService	customisationService;
@@ -49,13 +45,10 @@ public class ApplicationCustomerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
-		List<String> brandName;
 
 		application = this.applicationService.findOne(applicationId);
-		brandName = (List<String>) this.customisationService.find().getCreditCardMakes();
 
 		result = this.createEditModelAndView(application);
-		result.addObject("brandName", brandName);
 		return result;
 	}
 
@@ -69,7 +62,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		try {
 			this.applicationService.changeStatus(application);
-			result = new ModelAndView("redirect:../../fixUpTask/list.do");
+			result = new ModelAndView("redirect:../../fixUpTask/customer/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(application, "application.commit.error");
 		}
@@ -87,10 +80,14 @@ public class ApplicationCustomerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Application application, final String messageCode) {
 		ModelAndView result;
+		List<String> brandName;
+
+		brandName = (List<String>) this.customisationService.find().getCreditCardMakes();
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
 		result.addObject("message", messageCode);
+		result.addObject("brandName", brandName);
 
 		return result;
 	}
