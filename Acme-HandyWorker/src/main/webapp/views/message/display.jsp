@@ -62,6 +62,12 @@
 
 <input type="button" name="return" value="<spring:message code="message.button.return" />" 
 				onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${boxId}');" />
-				
+<!-- 
+<jstl:if test="${messageToDisplay.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="message.button.delete"/>" 
+			onclick="return confirm('<spring:message code="message.confirm.delete" />')" />
+
+</jstl:if>
+ -->					
 <input type="submit" name="move" value="<spring:message code="message.button.move" />"
 				onclick="javascript: relativeRedir('message/administrator,customer,handyWorker,referee,sponsor/move.do?messageId=${messageToDisplay.id}');" />
