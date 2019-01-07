@@ -70,7 +70,7 @@ public class UtilityService {
 	public String getValidPhone(String phone) {
 		String countryCode, result;
 
-		if (!(phone == null || phone.equals(""))) {
+		if (phone != null && !phone.equals("")) {
 			phone = phone.trim();
 
 			if (phone.matches("(([0-9]{1,3}\\ )?([0-9]+))")) {
