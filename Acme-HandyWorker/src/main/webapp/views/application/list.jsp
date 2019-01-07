@@ -31,14 +31,6 @@
 		<jstl:set var="colorValue" value="green" />
 	</jstl:if>
 	
-
-	<spring:message code="application.formatMoment" var="formatMomentHeader" />
-	<display:column  property="registerMoment" titleKey="application.registerMoment" sortable="true" format="${formatMomentHeader}" style="background-color:${colorValue }" />
-
-	<display:column property="fixUpTask.ticker" titleKey="application.fixUpTask"  style="background-color:${colorValue }"/>
-
-	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
-
 <security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
 		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
@@ -73,5 +65,13 @@
 	</display:column>	
 
 </security:authorize>
-	
+
+
+	<spring:message code="application.formatMoment" var="formatMomentHeader" />
+	<display:column  property="registerMoment" titleKey="application.registerMoment" sortable="true" format="${formatMomentHeader}" style="background-color:${colorValue }" />
+
+	<display:column property="fixUpTask.ticker" titleKey="application.fixUpTask"  style="background-color:${colorValue }"/>
+
+	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
+
 </display:table>
