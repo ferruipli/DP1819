@@ -110,16 +110,17 @@
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
 
 <security:authorize access="hasRole('HANDYWORKER')">
-		<a href="application/handyWorker/list.do">
-					<spring:message	code="application.return" />
-				</a> 
+		<input type="button" name="cancel"	value="<spring:message code="application.cancel"/>" 
+		onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
+	<br />
 </security:authorize>	
 	
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
-					<spring:message	code="application.return" />
-	</a>
+
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel"/>" 
+		onclick="javascript: relativeRedir('application/customer,handyWorker,referee/list.do?fixUpTaskId=${application.fixUpTask.id}');" />
+	<br />
 </security:authorize>
 	
 

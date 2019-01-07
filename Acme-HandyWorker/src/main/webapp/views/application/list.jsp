@@ -74,6 +74,4 @@
 
 	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
 
-
-	
 </display:table>
