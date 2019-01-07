@@ -77,6 +77,7 @@ public class ActorService {
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
 
 		result = this.actorRepository.save(actor);
+		result.setPhoneNumber(this.utilityService.getValidPhone(actor.getPhoneNumber()));
 
 		if (!isUpdating)
 			this.boxService.createDefaultBox(result);
