@@ -24,12 +24,12 @@
 	<form:hidden path="registerMoment" />
 	<form:hidden path="handyWorker" />	
 	<form:hidden path="fixUpTask" />
-	<form:hidden path="status" />
-	<form:hidden path="creditCard" />	
-	<form:hidden path="handyWorkerComments" />
-	<form:hidden path="customerComments" />
+	<form:hidden path="status" />	
 
 <security:authorize access="hasRole('HANDYWORKER')">
+	
+	<form:hidden path="customerComments" />	
+	<form:hidden path="creditCard" />
 	
 	<jstl:if test="${application.status=='PENDING'}">
 		<form:label path="offeredPrice">
@@ -49,6 +49,8 @@
 </security:authorize>
 	
 <security:authorize access="hasRole('CUSTOMER')">
+
+	<form:hidden path="handyWorkerComments" />
 		<form:label path="customerComments">
 			<spring:message code="application.customerComments" />:
 		</form:label>
@@ -110,16 +112,17 @@
 	<input type="submit" name="save" value="<spring:message code="application.save" />" />
 
 <security:authorize access="hasRole('HANDYWORKER')">
-		<a href="application/handyWorker/list.do">
-					<spring:message	code="application.return" />
-				</a> 
+		<input type="button" name="cancel"	value="<spring:message code="application.cancel"/>" 
+		onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
+	<br />
 </security:authorize>	
 	
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<a href="application/customer/list.do?fixUpTaskId=${application.fixUpTask.id}">
-					<spring:message	code="application.return" />
-	</a>
+
+	<input type="button" name="cancel"	value="<spring:message code="application.cancel"/>" 
+		onclick="javascript: relativeRedir('application/customer,handyWorker,referee/list.do?fixUpTaskId=${application.fixUpTask.id}');" />
+	<br />
 </security:authorize>
 	
 

@@ -79,9 +79,11 @@ public class ApplicationService {
 
 		if (application.getId() == 0) {
 			Assert.notNull(application.getHandyWorker().getCurriculum());
-			this.fixUpTaskService.addApplication(application.getFixUpTask(), application);
+			result = this.applicationRepository.save(application);
+			this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 		} else {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
+				Assert.isTrue(this.handyWorkerService.findByPrincipal().equals(application.getHandyWorker()));
 				this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getHandyWorkerComments(), this.handyWorkerService.findByPrincipal());
 				Assert.notNull(application.getHandyWorker().getCurriculum());
@@ -95,11 +97,8 @@ public class ApplicationService {
 				}
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getCustomerComments(), this.customerService.findByPrincipal());
 			}
-
+			result = this.applicationRepository.save(application);
 		}
-		result = this.applicationRepository.save(application);
-
-		this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
 
 		return result;
 	}

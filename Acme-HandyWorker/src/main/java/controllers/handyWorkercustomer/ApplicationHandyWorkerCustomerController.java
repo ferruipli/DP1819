@@ -46,17 +46,12 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 			result = this.createEditModelAndView(application);
 		else
 			try {
-
-				//If status is pending and actor is handyworker he/she can edit application
-				if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]")) {
-					this.applicationService.save(application);
+				this.applicationService.save(application);
+				if (LoginService.getPrincipal().getAuthorities().toString().equals("[HANDYWORKER]"))
 					result = new ModelAndView("redirect:../../application/handyWorker/list.do");
-
-					//If actor is customer 
-				} else {
-					this.applicationService.save(application);
-					result = new ModelAndView("redirect:../../");
-				}
+				else
+					//if actor is customer
+					result = new ModelAndView("redirect:../../application/customer,handyWorker,referee/list.do?fixUpTaskId=" + application.getFixUpTask().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(application, "application.commit.error");
 			}
