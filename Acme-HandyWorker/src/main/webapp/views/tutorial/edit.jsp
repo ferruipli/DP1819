@@ -18,7 +18,6 @@
 
 
 <form:form action="tutorial/handyWorker/edit.do" modelAttribute="tutorial">
-
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
@@ -26,8 +25,6 @@
 	<form:hidden path="handyWorker" />
 	<form:hidden path="sections" />	
 	
-
-
 	<form:label path="title">
 		<spring:message code="tutorial.title" />:
 	</form:label>
@@ -49,39 +46,26 @@
 	<form:errors cssClass="error" path="pictures" />
 	<br />
 
-<jstl:if test="${empty tutorial.sections}">	
-	<strong> <spring:message code="tutorial.sections" />: </strong>
-	<display:table name="tutorial.sections" id="sections">
+	<jstl:if test="${not empty tutorial.sections}">	
+		<p> <spring:message code="tutorial.sections" />: </p>
+		<display:table name="tutorial.sections" id="sections">
+			<display:column property="number" titleKey="tutorial.section.number" sortable="true" />	
+			<display:column property="title" titleKey="tutorial.section.title" sortable="true" />
+			<display:column property="text" titleKey="tutorial.section.text" />
+		</display:table>
+	</jstl:if>
 	
-	<spring:message code="tutorial.section.number" var="sectionNumber" />
-	<display:column property="number" title="${sectionNumber}" sortable="true" />	
-		
-	<spring:message code="tutorial.section.title" var="sectionTitle" />
-	<display:column property="title" title="${sectionTitle}" sortable="true" />
-	
-	<spring:message code="tutorial.section.text" var="sectionText" />
-	<display:column property="text" title="${sectionText}"/>
-	
-	<spring:message code="tutorial.section.pictures" var="sectionPictures" />
-	<display:column property="pictures" title="${sectionPictures}" />
-	
-	</display:table>
-</jstl:if>
-
-<jstl:if test="${tutorial.id != 0}">
-	<a href="section/handyWorker/edit.do?tutorialId=${tutorial.id}">
+	<jstl:if test="${tutorial.id != 0}">
+		<a href="section/handyWorker/edit.do?tutorialId=${tutorial.id}">
 			<spring:message	code="tutorial.section.add" />
-	</a>
-</jstl:if>
+		</a>
+		<br />
+	</jstl:if>
 	
-	<p />
 	<input type="submit" name="save" value="<spring:message code="tutorial.save" />" />
 	<jstl:if test="${tutorial.id != 0 && tutorial.handyWorker == owner}">
-	<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />"onclick="return confirm('<spring:message code="tutorial.confirm.delete" />')" />
+		<input type="submit" name="delete" value="<spring:message code="tutorial.delete" />" onclick="return confirm('<spring:message code="tutorial.confirm.delete" />')" />
 	</jstl:if>
-	<a href="tutorial/handyWorker/list.do">
-					<spring:message	code="tutorial.return" />
-	</a> 
+	<input type="button" name="cancel"	value="<spring:message code="tutorial.cancel"/>" onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
 	<br />
-
 </form:form>

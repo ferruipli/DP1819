@@ -80,7 +80,9 @@
 <br>
 
 <security:authorize access="hasRole('REFEREE')">
-	<a href="complaint/referee/listSelfAssigned.do"><spring:message code="fixUpTask.back"/></a>
+	<a href="complaint/referee/listSelfAssigned.do"><spring:message code="fixUpTask.back.selfAssigned"/></a>
+	<br>
+	<a href="complaint/referee/listNotAssigned.do"><spring:message code="fixUpTask.back.notAssigned"/></a>
 </security:authorize>
 
 <security:authorize access="hasRole('CUSTOMER')">
@@ -88,5 +90,11 @@
 </security:authorize>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="fixUpTask.back"/></a>
+	<a href="fixUpTask/handyWorker/listAll.do"><spring:message code="fixUpTask.back.listAll"/></a>
+	<br>
+	<a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="fixUpTask.back.involved"/></a>
+	<br>
+	<a href="complaint/handyWorker/list.do"><spring:message code="fixUpTask.back.complaints"/></a>
+	<br>
+	<a href="application/handyWorker/list.do"><spring:message code="fixUpTask.back.applications"/></a>
 </security:authorize>

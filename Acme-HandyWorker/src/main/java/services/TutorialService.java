@@ -35,24 +35,18 @@ public class TutorialService {
 	@Autowired
 	private UtilityService		utilityService;
 
-	@Autowired
-	private SectionService		sectionService;
-
 
 	//Constructor ----------------------------------------------------
 	public TutorialService() {
 		super();
 	}
 	//Simple CRUD methods -------------------------------------------
-
 	public Tutorial create() {
 		Tutorial result;
 		final HandyWorker principal;
-		Section section;
 		Date moment;
 
 		principal = this.handyWorkerService.findByPrincipal();
-		section = new Section();
 		moment = this.utilityService.current_moment();
 
 		result = new Tutorial();
@@ -60,15 +54,14 @@ public class TutorialService {
 		result.setSponsorShips(new ArrayList<Sponsorship>());
 		result.setSections(new ArrayList<Section>());
 		result.setMoment(moment);
-		this.sectionService.addSectionToTutorial(result, section);
 
 		return result;
 	}
+
 	public Tutorial save(final Tutorial tutorial) {
 		Assert.notNull(tutorial);
-		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
-		this.utilityService.checkIsSpamMarkAsSuspicious(tutorial.getSummary() + tutorial.getTitle(), this.handyWorkerService.findByPrincipal());
 		this.checkByPrincipal(tutorial);
+		this.utilityService.checkIsSpamMarkAsSuspicious(tutorial.getSummary() + tutorial.getTitle(), this.handyWorkerService.findByPrincipal());
 
 		Tutorial result;
 		Date moment;
@@ -79,6 +72,14 @@ public class TutorialService {
 		result = this.tutorialRepository.save(tutorial);
 
 		return result;
+	}
+
+	public void delete(final Tutorial tutorial) {
+		Assert.notNull(tutorial);
+		Assert.isTrue(tutorial.getId() != 0);
+		this.checkByPrincipal(tutorial);
+
+		this.tutorialRepository.delete(tutorial);
 	}
 
 	public Tutorial findOne(final int idTutorial) {
@@ -101,21 +102,13 @@ public class TutorialService {
 		return result;
 	}
 
-	public void delete(final Tutorial tutorial) {
-		Assert.notNull(tutorial);
-		this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
-		Assert.isTrue(tutorial.getId() != 0);
-		this.checkByPrincipal(tutorial);
-
-		this.tutorialRepository.delete(tutorial);
-	}
-
 	protected void checkByPrincipal(final Tutorial tutorial) {
 		HandyWorker principal;
 
 		principal = this.handyWorkerService.findByPrincipal();
 
 		Assert.isTrue(principal.equals(tutorial.getHandyWorker()));
+		this.utilityService.checkActorIsBanned(principal);
 	}
 
 	//Other business methods-------------------------------------------

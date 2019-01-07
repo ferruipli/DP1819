@@ -18,7 +18,6 @@
 
 
 <form:form action="sponsorship/sponsor/edit.do" modelAttribute="sponsorship">
-
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
@@ -88,9 +87,6 @@
  	
 	
 	<input type="submit" name="save" value="<spring:message code="sponsorship.save" />" />
-	<a href="sponsorship/sponsor/list.do">
-		<spring:message	code="sponsorship.return" />			
-	</a>
+	<input type="button" name="cancel"	value="<spring:message code="sponsorship.cancel"/>" onclick="javascript: relativeRedir('sponsorship/sponsor/list.do');" />
 	<br />
-
 </form:form>

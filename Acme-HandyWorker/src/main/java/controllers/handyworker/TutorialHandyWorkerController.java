@@ -105,7 +105,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:../../tutorial/handyWorker/list.do");
+				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
@@ -124,7 +124,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.tutorialService.delete(tutorial);
-				result = new ModelAndView("redirect:../../");
+				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
