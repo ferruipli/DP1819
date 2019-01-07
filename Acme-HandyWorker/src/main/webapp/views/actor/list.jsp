@@ -40,4 +40,8 @@
 	<display:column property="userAccount.username" titleKey="suspicious.table.username" />
 	
 	<display:column property="userAccount.authorities" titleKey="suspicious.table.authority" />
+	
+	<jstl:if test="${isEndorsable}">
+		<display:column property="score" titleKey="suspicious.table.score" />	
+	</jstl:if>
 </display:table>
