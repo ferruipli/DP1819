@@ -41,10 +41,10 @@
 	<form:label path="phoneNumber">
 		<spring:message code="endorserRecord.phoneNumber" />:
 	</form:label>
-	<form:input path="phoneNumber" />
+	<form:input path="phoneNumber" placeholder="+34 654654654" />
 	<form:errors cssClass="error" path="phoneNumber" />
 	<br />
-
+	
 	<form:label path="linkedInProfile">
 		<spring:message code="endorserRecord.linkedInProfile" />:
 	</form:label>
@@ -55,15 +55,16 @@
 	<form:label path="comments">
 		<spring:message code="endorserRecord.comments" />:
 	</form:label>
-	<form:input path="comments" />
+	<form:textarea path="comments" />
 	<form:errors cssClass="error" path="comments" />
 	<br />
 
-	<jstl:if test="${endorserRecord.id != 0}"> 		
-		<input type="submit" name="delete" value="<spring:message code="endorserRecord.delete" />" 
-		onclick="return confirm('<spring:message code="endorserRecord.confirm.delete" />')" />&nbsp; 	
+	<jstl:if test="${endorserRecord.id != 0}">
+		<input type="submit" name="delete"
+			value="<spring:message code="endorserRecord.delete" />"
+			onclick="return confirm('<spring:message code="endorserRecord.confirm.delete" />')" />&nbsp; 	
 	</jstl:if>
-	
+
 	<input type="submit" name="save"
 		value="<spring:message code="endorserRecord.save" />" />
 

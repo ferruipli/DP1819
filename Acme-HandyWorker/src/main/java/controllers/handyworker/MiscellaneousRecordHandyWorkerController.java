@@ -55,7 +55,7 @@ public class MiscellaneousRecordHandyWorkerController extends AbstractController
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int miscellaneousRecordId) {
+	public ModelAndView edit(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
 		MiscellaneousRecord miscellaneousRecord;
 		Integer handyWorkerId;

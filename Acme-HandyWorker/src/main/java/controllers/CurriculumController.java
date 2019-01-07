@@ -21,6 +21,7 @@ import utilities.internal.PaginatedListAdapter;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.ProfessionalRecord;
 
@@ -49,13 +50,23 @@ public class CurriculumController extends AbstractController {
 	private EndorserRecordService		endorserRecordService;
 
 
-	// Action-1 ---------------------------------------------------------------
+	// Constructor
+
+	public CurriculumController() {
+		super();
+	}
+
+	// Creating ---------------------------------------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int handyWorkerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+	public ModelAndView display(@RequestParam final int handyWorkerId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Curriculum curriculum;
+		HandyWorker handyWorkerLogin;
+		Integer handyWorkerLoginId;
 
+		handyWorkerLogin = this.handyWorkerService.findByPrincipal();
+		handyWorkerLoginId = handyWorkerLogin.getId();
 		curriculum = this.curriculumService.findOne(this.handyWorkerService.findOne(handyWorkerId).getCurriculum().getId());
 
 		Page<EducationRecord> educationRecords;
@@ -85,6 +96,12 @@ public class CurriculumController extends AbstractController {
 		result.addObject("professionalRecords", professionalRecordsAdapted);
 		result.addObject("miscellaneousRecords", miscellaneousRecordsAdapted);
 		result.addObject("endorserRecords", endorserRecordsAdapted);
+		//		result.addObject("handyWorkerCurriculumId", handyWorkerId);
+		//		if (handyWorkerLoginId != null) {
+		//			result.addObject("isHandyWorkerLogin", true);
+		//			result.addObject("handyWorkerLoginId", handyWorkerLoginId);
+		//		} else
+		//			result.addObject("isHandyWorkerLogin", false);
 
 		return result;
 	}

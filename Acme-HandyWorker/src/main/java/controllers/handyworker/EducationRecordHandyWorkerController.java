@@ -55,7 +55,7 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int educationRecordId) {
+	public ModelAndView edit(@RequestParam final int educationRecordId) {
 		ModelAndView result;
 		EducationRecord educationRecord;
 		Integer handyWorkerId;
