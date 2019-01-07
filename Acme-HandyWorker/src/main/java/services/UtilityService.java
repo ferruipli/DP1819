@@ -55,6 +55,7 @@ public class UtilityService {
 	// Simple CRUD methods -----------------------------------------------------
 
 	// Other business methods --------------------------------------------------
+
 	public void checkEmailActors(final Actor actor) {
 		if (actor instanceof Administrator)
 			Assert.isTrue(actor.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"));
@@ -66,10 +67,12 @@ public class UtilityService {
 		Assert.isTrue(email.matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"));
 	}
 
-	public String getValidPhone(final String phone) {
+	public String getValidPhone(String phone) {
 		String countryCode, result;
 
 		if (!(phone == null || phone.equals(""))) {
+			phone = phone.trim();
+
 			if (phone.matches("(([0-9]{1,3}\\ )?([0-9]+))")) {
 				countryCode = this.customisationService.find().getCountryCode();
 				result = countryCode + " " + phone;
