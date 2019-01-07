@@ -1,5 +1,5 @@
 
-package controllers.handyworker;
+package controllers.handyWorker;
 
 import javax.validation.Valid;
 
@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.EducationRecordService;
 import services.HandyWorkerService;
+import services.MiscellaneousRecordService;
 import controllers.AbstractController;
-import domain.EducationRecord;
 import domain.HandyWorker;
+import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/educationRecord/handyWorker")
-public class EducationRecordHandyWorkerController extends AbstractController {
+@RequestMapping("/miscellaneousRecord/handyWorker")
+public class MiscellaneousRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private EducationRecordService	educationRecordService;
+	private MiscellaneousRecordService	miscellaneousRecordService;
 
 	@Autowired
-	private HandyWorkerService		handyWorkerService;
+	private HandyWorkerService			handyWorkerService;
 
 
 	// Constructors ---------------------------------------
 
-	public EducationRecordHandyWorkerController() {
+	public MiscellaneousRecordHandyWorkerController() {
 		super();
 	}
 
@@ -43,10 +43,10 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		EducationRecord educationRecord;
+		MiscellaneousRecord miscellaneousRecord;
 
-		educationRecord = this.educationRecordService.create();
-		result = this.createEditModelAndView(educationRecord);
+		miscellaneousRecord = this.miscellaneousRecordService.create();
+		result = this.createEditModelAndView(miscellaneousRecord);
 
 		return result;
 
@@ -55,17 +55,17 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int educationRecordId) {
+	public ModelAndView action1(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
-		EducationRecord educationRecord;
+		MiscellaneousRecord miscellaneousRecord;
 		Integer handyWorkerId;
 
-		educationRecord = this.educationRecordService.findOne(educationRecordId);
-		Assert.notNull(educationRecord);
-		result = new ModelAndView("educationRecord/edit");
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+		Assert.notNull(miscellaneousRecord);
+		result = new ModelAndView("miscellaneousRecord/edit");
 		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
-		result.addObject("educationRecord", educationRecord);
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
@@ -74,7 +74,7 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	//Saving-----------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EducationRecord educationRecord, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 
 		ModelAndView result;
 		HandyWorker handyWorker;
@@ -82,13 +82,13 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(educationRecord);
+			result = this.createEditModelAndView(miscellaneousRecord);
 		else
 			try {
-				this.educationRecordService.save(educationRecord);
+				this.miscellaneousRecordService.save(miscellaneousRecord);
 				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
+				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}
 
 		return result;
@@ -96,17 +96,17 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final EducationRecord educationRecord, final BindingResult binding) {
+	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 		ModelAndView result;
 		HandyWorker handyWorker;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		try {
-			this.educationRecordService.delete(educationRecord);
+			this.miscellaneousRecordService.delete(miscellaneousRecord);
 			result = new ModelAndView("redirect:../../curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
+			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 		}
 
 		return result;
@@ -114,22 +114,22 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 
 	// Ancillary -------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord) {
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord) {
 
 		ModelAndView result;
-		result = this.createEditModelAndView(educationRecord, null);
+		result = this.createEditModelAndView(miscellaneousRecord, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord, final String messageCode) {
-		assert educationRecord != null;
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord, final String messageCode) {
+		assert miscellaneousRecord != null;
 
 		ModelAndView result;
 		Integer handyWorkerId;
 		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
-		result = new ModelAndView("educationRecord/edit");
-		result.addObject("educationRecord", educationRecord);
+		result = new ModelAndView("miscellaneousRecord/edit");
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("message", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 

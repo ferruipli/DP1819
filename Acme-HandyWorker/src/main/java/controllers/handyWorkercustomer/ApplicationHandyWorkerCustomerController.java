@@ -7,7 +7,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers.handyworkercustomer;
+package controllers.handyWorkercustomer;
 
 import javax.validation.Valid;
 
