@@ -8,7 +8,7 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
-<display:table name="fixUpTasks" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="fixUpTasks" id="row" requestURI="${requestURI}" class="displaytag">
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
