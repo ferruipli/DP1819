@@ -62,7 +62,7 @@
 
 <fieldset>
 	<display:table name="educationRecords" id="rowEducationRecord"
-		class="displaytag">
+		class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -116,7 +116,7 @@
 
 <fieldset>
 	<display:table name="professionalRecords" id="rowProfessionalRecord"
-		class="displaytag">
+		class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -169,7 +169,7 @@
 
 <fieldset>
 	<display:table name="endorserRecords" id="rowEndorserRecord"
-		class="displaytag">
+		class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -222,7 +222,7 @@
 
 <fieldset>
 	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord"
-		class="displaytag">
+		class="displaytag" requestURI="${requestURI}">
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
 				<display:column>

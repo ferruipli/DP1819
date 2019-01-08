@@ -97,6 +97,7 @@ public class CurriculumController extends AbstractController {
 		result.addObject("miscellaneousRecords", miscellaneousRecordsAdapted);
 		result.addObject("endorserRecords", endorserRecordsAdapted);
 		result.addObject("handyWorkerCurriculumId", handyWorkerId);
+		result.addObject("requestURI", "curriculum/display.do");
 		if (handyWorkerLoginId != null)
 			result.addObject("handyWorkerLoginId", handyWorkerLoginId);
 
