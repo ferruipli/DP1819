@@ -8,8 +8,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="fixUpTask.date.format2" var="dateFormat"/>
-<spring:message code="fixUpTask.date.format3" var="momentFormat"/>
+<spring:message code="fixUpTask.date.format2" var="momentFormat"/>
+<spring:message code="fixUpTask.date.format3" var="dateFormat"/>
 
 <fieldset>
 	<legend><spring:message code="fixUpTask.attributes"/></legend>
