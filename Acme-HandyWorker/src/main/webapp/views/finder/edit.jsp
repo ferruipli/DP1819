@@ -74,7 +74,6 @@
 	<br />
 <p/>	
 	<input type="submit" name="save" value="<spring:message code="finder.save" />" />
-	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />"onclick="javascript: relativeRedir('fixUpTask/list.do');" />
-		<a href = "fixUpTask/handyWorker/list.do?finderId=${finder.id}"></a>
+	<input type="button" name="cancel"	value="<spring:message code="finder.cancel" />"onclick="javascript: relativeRedir('fixUpTask/handyWorker/listAll.do');" />
 	<br />
 </form:form>

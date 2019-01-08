@@ -9,6 +9,8 @@
 
 package controllers.handyworkercustomer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ApplicationService;
+import services.CustomisationService;
 import controllers.AbstractController;
 import domain.Application;
+import domain.Customisation;
 
 @Controller
 @RequestMapping("/application/handyWorker,customer")
 public class ApplicationHandyWorkerCustomerController extends AbstractController {
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -70,9 +77,15 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 
 	protected ModelAndView createEditModelAndView(final Application application, final String messageCode) {
 		ModelAndView result;
+		Collection<String> creditCardMakes;
+		Customisation customisation;
+
+		customisation = this.customisationService.find();
+		creditCardMakes = customisation.getCreditCardMakes();
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
+		result.addObject("brandName", creditCardMakes);
 		result.addObject("message", messageCode);
 
 		return result;
