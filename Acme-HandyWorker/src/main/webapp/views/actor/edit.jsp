@@ -22,7 +22,7 @@
 		
 			<form:hidden path="finder"/>
 			<form:hidden path="applications"/>
-			<form:hidden path="make"/>
+			
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
 			<h2><spring:message code="header.sponsor"/></h2>
@@ -95,6 +95,16 @@
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address" />
 		<br /> 
+		
+		<jstl:if test="${role == 'handyworker'}">
+			<form:label path="make">
+				<spring:message code="actor.make.requested" />
+			</form:label>
+			<form:input path="make"/>
+			<form:errors cssClass="error" path="make" />
+			<br /> 
+		
+		</jstl:if>
 	</fieldset>
  
 	<fieldset>
@@ -124,26 +134,26 @@
  
  	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
-			<input type="submit" name="saveCustomer" value="<spring:message code="actor.save" />" />
+			<input type="submit" name="saveCustomer" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
 		</jstl:when>
 		<jstl:when test="${role == 'handyworker'}">
-			<input type="submit" name="saveHw" value="<spring:message code="actor.save" />" />
+			<input type="submit" name="saveHw" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
-			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />" />
+			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
 		</jstl:when>
 		<jstl:when test="${role == 'administrator'}">
 			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();" />
 		</jstl:when>
 		<jstl:when test="${role == 'referee'}">
-			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" />
+			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();"/>
 		</jstl:when>
 	</jstl:choose>
   <!-- 
  	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
 -->
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
-		onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actor.id }')" />
+		onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do')" />
 	
 	<hr>
 	

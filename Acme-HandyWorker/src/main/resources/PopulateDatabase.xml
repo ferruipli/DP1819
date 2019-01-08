@@ -1248,6 +1248,50 @@
 		</property>
 		<property name="actor" ref="system" />
 	</bean>
+	
+	<bean id="box69" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box70" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box71" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box72" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
 
 	<!-- Category -->
 	<!-- Categoria raiz -->

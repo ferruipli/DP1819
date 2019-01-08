@@ -42,6 +42,7 @@ public class EndorsableAdministratorController extends AbstractController {
 		paginatedEndorsables = new PaginatedListAdapter(endorsables, sort);
 
 		result = new ModelAndView("actor/list");
+		this.setBannerHeader(result);
 		result.addObject("actors", paginatedEndorsables);
 		result.addObject("requestURI", "endorsable/administrator/list.do");
 		result.addObject("isEndorsable", true);
@@ -49,15 +50,12 @@ public class EndorsableAdministratorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/computeScore", method = RequestMethod.GET)
-	public ModelAndView computeScore(@RequestParam final int endorsableId) {
+	@RequestMapping(value = "/computeScore", method = RequestMethod.POST, params = "compute")
+	public ModelAndView computeScore() {
 		ModelAndView result;
-		Endorsable endorsable;
-
-		endorsable = this.endorsableService.findOne(endorsableId);
 
 		try {
-			this.endorsableService.computeScore(endorsable);
+			this.endorsableService.computingScoreProcess();
 		} catch (final Throwable oops) {
 		}
 

@@ -23,13 +23,17 @@
 	<legend><spring:message code="actor.legend"/></legend>
 	<p> <strong> <spring:message code="actor.fullname" /> </strong>  <jstl:out value="${actor.fullname}" /></p>
 
-	<p> <strong> <spring:message code="actor.photoLink" /> </strong> <jstl:out value="${actor.photoLink}" /></p>
+	<p> <strong> <spring:message code="actor.photoLink" /> </strong> <img alt="Link" src="<jstl:out value="${actor.photoLink}" />"></p>
 	
 	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
 	
 	<p> <strong> <spring:message code="actor.phoneNumber" /> </strong>  <jstl:out value="${actor.phoneNumber}" /></p>
 
 	<p> <strong> <spring:message code="actor.address" /> </strong>  <jstl:out value="${actor.address}" /></p>
+	
+	<jstl:if test="${isEndorsable}">
+		<p> <strong> <spring:message code="actor.handyworker.make" /> </strong>  <jstl:out value="${actor.make}" /></p>
+	</jstl:if>
 	
 	<jstl:if test="${isEndorsable && actor.score != null}">
 		<p> <strong> <spring:message code="endorsable.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
@@ -81,5 +85,5 @@
 	
 </fieldset>
 
-<input type="button" name="return" value="<spring:message code="actor.return" />" 
-				onclick="javascript: relativeRedir('welcome/index.do');" />
+<a href="welcome/index.do"><spring:message code="actor.return"/></a>
+

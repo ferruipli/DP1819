@@ -86,7 +86,7 @@
 		<form:label path="phoneNumber">
 			<spring:message code="actor.phoneNumber" />
 		</form:label>
-		<form:input path="phoneNumber" placeholder="+34 654654654" id="phoneNumber"/>
+		<form:input path="phoneNumber" placeholder="+34 (111) 654654654" id="phoneNumber"/>
 		<form:errors cssClass="error" path="phoneNumber" />
 		<br />
 		
@@ -133,9 +133,15 @@
 		<spring:message code="actor.authority"/>
 	</form:label>
 	<form:select path="userAccount.authorities">
-		<form:option label="-----" value="0"/>
-		<form:option label="ADMINISTRATOR" value="ADMIN"/>
-		<form:option label="REFEREE" value="REFEREE"/>
+	<jstl:choose>
+		<jstl:when test="${role == 'administrator'}">
+				<form:option label="ADMINISTRATOR" value="ADMIN"/>
+		</jstl:when>
+		<jstl:when test="${role == 'referee'}">
+				<form:option label="REFEREE" value="REFEREE"/>
+		</jstl:when>
+	</jstl:choose>
+	
 	</form:select>
 	
  </security:authorize>
@@ -146,10 +152,17 @@
 		<spring:message code="actor.authority"/>
 	</form:label>
 	<form:select path="userAccount.authorities">
-		<form:option label="-----" value="0"/>
-		<form:option label="CUSTOMER" value="CUSTOMER"/>
-		<form:option label="HANDYWORKER" value="HANDYWORKER"/>
-		<form:option label="SPONSOR" value="SPONSOR"/>
+		<jstl:choose>
+			<jstl:when test="${role == 'customer'}">
+				<form:option label="CUSTOMER" value="CUSTOMER"/>
+			</jstl:when>
+			<jstl:when test="${role == 'handyworker'}">
+				<form:option label="HANDYWORKER" value="HANDYWORKER"/>
+			</jstl:when>
+			<jstl:when test="${role == 'sponsor'}">
+				<form:option label="SPONSOR" value="SPONSOR"/>
+			</jstl:when>
+		</jstl:choose>
 	</form:select>
 </security:authorize>
 		
