@@ -32,8 +32,8 @@
 	</p>
 	<p>
 		<strong><spring:message
-				code="curriculum.personalRecord.photoLink" /></strong> :
-		<img src="${curriculum.personalRecord.photoLink}">
+				code="curriculum.personalRecord.photoLink" /></strong> : <img
+			src="${curriculum.personalRecord.photoLink}">
 	</p>
 	<p>
 		<strong><spring:message
@@ -51,23 +51,28 @@
 		<jstl:out value="${curriculum.personalRecord.linkedInProfile}"></jstl:out>
 	</p>
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a
-			href="personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}">
-			<spring:message code="curriculum.edit" />
-		</a>
+		<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+			<a
+				href="personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}">
+				<spring:message code="curriculum.edit" />
+			</a>
+		</jstl:if>
 	</security:authorize>
 </fieldset>
 
 <fieldset>
-	<display:table name="educationRecords" id="rowEducationRecord" class="displaytag">
+	<display:table name="educationRecords" id="rowEducationRecord"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
-			<display:column>
-				<a
-					href="educationRecord/handyWorker/edit.do?educationRecordId=${rowEducationRecord.id}">
-					<spring:message code="curriculum.edit" />
-				</a>
-			</display:column>
+			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+				<display:column>
+					<a
+						href="educationRecord/handyWorker/edit.do?educationRecordId=${rowEducationRecord.id}">
+						<spring:message code="curriculum.edit" />
+					</a>
+				</display:column>
+			</jstl:if>
 		</security:authorize>
 		<spring:message code="curriculum.educationRecord.titleDiploma"
 			var="titleDiplomaHeader" />
@@ -101,22 +106,27 @@
 	</display:table>
 
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a href="educationRecord/handyWorker/create.do"> <spring:message
-				code="curriculum.educationRecord.create" />
-		</a>
+		<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+			<a href="educationRecord/handyWorker/create.do"> <spring:message
+					code="curriculum.educationRecord.create" />
+			</a>
+		</jstl:if>
 	</security:authorize>
 </fieldset>
 
 <fieldset>
-	<display:table name="professionalRecords" id="rowProfessionalRecord" class="displaytag">
+	<display:table name="professionalRecords" id="rowProfessionalRecord"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
-			<display:column>
-				<a
-					href="professionalRecord/handyWorker/edit.do?professionalRecordId=${rowProfessionalRecord.id}">
-					<spring:message code="curriculum.edit" />
-				</a>
-			</display:column>
+			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+				<display:column>
+					<a
+						href="professionalRecord/handyWorker/edit.do?professionalRecordId=${rowProfessionalRecord.id}">
+						<spring:message code="curriculum.edit" />
+					</a>
+				</display:column>
+			</jstl:if>
 		</security:authorize>
 		<spring:message code="curriculum.professionalRecord.companyName"
 			var="companyNameHeader" />
@@ -149,22 +159,27 @@
 	</display:table>
 
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a href="professionalRecord/handyWorker/create.do"> <spring:message
-				code="curriculum.professionalRecord.create" />
-		</a>
+		<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+			<a href="professionalRecord/handyWorker/create.do"> <spring:message
+					code="curriculum.professionalRecord.create" />
+			</a>
+		</jstl:if>
 	</security:authorize>
 </fieldset>
 
 <fieldset>
-	<display:table name="endorserRecords" id="rowEndorserRecord" class="displaytag">
+	<display:table name="endorserRecords" id="rowEndorserRecord"
+		class="displaytag">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
-			<display:column>
-				<a
-					href="endorserRecord/handyWorker/edit.do?endorserRecordId=${rowEndorserRecord.id}">
-					<spring:message code="curriculum.edit" />
-				</a>
-			</display:column>
+			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+				<display:column>
+					<a
+						href="endorserRecord/handyWorker/edit.do?endorserRecordId=${rowEndorserRecord.id}">
+						<spring:message code="curriculum.edit" />
+					</a>
+				</display:column>
+			</jstl:if>
 		</security:authorize>
 		<spring:message code="curriculum.endorserRecord.fullName"
 			var="nameHeader" />
@@ -195,23 +210,28 @@
 			sortable="false" />
 	</display:table>
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a href="endorserRecord/handyWorker/create.do"> <spring:message
-				code="curriculum.endorserRecord.create" />
-		</a>
+		<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+			<a href="endorserRecord/handyWorker/create.do"> <spring:message
+					code="curriculum.endorserRecord.create" />
+			</a>
+		</jstl:if>
 	</security:authorize>
 
 
 </fieldset>
 
 <fieldset>
-	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord" class="displaytag">
+	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord"
+		class="displaytag">
 		<security:authorize access="hasRole('HANDYWORKER')">
-			<display:column>
-				<a
-					href="miscellaneousRecord/handyWorker/edit.do?miscellaneousRecordId=${rowMiscellaneousRecord.id}">
-					<spring:message code="curriculum.edit" />
-				</a>
-			</display:column>
+			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+				<display:column>
+					<a
+						href="miscellaneousRecord/handyWorker/edit.do?miscellaneousRecordId=${rowMiscellaneousRecord.id}">
+						<spring:message code="curriculum.edit" />
+					</a>
+				</display:column>
+			</jstl:if>
 		</security:authorize>
 		<spring:message code="curriculum.miscellaneousRecord.title"
 			var="titleHeader" />
@@ -230,9 +250,11 @@
 	</display:table>
 
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<a href="miscellaneousRecord/handyWorker/create.do"> <spring:message
-				code="curriculum.miscellaneousRecord.create" />
-		</a>
+		<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
+			<a href="miscellaneousRecord/handyWorker/create.do"> <spring:message
+					code="curriculum.miscellaneousRecord.create" />
+			</a>
+		</jstl:if>
 	</security:authorize>
 
 </fieldset>
