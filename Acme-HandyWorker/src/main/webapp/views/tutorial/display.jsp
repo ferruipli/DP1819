@@ -47,17 +47,18 @@
 
  
 <jstl:if test="${not empty tutorial.sections}">
-	<strong> <spring:message code="tutorial.sections" />: </strong>
+	<strong> <spring:message code="tutorial.sections" />: </strong>	
 	<display:table name="tutorial.sections" id="sections">
+	<display:column>	
+			<a href="section/display.do?sectionId=${sections.id}">
+				<spring:message	code="tutorial.display" />
+			</a>
+		</display:column>
 		<display:column property="number" titleKey="tutorial.section.number" sortable="true" />	
 			
 		<display:column property="title" titleKey="tutorial.section.title" sortable="true" />
 		
-		<display:column>	
-			<a href="section/display.do?sectionId=${sections.id}">
-				<spring:message	code="tutorial.display" />
-			</a>
-		</display:column>	
+			
 	</display:table>
 </jstl:if>  
 	

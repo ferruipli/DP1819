@@ -71,6 +71,7 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 		Assert.isTrue(fixUpTask.getWarranty().getFinalMode());
 		Assert.isTrue(fixUpTask.getApplications().isEmpty()); // You cannot update a FixUpTaks with an Application associated
+		Assert.isTrue(this.utilityService.current_moment().before(fixUpTask.getStartDate()));
 		this.utilityService.checkDate(fixUpTask.getStartDate(), fixUpTask.getEndDate());
 
 		FixUpTask result;
@@ -227,22 +228,6 @@ public class FixUpTaskService {
 
 		result = this.fixUpTaskRepository.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 		Assert.notNull(result);
-
-		return result;
-	}
-	public Page<FixUpTask> findFixUpTaskFinderPaged(final Pageable pageable) {
-		Page<FixUpTask> result;
-		HandyWorker handyWorker;
-
-		handyWorker = this.handyWorkerService.findByPrincipal();
-		result = null;
-
-		if(handyWorker.getFinder() !=null){
-			result = this.fixUpTaskRepository.findFixUpTaskFinderPaged(handyWorker.getFinder().getId(), pageable);
-
-			Assert.notNull(result);
-		}
-		
 
 		return result;
 	}

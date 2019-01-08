@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.HandyWorkerService;
 import services.TutorialService;
 import utilities.internal.PaginatedListAdapter;
 import domain.Section;
@@ -34,7 +35,10 @@ import domain.Tutorial;
 public class TutorialController extends AbstractController {
 
 	@Autowired
-	private TutorialService	tutorialService;
+	private TutorialService		tutorialService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -75,18 +79,26 @@ public class TutorialController extends AbstractController {
 		Page<Tutorial> tutorials;
 		final Pageable pageable;
 		final PaginatedList tutorialsAdapted;
+		Integer principalId;
 
 		pageable = this.newFixedPageable(page, dir, sort);
 		tutorials = this.tutorialService.findAllTutorialPageable(pageable);
 		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
+		principalId = null;
+
+		try {
+			principalId = this.handyWorkerService.findByPrincipal().getId();
+		} catch (final Exception e) {
+
+		}
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("principalId", principalId);
 		result.addObject("requestURI", "tutorial/list.do");
 
 		return result;
 	}
-
 	// Tutorial list by handyWorker---------------------------------------------------------------		
 
 	@RequestMapping(value = "/listHandyWorker", method = RequestMethod.GET)

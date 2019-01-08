@@ -33,9 +33,11 @@
 	
 <security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
+	<jstl:if test="${principalId == row.handyWorker.id && row.status != 'REJECTED'}">
 		<a href="application/handyWorker/edit.do?applicationId=${row.id}">
 					<spring:message	code="application.edit" />
 		</a>
+		</jstl:if>
 	</display:column>
 </security:authorize>
 

@@ -1,5 +1,5 @@
 
-package controllers.handyWorker;
+package controllers.handyworker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +17,7 @@ import services.HandyWorkerService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("fixUpTask/handyWorker")
@@ -90,18 +91,19 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 	public ModelAndView listFinder(@RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
 		ModelAndView result;
 		Page<FixUpTask> fixUpTasks;
-		Pageable pageable;
 		final PaginatedListAdapter fixUpTasksAdapted;
 		final Boolean lastUpdateFinder;
+		HandyWorker handyWorker;
 
-		pageable = this.newFixedPageable(page, dir, sort);
-		fixUpTasks = this.fixUpTaskService.findFixUpTaskFinderPaged(pageable);
+		handyWorker = this.handyWorkerService.findByPrincipal();
+		result = new ModelAndView("fixUpTask/list");
+		fixUpTasks = this.finderService.search(handyWorker.getFinder());
 		fixUpTasksAdapted = new PaginatedListAdapter(fixUpTasks, sort);
+		result.addObject("fixUpTasks", fixUpTasksAdapted);
+
 		lastUpdateFinder = this.finderService.compareTime(this.handyWorkerService.findByPrincipal().getFinder().getLastUpdate(), this.customisationService.find().getTimeCachedFinderResults());
 
-		result = new ModelAndView("fixUpTask/list");
 		result.addObject("requestURI", "fixUpTask/handyWorker/listAll.do");
-		result.addObject("fixUpTasks", fixUpTasksAdapted);
 		result.addObject("lastUpdateFinder", lastUpdateFinder);
 
 		return result;

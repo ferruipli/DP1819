@@ -37,7 +37,7 @@
 <img src="${tutorial.pictures}">
 </p> 
 
-	<a href="tutorial/handyWorker/list.do">
+	<a href="tutorial/list.do">
 					<spring:message	code="section.return" />
 	</a> 
 

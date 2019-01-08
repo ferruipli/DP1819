@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers.handyWorker;
+package controllers.handyworker;
 
 import java.util.Collection;
 
@@ -57,20 +57,20 @@ public class TutorialHandyWorkerController extends AbstractController {
 		Page<Tutorial> tutorials;
 		final Pageable pageable;
 		final PaginatedList tutorialsAdapted;
-		HandyWorker handyWorker;
+		Integer principalId;
 
-		handyWorker = this.handyWorkerService.findByPrincipal();
+		principalId = this.handyWorkerService.findByPrincipal().getId();
 		pageable = this.newFixedPageable(page, dir, sort);
-		tutorials = this.tutorialService.findTutorialByHandyWorker(handyWorker.getId(), pageable);
+		tutorials = this.tutorialService.findTutorialByHandyWorker(principalId, pageable);
 		tutorialsAdapted = new PaginatedListAdapter(tutorials, sort);
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorialsAdapted);
+		result.addObject("principalId", principalId);
 		result.addObject("requestURI", "tutorial/handyWorker/list.do");
 
 		return result;
 	}
-
 	// Tutorial Create ---------------------------------------------------------------		
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {

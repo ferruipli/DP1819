@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ApplicationService;
 import services.CustomisationService;
 import services.FixUpTaskService;
+import services.HandyWorkerService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Application;
@@ -40,6 +41,9 @@ public class ApplicationMultiuserController extends AbstractController {
 	@Autowired
 	private CustomisationService	customisationService;
 
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+
 
 	// Constructors -----------------------------------------------------------
 	public ApplicationMultiuserController() {
@@ -54,14 +58,23 @@ public class ApplicationMultiuserController extends AbstractController {
 		final Pageable pageable;
 		final PaginatedList applicationsAdapted;
 		FixUpTask fixUpTask;
+		Integer principalId;
 
 		pageable = this.newFixedPageable(page, dir, sort);
 		fixUpTask = this.fixUpTasksService.findOne(fixUpTaskId);
 		applications = this.applicationService.findApplicationByFixUpTask(fixUpTask.getId(), pageable);
 		applicationsAdapted = new PaginatedListAdapter(applications, sort);
+		principalId = null;
+
+		try {
+			principalId = this.handyWorkerService.findByPrincipal().getId();
+		} catch (final Exception e) {
+
+		}
 
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applicationsAdapted);
+		result.addObject("principalId", principalId);
 		result.addObject("requestURI", "application/customer,handyWorker,referee/list.do");
 
 		return result;
