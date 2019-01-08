@@ -1,5 +1,5 @@
 
-package controllers.handyworker;
+package controllers.handyWorker;
 
 import javax.validation.Valid;
 
@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.EndorserRecordService;
 import services.HandyWorkerService;
+import services.MiscellaneousRecordService;
 import controllers.AbstractController;
-import domain.EndorserRecord;
 import domain.HandyWorker;
+import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/endorserRecord/handyWorker")
-public class EndorserRecordHandyWorkerController extends AbstractController {
+@RequestMapping("/miscellaneousRecord/handyWorker")
+public class MiscellaneousRecordHandyWorkerController extends AbstractController {
 
 	// Services -------------------------------------
 
 	@Autowired
-	private EndorserRecordService	endorserRecordService;
+	private MiscellaneousRecordService	miscellaneousRecordService;
 
 	@Autowired
-	private HandyWorkerService		handyWorkerService;
+	private HandyWorkerService			handyWorkerService;
 
 
 	// Constructors ---------------------------------------
 
-	public EndorserRecordHandyWorkerController() {
+	public MiscellaneousRecordHandyWorkerController() {
 		super();
 	}
 
@@ -43,10 +43,10 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		EndorserRecord endorserRecord;
+		MiscellaneousRecord miscellaneousRecord;
 
-		endorserRecord = this.endorserRecordService.create();
-		result = this.createEditModelAndView(endorserRecord);
+		miscellaneousRecord = this.miscellaneousRecordService.create();
+		result = this.createEditModelAndView(miscellaneousRecord);
 
 		return result;
 
@@ -55,17 +55,17 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int endorserRecordId) {
+	public ModelAndView edit(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
-		EndorserRecord endorserRecord;
+		MiscellaneousRecord miscellaneousRecord;
 		Integer handyWorkerId;
 
-		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-		Assert.notNull(endorserRecord);
-		result = new ModelAndView("endorserRecord/edit");
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+		Assert.notNull(miscellaneousRecord);
+		result = new ModelAndView("miscellaneousRecord/edit");
 		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
-		result.addObject("endorserRecord", endorserRecord);
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
@@ -74,7 +74,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	//Saving-----------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EndorserRecord endorserRecord, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 
 		ModelAndView result;
 		HandyWorker handyWorker;
@@ -82,13 +82,13 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(endorserRecord);
+			result = this.createEditModelAndView(miscellaneousRecord);
 		else
 			try {
-				this.endorserRecordService.save(endorserRecord);
+				this.miscellaneousRecordService.save(miscellaneousRecord);
 				result = new ModelAndView("redirect:/curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(endorserRecord, "endorserRecord.commit.error");
+				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}
 
 		return result;
@@ -96,17 +96,17 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final EndorserRecord endorserRecord, final BindingResult binding) {
+	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 		ModelAndView result;
 		HandyWorker handyWorker;
 
 		handyWorker = this.handyWorkerService.findByPrincipal();
 
 		try {
-			this.endorserRecordService.delete(endorserRecord);
+			this.miscellaneousRecordService.delete(miscellaneousRecord);
 			result = new ModelAndView("redirect:../../curriculum/display.do?handyWorkerId=" + handyWorker.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(endorserRecord, "endorserRecord.commit.error");
+			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 		}
 
 		return result;
@@ -114,25 +114,26 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	// Ancillary -------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final EndorserRecord endorserRecord) {
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord) {
 
 		ModelAndView result;
-		result = this.createEditModelAndView(endorserRecord, null);
+		result = this.createEditModelAndView(miscellaneousRecord, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final EndorserRecord endorserRecord, final String messageCode) {
-		assert endorserRecord != null;
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord, final String messageCode) {
+		assert miscellaneousRecord != null;
 
 		ModelAndView result;
 		Integer handyWorkerId;
 		handyWorkerId = this.handyWorkerService.findByPrincipal().getId();
 
-		result = new ModelAndView("endorserRecord/edit");
-		result.addObject("endorserRecord", endorserRecord);
+		result = new ModelAndView("miscellaneousRecord/edit");
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("message", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
+
 	}
 }

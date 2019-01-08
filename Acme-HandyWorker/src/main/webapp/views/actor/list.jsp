@@ -10,12 +10,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="actors" id="row" requestURI="${requestURI}" class="displaytag">
-	<jstl:if test="${isEndorsable}">
-		<display:column>
-			<a href="endorsable/administrator/computeScore.do?endorsableId=${row.id}"> <spring:message code="endorsable.compute" /> </a>
-		</display:column>
-	</jstl:if>
-
 	<jstl:if test="${!isEndorsable}">
 		<display:column>
 			<jstl:choose>
@@ -45,3 +39,14 @@
 		<display:column property="score" titleKey="suspicious.table.score" />	
 	</jstl:if>
 </display:table>
+
+<jstl:if test="${isEndorsable}">
+	<form:form action="endorsable/administrator/computeScore.do">
+		<input type="submit" name="compute" value="<spring:message code="endorsable.compute" />" />
+	</form:form>
+<!--  	
+	<a href="endorsable/administrator/computeScore.do">
+ 		<spring:message code="endorsable.compute" />
+	</a>
+-->
+</jstl:if>

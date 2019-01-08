@@ -37,12 +37,21 @@
 	
 	<input type="submit" name="save" value="<spring:message code="box.save"/>" />
 	
-	<jstl:if test="${box.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="box.delete"/>" 
+	<jstl:choose>
+		<jstl:when test="${box.id != 0}">
+			<input type="submit" name="delete" value="<spring:message code="box.delete"/>" 
 				onclick="return confirm('<spring:message code="box.confirm.delete" />')"/>
-	</jstl:if>
-	
-	<input type="button" name="cancel" value="<spring:message code="box.cancel" />" 
+		
+		<input type="button" name="cancel" value="<spring:message code="box.cancel" />" 
 			onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${box.id}');" />
+		</jstl:when>
+		<jstl:otherwise>
+			<input type="button" name="cancel" value="<spring:message code="box.cancel" />" 
+			onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/list.do');" />
+		</jstl:otherwise>
+		
+	</jstl:choose>
+	
+	
 
 </form:form>

@@ -29,12 +29,14 @@ import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
 import services.CustomerService;
+import services.CustomisationService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
+import domain.Customisation;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
@@ -52,6 +54,9 @@ public class AbstractController {
 
 	@Autowired
 	private CustomerService			customerService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
@@ -212,6 +217,15 @@ public class AbstractController {
 	}
 
 	// Protected ancillary methods -------------------------------------------
+	protected void setBannerHeader(final ModelAndView modelAndView) {
+		Customisation customisation;
+		String banner;
+
+		customisation = this.customisationService.find();
+		banner = customisation.getBanner();
+
+		modelAndView.addObject("banner", banner);
+	}
 
 	protected ModelAndView createModelAndView(final Actor actor, final String role) {
 		ModelAndView result;
