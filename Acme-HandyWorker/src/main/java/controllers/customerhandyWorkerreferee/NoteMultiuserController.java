@@ -68,7 +68,7 @@ public class NoteMultiuserController extends AbstractController {
 		String paramReportId;
 
 		paramReportId = request.getParameter("reportId");
-		reportId = paramReportId == null ? null : Integer.parseInt(paramReportId);
+		reportId = paramReportId == null || paramReportId.isEmpty() ? null : Integer.parseInt(paramReportId);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(note, reportId);
