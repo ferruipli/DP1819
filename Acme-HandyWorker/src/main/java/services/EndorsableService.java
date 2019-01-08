@@ -57,6 +57,14 @@ public class EndorsableService {
 		return results;
 	}
 
+	private Collection<Endorsable> findEndorsableWithReceivedEndorsements() {
+		Collection<Endorsable> results;
+
+		results = this.endorsableRepository.findEndorsableWithReceivedEndorsements();
+
+		return results;
+	}
+
 	public Page<Endorsable> paginatedFindAll(final Pageable pageable) {
 		Page<Endorsable> results;
 
@@ -66,8 +74,17 @@ public class EndorsableService {
 	}
 
 	// Other business methods --------------------------
+	public void computingScoreProcess() {
+		Collection<Endorsable> all;
+
+		all = this.findEndorsableWithReceivedEndorsements();
+
+		for (final Endorsable e : all)
+			this.computeScore(e);
+	}
+
 	// The endorsements from an endorsable are those received endorsements
-	public void computeScore(final Endorsable endorsable) {
+	protected void computeScore(final Endorsable endorsable) {
 		Assert.notNull(endorsable);
 		Assert.isTrue(endorsable.getId() != 0);
 

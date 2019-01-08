@@ -34,6 +34,7 @@ public class CustomisationAdministratorController extends AbstractController {
 		customisation = this.customisationService.find();
 
 		result = new ModelAndView("customisation/display");
+		this.setBannerHeader(result);
 		result.addObject("customisation", customisation);
 
 		return result;
@@ -81,7 +82,7 @@ public class CustomisationAdministratorController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("customisation/edit");
-
+		this.setBannerHeader(result);
 		result.addObject("customisation", customisation);
 		result.addObject("message", messageCode);
 
