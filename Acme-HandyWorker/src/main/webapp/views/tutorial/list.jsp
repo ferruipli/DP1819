@@ -19,24 +19,21 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <display:table id="row" name="tutorials"  requestURI="${requestURI}" class="displaytag">
-	<display:column property="title" titleKey="tutorial.title" sortable="true" />
 
-	<spring:message code="tutorial.formatMoment" var="formatMoment"/>
-	<display:column  property="moment" titleKey="tutorial.moment" sortable="true"  format="${formatMoment}"  />
-
-	<display:column property="summary" titleKey="tutorial.summary" />
-		
-	<display:column>
+	<display:column>	
 		<a href="tutorial/display.do?tutorialId=${row.id}">
 			<spring:message	code="tutorial.display" />			
 		</a>
 	</display:column>
 
 	<security:authorize access="hasRole('HANDYWORKER')">
+	
 		<display:column >
+		<jstl:if test="${principalId == row.handyWorker.id }">
 			<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
 				<spring:message	code="tutorial.edit" />
 			</a>
+			</jstl:if>
 		</display:column>
 	</security:authorize>
 	
@@ -47,6 +44,15 @@
 			</a>
 		</display:column>
 	</security:authorize>
+	
+	<display:column property="title" titleKey="tutorial.title" sortable="true" />
+
+	<spring:message code="tutorial.formatMoment" var="formatMoment"/>
+	<display:column  property="moment" titleKey="tutorial.moment" sortable="true"  format="${formatMoment}"  />
+
+	<display:column property="summary" titleKey="tutorial.summary" />
+		
+
 </display:table>
 
 <security:authorize access="hasRole('HANDYWORKER')">
