@@ -1,5 +1,5 @@
 
-package controllers.handyWorker;
+package controllers.handyworker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

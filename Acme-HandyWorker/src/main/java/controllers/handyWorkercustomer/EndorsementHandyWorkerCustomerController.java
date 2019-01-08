@@ -1,5 +1,5 @@
 
-package controllers.handyWorkercustomer;
+package controllers.handyworkercustomer;
 
 import java.util.ArrayList;
 import java.util.List;
