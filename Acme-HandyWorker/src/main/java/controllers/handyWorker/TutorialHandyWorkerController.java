@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers.handyworker;
+package controllers.handyWorker;
 
 import java.util.Collection;
 

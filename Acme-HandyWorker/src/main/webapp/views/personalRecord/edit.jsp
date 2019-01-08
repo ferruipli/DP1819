@@ -60,7 +60,13 @@
 
 	<input type="submit" name="save" value="<spring:message code="personalRecord.save" />" />
 	
-	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
+	<jstl:if test="${existCurriculum}">
+		<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
+	</jstl:if>
+	
+	<jstl:if test="${!existCurriculum}">
+		<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do');"/>
+	</jstl:if>
 	<br />
 	
 
