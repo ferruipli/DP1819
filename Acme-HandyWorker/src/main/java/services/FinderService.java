@@ -61,10 +61,10 @@ public class FinderService {
 
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
-		//this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
 		Finder result;
 		Date date;
-		Collection<FixUpTask> fixUpTasks;
+		Page<FixUpTask> pageFixUpTasks;
+		final Collection<FixUpTask> collectionFixUpTask;
 
 		date = this.utilityService.current_moment();
 
@@ -73,9 +73,12 @@ public class FinderService {
 
 		finder.setLastUpdate(date);
 
-		fixUpTasks = this.search(finder);
-		finder.setFixUpTasks(fixUpTasks);
+		pageFixUpTasks = this.search(finder);
+		collectionFixUpTask = pageFixUpTasks.getContent();
+		finder.setFixUpTasks(collectionFixUpTask);
 		result = this.finderRepository.save(finder);
+
+		finder.setLastUpdate(LocalDate.now().toDate());
 
 		return result;
 	}
@@ -100,17 +103,13 @@ public class FinderService {
 	}
 
 	//Other business methods-------------------------------------------
-	public Collection<FixUpTask> search(final Finder finder) {
-		//this.checkByPrincipal(finder);
-		//this.utilityService.checkActorIsBanned(this.handyWorkerService.findByPrincipal());
-
+	public Page<FixUpTask> search(final Finder finder) {
 		final Pageable pageable;
 		final int maxFinderResults;
 		final String keyWord, warranty, category;
 		final Double startPrice, endPrice;
 		final Date startDate, endDate;
 		final Page<FixUpTask> pageFixUpTasks;
-		final Collection<FixUpTask> collectionFixUpTask;
 
 		maxFinderResults = this.customisationService.find().getMaxFinderResults();
 		pageable = new PageRequest(0, maxFinderResults);
@@ -124,10 +123,7 @@ public class FinderService {
 
 		pageFixUpTasks = this.fixUpTaskService.findFixUpTaskFinder(keyWord, startPrice, endPrice, startDate, endDate, warranty, category, pageable);
 
-		collectionFixUpTask = pageFixUpTasks.getContent();
-		finder.setLastUpdate(LocalDate.now().toDate());
-
-		return collectionFixUpTask;
+		return pageFixUpTasks;
 	}
 
 	protected void checkByPrincipal(final Finder finder) {
@@ -169,10 +165,10 @@ public class FinderService {
 
 	private Date checkStartDate(final Finder finder) {
 		if (finder.getStartDate() == null) {
-			finder.setStartDate(LocalDate.parse("0000-01-01").toDate());
+			finder.setStartDate(LocalDate.parse("00000101").toDate());
 			return finder.getStartDate();
 		} else {
-			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmdd");
 			final String stringStartDate = dateFormat.format(finder.getStartDate());
 
 			Date dateStartDate = LocalDate.now().toDate();
@@ -187,10 +183,10 @@ public class FinderService {
 
 	private Date checkEndDate(final Finder finder) {
 		if (finder.getEndDate() == null) {
-			finder.setEndDate(LocalDate.parse("9999-01-01").toDate());
+			finder.setEndDate(LocalDate.parse("99990101").toDate());
 			return finder.getEndDate();
 		} else {
-			final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss z Z");
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmdd");
 			final String stringEndDate = dateFormat.format(finder.getEndDate());
 
 			Date dateEndDate = LocalDate.now().toDate();

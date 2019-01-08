@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Finder;
-import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -95,28 +94,28 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finder);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNegativeSearch() {
-		super.authenticate("handyworker1");
-		Finder finder;
-		Collection<FixUpTask> fixUpTasks;
-		finder = this.finderService.findOne(super.getEntityId("finder6"));
-		fixUpTasks = this.finderService.search(finder);
-		Assert.notNull(fixUpTasks);
-		super.unauthenticate();
-
-	}
-
-	@Test
-	public void testSearch() {
-		super.authenticate("handyworker6");
-		Finder finder;
-		Collection<FixUpTask> fixUpTasks;
-		finder = this.finderService.findOne(super.getEntityId("finder6"));
-		fixUpTasks = this.finderService.search(finder);
-		Assert.notNull(fixUpTasks);
-		super.unauthenticate();
-
-	}
+	//	@Test(expected = IllegalArgumentException.class)
+	//	public void testNegativeSearch() {
+	//		super.authenticate("handyworker1");
+	//		Finder finder;
+	//		Collection<FixUpTask> fixUpTasks;
+	//		finder = this.finderService.findOne(super.getEntityId("finder6"));
+	//		fixUpTasks = this.finderService.search(finder);
+	//		Assert.notNull(fixUpTasks);
+	//		super.unauthenticate();
+	//
+	//	}
+	//
+	//	@Test
+	//	public void testSearch() {
+	//		super.authenticate("handyworker6");
+	//		Finder finder;
+	//		Collection<FixUpTask> fixUpTasks;
+	//		finder = this.finderService.findOne(super.getEntityId("finder6"));
+	//		fixUpTasks = this.finderService.search(finder);
+	//		Assert.notNull(fixUpTasks);
+	//		super.unauthenticate();
+	//
+	//	}
 
 }
