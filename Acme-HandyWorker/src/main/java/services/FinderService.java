@@ -165,7 +165,7 @@ public class FinderService {
 
 	private Date checkStartDate(final Finder finder) {
 		if (finder.getStartDate() == null) {
-			finder.setStartDate(LocalDate.parse("00000101").toDate());
+			finder.setStartDate(LocalDate.parse("0000").toDate());
 			return finder.getStartDate();
 		} else {
 			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmdd");
@@ -183,7 +183,7 @@ public class FinderService {
 
 	private Date checkEndDate(final Finder finder) {
 		if (finder.getEndDate() == null) {
-			finder.setEndDate(LocalDate.parse("99990101").toDate());
+			finder.setEndDate(LocalDate.parse("9999").toDate());
 			return finder.getEndDate();
 		} else {
 			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmdd");
