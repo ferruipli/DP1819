@@ -126,7 +126,7 @@ public class CurriculumService {
 		curriculum.getMiscellaneousRecords().remove(miscellaneousRecord);
 	}
 
-	protected void addPersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
+	public void addPersonalRecord(final Curriculum curriculum, final PersonalRecord personalRecord) {
 		curriculum.setPersonalRecord(personalRecord);
 	}
 

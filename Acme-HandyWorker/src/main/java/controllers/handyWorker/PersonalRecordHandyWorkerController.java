@@ -93,7 +93,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 				curriculum = handyWorker.getCurriculum();
 				if (curriculum == null) {
 					curriculum = this.curriculumService.create();
-					curriculum.setPersonalRecord(personalRecord);
+					this.curriculumService.addPersonalRecord(curriculum, personalRecord);
 					this.curriculumService.save(curriculum);
 				} else
 					this.personalRecordService.save(personalRecord);

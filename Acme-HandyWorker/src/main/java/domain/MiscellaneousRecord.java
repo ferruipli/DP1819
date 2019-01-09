@@ -4,7 +4,6 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -43,7 +42,6 @@ public class MiscellaneousRecord extends DomainEntity {
 		this.attachment = attachment;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getComments() {
 		return this.comments;
 	}

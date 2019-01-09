@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.EndorserRecordRepository;
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -26,6 +27,9 @@ public class EndorserRecordService {
 	// Supporting services -----------------------------
 	@Autowired
 	private CurriculumService			curriculumService;
+
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
 
 	@Autowired
 	private UtilityService				utilityService;
@@ -41,8 +45,12 @@ public class EndorserRecordService {
 
 	public EndorserRecord create() {
 		EndorserRecord result;
+		HandyWorker hw;
+
+		hw = this.handyWorkerService.findByPrincipal();
 
 		result = new EndorserRecord();
+		result.setFullName(hw.getFullname());
 
 		return result;
 	}
