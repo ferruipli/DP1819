@@ -75,6 +75,8 @@ public class ApplicationMultiuserController extends AbstractController {
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applicationsAdapted);
 		result.addObject("principalId", principalId);
+		result.addObject("notAccepted", true);
+		result.addObject("notOwner", true);
 		result.addObject("requestURI", "application/customer,handyWorker,referee/list.do");
 
 		return result;

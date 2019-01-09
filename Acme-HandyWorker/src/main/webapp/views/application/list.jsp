@@ -46,7 +46,17 @@
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>
-
+	
+		<jstl:if test="${requestURI} == 'application/customer,handyWorker,referee/list.do'">
+		<security:authorize access="hasRole('HANDYWORKER')">
+		<display:column>
+			<jstl:if test="${row.startDate.time <now.time && principalId != row.handyWorker.id && notAccepted}">
+				<a href="application/handyWorker/create.do?fixUpTaskId=${row.fixUpTask.id}"><spring:message code="application.apply"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize> 
+	</jstl:if>
+	
 <security:authorize access="hasRole('CUSTOMER')">	
 	
 	<display:column style="background-color:${colorValue}">
@@ -77,3 +87,11 @@
 	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
 
 </display:table>
+
+
+
+
+			<jstl:if test="${application.fixUpTask.startDate.time <now.time && notOwner && notAccepted}">
+				<a href="application/handyWorker/create.do?fixUpTaskId=${row.fixUpTask.id}"><spring:message code="application.apply"/></a>
+			</jstl:if>
+	
