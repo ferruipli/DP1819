@@ -172,6 +172,8 @@ public class ActorMultiUserController extends AbstractController {
 		newUsername = request.getParameter("newUsername");
 		email = request.getParameter("email");
 
+		result = new ModelAndView();
+
 		if (!newUsername.isEmpty() && !newPassword.isEmpty())
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
@@ -184,9 +186,10 @@ public class ActorMultiUserController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
-		else if (this.actorService.existEmail(email))
-			result = this.editModelAndView(actor, "actor.email.used");
-		else
+		else if (!actor.getEmail().equals(email)) {
+			if (this.actorService.existEmail(email))
+				result = this.editModelAndView(actor, "actor.email.used");
+		} else
 			try {
 				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
@@ -208,6 +211,8 @@ public class ActorMultiUserController extends AbstractController {
 		newUsername = request.getParameter("newUsername");
 		email = request.getParameter("email");
 
+		result = new ModelAndView();
+
 		if (!newUsername.isEmpty() && !newPassword.isEmpty())
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
@@ -220,9 +225,10 @@ public class ActorMultiUserController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
-		else if (this.actorService.existEmail(email))
-			result = this.editModelAndView(actor, "actor.email.used");
-		else
+		else if (!actor.getEmail().equals(email)) {
+			if (this.actorService.existEmail(email))
+				result = this.editModelAndView(actor, "actor.email.used");
+		} else
 			try {
 				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
@@ -244,6 +250,8 @@ public class ActorMultiUserController extends AbstractController {
 		newUsername = request.getParameter("newUsername");
 		email = request.getParameter("email");
 
+		result = new ModelAndView();
+
 		if (!newUsername.isEmpty() && !newPassword.isEmpty())
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
@@ -256,9 +264,10 @@ public class ActorMultiUserController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
-		else if (this.actorService.existEmail(email))
-			result = this.editModelAndView(actor, "actor.email.used");
-		else
+		else if (!actor.getEmail().equals(email)) {
+			if (this.actorService.existEmail(email))
+				result = this.editModelAndView(actor, "actor.email.used");
+		} else
 			try {
 				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
@@ -280,6 +289,8 @@ public class ActorMultiUserController extends AbstractController {
 		newUsername = request.getParameter("newUsername");
 		email = request.getParameter("email");
 
+		result = new ModelAndView();
+
 		if (!newUsername.isEmpty() && !newPassword.isEmpty())
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
@@ -292,9 +303,10 @@ public class ActorMultiUserController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
-		else if (this.actorService.existEmail(email))
-			result = this.editModelAndView(actor, "actor.email.used");
-		else
+		else if (!actor.getEmail().equals(email)) {
+			if (this.actorService.existEmail(email))
+				result = this.editModelAndView(actor, "actor.email.used");
+		} else
 			try {
 				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
@@ -316,6 +328,8 @@ public class ActorMultiUserController extends AbstractController {
 		newUsername = request.getParameter("newUsername");
 		email = request.getParameter("email");
 
+		result = new ModelAndView();
+
 		if (!newUsername.isEmpty() && !newPassword.isEmpty())
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
@@ -328,9 +342,10 @@ public class ActorMultiUserController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
-		else if (this.actorService.existEmail(email))
-			result = this.editModelAndView(actor, "actor.email.used");
-		else
+		else if (!actor.getEmail().equals(email)) {
+			if (this.actorService.existEmail(email))
+				result = this.editModelAndView(actor, "actor.email.used");
+		} else
 			try {
 				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
