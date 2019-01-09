@@ -4,7 +4,6 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -66,7 +65,6 @@ public class EndorserRecord extends DomainEntity {
 		this.linkedInProfile = linkedInProfile;
 	}
 
-	@Pattern(regexp = "^(?!\\s*$).+")
 	public String getComments() {
 		return this.comments;
 	}
