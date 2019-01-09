@@ -221,7 +221,7 @@ public class ApplicationService {
 		return result;
 	}
 
-	protected Application findAcceptedApplication(final int fixUpTaskId) {
+	public Application findAcceptedApplication(final int fixUpTaskId) {
 		Application result;
 
 		result = this.applicationRepository.findAcceptedApplication(fixUpTaskId);

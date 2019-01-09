@@ -21,7 +21,7 @@
 	
 		<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<jstl:if test="${row.startDate.time <now.time}">
+			<jstl:if test="${row.startDate.time <now.time && acceptedApp == 0}">
 				<a href="application/handyWorker/create.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.apply"/></a>
 			</jstl:if>
 		</display:column>
