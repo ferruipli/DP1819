@@ -46,7 +46,7 @@
 					<spring:message	code="application.display" />
 		</a>
 	</display:column>
-
+		
 <security:authorize access="hasRole('CUSTOMER')">	
 	
 	<display:column style="background-color:${colorValue}">
@@ -77,3 +77,12 @@
 	<display:column property="status" titleKey="application.status"  sortable="true" style="background-color:${colorValue }" />
 
 </display:table>
+
+
+
+<security:authorize access="hasRole('HANDYWORKER')">	
+			<jstl:if test="${notPastStartDate && notOwner && notAccepted}">
+				<a href="application/handyWorker/create.do?fixUpTaskId=${row.fixUpTask.id}"><spring:message code="application.apply"/></a>
+			</jstl:if>
+</security:authorize>
+	

@@ -19,14 +19,6 @@
 		</display:column>
 	</security:authorize>
 	
-		<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<jstl:if test="${row.startDate.time <now.time}">
-				<a href="application/handyWorker/create.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.apply"/></a>
-			</jstl:if>
-		</display:column>
-	</security:authorize>
-	
 	<display:column>
 		<a href="fixUpTask/customer,handyWorker,referee/display.do?fixUpTaskId=${row.id}"><spring:message code="fixUpTask.display"/></a>
 	</display:column>

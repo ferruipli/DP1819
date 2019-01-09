@@ -23,6 +23,7 @@ import services.ApplicationService;
 import services.CustomisationService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
+import services.UtilityService;
 import utilities.internal.PaginatedListAdapter;
 import controllers.AbstractController;
 import domain.Application;
@@ -44,6 +45,9 @@ public class ApplicationMultiuserController extends AbstractController {
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors -----------------------------------------------------------
 	public ApplicationMultiuserController() {
@@ -59,15 +63,22 @@ public class ApplicationMultiuserController extends AbstractController {
 		final PaginatedList applicationsAdapted;
 		FixUpTask fixUpTask;
 		Integer principalId;
+		Boolean notAccepted;
+		Boolean notOwner;
+		Boolean notPastStartDate;
 
 		pageable = this.newFixedPageable(page, dir, sort);
 		fixUpTask = this.fixUpTasksService.findOne(fixUpTaskId);
 		applications = this.applicationService.findApplicationByFixUpTask(fixUpTask.getId(), pageable);
 		applicationsAdapted = new PaginatedListAdapter(applications, sort);
 		principalId = null;
+		notAccepted = (this.applicationService.findAcceptedApplication(fixUpTaskId) == null) ? true : false;
+		notPastStartDate = (this.utilityService.current_moment()).before(fixUpTask.getStartDate()) ? true : false;
+		notOwner = false;
 
 		try {
 			principalId = this.handyWorkerService.findByPrincipal().getId();
+			notOwner = (this.applicationService.findApplicationByHWFixUpTask(fixUpTaskId).isEmpty()) ? true : false;
 		} catch (final Exception e) {
 
 		}
@@ -75,11 +86,13 @@ public class ApplicationMultiuserController extends AbstractController {
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applicationsAdapted);
 		result.addObject("principalId", principalId);
+		result.addObject("notAccepted", notAccepted);
+		result.addObject("notOwner", notOwner);
+		result.addObject("notPastStartDate", notPastStartDate);
 		result.addObject("requestURI", "application/customer,handyWorker,referee/list.do");
 
 		return result;
 	}
-
 	//  APPLICATION DISPLAY---------------------------------------------------------------		
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int applicationId) {
