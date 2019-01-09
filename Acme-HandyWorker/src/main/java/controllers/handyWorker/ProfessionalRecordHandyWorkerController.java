@@ -55,7 +55,7 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int professionalRecordId) {
+	public ModelAndView edit(@RequestParam final int professionalRecordId) {
 		ModelAndView result;
 		ProfessionalRecord professionalRecord;
 		Integer handyWorkerId;

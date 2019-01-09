@@ -55,7 +55,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	// Edition -------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView action1(@RequestParam final int endorserRecordId) {
+	public ModelAndView edit(@RequestParam final int endorserRecordId) {
 		ModelAndView result;
 		EndorserRecord endorserRecord;
 		Integer handyWorkerId;
