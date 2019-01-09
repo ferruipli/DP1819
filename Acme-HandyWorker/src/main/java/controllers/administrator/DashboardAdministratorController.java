@@ -83,7 +83,6 @@ public class DashboardAdministratorController extends AbstractController {
 		topThreeHW = this.handyWorkerService.topThreeHandyWorker();
 
 		result = new ModelAndView("dashboard/display");
-		this.setBannerHeader(result);
 
 		// LEVEL C
 		result.addObject("dataFixUpTaskPerUser", dataFixUpTaskPerUser);

@@ -42,7 +42,6 @@ public class EndorsableAdministratorController extends AbstractController {
 		paginatedEndorsables = new PaginatedListAdapter(endorsables, sort);
 
 		result = new ModelAndView("actor/list");
-		this.setBannerHeader(result);
 		result.addObject("actors", paginatedEndorsables);
 		result.addObject("requestURI", "endorsable/administrator/list.do");
 		result.addObject("isEndorsable", true);
