@@ -46,7 +46,7 @@
 	<form:label path="attachment">
 		<spring:message code="professionalRecord.attachment" />:
 	</form:label>
-	<form:input path="attachment" />
+	<form:textarea path="attachment" />
 	<form:errors cssClass="error" path="attachment" />
 	<br />
 

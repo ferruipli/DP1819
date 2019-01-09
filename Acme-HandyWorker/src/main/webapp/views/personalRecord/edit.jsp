@@ -18,7 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="personalRecord/handyWorker/edit.do" modelAttribute="personalRecord">
+<spring:message code="confirm.telephone" var="confirmTelephone"/>
+<form:form action="personalRecord/handyWorker/edit.do" modelAttribute="personalRecord" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -60,7 +61,13 @@
 
 	<input type="submit" name="save" value="<spring:message code="personalRecord.save" />" />
 	
-	<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
+	<jstl:if test="${existCurriculum}">
+		<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('curriculum/display.do?handyWorkerId=${handyWorkerId}');"/>
+	</jstl:if>
+	
+	<jstl:if test="${!existCurriculum}">
+		<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"/>"onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do');"/>
+	</jstl:if>
 	<br />
 	
 

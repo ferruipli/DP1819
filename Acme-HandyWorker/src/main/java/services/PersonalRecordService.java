@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.PersonalRecordRepository;
 import domain.Curriculum;
+import domain.HandyWorker;
 import domain.PersonalRecord;
 
 @Service
@@ -27,6 +28,9 @@ public class PersonalRecordService {
 	private CurriculumService			curriculumService;
 
 	@Autowired
+	private HandyWorkerService			handyWorkerService;
+
+	@Autowired
 	private UtilityService				utilityService;
 
 
@@ -40,8 +44,11 @@ public class PersonalRecordService {
 
 	public PersonalRecord create() {
 		PersonalRecord result;
+		HandyWorker hw;
 
+		hw = this.handyWorkerService.findByPrincipal();
 		result = new PersonalRecord();
+		result.setFullName(hw.getFullname());
 
 		return result;
 	}

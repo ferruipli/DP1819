@@ -74,7 +74,6 @@ public class CategoryAdministratorController extends AbstractController {
 			mapa.put(categoryId, ls);
 
 			result = new ModelAndView("category/display");
-			this.setBannerHeader(result);
 			result.addObject("category", category);
 			result.addObject("mapa", mapa);
 		} catch (final Throwable oops) {
@@ -96,7 +95,6 @@ public class CategoryAdministratorController extends AbstractController {
 		mapa = this.categoryService.categoriesByLanguage(categories, language);
 
 		result = new ModelAndView("category/list");
-		this.setBannerHeader(result);
 		result.addObject("requestURI", "category/administrator/list.do");
 		result.addObject("mapa", mapa);
 
@@ -204,7 +202,6 @@ public class CategoryAdministratorController extends AbstractController {
 		parents = this.categoryService.categoriesByLanguage(categories, locale.getLanguage());
 
 		result = new ModelAndView("category/edit");
-		this.setBannerHeader(result);
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("parents", parents);
 		result.addObject("message", messageCode);

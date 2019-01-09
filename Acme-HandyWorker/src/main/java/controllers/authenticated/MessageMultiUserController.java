@@ -87,11 +87,11 @@ public class MessageMultiUserController extends AbstractController {
 	@RequestMapping(value = "/send", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Message messageToSend;
+		Message message;
 
-		messageToSend = this.messageService.create();
+		message = this.messageService.create();
 
-		result = this.createEditModelAndView(messageToSend);
+		result = this.createEditModelAndView(message);
 
 		return result;
 

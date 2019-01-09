@@ -1,5 +1,5 @@
 
-package controllers.handyworkercustomer;
+package controllers.handyWorkercustomer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,6 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 			endorsement = this.endorsementService.findOne(endorsementId);
 
 			result = new ModelAndView("endorsement/display");
-			this.setBannerHeader(result);
 			result.addObject("endorsement", endorsement);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:list.do");
@@ -83,7 +82,6 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 		paginatedReceivedEndorsements = new PaginatedListAdapter(receivedEndorsements, sort);
 
 		result = new ModelAndView("endorsement/list");
-		this.setBannerHeader(result);
 		result.addObject("sentEndorsements", paginatedSentEndorsements);
 		result.addObject("receivedEndorsements", paginatedReceivedEndorsements);
 		result.addObject("requestURI", "endorsement/customer,handyWorker/list.do");

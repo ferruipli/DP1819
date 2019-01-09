@@ -1,5 +1,5 @@
 
-package controllers.handyworker;
+package controllers.handyWorker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

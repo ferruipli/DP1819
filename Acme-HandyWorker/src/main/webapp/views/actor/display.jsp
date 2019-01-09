@@ -23,7 +23,7 @@
 	<legend><spring:message code="actor.legend"/></legend>
 	<p> <strong> <spring:message code="actor.fullname" /> </strong>  <jstl:out value="${actor.fullname}" /></p>
 
-	<p> <strong> <spring:message code="actor.photoLink" /> </strong> <img alt="Link" src="<jstl:out value="${actor.photoLink}" />"></p>
+	<p> <strong> <spring:message code="actor.photoLink" /> </strong> <img alt="Photo Link" src="<jstl:out value="${actor.photoLink}" />"></p>
 	
 	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
 	

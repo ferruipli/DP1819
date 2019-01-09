@@ -59,7 +59,6 @@ public class WelcomeController extends AbstractController {
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
-		this.setBannerHeader(result);
 		result.addObject("system_name", system_name);
 		result.addObject("welcome_message", welcome_message);
 		result.addObject("moment", moment);

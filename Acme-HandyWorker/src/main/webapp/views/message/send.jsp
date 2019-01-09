@@ -49,24 +49,7 @@
 		<form:option label="LOW" value="LOW"/>
 	</form:select>
 	<br>
-<!-- 
-	<jstl:choose>
-		<jstl:when test="${not empty actors}">
-			<label for="recipientsId">
-				<spring:message code="message.display.recipients"/>
-			</label>
-			<select name="recipients" id="recipientsId" multiple>
-				<jstl:forEach var="recipient" items="${actors}">
-					<option value="${recipient.id}" label="${recipient.name} ${recipient.surname} - (${recipient.email})" />
-				</jstl:forEach>
-			</select>
-			<br>
-		</jstl:when>
-		<jstl:otherwise>
-			<form:hidden path="recipients"/>
-		</jstl:otherwise>
-	</jstl:choose>
- -->		
+
  	
  	<form:label path="recipients">
 		<spring:message code="message.display.recipients"/>

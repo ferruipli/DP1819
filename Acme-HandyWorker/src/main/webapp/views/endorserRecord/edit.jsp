@@ -18,8 +18,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="endorserRecord/handyWorker/edit.do"
-	modelAttribute="endorserRecord">
+<spring:message code="confirm.telephone" var="confirmTelephone"/>
+
+<form:form action="endorserRecord/handyWorker/edit.do"	modelAttribute="endorserRecord" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
