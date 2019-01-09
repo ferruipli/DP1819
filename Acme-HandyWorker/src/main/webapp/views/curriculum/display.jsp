@@ -61,8 +61,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="educationRecords" id="rowEducationRecord"
-		class="displaytag" requestURI="${requestURI}">
+	<display:table name="curriculum.educationRecords" id="rowEducationRecord" pagesize="5"	class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -115,8 +114,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="professionalRecords" id="rowProfessionalRecord"
-		class="displaytag" requestURI="${requestURI}">
+	<display:table name="curriculum.professionalRecords" id="rowProfessionalRecord" pagesize="5" class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -168,8 +166,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="endorserRecords" id="rowEndorserRecord"
-		class="displaytag" requestURI="${requestURI}">
+	<display:table name="curriculum.endorserRecords" id="rowEndorserRecord" pagesize="5" class="displaytag" requestURI="${requestURI}">
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
@@ -221,8 +218,7 @@
 </fieldset>
 
 <fieldset>
-	<display:table name="miscellaneousRecords" id="rowMiscellaneousRecord"
-		class="displaytag" requestURI="${requestURI}">
+	<display:table name="curriculum.miscellaneousRecords" id="rowMiscellaneousRecord" pagesize="5"	class="displaytag" requestURI="${requestURI}">
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<jstl:if test="${handyWorkerLoginId == handyWorkerCurriculumId}">
 				<display:column>
