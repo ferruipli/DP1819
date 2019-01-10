@@ -48,7 +48,7 @@
 	<form:label path="phoneNumber">
 		<spring:message code="personalRecord.phoneNumber" />:
 	</form:label>
-	<form:input path="phoneNumber" placeholder="+34 654654654"/>
+	<form:input path="phoneNumber" placeholder="+34 (111) 654654654"/>
 	<form:errors cssClass="error" path="phoneNumber" />
 	<br />
 	
