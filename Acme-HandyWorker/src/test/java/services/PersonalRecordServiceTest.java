@@ -31,12 +31,12 @@ public class PersonalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreatePersonalRecord() {
+		super.authenticate("handyworker1");
 		PersonalRecord personalRecord;
 
 		personalRecord = this.personalRecordService.create();
 
 		Assert.notNull(personalRecord);
-		Assert.isNull(personalRecord.getFullName());
 		Assert.isNull(personalRecord.getPhotoLink());
 		Assert.isNull(personalRecord.getEmail());
 		Assert.isNull(personalRecord.getPhoneNumber());
@@ -50,7 +50,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		Collection<PersonalRecord> personalRecords;
 		String fullName, photoLink, email, phoneNumber, linkedInProfile;
 
-		super.authenticate("handyworker2");
+		super.authenticate("handyworker3");
 		personalRecord = this.personalRecordService.create();
 
 		fullName = "Jesús";

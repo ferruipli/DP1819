@@ -19,6 +19,10 @@
 <%@taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<div>
+	<a href="#"><img src="${banner}" alt="Acme-HandyWorker Co., Inc."  width="500" height="200"/></a>
+</div>
+
 <p><spring:message code="panic.text" /> <code>${name}</code>.</p>
 
 <h2><spring:message code="panic.message" /></h2>

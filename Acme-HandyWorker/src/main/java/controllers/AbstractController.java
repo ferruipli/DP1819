@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
 import org.springframework.validation.BindingResult;
@@ -133,7 +132,6 @@ public class AbstractController {
 
 	public ModelAndView registerActor(final Actor actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
-		//final String hashedPassword;
 		String username, password, role, confirmPassword;
 		final Administrator administrator;
 		final Customer customer;
@@ -161,8 +159,7 @@ public class AbstractController {
 			result = this.createModelAndView(actor, role, "actor.username.size");
 		else
 			try {
-				//hashedPassword = this.hashPassword(password);
-				//this.userAccountService.setLogin(actor.getUserAccount(), username, hashedPassword);
+
 				this.userAccountService.setLogin(actor.getUserAccount(), username, password);
 				userAccount = actor.getUserAccount();
 
@@ -198,20 +195,6 @@ public class AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(actor, role, "actor.commit.error");
 			}
-
-		return result;
-	}
-
-	public String hashPassword(final String password) {
-		String result;
-		Md5PasswordEncoder encoder;
-
-		encoder = new Md5PasswordEncoder();
-
-		if (!"".equals(password) && password != null)
-			result = encoder.encodePassword(password, null);
-		else
-			result = null;
 
 		return result;
 	}

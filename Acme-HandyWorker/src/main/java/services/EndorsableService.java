@@ -90,6 +90,7 @@ public class EndorsableService {
 
 		final Double score;
 		Integer p, n;
+		Double maximo;
 		final Collection<Endorsement> receivedEndorsements = this.endorsementService.findEndorsementsByEndorsable(endorsable.getId());
 		List<Integer> ls;
 
@@ -97,7 +98,12 @@ public class EndorsableService {
 		p = ls.get(0);
 		n = ls.get(1);
 
-		score = (p - n) / this.max(p, n);
+		maximo = this.max(p, n);
+
+		if (maximo != 0)
+			score = (p - n) / maximo;
+		else
+			score = 0.0;
 
 		Assert.isTrue(score >= -1.00 && score <= 1.00);
 

@@ -92,6 +92,7 @@ public class ActorServiceTest extends AbstractTest {
 		message.setSender(sender);
 		message.setSubject("buenas tardes");
 		message.setPriority("NEUTRAL");
+		message.setTags("");
 
 		message = this.messageService.save(message);
 		Assert.isTrue(sender.getIsSuspicious());
