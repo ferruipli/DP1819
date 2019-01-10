@@ -163,7 +163,7 @@ public class BoxMultiUserController extends AbstractController {
 
 		result = new ModelAndView("box/edit");
 		result.addObject("box", box);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("actor", sender);
 
 		return result;

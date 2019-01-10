@@ -99,7 +99,7 @@ public class SectionHandyWorkerController extends AbstractController {
 		result = new ModelAndView("section/edit");
 		result.addObject("section", section);
 		result.addObject("tutorialId", tutorialId);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

@@ -86,7 +86,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("brandName", brandName);
 
 		return result;

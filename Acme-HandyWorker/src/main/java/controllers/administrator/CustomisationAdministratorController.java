@@ -82,7 +82,7 @@ public class CustomisationAdministratorController extends AbstractController {
 
 		result = new ModelAndView("customisation/edit");
 		result.addObject("customisation", customisation);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

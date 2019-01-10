@@ -154,7 +154,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		result.addObject("warranties", warranties);
 		result.addObject("categories", categoryMap);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

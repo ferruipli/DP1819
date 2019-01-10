@@ -122,7 +122,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

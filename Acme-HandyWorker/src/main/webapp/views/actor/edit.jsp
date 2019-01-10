@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="actor" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
+<form:form action="actor/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="actor" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -134,19 +134,19 @@
  
  	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
-			<input type="submit" name="saveCustomer" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
+			<input type="submit" name="saveCustomer" value="<spring:message code="actor.save" />"  onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 		<jstl:when test="${role == 'handyworker'}">
-			<input type="submit" name="saveHw" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
+			<input type="submit" name="saveHw" value="<spring:message code="actor.save" />"  onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
-			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />"  onclick="javascript:calcMD5();"/>
+			<input type="submit" name="saveSponsor" value="<spring:message code="actor.save" />"  onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 		<jstl:when test="${role == 'administrator'}">
-			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();" />
+			<input type="submit" name="saveAdmin" value="<spring:message code="actor.save" />" onclick ="javascript: return checkTelephone('${confirmTelephone}');" />
 		</jstl:when>
 		<jstl:when test="${role == 'referee'}">
-			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();"/>
+			<input type="submit" name="saveReferee" value="<spring:message code="actor.save" />" onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 	</jstl:choose>
   <!-- 

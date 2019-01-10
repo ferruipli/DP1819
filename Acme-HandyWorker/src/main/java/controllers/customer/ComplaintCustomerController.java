@@ -88,7 +88,7 @@ public class ComplaintCustomerController extends AbstractController {
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

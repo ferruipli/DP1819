@@ -125,11 +125,11 @@ public class ActorMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registerhandyworker", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyWorker, final BindingResult binding, final HttpServletRequest request) {
+	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyworker, final BindingResult binding, final HttpServletRequest request) {
 
 		ModelAndView result;
 
-		result = this.registerActor(handyWorker, binding, request);
+		result = this.registerActor(handyworker, binding, request);
 		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
 
 		return result;
@@ -396,7 +396,7 @@ public class ActorMultiUserController extends AbstractController {
 		result = new ModelAndView("actor/edit");
 		result.addObject("actor", actor);
 		result.addObject("role", role);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}
