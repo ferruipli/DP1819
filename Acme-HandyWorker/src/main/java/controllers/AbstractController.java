@@ -123,7 +123,7 @@ public class AbstractController {
 			break;
 		default:
 			result = new ModelAndView("redirect:/welcome/index.do");
-			result.addObject("message", "actor.commit.error");
+			result.addObject("messageCode", "actor.commit.error");
 			break;
 		}
 
@@ -137,7 +137,7 @@ public class AbstractController {
 		String username, password, role, confirmPassword;
 		final Administrator administrator;
 		final Customer customer;
-		final HandyWorker handyWorker;
+		final HandyWorker handyworker;
 		final Referee referee;
 		final Sponsor sponsor;
 		UserAccount userAccount;
@@ -178,8 +178,8 @@ public class AbstractController {
 					this.customerService.save(customer);
 					break;
 				case "handyworker":
-					handyWorker = (HandyWorker) actor;
-					this.handyWorkerService.save(handyWorker);
+					handyworker = (HandyWorker) actor;
+					this.handyWorkerService.save(handyworker);
 					break;
 				case "referee":
 					referee = (Referee) actor;
@@ -194,7 +194,7 @@ public class AbstractController {
 				}
 
 				result = new ModelAndView("redirect:/welcome/index.do");
-				result.addObject("message", "actor.registration.successful");
+				result.addObject("messageCode", "actor.registration.successful");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(actor, role, "actor.commit.error");
 			}
@@ -242,7 +242,7 @@ public class AbstractController {
 		result.addObject("role", role);
 		result.addObject(role, actor);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

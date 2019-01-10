@@ -130,7 +130,7 @@ public class MiscellaneousRecordHandyWorkerController extends AbstractController
 
 		result = new ModelAndView("miscellaneousRecord/edit");
 		result.addObject("miscellaneousRecord", miscellaneousRecord);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;

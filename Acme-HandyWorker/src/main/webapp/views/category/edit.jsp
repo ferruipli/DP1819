@@ -19,7 +19,7 @@
 			<spring:message code="category.parent" />:
 		</form:label>
 		<form:select path="parent">
-			<form:option label="----" value="0" />
+			<!--<form:option label="----" value="0" />-->
 			<jstl:forEach var="categoryId" items="${parents.keySet()}">
 				<form:option label="${parents.get(categoryId)[0]}" value="${categoryId}"/>
 			</jstl:forEach>

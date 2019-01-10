@@ -122,7 +122,7 @@ public class ReportRefereeController extends AbstractController {
 			result = new ModelAndView("redirect:/report/customer,handyWorker,referee/display.do?reportId=" + reportId);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/report/customer,handyWorker,referee/display.do?reportId=" + reportId);
-			redir.addFlashAttribute("message", "report.make.final.error");
+			redir.addFlashAttribute("messageCode", "report.make.final.error");
 		}
 
 		return result;
@@ -161,7 +161,7 @@ public class ReportRefereeController extends AbstractController {
 		result.addObject("report", report);
 		result.addObject("complaintId", complaintId);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

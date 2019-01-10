@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript: return checkTelephone('${confirmTelephone}');">
+<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -170,7 +170,7 @@
 	</fieldset>
 	
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save" />" onclick="javascript:calcMD5();"/>
+	<input type="submit" name="save" value="<spring:message code="actor.save" />" onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('welcome/index.do')" />
 </form:form>

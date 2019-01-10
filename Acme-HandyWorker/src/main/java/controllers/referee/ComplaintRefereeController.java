@@ -88,7 +88,7 @@ public class ComplaintRefereeController extends AbstractController {
 			result = new ModelAndView("redirect:/complaint/customer,handyWorker,referee/display.do?complaintId=" + complaintId);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/complaint/customer,handyWorker,referee/display.do?complaintId=" + complaintId);
-			redir.addFlashAttribute("message", "complaint.self.assign.error");
+			redir.addFlashAttribute("messageCode", "complaint.self.assign.error");
 		}
 
 		return result;

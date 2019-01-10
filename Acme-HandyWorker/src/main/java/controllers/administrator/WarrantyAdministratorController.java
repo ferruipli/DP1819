@@ -106,7 +106,7 @@ public class WarrantyAdministratorController extends AbstractController {
 		try {
 			this.warrantyService.delete(warranty);
 		} catch (final Throwable oops) {
-			redir.addFlashAttribute("message", "warranty.delete.error");
+			redir.addFlashAttribute("messageCode", "warranty.delete.error");
 		}
 
 		result = new ModelAndView("redirect:list.do");
@@ -158,7 +158,7 @@ public class WarrantyAdministratorController extends AbstractController {
 		try {
 			this.warrantyService.makeFinal(warranty);
 		} catch (final Throwable oops) {
-			redir.addFlashAttribute("message", "warranty.make.final.error");
+			redir.addFlashAttribute("messageCode", "warranty.make.final.error");
 		}
 
 		result = new ModelAndView("redirect:/warranty/administrator/display.do?warrantyId=" + warrantyId);
@@ -182,7 +182,7 @@ public class WarrantyAdministratorController extends AbstractController {
 		result = new ModelAndView("warranty/edit");
 		result.addObject("warranty", warranty);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

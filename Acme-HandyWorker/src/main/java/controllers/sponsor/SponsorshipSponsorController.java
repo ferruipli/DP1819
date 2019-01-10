@@ -148,7 +148,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("brandName", creditCardMakes);
 		result.addObject("tutorialId", tutorialId);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

@@ -88,8 +88,8 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
 		result.addObject("brandName", creditCardMakes);
-		result.addObject("message", messageCode);
 		result.addObject("vat", vat);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}
