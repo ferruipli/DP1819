@@ -140,12 +140,11 @@ public class CategoryAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final CategoryForm categoryForm, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
-		String en_name, es_name;
-		Category parent, category;
+		Category category;
 
-		parent = this.categoryService.validateParent(categoryForm, binding);
-		en_name = this.categoryService.validateName("en_name", categoryForm.getEn_name(), binding);
-		es_name = this.categoryService.validateName("es_name", categoryForm.getEs_name(), binding);
+		this.categoryService.validateParent(categoryForm, binding);
+		this.categoryService.validateName("en_name", categoryForm.getEn_name(), binding);
+		this.categoryService.validateName("es_name", categoryForm.getEs_name(), binding);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(categoryForm, locale);

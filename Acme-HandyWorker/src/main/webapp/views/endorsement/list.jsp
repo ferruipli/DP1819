@@ -31,7 +31,7 @@
 	
 	<display:column property="recipient.fullname" titleKey="endorsement.recipient" />
 </display:table>
-
+<br />
 <a href="endorsement/customer,handyWorker/create.do">
 	<spring:message code="endorsement.create" />
 </a>
