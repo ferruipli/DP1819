@@ -252,7 +252,7 @@
 		<property name="name" value="Fernando" />
 		<property name="middleName" value="" />
 		<property name="surname" value="Ruiz" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="fruiz@gmail.com" />
 		<property name="phoneNumber" value="63018754" />
 		<property name="address" value="Calle Palmera 4" />
@@ -2013,7 +2013,7 @@
 		<property name="name" value="Antonio" />
 		<property name="middleName" value="" />
 		<property name="surname" value="Ferreras" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="alrojovivo@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
@@ -2033,7 +2033,7 @@
 		<property name="name" value="Maria" />
 		<property name="middleName" value="Isabel" />
 		<property name="surname" value="Diaz Gomez" />
-		<property name="photoLink" value="http://www.link2.com" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="customer2@gmail.com" />
 		<property name="phoneNumber" value="632014700" />
 		<property name="address" value="Address 2" />
@@ -2051,7 +2051,7 @@
 		<property name="name" value="Ana" />
 		<property name="middleName" value="Isabel" />
 		<property name="surname" value="Ramos Hernandez" />
-		<property name="photoLink" value="http://www.link3.com" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="customer3@gmail.com" />
 		<property name="phoneNumber" value="632014701" />
 		<property name="address" value="Address 3" />
@@ -2068,7 +2068,7 @@
 		<property name="name" value="Jose" />
 		<property name="middleName" value="Maria" />
 		<property name="surname" value="Gutierrez Saez" />
-		<property name="photoLink" value="http://www.link4.com" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="customer4@gmail.com" />
 		<property name="phoneNumber" value="634014701" />
 		<property name="address" value="Address 4" />
@@ -2086,7 +2086,7 @@
 		<property name="name" value="Jose" />
 		<property name="middleName" value="Antonio" />
 		<property name="surname" value="Nole Anguita" />
-		<property name="photoLink" value="http://www.link5.com" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="customer5@gmail.com" />
 		<property name="phoneNumber" value="635014701" />
 		<property name="address" value="Address 5" />
@@ -2104,7 +2104,7 @@
 		<property name="name" value="Maria" />
 		<property name="middleName" value="Antonieta" />
 		<property name="surname" value="San Mateo" />
-		<property name="photoLink" value="http://www.link6.com" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="customer6@gmail.com" />
 		<property name="phoneNumber" value="636014701" />
 		<property name="address" value="Address 6" />
@@ -2754,7 +2754,7 @@
 		<property name="name" value="Sara" />
 		<property name="middleName" value="" />
 		<property name="surname" value="Picasso" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="sarapicasso@gmail.com" />
 		<property name="phoneNumber" value="654123078" />
 		<property name="address" value="Calle Diagonal 2" />
@@ -2776,7 +2776,7 @@
 		<property name="name" value="Lucia" />
 		<!-- <property name="middleName" value=""/> -->
 		<property name="surname" value="Del Carmen Fuentes" />
-		<property name="photoLink" value="http://www.link2.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="handyworker2@gmail.com" />
 		<property name="phoneNumber" value="654122078" />
 		<property name="address" value="Address 2" />
@@ -2799,7 +2799,7 @@
 		<property name="name" value="Manuel" />
 		<!-- <property name="middleName" value=""/> -->
 		<property name="surname" value="Borrego Reina" />
-		<property name="photoLink" value="http://www.link3.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="handyworker3@gmail.com" />
 		<property name="phoneNumber" value="654123078" />
 		<property name="address" value="Address 3" />
@@ -2821,7 +2821,7 @@
 		<property name="name" value="Luis" />
 		<property name="middleName" value="Mariano" />
 		<property name="surname" value="Garcia Gonzalez" />
-		<property name="photoLink" value="http://www.link4.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="handyworker4@gmail.com" />
 		<property name="phoneNumber" value="654124078" />
 		<property name="address" value="Address 4" />
@@ -2843,7 +2843,7 @@
 		<property name="name" value="Rosalia" />
 		<!-- <property name="middleName" value=""/> -->
 		<property name="surname" value="De Castro Aranburu" />
-		<property name="photoLink" value="http://www.link.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="handyworker5@gmail.com" />
 		<property name="phoneNumber" value="654125078" />
 		<property name="address" value="Address 5" />
@@ -2865,7 +2865,7 @@
 		<property name="name" value="Joanne" />
 		<property name="middleName" value="Kathelyn" />
 		<property name="surname" value="Rowling" />
-		<property name="photoLink" value="http://www.link6.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="handyworker6@gmail.com" />
 		<property name="phoneNumber" value="654126078" />
 		<property name="address" value="Address 6" />
@@ -3248,7 +3248,7 @@
 		<property name="name" value="Ignacio" />
 		<property name="middleName" value="Nacho" />
 		<property name="surname" value="Zuluaga" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="nachofdez@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Capital 2" />
@@ -3267,7 +3267,7 @@
 		<property name="name" value="Hector" />
 		<property name="middleName" value="Miguel" />
 		<property name="surname" value="Sanchez Arminio" />
-		<property name="photoLink" value="http://www.photoLink2.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="referee2@gmail.com" />
 		<property name="phoneNumber" value="633554212" />
 		<property name="address" value="Calle Palmera" />
@@ -3492,7 +3492,7 @@
 		<property name="name" value="Enrique" />
 		<property name="middleName" value="Quique" />
 		<property name="surname" value="Setién" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="quiquesetien@gmail.com" />
 		<property name="phoneNumber" value="653201487" />
 		<property name="address" value="Calle Venta 2" />
@@ -3512,7 +3512,7 @@
 		<property name="name" value="José" />
 		<property name="middleName" value="Pepe" />
 		<property name="surname" value="García" />
-		<property name="photoLink" value="http://www.instagram.es" />
+		<property name="photoLink" value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
 		<property name="email" value="ppgar@gmail.com" />
 		<property name="phoneNumber" value="698357269" />
 		<property name="address" value="Calle Naranjo 2" />
