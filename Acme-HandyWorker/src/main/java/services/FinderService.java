@@ -68,17 +68,17 @@ public class FinderService {
 
 		date = this.utilityService.current_moment();
 
-		if (finder.getId() != 0)
+		if (finder.getId() != 0) {
 			this.checkByPrincipal(finder);
+			pageFixUpTasks = this.search(finder);
+			collectionFixUpTask = pageFixUpTasks.getContent();
+			finder.setFixUpTasks(collectionFixUpTask);
+
+		}
 
 		finder.setLastUpdate(date);
 
-		pageFixUpTasks = this.search(finder);
-		collectionFixUpTask = pageFixUpTasks.getContent();
-		finder.setFixUpTasks(collectionFixUpTask);
 		result = this.finderRepository.save(finder);
-
-		finder.setLastUpdate(LocalDate.now().toDate());
 
 		return result;
 	}

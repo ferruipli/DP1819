@@ -84,3 +84,4 @@
 	<a href="application/customer,handyWorker,referee/list.do?fixUpTaskId=${application.fixUpTask.id}">
 					<spring:message	code="application.return" />
 				</a>
+				
