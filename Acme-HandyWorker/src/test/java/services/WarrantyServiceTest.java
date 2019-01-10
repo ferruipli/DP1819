@@ -34,6 +34,8 @@ public class WarrantyServiceTest extends AbstractTest {
 		Warranty warranty, saved;
 		Collection<Warranty> warranties;
 
+		super.authenticate("admin1");
+
 		warranty = this.warrantyService.create();
 		warranty.setFinalMode(false);
 		warranty.setLaws("Test laws");
@@ -47,5 +49,7 @@ public class WarrantyServiceTest extends AbstractTest {
 		this.warrantyService.delete(saved);
 		warranties = this.warrantyService.findAll();
 		Assert.isTrue(!warranties.contains(saved));
+
+		super.unauthenticate();
 	}
 }

@@ -17,6 +17,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jsp:useBean id="utilityService" class="services.UtilityService"/>
+
 <spring:message code="formatDate" var="formatDate" />
 
 <p>
@@ -95,8 +97,13 @@
 
 		<spring:message code="curriculum.educationRecord.attachment"
 			var="attachmentHeader" />
-		<display:column property="attachment" title="${attachmentHeader}"
-			sortable="false" />
+		<display:column title="${attachmentHeader}" sortable="false">
+			<ul>
+				<jstl:forEach var="attachmentRow" items="${utilityService.getSplittedString(rowEducationRecord.attachment)}">
+					<li> <a href="${attachmentRow}"><jstl:out value="${attachmentRow}"/></a> </li>
+				</jstl:forEach>
+			</ul>
+		</display:column>
 
 		<spring:message code="curriculum.educationRecord.comments"
 			var="commentsHeader" />
@@ -147,8 +154,13 @@
 
 		<spring:message code="curriculum.professionalRecord.attachment"
 			var="attachmentHeader" />
-		<display:column property="attachment" title="${attachmentHeader}"
-			sortable="false" />
+		<display:column title="${attachmentHeader}" sortable="false">
+			<ul>
+				<jstl:forEach var="attachmentRow" items="${utilityService.getSplittedString(rowProfessionalRecord.attachment)}">
+					<li> <a href="${attachmentRow}"><jstl:out value="${attachmentRow}"/></a> </li>
+				</jstl:forEach>
+			</ul>
+		</display:column>
 
 		<spring:message code="curriculum.professionalRecord.comments"
 			var="commentsHeader" />
@@ -197,8 +209,9 @@
 		<a><spring:message
 				code="curriculum.endorserRecord.linkedInProfile"
 				var="linkedInProfileHeader" /> </a>
-		<display:column property="linkedInProfile"
-			title="${linkedInProfileHeader}" sortable="false" />
+		<display:column title="${linkedInProfileHeader}" sortable="false">
+			<a href="${rowEndorserRecord.linkedInProfile}"><jstl:out value="${rowEndorserRecord.linkedInProfile}"/></a>
+		</display:column>
 
 
 		<spring:message code="curriculum.endorserRecord.comments"
@@ -236,8 +249,13 @@
 
 		<spring:message code="curriculum.miscellaneousRecord.attachment"
 			var="attachmentHeader" />
-		<display:column property="attachment" title="${attachmentHeader}"
-			sortable="false" />
+		<display:column title="${attachmentHeader}" sortable="false">
+			<ul>
+				<jstl:forEach var="attachmentRow" items="${utilityService.getSplittedString(rowMiscellaneousRecord.attachment)}">
+					<li> <a href="${attachmentRow}"><jstl:out value="${attachmentRow}"/></a> </li>
+				</jstl:forEach>
+			</ul>
+		</display:column>
 
 		<spring:message code="curriculum.miscellaneousRecord.comments"
 			var="commentsHeader" />
