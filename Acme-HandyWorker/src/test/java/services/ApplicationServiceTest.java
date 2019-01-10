@@ -47,7 +47,7 @@ public class ApplicationServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
-		super.authenticate("handyWorker2");
+		super.authenticate("handyWorker3");
 		final Application application;
 		FixUpTask fixUpTask;
 		fixUpTask = this.fixUpTaskService.findOne(super.getEntityId("fixUpTask4"));

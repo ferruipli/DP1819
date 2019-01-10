@@ -29,7 +29,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	// Test ------------------------------------------------
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testSave() {
 		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
@@ -59,9 +59,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.notNull(sponsorshipSaved);
 		super.unauthenticate();
 	}
-	//URL NO VALIDA
-	@Test(expected = javax.validation.ConstraintViolationException.class)
-	public void testNegativeSave1() {
+	@Test(expected = IllegalArgumentException.class)
+	public void testSave1() {
 		this.authenticate("sponsor1");
 		final Sponsorship sponsorship;
 		final Sponsorship sponsorshipSaved;
