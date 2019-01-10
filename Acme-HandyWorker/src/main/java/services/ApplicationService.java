@@ -237,8 +237,6 @@ public class ApplicationService {
 		handyWorker = this.handyWorkerService.findByPrincipal();
 		applications = this.applicationRepository.findApplicationByHandyWorker(handyWorker.getId(), pageable);
 
-		Assert.isTrue((applications.getNumberOfElements() != 0));
-
 		return applications;
 
 	}
