@@ -94,6 +94,7 @@ public class ApplicationMultiuserController extends AbstractController {
 		result.addObject("notPastStartDate", notPastStartDate);
 		result.addObject("hasCurriculum", hasCurriculum);
 		result.addObject("fixUpTaskId", fixUpTaskId);
+		result.addObject("listAppTask", true);
 		result.addObject("requestURI", "application/customer,handyWorker,referee/list.do");
 
 		return result;

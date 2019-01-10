@@ -84,8 +84,15 @@
 
 
 <security:authorize access="hasRole('HANDYWORKER')">	
-			<jstl:if test="${notPastStartDate && notOwner && notAccepted && hasCurriculum}">
-				<a href="application/handyWorker/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="application.apply"/></a>
-			</jstl:if>
+		<jstl:if test="${notPastStartDate && notOwner && notAccepted && hasCurriculum}">
+			<a href="application/handyWorker/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="application.apply"/></a>
+		</jstl:if>
+		
+	<jstl:if test="${!hasCurriculum && listAppTask}">
+		<p style="color:blue;"><spring:message code="application.apply.info"/></p>
+	</jstl:if>
 </security:authorize>
+
+
+
 	
