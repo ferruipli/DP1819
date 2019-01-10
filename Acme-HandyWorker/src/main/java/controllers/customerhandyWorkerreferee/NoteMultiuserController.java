@@ -177,7 +177,7 @@ public class NoteMultiuserController extends AbstractController {
 		result.addObject("note", note);
 		result.addObject("reportId", reportId);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

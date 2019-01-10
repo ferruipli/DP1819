@@ -130,7 +130,7 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("educationRecord/edit");
 		result.addObject("educationRecord", educationRecord);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;

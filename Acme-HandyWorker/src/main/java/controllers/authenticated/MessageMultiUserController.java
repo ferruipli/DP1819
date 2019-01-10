@@ -180,7 +180,7 @@ public class MessageMultiUserController extends AbstractController {
 			result = new ModelAndView("redirect:/box/administrator,customer,handyWorker,referee,sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("message/move");
-			redir.addFlashAttribute("message", "message.commit.error");
+			redir.addFlashAttribute("messageCode", "message.commit.error");
 		}
 
 		return result;
@@ -197,7 +197,7 @@ public class MessageMultiUserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Message messageToSend, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Message message, final String messageCode) {
 		ModelAndView result;
 		Collection<Actor> actors;
 		Actor principal;
@@ -207,9 +207,9 @@ public class MessageMultiUserController extends AbstractController {
 		actors.remove(principal);
 
 		result = new ModelAndView("message/send");
-		result.addObject("messageToSend", messageToSend);
+		result.addObject("message", message);
 		result.addObject("actors", actors);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 

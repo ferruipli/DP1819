@@ -83,7 +83,7 @@ public class FinderHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("finder/edit");
 		result.addObject("finder", finder);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

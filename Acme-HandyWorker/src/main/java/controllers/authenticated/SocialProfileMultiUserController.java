@@ -148,7 +148,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 
 		result = new ModelAndView("socialProfile/edit");
 		result.addObject("socialProfile", socialProfile);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("actorId", actorId);
 
 		return result;

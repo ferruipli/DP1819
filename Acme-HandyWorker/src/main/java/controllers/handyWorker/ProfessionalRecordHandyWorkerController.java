@@ -130,7 +130,7 @@ public class ProfessionalRecordHandyWorkerController extends AbstractController 
 
 		result = new ModelAndView("professionalRecord/edit");
 		result.addObject("professionalRecord", professionalRecord);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;

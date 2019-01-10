@@ -83,17 +83,17 @@ public class MessageAdministratorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView broadcastModelAndView(final Message messageToBroadcast, final String messageCode) {
+	protected ModelAndView broadcastModelAndView(final Message message, final String messageCode) {
 		ModelAndView result;
 		Collection<Actor> recipients;
 
 		recipients = this.actorService.findAll();
 
 		result = new ModelAndView("message/broadcast");
-		result.addObject("messageToBroadcast", messageToBroadcast);
+		result.addObject("message", message);
 		result.addObject("recipients", recipients);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

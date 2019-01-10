@@ -172,7 +172,7 @@ public class EndorsementHandyWorkerCustomerController extends AbstractController
 		this.setBannerHeader(result);
 		result.addObject("endorsement", endorsement);
 		result.addObject("recipients", recipients);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

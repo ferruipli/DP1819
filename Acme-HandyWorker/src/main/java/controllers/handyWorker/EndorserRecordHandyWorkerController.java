@@ -130,7 +130,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("endorserRecord/edit");
 		result.addObject("endorserRecord", endorserRecord);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;

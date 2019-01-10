@@ -124,7 +124,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("personalRecord/edit");
 		result.addObject("personalRecord", personalRecord);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;

@@ -76,7 +76,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 		try {
 			this.phaseService.delete(phase);
 		} catch (final Throwable oops) {
-			redir.addFlashAttribute("message", "phase.delete.error");
+			redir.addFlashAttribute("messageCode", "phase.delete.error");
 		}
 
 		result = new ModelAndView("redirect:/phase/customer,handyWorker,referee/list.do?fixUpTaskId=" + fixUpTaskId);
@@ -162,7 +162,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 		result.addObject("phase", phase);
 		result.addObject("fixUpTaskId", fixUpTaskId);
 
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

@@ -204,7 +204,7 @@ public class CategoryAdministratorController extends AbstractController {
 		result = new ModelAndView("category/edit");
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("parents", parents);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

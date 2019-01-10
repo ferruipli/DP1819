@@ -152,7 +152,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		owner = this.handyWorkerService.findByPrincipal();
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		result.addObject("owner", owner);
 
 		return result;
