@@ -41,6 +41,9 @@
 	<a href="socialProfile/administrator,customer,handyWorker,referee,sponsor/create.do"><spring:message code="socialProfile.new"/></a>
 	
 	<br><br>
-		
+<!-- 	
 <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
 				onclick="javascript: relativeRedir('actor/administrator,customer,handyWorker,referee,sponsor/display.do?actorId=${actorId }');" />
+ -->
+ <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
+				onclick="javascript: window.history.back();" />

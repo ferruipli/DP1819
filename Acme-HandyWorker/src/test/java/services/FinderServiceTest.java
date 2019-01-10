@@ -36,7 +36,7 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.notNull(finder);
 	}
 
-	@Test
+	@Test(expected = UnsupportedOperationException.class)
 	public void testSave() {
 		super.authenticate("handyWorker1");
 		final Finder finder;
