@@ -30,6 +30,9 @@
 	<jstl:if test="${row.status=='ACCEPTED'}">
 		<jstl:set var="colorValue" value="green" />
 	</jstl:if>
+	<jstl:if test="${row.status=='PENDING' && (row.fixUpTask.endDate.time>=now.time)}">
+		<jstl:set var="colorValue"  />
+	</jstl:if>
 	
 <security:authorize access="hasRole('HANDYWORKER')">
 	<display:column style="background-color:${colorValue }" >
@@ -81,8 +84,8 @@
 
 
 <security:authorize access="hasRole('HANDYWORKER')">	
-			<jstl:if test="${notPastStartDate && notOwner && notAccepted}">
-				<a href="application/handyWorker/create.do?fixUpTaskId=${row.fixUpTask.id}"><spring:message code="application.apply"/></a>
+			<jstl:if test="${notPastStartDate && notOwner && notAccepted && hasCurriculum}">
+				<a href="application/handyWorker/create.do?fixUpTaskId=${fixUpTaskId}"><spring:message code="application.apply"/></a>
 			</jstl:if>
 </security:authorize>
 	

@@ -93,7 +93,9 @@ public class ApplicationService {
 				if (this.utilityService.checkIfCreditCardChanged(application.getCreditCard())) {
 					//Check that number of accepted application is 0
 					this.checkAcceptedApplication(application);
+					Assert.isTrue(this.utilityService.current_moment().before(application.getFixUpTask().getStartDate()));
 					application.setStatus("ACCEPTED");
+					this.changeStatus(application);
 				}
 				this.utilityService.checkIsSpamMarkAsSuspicious(application.getCustomerComments(), this.customerService.findByPrincipal());
 			}

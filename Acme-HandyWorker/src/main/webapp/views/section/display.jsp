@@ -33,8 +33,8 @@
 </p>
 
 <p>
-<strong> <spring:message code="tutorial.pictures" />: </strong>
-<img src="${tutorial.pictures}">
+<strong> <spring:message code="section.pictures" />: </strong>
+<img src="${section.pictures}">
 </p> 
 
 	<a href="tutorial/list.do">

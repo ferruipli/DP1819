@@ -66,6 +66,7 @@ public class ApplicationMultiuserController extends AbstractController {
 		Boolean notAccepted;
 		Boolean notOwner;
 		Boolean notPastStartDate;
+		Boolean hasCurriculum;
 
 		pageable = this.newFixedPageable(page, dir, sort);
 		fixUpTask = this.fixUpTasksService.findOne(fixUpTaskId);
@@ -75,10 +76,12 @@ public class ApplicationMultiuserController extends AbstractController {
 		notAccepted = (this.applicationService.findAcceptedApplication(fixUpTaskId) == null) ? true : false;
 		notPastStartDate = (this.utilityService.current_moment()).before(fixUpTask.getStartDate()) ? true : false;
 		notOwner = false;
+		hasCurriculum = false;
 
 		try {
 			principalId = this.handyWorkerService.findByPrincipal().getId();
 			notOwner = (this.applicationService.findApplicationByHWFixUpTask(fixUpTaskId).isEmpty()) ? true : false;
+			hasCurriculum = (this.handyWorkerService.findByPrincipal().getCurriculum() != null) ? true : false;
 		} catch (final Exception e) {
 
 		}
@@ -89,6 +92,8 @@ public class ApplicationMultiuserController extends AbstractController {
 		result.addObject("notAccepted", notAccepted);
 		result.addObject("notOwner", notOwner);
 		result.addObject("notPastStartDate", notPastStartDate);
+		result.addObject("hasCurriculum", hasCurriculum);
+		result.addObject("fixUpTaskId", fixUpTaskId);
 		result.addObject("requestURI", "application/customer,handyWorker,referee/list.do");
 
 		return result;

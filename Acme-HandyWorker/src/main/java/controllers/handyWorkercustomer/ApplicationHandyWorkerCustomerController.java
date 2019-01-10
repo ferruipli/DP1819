@@ -79,14 +79,17 @@ public class ApplicationHandyWorkerCustomerController extends AbstractController
 		ModelAndView result;
 		Collection<String> creditCardMakes;
 		Customisation customisation;
+		double vat;
 
 		customisation = this.customisationService.find();
 		creditCardMakes = customisation.getCreditCardMakes();
+		vat = this.customisationService.find().getVAT();
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
 		result.addObject("brandName", creditCardMakes);
 		result.addObject("message", messageCode);
+		result.addObject("vat", vat);
 
 		return result;
 	}

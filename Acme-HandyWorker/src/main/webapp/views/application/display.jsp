@@ -31,9 +31,10 @@
 </p>
 
 <p>
+	<spring:message code="application.vat" var="vatTag"/>
 	<strong> <spring:message code="application.offeredPrice" />: </strong>
-	<jstl:out value="${application.offeredPrice}" />&#8364;   (<spring:message code = "application.vat.no"></spring:message>)
-</p>
+	<fmt:formatNumber type="number" maxFractionDigits="2" value="${application.offeredPrice * (1 + VAT)}"/> &#8364; <jstl:out value="(${VAT*100}% ${vatTag} Inc.)"/>
+	</p>
 
 <p>
 	<strong> <spring:message code="application.status" />: </strong>
@@ -84,4 +85,3 @@
 	<a href="application/customer,handyWorker,referee/list.do?fixUpTaskId=${application.fixUpTask.id}">
 					<spring:message	code="application.return" />
 				</a>
-				

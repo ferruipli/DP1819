@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import services.CustomisationService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import utilities.internal.PaginatedListAdapter;
@@ -32,13 +33,16 @@ import domain.FixUpTask;
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -100,10 +104,13 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
+		double vat;
 
+		vat = this.customisationService.find().getVAT();
 		application = this.applicationService.findOne(applicationId);
 
 		result = this.createEditModelAndView(application);
+		result.addObject("vat", vat);
 
 		return result;
 	}
