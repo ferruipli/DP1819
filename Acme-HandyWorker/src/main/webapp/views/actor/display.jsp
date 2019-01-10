@@ -31,9 +31,9 @@
 
 	<p> <strong> <spring:message code="actor.address" /> </strong>  <jstl:out value="${actor.address}" /></p>
 	
-	<jstl:if test="${isEndorsable}">
+	<security:authorize access="hasRole('HANDYWORKER')">
 		<p> <strong> <spring:message code="actor.handyworker.make" /> </strong>  <jstl:out value="${actor.make}" /></p>
-	</jstl:if>
+	</security:authorize>
 	
 	<jstl:if test="${isEndorsable && actor.score != null}">
 		<p> <strong> <spring:message code="endorsable.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
