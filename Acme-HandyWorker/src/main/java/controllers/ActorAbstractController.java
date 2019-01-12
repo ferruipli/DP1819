@@ -13,6 +13,7 @@ import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
 import services.CustomerService;
+import services.EndorsableService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
@@ -48,6 +49,9 @@ public class ActorAbstractController extends AbstractController {
 
 	@Autowired
 	private UserAccountService		userAccountService;
+
+	@Autowired
+	private EndorsableService		endorsableService;
 
 
 	// Main methods -----------------------------------------------------------
@@ -156,6 +160,32 @@ public class ActorAbstractController extends AbstractController {
 		return result;
 	}
 
+	// Display --------------------------------------------------------------------
+
+	public ModelAndView display(final Integer actorId) {
+		ModelAndView result;
+		Actor actor;
+
+		actor = null;
+		result = new ModelAndView("actor/display");
+
+		if (actorId == null) {
+			actor = this.actorService.findPrincipal();
+			result.addObject("isAuthorized", true);
+		} else {
+			actor = this.actorService.findOne(actorId);
+			result.addObject("isAuthorized", false);
+		}
+
+		if (actor instanceof Customer || actor instanceof HandyWorker)
+			result.addObject("isEndorsable", true);
+		else
+			result.addObject("isEndorsable", false);
+
+		result.addObject("actor", actor);
+
+		return result;
+	}
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createModelAndView(final Actor actor, final String role) {

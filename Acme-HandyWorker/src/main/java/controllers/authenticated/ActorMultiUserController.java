@@ -1,8 +1,6 @@
 
 package controllers.authenticated;
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -18,13 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.UserAccountService;
 import services.ActorService;
-import services.EndorsableService;
-import services.HandyWorkerService;
 import controllers.ActorAbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
-import domain.Endorsable;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
@@ -39,13 +34,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 	private ActorService		actorService;
 
 	@Autowired
-	private EndorsableService	endorsableService;
-
-	@Autowired
 	private UserAccountService	userAccountService;
-
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor
@@ -56,44 +45,12 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 	// Display
 
+	@Override
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
 		ModelAndView result;
-		Actor actor;
-		Endorsable endorsable;
-		Collection<Authority> authorities;
-		HandyWorker handyWorker;
 
-		actor = null;
-		authorities = null;
-
-		if (actorId == null) {
-			actor = this.actorService.findPrincipal();
-			authorities = actor.getUserAccount().getAuthorities();
-		} else
-			actor = this.endorsableService.findOne(actorId);
-
-		handyWorker = this.handyWorkerService.findByPrincipal();
-
-		result = new ModelAndView("actor/display");
-
-		if (actor instanceof Customer || actor instanceof HandyWorker) {
-			endorsable = this.endorsableService.findOne(actor.getId());
-			result.addObject("actor", endorsable);
-			result.addObject("isEndorsable", true);
-		} else {
-			result.addObject("actor", actor);
-			result.addObject("isEndorsable", false);
-		}
-
-		result.addObject("authorities", authorities);
-		if (actorId != null)
-			result.addObject("isAuthorized", false);
-		else
-			result.addObject("isAuthorized", true);
-
-		if (actor instanceof HandyWorker)
-			result.addObject("curriculum", handyWorker.getCurriculum());
+		result = super.display(actorId);
 
 		return result;
 	}
