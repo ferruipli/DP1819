@@ -20,7 +20,7 @@ import security.UserAccountService;
 import services.ActorService;
 import services.EndorsableService;
 import services.HandyWorkerService;
-import controllers.AbstractController;
+import controllers.ActorAbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
@@ -31,7 +31,7 @@ import domain.Sponsor;
 
 @Controller
 @RequestMapping(value = "/actor/administrator,customer,handyWorker,referee,sponsor")
-public class ActorMultiUserController extends AbstractController {
+public class ActorMultiUserController extends ActorAbstractController {
 
 	// Services
 

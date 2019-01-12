@@ -18,7 +18,7 @@ import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/handyWorker")
-public class HandyWorkerController extends AbstractController {
+public class HandyWorkerController extends ActorAbstractController {
 
 	// Services
 

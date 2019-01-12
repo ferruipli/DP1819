@@ -18,14 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import utilities.internal.PaginatedListAdapter;
-import controllers.AbstractController;
+import controllers.ActorAbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Referee;
 
 @Controller
 @RequestMapping(value = "/actor/administrator")
-public class ActorAdministratorController extends AbstractController {
+public class ActorAdministratorController extends ActorAbstractController {
 
 	@Autowired
 	private ActorService	actorService;
