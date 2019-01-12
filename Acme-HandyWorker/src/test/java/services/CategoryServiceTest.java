@@ -57,7 +57,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 		Category category;
 		final Category saved, parent;
-		final Collection<Category> all;
+		//final Collection<Category> all;
 
 		category = this.categoryService.create();
 		category.setParent(this.getParent());
@@ -65,10 +65,11 @@ public class CategoryServiceTest extends AbstractTest {
 
 		saved = this.categoryService.save(category);
 
-		all = this.categoryService.findAll();
+		Assert.isTrue(saved != null && saved.getId() != 0);
+		//		all = this.categoryService.findAll();
 		parent = saved.getParent();
 
-		Assert.isTrue(all.contains(saved));
+		//		Assert.isTrue(all.contains(saved));
 		Assert.isTrue(parent.getDescendants().contains(saved));
 
 		super.unauthenticate();
@@ -189,6 +190,27 @@ public class CategoryServiceTest extends AbstractTest {
 		Assert.isNull(showed);
 
 		super.unauthenticate();
+	}
+
+	/*
+	 * Se trata de formar un ciclo en la jerarquía de categorias
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeTestSave_cinco() {
+		int id_edited, id_new_parent;
+		Category edited, new_parent, saved;
+
+		id_edited = super.getEntityId("category2");
+		id_new_parent = super.getEntityId("category5");
+
+		edited = this.categoryService.findOne(id_edited);
+		new_parent = this.categoryService.findOne(id_new_parent);
+
+		edited.setParent(new_parent);
+
+		saved = this.categoryService.save(edited);
+
+		Assert.isNull(saved);
 	}
 
 	/* Test negativo: category = null */

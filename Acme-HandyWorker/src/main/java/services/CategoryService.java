@@ -84,6 +84,7 @@ public class CategoryService {
 	public Category save(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size() && this.validLanguages(category));
+		this.checkValidParentCategory(category);
 
 		Category root, result, parent_category, old_category, old_parent_category;
 
@@ -277,6 +278,37 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
+	private void checkValidParentCategory(final Category category) {
+		Collection<Category> all;
+
+		all = this.findAllDescendantCategories(category);
+
+		Assert.isTrue(!all.contains(category.getParent()));
+	}
+
+	public Collection<Category> findPossibleParentCategory(final Category category) {
+		List<Category> results, descendantCategories;
+
+		descendantCategories = new ArrayList<>(this.findAllDescendantCategories(category));
+		results = new ArrayList<>(this.findAll());
+
+		results.removeAll(descendantCategories);
+
+		return results;
+	}
+
+	private Collection<Category> findAllDescendantCategories(final Category category) {
+		List<Category> results;
+
+		results = new ArrayList<Category>();
+
+		results.addAll(category.getDescendants());
+		for (final Category c : category.getDescendants())
+			results.addAll(c.getDescendants());
+
+		return results;
+	}
+
 	private boolean validLanguages(final Category category) {
 		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;
