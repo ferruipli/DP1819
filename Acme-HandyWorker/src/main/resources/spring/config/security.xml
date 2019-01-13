@@ -43,8 +43,12 @@
 
 		<security:intercept-url pattern="/handyWorker/display.do" access="permitAll" /> 
 		
+		<security:intercept-url pattern="/actor/create.do**" access="permitAll" />
+		<security:intercept-url pattern="/actor/registercustomer.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/registerhandyworker.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/registersponsor.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/administrator,customer,handyWorker,referee,sponsor/**" access="permitAll" />  
+		<security:intercept-url pattern="/actor/administrator,customer,handyWorker,referee,sponsor/**" access="isAuthenticated()" />  
 
 		<security:intercept-url pattern="/application/customer/**" access="hasAnyRole('CUSTOMER')" />
 		<security:intercept-url pattern="/application/customer,handyWorker,referee/**" access="hasAnyRole('CUSTOMER', 'REFEREE', 'HANDYWORKER')" />

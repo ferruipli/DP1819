@@ -35,9 +35,9 @@
 		<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
 			<ul>
 				<li class="arrow"></li>
-				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=customer"><spring:message code="master.page.customer.create" /></a></li>
-				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=handyworker"><spring:message code="master.page.handyworker.create" /></a></li>
-				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=sponsor"><spring:message code="master.page.sponsor.create" /></a></li>
+				<li><a href="actor/create.do?role=customer"><spring:message code="master.page.customer.create" /></a></li>
+				<li><a href="actor/create.do?role=handyworker"><spring:message code="master.page.handyworker.create" /></a></li>
+				<li><a href="actor/create.do?role=sponsor"><spring:message code="master.page.sponsor.create" /></a></li>
 			</ul>
 		</li>
 	</security:authorize>	

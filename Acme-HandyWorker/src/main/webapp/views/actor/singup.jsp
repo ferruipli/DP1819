@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
+<form:form action="${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
@@ -22,6 +22,7 @@
 		
 			<form:hidden path="finder"/>
 			<form:hidden path="applications"/>
+			<!-- <form:hidden path="make" /> -->
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
 			<h2><spring:message code="header.sponsor"/></h2>
@@ -96,7 +97,7 @@
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address" />
 		<br /> 
-		
+		 
 		<jstl:if test="${role == 'handyworker'}">
 			<form:label path="make">
 					<spring:message code="actor.make.requested" />
@@ -105,6 +106,7 @@
 				<form:errors cssClass="error" path="name" />
 				<br /> 	
  		</jstl:if>
+ 		 
 	</fieldset>
 	
 	<fieldset>

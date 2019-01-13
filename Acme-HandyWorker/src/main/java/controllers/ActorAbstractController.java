@@ -13,7 +13,6 @@ import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
 import services.CustomerService;
-import services.EndorsableService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
@@ -49,9 +48,6 @@ public class ActorAbstractController extends AbstractController {
 
 	@Autowired
 	private UserAccountService		userAccountService;
-
-	@Autowired
-	private EndorsableService		endorsableService;
 
 
 	// Main methods -----------------------------------------------------------

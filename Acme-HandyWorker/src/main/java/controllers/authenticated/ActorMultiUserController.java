@@ -55,54 +55,6 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
-	// Creation
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final String role) {
-		Assert.isTrue(role.equals("customer") || role.equals("handyworker") || role.equals("sponsor"));
-		final ModelAndView result;
-
-		result = this.createActor(role);
-		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
-
-		return result;
-	}
-
-	// Register
-
-	@RequestMapping(value = "/registercustomer", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerCustomer(@Valid final Customer customer, final BindingResult binding, final HttpServletRequest request) {
-
-		ModelAndView result;
-
-		result = this.registerActor(customer, binding, request);
-		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
-
-		return result;
-	}
-
-	@RequestMapping(value = "/registerhandyworker", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyworker, final BindingResult binding, final HttpServletRequest request) {
-
-		ModelAndView result;
-
-		result = this.registerActor(handyworker, binding, request);
-		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
-
-		return result;
-	}
-
-	@RequestMapping(value = "/registersponsor", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerSponsor(@Valid final Sponsor sponsor, final BindingResult binding, final HttpServletRequest request) {
-
-		ModelAndView result;
-
-		result = this.registerActor(sponsor, binding, request);
-		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
-
-		return result;
-	}
-
 	// Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)

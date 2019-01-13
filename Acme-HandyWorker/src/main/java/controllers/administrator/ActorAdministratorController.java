@@ -85,7 +85,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		final ModelAndView result;
 
 		result = this.createActor(role);
-		result.addObject("Url", "administrator/");
+		result.addObject("Url", "actor/administrator/");
 
 		return result;
 	}
@@ -98,7 +98,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		ModelAndView result;
 
 		result = this.registerActor(administrator, binding, request);
-		result.addObject("Url", "administrator/");
+		result.addObject("Url", "actor/administrator/");
 
 		return result;
 	}
@@ -109,7 +109,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		ModelAndView result;
 
 		result = this.registerActor(referee, binding, request);
-		result.addObject("Url", "administrator/");
+		result.addObject("Url", "actor/administrator/");
 
 		return result;
 	}
