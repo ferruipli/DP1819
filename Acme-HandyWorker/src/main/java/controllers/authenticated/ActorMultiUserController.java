@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.UserAccountService;
 import services.ActorService;
+import services.HandyWorkerService;
 import controllers.ActorAbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -35,6 +36,9 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 	@Autowired
 	private UserAccountService	userAccountService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor
@@ -178,7 +182,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				result = this.editModelAndView(actor, "actor.email.used");
 		} else
 			try {
-				this.actorService.save(actor);
+				this.handyWorkerService.save(actor);
 				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(actor, "actor.commit.error");

@@ -100,10 +100,10 @@
 		 
 		<jstl:if test="${role == 'handyworker'}">
 			<form:label path="make">
-					<spring:message code="actor.make.requested" />
+					<spring:message code="actor.handyworker.make" />
 				</form:label>
 				<form:input path="make"/>
-				<form:errors cssClass="error" path="name" />
+				<form:errors cssClass="error" path="make" />
 				<br /> 	
  		</jstl:if>
  		 

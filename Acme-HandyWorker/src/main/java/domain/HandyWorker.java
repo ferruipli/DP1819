@@ -11,8 +11,6 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class HandyWorker extends Endorsable {
@@ -28,7 +26,6 @@ public class HandyWorker extends Endorsable {
 	private String	make;
 
 
-	@NotBlank
 	public String getMake() {
 		return this.make;
 	}
