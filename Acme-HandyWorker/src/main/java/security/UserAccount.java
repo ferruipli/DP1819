@@ -46,7 +46,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Attributes -------------------------------------------------------------
 
-	private Boolean					isBanned;
+	private boolean					isBanned;
 
 	// UserDetails interface --------------------------------------------------
 
@@ -127,11 +127,11 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		return true;
 	}
 
-	public Boolean getIsBanned() {
+	public boolean getIsBanned() {
 		return this.isBanned;
 	}
 
-	public void setIsBanned(final Boolean isBanned) {
+	public void setIsBanned(final boolean isBanned) {
 		this.isBanned = isBanned;
 	}
 

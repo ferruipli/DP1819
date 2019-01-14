@@ -28,6 +28,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="false" />
 	</bean>
 	
 	<!-- Other domain beans come here -->

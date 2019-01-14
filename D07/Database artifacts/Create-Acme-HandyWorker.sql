@@ -1,4 +1,4 @@
-﻿start transaction;
+start transaction;
 
 create database `Acme-HandyWorker`;
 
@@ -1448,7 +1448,7 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `is_banned` bit(1) DEFAULT NULL,
+  `is_banned` bit(1) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1462,7 +1462,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (83,0,NULL,'21232f297a57a5a743894a0e4a801fc3','admin');
+INSERT INTO `user_account` VALUES (83,0,'\0','21232f297a57a5a743894a0e4a801fc3','admin');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1527,6 +1527,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-13 17:33:02
+-- Dump completed on 2019-01-14 18:00:47
 
 commit;
