@@ -1,6 +1,7 @@
 
 package repositories;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
@@ -46,4 +47,7 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 
 	@Query("select f.fixUpTasks from Finder f where f.id =?1")
 	Page<FixUpTask> findFixUpTaskFinderPaged(int finderId, final Pageable pageable);
+
+	@Query("select f from FixUpTask f where f.category.id=?1")
+	Collection<FixUpTask> findFixUpTaskByCategory(int categoryId);
 }
