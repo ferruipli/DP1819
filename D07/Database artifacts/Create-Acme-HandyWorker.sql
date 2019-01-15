@@ -100,7 +100,7 @@ CREATE TABLE `administrator` (
 
 LOCK TABLES `administrator` WRITE;
 /*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
-INSERT INTO `administrator` VALUES (84,0,'Calle Palmera 4','fruiz@gmail.com','\0','','Fernando','63018754','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Ruiz',83);
+INSERT INTO `administrator` VALUES (416,0,'Calle Palmera 4','fruiz@gmail.com','\0','','Fernando','63018754','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Ruiz',407);
 /*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `box` (
 
 LOCK TABLES `box` WRITE;
 /*!40000 ALTER TABLE `box` DISABLE KEYS */;
-INSERT INTO `box` VALUES (85,0,'','in box',84),(86,0,'','out box',84),(87,0,'','trash box',84),(88,0,'','spam box',84);
+INSERT INTO `box` VALUES (423,0,'','in box',416),(424,0,'','out box',416),(425,0,'','trash box',416),(426,0,'','spam box',416),(427,0,'','in box',417),(428,0,'','out box',417),(429,0,'','trash box',417),(430,0,'','spam box',417),(431,0,'','in box',419),(432,0,'','out box',419),(433,0,'','trash box',419),(434,0,'','spam box',419),(435,0,'','in box',421),(436,0,'','out box',421),(437,0,'','trash box',421),(438,0,'','spam box',421),(439,0,'','in box',418),(440,0,'','out box',418),(441,0,'','trash box',418),(442,0,'','spam box',418),(443,0,'','in box',420),(444,0,'','out box',420),(445,0,'','trash box',420),(446,0,'','spam box',420),(447,0,'','in box',422),(448,0,'','out box',422),(449,0,'','trash box',422),(450,0,'','spam box',422),(531,0,'','in box',529),(532,0,'','out box',529),(533,0,'','trash box',529),(534,0,'','spam box',529),(535,0,'','in box',530),(536,0,'','out box',530),(537,0,'','trash box',530),(538,0,'','spam box',530);
 /*!40000 ALTER TABLE `box` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (89,0,NULL),(90,0,89),(91,0,89),(92,0,89),(93,0,90),(94,0,90),(95,0,90),(96,0,90),(97,0,90),(98,0,91),(99,0,91),(100,0,91),(101,0,91),(102,0,91),(103,0,92),(104,0,92),(105,0,92),(106,0,92),(107,0,92),(108,0,92),(109,0,92),(110,0,92),(111,0,92),(112,0,92),(113,0,92);
+INSERT INTO `category` VALUES (451,0,NULL),(452,0,451),(453,0,451),(454,0,451),(455,0,452),(456,0,452),(457,0,452),(458,0,452),(459,0,452),(460,0,453),(461,0,453),(462,0,453),(463,0,453),(464,0,453),(465,0,454),(466,0,454),(467,0,454),(468,0,454),(469,0,454),(470,0,454),(471,0,454),(472,0,454),(473,0,454),(474,0,454),(475,0,454);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +247,7 @@ CREATE TABLE `category_categories_translations` (
 
 LOCK TABLES `category_categories_translations` WRITE;
 /*!40000 ALTER TABLE `category_categories_translations` DISABLE KEYS */;
-INSERT INTO `category_categories_translations` VALUES (89,114),(89,115),(90,116),(90,117),(91,118),(91,119),(92,120),(92,121),(93,122),(93,123),(94,124),(94,125),(95,126),(95,127),(96,128),(96,129),(97,130),(97,131),(98,132),(98,133),(99,134),(99,135),(100,136),(100,137),(101,138),(101,139),(102,140),(102,141),(103,142),(103,143),(104,144),(104,145),(105,146),(105,147),(106,148),(106,149),(107,150),(107,151),(108,152),(108,153),(109,154),(109,155),(110,156),(110,157),(111,158),(111,159),(112,160),(112,161),(113,162),(113,163);
+INSERT INTO `category_categories_translations` VALUES (451,476),(451,477),(452,478),(452,479),(453,480),(453,481),(454,482),(454,483),(455,484),(455,485),(456,486),(456,487),(457,488),(457,489),(458,490),(458,491),(459,492),(459,493),(460,494),(460,495),(461,496),(461,497),(462,498),(462,499),(463,500),(463,501),(464,502),(464,503),(465,504),(465,505),(466,506),(466,507),(467,508),(467,509),(468,510),(468,511),(469,512),(469,513),(470,514),(470,515),(471,516),(471,517),(472,518),(472,519),(473,520),(473,521),(474,522),(474,523),(475,524),(475,525);
 /*!40000 ALTER TABLE `category_categories_translations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,7 @@ CREATE TABLE `category_translation` (
 
 LOCK TABLES `category_translation` WRITE;
 /*!40000 ALTER TABLE `category_translation` DISABLE KEYS */;
-INSERT INTO `category_translation` VALUES (114,0,'en','CATEGORY'),(115,0,'es','CATEGORIA'),(116,0,'en','Repair'),(117,0,'es','Reparacion'),(118,0,'en','Installation'),(119,0,'es','Instalacion'),(120,0,'en','Miscellaneous'),(121,0,'es','Miscelaneo'),(122,0,'en','Ceiling repair'),(123,0,'es','Reparaciones de techo'),(124,0,'en','Lamp repairs'),(125,0,'es','Reparaciones de lampara'),(126,0,'en','Plumbing repairs'),(127,0,'es','Reparaciones de fontaneria'),(128,0,'en','Sprinkler repair'),(129,0,'es','Reparacion de sistema de aspersion'),(130,0,'en','Window repair'),(131,0,'es','Reparacion de ventana'),(132,0,'en','Electrical wiring'),(133,0,'es','Cableado electrico'),(134,0,'en','Fan installation'),(135,0,'es','Instalacion del ventilador'),(136,0,'en','Shelf installation'),(137,0,'es','Instalacion de estanteria'),(138,0,'en','Home security systems'),(139,0,'es','Sistemas de seguridad del hogar'),(140,0,'en','Insulation installation'),(141,0,'es','Instalacion de aislamiento'),(142,0,'en','Carpentry'),(143,0,'es','Carpinteria'),(144,0,'en','Cleaning'),(145,0,'es','Limpieza'),(146,0,'en','Concrete work'),(147,0,'es','Trabajo concreto'),(148,0,'en','Doors'),(149,0,'es','Puertas'),(150,0,'en','Roofing'),(151,0,'es','Techo/Tejado'),(152,0,'en','Solar panels'),(153,0,'es','Paneles solares'),(154,0,'en','Fence fixing'),(155,0,'es','Fijar valla'),(156,0,'en','Moving'),(157,0,'es','Mudanza'),(158,0,'en','Painting'),(159,0,'es','Pintar'),(160,0,'en','Pest control'),(161,0,'es','Control de plagas'),(162,0,'en','Soundproofing'),(163,0,'es','Insonorizacion');
+INSERT INTO `category_translation` VALUES (476,0,'en','CATEGORY'),(477,0,'es','CATEGORIA'),(478,0,'en','Repair'),(479,0,'es','Reparacion'),(480,0,'en','Installation'),(481,0,'es','Instalacion'),(482,0,'en','Miscellaneous'),(483,0,'es','Miscelaneo'),(484,0,'en','Ceiling repair'),(485,0,'es','Reparaciones de techo'),(486,0,'en','Lamp repairs'),(487,0,'es','Reparaciones de lampara'),(488,0,'en','Plumbing repairs'),(489,0,'es','Reparaciones de fontaneria'),(490,0,'en','Sprinkler repair'),(491,0,'es','Reparacion de sistema de aspersion'),(492,0,'en','Window repair'),(493,0,'es','Reparacion de ventana'),(494,0,'en','Electrical wiring'),(495,0,'es','Cableado electrico'),(496,0,'en','Fan installation'),(497,0,'es','Instalacion del ventilador'),(498,0,'en','Shelf installation'),(499,0,'es','Instalacion de estanteria'),(500,0,'en','Home security systems'),(501,0,'es','Sistemas de seguridad del hogar'),(502,0,'en','Insulation installation'),(503,0,'es','Instalacion de aislamiento'),(504,0,'en','Carpentry'),(505,0,'es','Carpinteria'),(506,0,'en','Cleaning'),(507,0,'es','Limpieza'),(508,0,'en','Concrete work'),(509,0,'es','Trabajo concreto'),(510,0,'en','Doors'),(511,0,'es','Puertas'),(512,0,'en','Roofing'),(513,0,'es','Techo/Tejado'),(514,0,'en','Solar panels'),(515,0,'es','Paneles solares'),(516,0,'en','Fence fixing'),(517,0,'es','Fijar valla'),(518,0,'en','Moving'),(519,0,'es','Mudanza'),(520,0,'en','Painting'),(521,0,'es','Pintar'),(522,0,'en','Pest control'),(523,0,'es','Control de plagas'),(524,0,'en','Soundproofing'),(525,0,'es','Insonorizacion');
 /*!40000 ALTER TABLE `category_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,6 +476,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (417,0,'Calle Sexta 6','alrojovivo@gmail.com','\0','','Antonio','632014785','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Ferreras',408,NULL),(418,0,'Address 2','customer2@gmail.com','\0','Isabel','Maria','632014700','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Diaz Gomez',409,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,7 +508,7 @@ CREATE TABLE `customisation` (
 
 LOCK TABLES `customisation` WRITE;
 /*!40000 ALTER TABLE `customisation` DISABLE KEYS */;
-INSERT INTO `customisation` VALUES (164,0,0.21,'https://tinyurl.com/acme-handy-worker-logo','+34',10,'Acme Handy Worker',1,'Welcome to Acme Handy Worker! Price, quality, and trust in a single place','¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio');
+INSERT INTO `customisation` VALUES (526,0,0.21,'https://tinyurl.com/acme-handy-worker-logo','+34',10,'Acme Handy Worker',1,'Welcome to Acme Handy Worker! Price, quality, and trust in a single place','¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio');
 /*!40000 ALTER TABLE `customisation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +533,7 @@ CREATE TABLE `customisation_credit_card_makes` (
 
 LOCK TABLES `customisation_credit_card_makes` WRITE;
 /*!40000 ALTER TABLE `customisation_credit_card_makes` DISABLE KEYS */;
-INSERT INTO `customisation_credit_card_makes` VALUES (164,'VISA'),(164,'MASTER'),(164,'DINNERS'),(164,'AMEX');
+INSERT INTO `customisation_credit_card_makes` VALUES (526,'VISA'),(526,'MASTER'),(526,'DINNERS'),(526,'AMEX');
 /*!40000 ALTER TABLE `customisation_credit_card_makes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,7 +558,7 @@ CREATE TABLE `customisation_languages` (
 
 LOCK TABLES `customisation_languages` WRITE;
 /*!40000 ALTER TABLE `customisation_languages` DISABLE KEYS */;
-INSERT INTO `customisation_languages` VALUES (164,'es'),(164,'en');
+INSERT INTO `customisation_languages` VALUES (526,'es'),(526,'en');
 /*!40000 ALTER TABLE `customisation_languages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,7 +583,7 @@ CREATE TABLE `customisation_negative_words` (
 
 LOCK TABLES `customisation_negative_words` WRITE;
 /*!40000 ALTER TABLE `customisation_negative_words` DISABLE KEYS */;
-INSERT INTO `customisation_negative_words` VALUES (164,'not'),(164,'bad'),(164,'horrible'),(164,'average'),(164,'disaster'),(164,'no'),(164,'mal'),(164,'mediocre'),(164,'desastre');
+INSERT INTO `customisation_negative_words` VALUES (526,'not'),(526,'bad'),(526,'horrible'),(526,'average'),(526,'disaster'),(526,'no'),(526,'mal'),(526,'mediocre'),(526,'desastre');
 /*!40000 ALTER TABLE `customisation_negative_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -607,7 +608,7 @@ CREATE TABLE `customisation_positive_words` (
 
 LOCK TABLES `customisation_positive_words` WRITE;
 /*!40000 ALTER TABLE `customisation_positive_words` DISABLE KEYS */;
-INSERT INTO `customisation_positive_words` VALUES (164,'good'),(164,'fantastic'),(164,'excellent'),(164,'great'),(164,'amazing'),(164,'terrific'),(164,'beautiful'),(164,'bien'),(164,'fantastico'),(164,'excelente'),(164,'genial'),(164,'increible'),(164,'terrorifico'),(164,'hermosos');
+INSERT INTO `customisation_positive_words` VALUES (526,'good'),(526,'fantastic'),(526,'excellent'),(526,'great'),(526,'amazing'),(526,'terrific'),(526,'beautiful'),(526,'bien'),(526,'fantastico'),(526,'excelente'),(526,'genial'),(526,'increible'),(526,'terrorifico'),(526,'hermosos');
 /*!40000 ALTER TABLE `customisation_positive_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -632,7 +633,7 @@ CREATE TABLE `customisation_spam_words` (
 
 LOCK TABLES `customisation_spam_words` WRITE;
 /*!40000 ALTER TABLE `customisation_spam_words` DISABLE KEYS */;
-INSERT INTO `customisation_spam_words` VALUES (164,'sex'),(164,'viagra'),(164,'cialis'),(164,'one million'),(164,'you´ve been selected'),(164,'Nigeria'),(164,'sexo'),(164,'un millon'),(164,'ha sido seleccionado');
+INSERT INTO `customisation_spam_words` VALUES (526,'sex'),(526,'viagra'),(526,'cialis'),(526,'one million'),(526,'you´ve been selected'),(526,'Nigeria'),(526,'sexo'),(526,'un millon'),(526,'ha sido seleccionado');
 /*!40000 ALTER TABLE `customisation_spam_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -748,6 +749,7 @@ CREATE TABLE `finder` (
 
 LOCK TABLES `finder` WRITE;
 /*!40000 ALTER TABLE `finder` DISABLE KEYS */;
+INSERT INTO `finder` VALUES (527,0,'category','2020-10-05',100000.12,'Address','2018-11-21 21:21:00','2000-10-05',0.5,'warranty'),(528,0,NULL,'2020-10-05',NULL,NULL,'2018-11-21 21:21:00','2000-10-05',NULL,NULL);
 /*!40000 ALTER TABLE `finder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -882,6 +884,7 @@ CREATE TABLE `handy_worker` (
 
 LOCK TABLES `handy_worker` WRITE;
 /*!40000 ALTER TABLE `handy_worker` DISABLE KEYS */;
+INSERT INTO `handy_worker` VALUES (529,0,'Calle Diagonal 2','sarapicasso@gmail.com','\0','','Sara','654123078','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Picasso',412,NULL,'Make 1',NULL,527),(530,0,'Address 2','handyworker2@gmail.com','',NULL,'Lucia','654122078','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Del Carmen Fuentes',413,NULL,'Make 2',NULL,528);
 /*!40000 ALTER TABLE `handy_worker` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1129,6 +1132,7 @@ CREATE TABLE `referee` (
 
 LOCK TABLES `referee` WRITE;
 /*!40000 ALTER TABLE `referee` DISABLE KEYS */;
+INSERT INTO `referee` VALUES (419,0,'Calle Capital 2','nachofdez@gmail.com','\0','Nacho','Ignacio','632014785','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Zuluaga',410),(420,0,'Calle Palmera','referee2@gmail.com','\0','Miguel','Hector','633554212','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Sanchez Arminio',411);
 /*!40000 ALTER TABLE `referee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1296,6 +1300,7 @@ CREATE TABLE `sponsor` (
 
 LOCK TABLES `sponsor` WRITE;
 /*!40000 ALTER TABLE `sponsor` DISABLE KEYS */;
+INSERT INTO `sponsor` VALUES (421,0,'Calle Venta 2','quiquesetien@gmail.com','\0','Quique','Enrique','653201487','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','Setién',414),(422,0,'Calle Naranjo 2','ppgar@gmail.com','\0','Pepe','José','698357269','https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png','García',415);
 /*!40000 ALTER TABLE `sponsor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1462,7 +1467,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (83,0,'\0','21232f297a57a5a743894a0e4a801fc3','admin');
+INSERT INTO `user_account` VALUES (407,0,'\0','21232f297a57a5a743894a0e4a801fc3','admin'),(408,0,'\0','ffbc4675f864e0e9aab8bdf7a0437010','customer1'),(409,0,'\0','5ce4d191fd14ac85a1469fb8c29b7a7b','customer2'),(410,0,'\0','092d469d0a71c8002e32f808b861f9a4','referee1'),(411,0,'\0','4f556d5a66f4fe0d058523a7b8e19d91','referee2'),(412,0,'\0','3d0e201c52a6e13f27d22b6777711541','handyworker1'),(413,0,'','549dbd77d30ecab6ca4c047cd795333f','handyworker2'),(414,0,'\0','42c63ad66d4dc07ed17753772bef96d6','sponsor1'),(415,0,'\0','3dc67f80a03324e01b1640f45d107485','sponsor2');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1487,7 +1492,7 @@ CREATE TABLE `user_account_authorities` (
 
 LOCK TABLES `user_account_authorities` WRITE;
 /*!40000 ALTER TABLE `user_account_authorities` DISABLE KEYS */;
-INSERT INTO `user_account_authorities` VALUES (83,'ADMIN');
+INSERT INTO `user_account_authorities` VALUES (407,'ADMIN'),(408,'CUSTOMER'),(409,'CUSTOMER'),(410,'REFEREE'),(411,'REFEREE'),(412,'HANDYWORKER'),(413,'HANDYWORKER'),(414,'SPONSOR'),(415,'SPONSOR');
 /*!40000 ALTER TABLE `user_account_authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1527,6 +1532,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-14 18:00:47
+-- Dump completed on 2019-01-15 14:14:40
 
 commit;
