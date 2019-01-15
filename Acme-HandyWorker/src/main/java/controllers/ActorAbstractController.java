@@ -65,7 +65,7 @@ public class ActorAbstractController extends AbstractController {
 			actor = this.customerService.create();
 			result = this.createModelAndView(actor, role);
 			break;
-		case "handyworker":
+		case "handyWorker":
 			actor = this.handyWorkerService.create();
 			result = this.createModelAndView(actor, role);
 			break;
@@ -131,7 +131,7 @@ public class ActorAbstractController extends AbstractController {
 					customer = (Customer) actor;
 					this.customerService.save(customer);
 					break;
-				case "handyworker":
+				case "handyWorker":
 					handyworker = (HandyWorker) actor;
 					this.handyWorkerService.save(handyworker);
 					break;

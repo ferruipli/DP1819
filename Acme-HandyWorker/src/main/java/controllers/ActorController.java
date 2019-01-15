@@ -1,4 +1,6 @@
+
 package controllers;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.ActorAbstractController;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Sponsor;
@@ -29,7 +30,7 @@ public class ActorController extends ActorAbstractController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final String role) {
-		Assert.isTrue(role.equals("customer") || role.equals("handyworker") || role.equals("sponsor"));
+		Assert.isTrue(role.equals("customer") || role.equals("handyWorker") || role.equals("sponsor"));
 		final ModelAndView result;
 
 		result = this.createActor(role);
@@ -51,7 +52,7 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/registerhandyworker", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/registerhandyWorker", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyworker, final BindingResult binding, final HttpServletRequest request) {
 
 		ModelAndView result;

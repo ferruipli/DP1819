@@ -17,7 +17,7 @@
 		
 			<form:hidden path="fixUpTasks"/>
 		</jstl:when>
-		<jstl:when test="${role == 'handyworker'}">
+		<jstl:when test="${role == 'handyWorker'}">
 			<h2><spring:message code="header.handyworker"/></h2>
 		
 			<form:hidden path="finder"/>
@@ -98,7 +98,7 @@
 		<form:errors cssClass="error" path="address" />
 		<br /> 
 		 
-		<jstl:if test="${role == 'handyworker'}">
+		<jstl:if test="${role == 'handyWorker'}">
 			<form:label path="make">
 					<spring:message code="actor.handyworker.make" />
 				</form:label>
@@ -158,7 +158,7 @@
 			<jstl:when test="${role == 'customer'}">
 				<form:option label="CUSTOMER" value="CUSTOMER"/>
 			</jstl:when>
-			<jstl:when test="${role == 'handyworker'}">
+			<jstl:when test="${role == 'handyWorker'}">
 				<form:option label="HANDYWORKER" value="HANDYWORKER"/>
 			</jstl:when>
 			<jstl:when test="${role == 'sponsor'}">
