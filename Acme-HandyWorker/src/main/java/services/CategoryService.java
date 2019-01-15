@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import repositories.CategoryRepository;
 import domain.Category;
 import domain.CategoryTranslation;
+import domain.FixUpTask;
 import forms.CategoryForm;
 
 @Service
@@ -36,6 +37,9 @@ public class CategoryService {
 
 	@Autowired
 	private CustomisationService		customisatinoService;
+
+	@Autowired
+	private FixUpTaskService			fixUpTaskService;
 
 
 	// Constructors ------------------------------------
@@ -119,12 +123,14 @@ public class CategoryService {
 
 		final Collection<Category> descendant_categories;
 		final Category root = this.findRootCategory();
+		Collection<FixUpTask> fixUpTasks;
 
 		Assert.isTrue(!category.equals(root));
 
 		descendant_categories = category.getDescendants();
 
 		final Category parent_category = category.getParent();
+
 		// Updating parent's attributes
 		this.removeDescendantCategory(parent_category, category);
 		if (!descendant_categories.isEmpty()) {
@@ -137,6 +143,12 @@ public class CategoryService {
 		// Deleting category::categoriesTranslations
 		for (final CategoryTranslation c : category.getCategoriesTranslations())
 			this.categoryTranslationService.delete(c);
+
+		// Update fixUpTask::category from fix-up task collection.
+		fixUpTasks = this.fixUpTaskService.findFixUpTaskByCategory(category.getId());
+		if (!fixUpTasks.isEmpty())
+			for (final FixUpTask f : fixUpTasks)
+				this.fixUpTaskService.updateCategory(f, category.getParent());
 
 		this.categoryRepository.delete(category);
 	}

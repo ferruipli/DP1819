@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import repositories.FixUpTaskRepository;
 import domain.Application;
+import domain.Category;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
@@ -232,6 +233,14 @@ public class FixUpTaskService {
 		return result;
 	}
 
+	protected Collection<FixUpTask> findFixUpTaskByCategory(final int categoryId) {
+		Collection<FixUpTask> results;
+
+		results = this.fixUpTaskRepository.findFixUpTaskByCategory(categoryId);
+
+		return results;
+	}
+
 	protected String existTicker(final String ticker) {
 		String result;
 
@@ -254,6 +263,10 @@ public class FixUpTaskService {
 
 	protected void addApplication(final FixUpTask fixUpTask, final Application application) {
 		fixUpTask.getApplications().add(application);
+	}
+
+	protected void updateCategory(final FixUpTask fixUpTask, final Category category) {
+		fixUpTask.setCategory(category);
 	}
 
 	private void checkByPrincipal(final FixUpTask fixUpTask, final Customer principal) {

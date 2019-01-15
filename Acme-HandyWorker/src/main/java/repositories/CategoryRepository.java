@@ -17,4 +17,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 	@Query("select c from Category c where not c.parent = null")
 	Collection<Category> findAllExceptDefault();
+
 }
