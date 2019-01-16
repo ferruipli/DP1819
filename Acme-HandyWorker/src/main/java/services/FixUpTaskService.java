@@ -208,8 +208,8 @@ public class FixUpTaskService {
 		return result;
 	}
 
-	public double findRatioFixUpTaskWithComplaint() {
-		double result;
+	public Double findRatioFixUpTaskWithComplaint() {
+		Double result;
 
 		result = this.fixUpTaskRepository.findRatioFixUpTaskWithComplaint();
 
