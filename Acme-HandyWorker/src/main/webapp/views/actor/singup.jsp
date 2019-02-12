@@ -10,19 +10,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
+<form:form action="actor/${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
 		<jstl:when test="${role == 'customer'}">
 			<h2><spring:message code="header.customer"/></h2>
 		
 			<form:hidden path="fixUpTasks"/>
 		</jstl:when>
-		<jstl:when test="${role == 'handyWorker'}">
+		<jstl:when test="${role == 'handyworker'}">
 			<h2><spring:message code="header.handyworker"/></h2>
 		
 			<form:hidden path="finder"/>
 			<form:hidden path="applications"/>
-			<!-- <form:hidden path="make" /> -->
 		</jstl:when>
 		<jstl:when test="${role == 'sponsor'}">
 			<h2><spring:message code="header.sponsor"/></h2>
@@ -97,16 +96,15 @@
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address" />
 		<br /> 
-		 
-		<jstl:if test="${role == 'handyWorker'}">
+		
+		<jstl:if test="${role == 'handyworker'}">
 			<form:label path="make">
-					<spring:message code="actor.handyworker.make" />
+					<spring:message code="actor.make.requested" />
 				</form:label>
 				<form:input path="make"/>
-				<form:errors cssClass="error" path="make" />
+				<form:errors cssClass="error" path="name" />
 				<br /> 	
  		</jstl:if>
- 		 
 	</fieldset>
 	
 	<fieldset>
@@ -158,7 +156,7 @@
 			<jstl:when test="${role == 'customer'}">
 				<form:option label="CUSTOMER" value="CUSTOMER"/>
 			</jstl:when>
-			<jstl:when test="${role == 'handyWorker'}">
+			<jstl:when test="${role == 'handyworker'}">
 				<form:option label="HANDYWORKER" value="HANDYWORKER"/>
 			</jstl:when>
 			<jstl:when test="${role == 'sponsor'}">

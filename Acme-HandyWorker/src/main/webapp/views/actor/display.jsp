@@ -63,7 +63,7 @@
 		<a href="curriculum/display.do?handyWorkerId=${actor.id}"><spring:message code="actor.curriculum.display"/></a>
 		</p>	
 		</jstl:if>
-		<jstl:if test="${actor.curriculum == null && isAuthorized == true}">
+		<jstl:if test="${curriculum == null && isAuthorized == true}">
 		<p> <strong> <spring:message code="actor.curriculum" />: </strong>
 		<a href="personalRecord/handyWorker/create.do?"><spring:message code="actor.curriculum.create"/></a>
 		</p>	

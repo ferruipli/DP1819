@@ -20,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import repositories.CategoryRepository;
 import domain.Category;
 import domain.CategoryTranslation;
-import domain.FixUpTask;
 import forms.CategoryForm;
 
 @Service
@@ -37,9 +36,6 @@ public class CategoryService {
 
 	@Autowired
 	private CustomisationService		customisatinoService;
-
-	@Autowired
-	private FixUpTaskService			fixUpTaskService;
 
 
 	// Constructors ------------------------------------
@@ -88,7 +84,6 @@ public class CategoryService {
 	public Category save(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getCategoriesTranslations().size() == this.customisatinoService.find().getLanguages().size() && this.validLanguages(category));
-		this.checkValidParentCategory(category);
 
 		Category root, result, parent_category, old_category, old_parent_category;
 
@@ -123,14 +118,12 @@ public class CategoryService {
 
 		final Collection<Category> descendant_categories;
 		final Category root = this.findRootCategory();
-		Collection<FixUpTask> fixUpTasks;
 
 		Assert.isTrue(!category.equals(root));
 
 		descendant_categories = category.getDescendants();
 
 		final Category parent_category = category.getParent();
-
 		// Updating parent's attributes
 		this.removeDescendantCategory(parent_category, category);
 		if (!descendant_categories.isEmpty()) {
@@ -143,12 +136,6 @@ public class CategoryService {
 		// Deleting category::categoriesTranslations
 		for (final CategoryTranslation c : category.getCategoriesTranslations())
 			this.categoryTranslationService.delete(c);
-
-		// Update fixUpTask::category from fix-up task collection.
-		fixUpTasks = this.fixUpTaskService.findFixUpTaskByCategory(category.getId());
-		if (!fixUpTasks.isEmpty())
-			for (final FixUpTask f : fixUpTasks)
-				this.fixUpTaskService.updateCategory(f, category.getParent());
 
 		this.categoryRepository.delete(category);
 	}
@@ -290,37 +277,6 @@ public class CategoryService {
 	}
 
 	// Private methods ---------------------------------
-	private void checkValidParentCategory(final Category category) {
-		Collection<Category> all;
-
-		all = this.findAllDescendantCategories(category);
-
-		Assert.isTrue(!all.contains(category.getParent()));
-	}
-
-	public Collection<Category> findPossibleParentCategory(final Category category) {
-		List<Category> results, descendantCategories;
-
-		descendantCategories = new ArrayList<>(this.findAllDescendantCategories(category));
-		results = new ArrayList<>(this.findAll());
-
-		results.removeAll(descendantCategories);
-
-		return results;
-	}
-
-	private Collection<Category> findAllDescendantCategories(final Category category) {
-		List<Category> results;
-
-		results = new ArrayList<Category>();
-
-		results.addAll(category.getDescendants());
-		for (final Category c : category.getDescendants())
-			results.addAll(c.getDescendants());
-
-		return results;
-	}
-
 	private boolean validLanguages(final Category category) {
 		final Map<String, Integer> map;
 		Collection<CategoryTranslation> categoriesTranslations;

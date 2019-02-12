@@ -68,17 +68,14 @@ public class HandyWorkerService {
 		String make;
 		result = (HandyWorker) this.actorService.save(handyWorker);
 
-		//To add default make,it's just in case  it was blank
-
-		if (result.getMake() == "")
-			if (result.getMiddleName() == null) {
+		//To add default make,it's just in case it was created
+		if (handyWorker.getId() == 0) {
+			if (result.getMiddleName() == null) //si el middle name es nulo que lo cambie a vacio para que el make no sea name+null
 				result.setMiddleName("");
-				make = result.getName() + " " + result.getMiddleName();
-				result.setMake(make);
-			} else {
-				make = result.getName() + " " + result.getMiddleName();
-				result.setMake(make);
-			}
+			make = result.getName() + " " + result.getMiddleName();
+			result.setMake(make);
+		}
+
 		return result;
 
 	}

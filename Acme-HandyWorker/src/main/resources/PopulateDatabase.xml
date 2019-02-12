@@ -2435,7 +2435,9 @@
 	</bean>
 
 	<!-- Finder -->
-
+	
+	
+	
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="Address" />
 		<property name="startPrice" value="0.50" />
@@ -2451,7 +2453,9 @@
 			</list>
 		</property>
 	</bean>
-		
+	
+	
+	
 	<bean id="finder2" class="domain.Finder">
 		<property name="startDate" value="2000/10/05" />
 		<property name="endDate" value="2020/10/05" />
@@ -2462,7 +2466,6 @@
 			</list>
 		</property>
 	</bean>
-	
 	<bean id="finder3" class="domain.Finder">
 		<property name="warranty" value="title y" />
 		<property name="lastUpdate" value="2018/11/21 15:31" />

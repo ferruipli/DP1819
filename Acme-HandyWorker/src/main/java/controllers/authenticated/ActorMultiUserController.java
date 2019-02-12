@@ -1,6 +1,8 @@
 
 package controllers.authenticated;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,23 +18,28 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.UserAccountService;
 import services.ActorService;
+import services.EndorsableService;
 import services.HandyWorkerService;
-import controllers.ActorAbstractController;
+import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
+import domain.Endorsable;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
 
 @Controller
 @RequestMapping(value = "/actor/administrator,customer,handyWorker,referee,sponsor")
-public class ActorMultiUserController extends ActorAbstractController {
+public class ActorMultiUserController extends AbstractController {
 
 	// Services
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private EndorsableService	endorsableService;
 
 	@Autowired
 	private UserAccountService	userAccountService;
@@ -49,12 +56,92 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 	// Display
 
-	@Override
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
 		ModelAndView result;
+		Actor actor;
+		Endorsable endorsable;
+		Collection<Authority> authorities;
+		HandyWorker handyWorker;
 
-		result = super.display(actorId);
+		actor = null;
+		authorities = null;
+
+		if (actorId == null) {
+			actor = this.actorService.findPrincipal();
+			authorities = actor.getUserAccount().getAuthorities();
+		} else
+			actor = this.endorsableService.findOne(actorId);
+
+		handyWorker = this.handyWorkerService.findByPrincipal();
+
+		result = new ModelAndView("actor/display");
+
+		if (actor instanceof Customer || actor instanceof HandyWorker) {
+			endorsable = this.endorsableService.findOne(actor.getId());
+			result.addObject("actor", endorsable);
+			result.addObject("isEndorsable", true);
+		} else {
+			result.addObject("actor", actor);
+			result.addObject("isEndorsable", false);
+		}
+
+		result.addObject("authorities", authorities);
+		if (actorId != null)
+			result.addObject("isAuthorized", false);
+		else
+			result.addObject("isAuthorized", true);
+
+		if (actor instanceof HandyWorker)
+			result.addObject("curriculum", handyWorker.getCurriculum());
+
+		return result;
+	}
+
+	// Creation
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final String role) {
+		Assert.isTrue(role.equals("customer") || role.equals("handyworker") || role.equals("sponsor"));
+		final ModelAndView result;
+
+		result = this.createActor(role);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	// Register
+
+	@RequestMapping(value = "/registercustomer", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerCustomer(@Valid final Customer customer, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(customer, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerhandyworker", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerHandyWorker(@Valid final HandyWorker handyworker, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(handyworker, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registersponsor", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerSponsor(@Valid final Sponsor sponsor, final BindingResult binding, final HttpServletRequest request) {
+
+		ModelAndView result;
+
+		result = this.registerActor(sponsor, binding, request);
+		result.addObject("Url", "administrator,customer,handyWorker,referee,sponsor/");
 
 		return result;
 	}
@@ -182,7 +269,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				result = this.editModelAndView(actor, "actor.email.used");
 		} else
 			try {
-				this.handyWorkerService.save(actor);
+				this.actorService.save(actor);
 				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(actor, "actor.commit.error");

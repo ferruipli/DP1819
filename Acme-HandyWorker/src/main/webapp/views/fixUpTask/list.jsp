@@ -8,26 +8,8 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
-	<security:authorize access="hasRole('HANDYWORKER')">
-			<jstl:if test="${listFinder}">
-			<fieldset>
-				<h2><spring:message code="fixUpTask.finder" /></h2>
-				
-				<spring:message code="finder.Keyword" />: <jstl:out value="${finder.keyword}"></jstl:out><br>
-				<spring:message code="finder.startPrice" />:<jstl:out value="${finder.startPrice}"></jstl:out>&#8364;<br>
-				<spring:message code="finder.endPrice" />:<jstl:out value="${finder.endPrice}"></jstl:out>&#8364;<br>
-				<spring:message code="finder.startDate" />:<jstl:out value="${finder.startDate}"></jstl:out><br>
-				<spring:message code="finder.endDate" />:<jstl:out value="${finder.endDate}"></jstl:out><br>
-				<spring:message code="finder.warranty" />:<jstl:out value="${finder.warranty}"></jstl:out><br>
-				<spring:message code="finder.category" />:<jstl:out value="${finder.category}"></jstl:out><br>
-			
-			<a href="finder/handyWorker/edit.do"><spring:message code="fixUpTask.edit.finder"/></a>
-			</fieldset>		
-			</jstl:if>
-	</security:authorize>
-
-
-<display:table name="fixUpTasks" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="fixUpTasks" id="row" requestURI="${requestURI}" class="displaytag">
+	
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
@@ -48,10 +30,8 @@
 	
 	<display:column property="description" titleKey="fixUpTask.description"/>
 	
+	
 </display:table>
-
-
-<!-- Links -->
 
 <security:authorize access="hasRole('CUSTOMER')">
 	<a href="fixUpTask/customer/create.do"><spring:message code="fixUpTask.create"/></a>
@@ -64,9 +44,9 @@
 	</jstl:if>
 	
 <!-- SI NO HA PASADO EL TIEMPO DE LA CACHE EDITO EL FINDER-->
-	<jstl:if test="${!lastUpdateFinder && !listFinder}">
+	<jstl:if test="${!lastUpdateFinder}">
 	
-		<a href="fixUpTask/handyWorker/listFinder.do"><spring:message code="fixUpTask.back.finder"/></a><br/>
+		<a href="fixUpTask/handyWorker/listFinder.do"><spring:message code="fixUpTask.back.finder"/></a>
 		<a href="finder/handyWorker/edit.do"><spring:message code="fixUpTask.edit.finder"/></a>
 	</jstl:if>
 </security:authorize>

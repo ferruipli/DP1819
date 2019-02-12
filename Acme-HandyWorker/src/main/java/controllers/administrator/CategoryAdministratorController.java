@@ -195,10 +195,8 @@ public class CategoryAdministratorController extends AbstractController {
 
 		if (categoryForm.getId() != 0) {
 			category = this.categoryService.findOne(categoryForm.getId());
-			categories = this.categoryService.findPossibleParentCategory(category);
 			categories.remove(category);
-		} else
-			categories = this.categoryService.findAll();
+		}
 
 		parents = this.categoryService.categoriesByLanguage(categories, locale.getLanguage());
 

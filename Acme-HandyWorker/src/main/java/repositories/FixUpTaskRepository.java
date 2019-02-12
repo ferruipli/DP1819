@@ -1,7 +1,6 @@
 
 package repositories;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
@@ -37,9 +36,9 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	Double[] findDataMaximumPrice();
 
 	@Query("select count(c)/(select count(f) from FixUpTask f)*1.0 from FixUpTask c where c.complaints.size=1")
-	Double findRatioFixUpTaskWithComplaint();
+	double findRatioFixUpTaskWithComplaint();
 
-	@Query("select distinct f from FixUpTask f join f.category c join c.categoriesTranslations ct where (((f.address like concat('%', concat(?1, '%'))) or (f.ticker like concat('%', concat(?1, '%'))) or (f.description like concat('%', concat(?1, '%')))) and (f.maxPrice between ?2 and ?3) and (f.startDate between ?4 and ?5)  and (f.endDate between ?4 and ?5) and (f.warranty.title like concat('%', concat(?6, '%'))) and (ct.name like concat('%', concat(?7, '%'))) )")
+	@Query("select f from FixUpTask f join f.category c join c.categoriesTranslations ct where (((f.address like concat('%', concat(?1, '%'))) or (f.ticker like concat('%', concat(?1, '%'))) or (f.description like concat('%', concat(?1, '%')))) and (f.maxPrice between ?2 and ?3) and (f.startDate between ?4 and ?5)  and (f.endDate between ?4 and ?5) and (f.warranty.title like concat('%', concat(?6, '%'))) and (ct.name like concat('%', concat(?7, '%'))) )")
 	Page<FixUpTask> findFixUpTaskFinder(String keyWord, Double startPrice, Double endPrice, Date startDate, Date endDate, String warranty, String category, Pageable pageable);
 
 	@Query("select f.ticker from FixUpTask f where f.ticker = ?1")
@@ -47,7 +46,4 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 
 	@Query("select f.fixUpTasks from Finder f where f.id =?1")
 	Page<FixUpTask> findFixUpTaskFinderPaged(int finderId, final Pageable pageable);
-
-	@Query("select f from FixUpTask f where f.category.id=?1")
-	Collection<FixUpTask> findFixUpTaskByCategory(int categoryId);
 }

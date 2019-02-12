@@ -35,9 +35,9 @@
 		<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
 			<ul>
 				<li class="arrow"></li>
-				<li><a href="actor/create.do?role=customer"><spring:message code="master.page.customer.create" /></a></li>
-				<li><a href="actor/create.do?role=handyWorker"><spring:message code="master.page.handyworker.create" /></a></li>
-				<li><a href="actor/create.do?role=sponsor"><spring:message code="master.page.sponsor.create" /></a></li>
+				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=customer"><spring:message code="master.page.customer.create" /></a></li>
+				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=handyworker"><spring:message code="master.page.handyworker.create" /></a></li>
+				<li><a href="actor/administrator,customer,handyWorker,referee,sponsor/create.do?role=sponsor"><spring:message code="master.page.sponsor.create" /></a></li>
 			</ul>
 		</li>
 	</security:authorize>	
@@ -87,6 +87,7 @@
 				<li class="arrow"></li>
 				<li><a href="fixUpTask/handyWorker/listAll.do"><spring:message code="master.page.fixUpTask.all.list" /></a></li>
 				<li><a href="fixUpTask/handyWorker/listInvolved.do"><spring:message code="master.page.fixUpTask.involved.list" /></a></li>
+				<li><a href="finder/handyWorker/edit.do"><spring:message code="master.page.finder" /></a></li>
 			</ul>
 		</li>		
 		<li><a class="fNiv"><spring:message	code="master.page.complaint" /></a>

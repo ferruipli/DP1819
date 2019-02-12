@@ -18,14 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import utilities.internal.PaginatedListAdapter;
-import controllers.ActorAbstractController;
+import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Referee;
 
 @Controller
 @RequestMapping(value = "/actor/administrator")
-public class ActorAdministratorController extends ActorAbstractController {
+public class ActorAdministratorController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
@@ -85,7 +85,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		final ModelAndView result;
 
 		result = this.createActor(role);
-		result.addObject("Url", "actor/administrator/");
+		result.addObject("Url", "administrator/");
 
 		return result;
 	}
@@ -98,7 +98,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		ModelAndView result;
 
 		result = this.registerActor(administrator, binding, request);
-		result.addObject("Url", "actor/administrator/");
+		result.addObject("Url", "administrator/");
 
 		return result;
 	}
@@ -109,7 +109,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		ModelAndView result;
 
 		result = this.registerActor(referee, binding, request);
-		result.addObject("Url", "actor/administrator/");
+		result.addObject("Url", "administrator/");
 
 		return result;
 	}
