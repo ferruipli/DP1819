@@ -2478,6 +2478,7 @@
 		<property name="keyword" value="keyword X" />
 		<property name="category" value="Moving" />
 		<property name="warranty" value="warranty x" />
+		<property name="lastUpdate" value="2018/11/21 13:31" />
 		<property name="fixUpTasks">
 			<list>
 				<null></null>

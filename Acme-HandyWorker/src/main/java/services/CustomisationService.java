@@ -26,7 +26,7 @@ public class CustomisationService {
 		super();
 	}
 
-	// Simple CRUD methods -----------------------------
+	// Simple CRUD methods -------------------------------
 	public Customisation save(final Customisation customisation) {
 		Assert.notNull(customisation);
 		Assert.isTrue(customisation.getId() != 0);
