@@ -78,6 +78,7 @@ public class ApplicationService {
 		final Application result;
 
 		if (application.getId() == 0) {
+			Assert.isNull(this.findAcceptedApplication(application.getFixUpTask().getId()));
 			Assert.notNull(application.getHandyWorker().getCurriculum());
 			result = this.applicationRepository.save(application);
 			this.fixUpTaskService.addApplication(result.getFixUpTask(), result);
