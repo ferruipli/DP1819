@@ -55,7 +55,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 		result = new ModelAndView("socialProfile/list");
 		result.addObject("socialProfiles", socialProfilesAdapted);
 		result.addObject("actorId", actorId);
-		result.addObject("requestURI", "socialProfile/administrator,customer,handyworker,referee,sponsor/list.do?actorId=" + actorId);
+		result.addObject("requestURI", "socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do");
 
 		return result;
 
