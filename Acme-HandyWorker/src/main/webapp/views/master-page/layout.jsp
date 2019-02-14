@@ -59,7 +59,7 @@
 	
 	function calcMD5(){
 		document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
-		document.getElementById('confirmPasswordId').value = document.getElementById('passwordId').value ;
+		document.getElementById('confirmPasswordId').value = hex_md5(document.getElementById('confirmPasswordId').value) ;
 	}
 	
 	function relativeRedir(loc) {	
